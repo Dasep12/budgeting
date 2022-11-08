@@ -254,13 +254,13 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li class="dropdown">
-                        <a href="<?= base_url('Dashboard') ?>" class="dropdown-toggle">
+                        <a href="<?= base_url('departement/Dashboard') ?>" class="dropdown-toggle no-arrow">
                             <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
                         </a>
                     </li>
-                    <li class="dropdown">
-                        <a href="<?= base_url('Dashboard') ?>" class="dropdown-toggle">
-                            <span class="micon bi bi-house"></span><span class="mtext">Total Input</span>
+                    <li class="dropdown open">
+                        <a href="<?= base_url('departement/Input_Budget') ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon bi bi-house "></span><span class="mtext">Input Budget</span>
                         </a>
                     </li>
                     <li class="dropdown">
@@ -268,13 +268,14 @@
                             <span class="micon bi bi-table"></span><span class="mtext">Plant Budget</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?= base_url('Anggaran') ?>">Input Plant Actvity Budget</a></li>
+                            <li><a href="<?= base_url('departement/Input_plant/form') ?>">Input Plant Actvity Budget</a></li>
                             <li><a href="<?= base_url('Anggaran') ?>">Daftar Plant Actvity Budget</a></li>
                         </ul>
                     </li>
+
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-table"></span><span class="mtext">Activity Budget</span>
+                            <span class="micon bi bi-table"></span><span class="mtext">Actual Budget</span>
                         </a>
                         <ul class="submenu">
                             <li><a href="<?= base_url('Anggaran') ?>">Input Actual Actvity Budget</a></li>
@@ -282,34 +283,27 @@
                         </ul>
                     </li>
                     <li class="dropdown">
+                        <a href="<?= base_url('Dashboard') ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon bi bi-house"></span><span class="mtext">Raimbusment</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="<?= base_url('Dashboard') ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon bi bi-house"></span><span class="mtext">Payment Voucher</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="<?= base_url('departement/Dashboard') ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon bi bi-house"></span><span class="mtext">Panjer</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-table"></span><span class="mtext">Report</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?= base_url('Anggaran') ?>">Actual & Plan Budget</a></li>
-                            <li><a href="<?= base_url('Anggaran') ?>">Rambustment</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file"></span><span class="mtext">Master</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="<?= base_url('Master_perusahaan') ?>">Master Perusahaan</a></li>
-                            <li><a href="<?= base_url('Master_departement') ?>">Master Departement</a></li>
-                            <li><a href="<?= base_url('Master_budget') ?>">Master Budget</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file"></span><span class="mtext">Master</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="<?= base_url('Master_perusahaan') ?>">Master Perusahaan</a></li>
-                            <li><a href="<?= base_url('Master_departement') ?>">Master Departement</a></li>
-                            <li><a href="<?= base_url('Master_budget') ?>">Master Budget</a></li>
+                            <li><a href="<?= base_url('Anggaran') ?>">Actual & Plant Budget</a></li>
+                            <li><a href="<?= base_url('Anggaran') ?>">Pengeluaran / Pembelian Pemakaian</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -321,25 +315,7 @@
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                <div class="page-header">
-                    <!-- <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="title">
-                                <h4>DataTable</h4>
-                            </div>
-                            <nav aria-label="breadcrumb" role="navigation">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="index.html">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Datatable
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div> -->
-                </div>
+
                 <!-- Simple Datatable start -->
                 <?= $contents ?>
 
