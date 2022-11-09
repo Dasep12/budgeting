@@ -35,8 +35,8 @@
                 <div class="form-group">
                     <label>JENIS BUDGET</label>
                     <select id="jenis_budget" name="jenis_budget" class="form-control">
-                        <option>Customer Perspective</option>
-                        <option>Customer Perspective</option>
+                        <option>Regular Cost</option>
+                        <option>Perspective Cost</option>
                     </select>
                 </div>
                 <div class="form-group">

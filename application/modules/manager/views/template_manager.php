@@ -221,61 +221,24 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="<?= base_url('departement/Input_Budget') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Input_Budget' ? 'active' : '' ?>">
-                            <span class="micon bi bi-archive"></span><span class="mtext">Input Budget</span>
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-file"></span><span class="mtext">E-BUDGET</span>
                         </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle show <?= $uri == 'Plant_budget' ? 'active ' : '' ?>">
-                            <span class="micon bi bi-table"></span><span class="mtext">Plant Budget</span>
-                        </a>
-                        <ul class="submenu show ">
-                            <li>
-                                <a class="<?= $this->uri->segment(3) == 'form_input_plant' ? 'active ' : '' ?>" href="<?= base_url('departement/Plant_budget/form_input_plant') ?>">Input Plant Actvity Budget</a>
-                            </li>
-                            <li>
-                                <a class="<?= $this->uri->segment(3)  == 'list_budget' ? 'active ' : '' ?>" href="<?= base_url('departement/Plant_budget/list_budget') ?>">Daftar Plant Actvity Budget</a>
-                            </li>
+                        <ul class="submenu">
+                            <li><a href="#">Total Budget</a></li>
+                            <li><a href="#">Input Budget</a></li>
+                            <li><a href="#">Review Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('manager/Approved/list_approve') ?>">Approved</a></li>
                         </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle <?= $uri == 'Actual_budget' ? 'active' : '' ?>">
-                            <span class="micon bi bi-table"></span><span class="mtext">Actual Budget</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li>
-                                <a class="<?= $this->uri->segment(3)  == 'form_input_actual' ? 'active ' : '' ?>" href="<?= base_url('departement/Actual_budget/form_input_actual') ?>">Input Actual Actvity Budget
-                                </a>
-                            </li>
-                            <li>
-                                <a class="<?= $this->uri->segment(3)  == 'list_actual' ? 'active ' : '' ?>" href="<?= base_url('departement/Actual_budget/list_actual') ?>">Daftar Actual Actvity Budget
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="<?= base_url('Dashboard') ?>" class="dropdown-toggle no-arrow">
-                            <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Raimbusment</span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="<?= base_url('Dashboard') ?>" class="dropdown-toggle no-arrow">
-                            <span class="micon bi bi-hdd-stack"></span><span class="mtext">Payment Voucher</span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="<?= base_url('departement/Dashboard') ?>" class="dropdown-toggle no-arrow">
-                            <span class="micon bi bi-textarea-resize"></span><span class="mtext">Panjer</span>
-                        </a>
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file-pdf"></span><span class="mtext">Report</span>
+                            <span class="micon bi bi-file-pdf"></span><span class="mtext">REPORT</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?= base_url('Anggaran') ?>">Actual & Plant Budget</a></li>
-                            <li><a href="<?= base_url('Anggaran') ?>">Pengeluaran / Pembelian Pemakaian</a></li>
+                            <li><a href="#">Actual & Plant Budget</a></li>
+                            <li><a href="#">Pengeluaran / Pembelian Pemakaian</a></li>
+                            <li><a href="#">Raimbustment</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -36,16 +36,16 @@
                 </div>
                 <div class="form-group">
                     <label>KODE BUDGET</label>
-                    <input class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
+                    <input readonly class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>BUDGET</label>
-                    <input class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
+                    <input readonly class="form-control" id="budget" name="budget" type="text" placeholder="">
                 </div>
 
                 <div class="form-group">
                     <label>ACTIVITY</label>
-                    <input id="kpi" name="kpi" class="form-control" type="text" placeholder="">
+                    <textarea id="activity" name="activity" class="form-control" placeholder=""></textarea>
                 </div>
 
             </div>
@@ -56,50 +56,50 @@
                 </div>
                 <div class="form-group">
                     <label>FEBRUARI</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="februari" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>MARET</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="maret" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>APRIL</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="april" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>MEI</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="mei" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>JUNI</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="juni" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
             </div>
             <div class="col-lg-4">
 
                 <div class="form-group">
                     <label>JULI</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="juli" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>AGUSTUS</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="agustus" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>SEPTEMBER</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="september" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>OKTOBER</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="oktober" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>NOVEMBER</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="november" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>DESEMBER</label>
-                    <input id="januari" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input id="desember" name="bulan[]" class="form-control" type="text" placeholder="">
                 </div>
 
 
