@@ -21,6 +21,7 @@ class Login extends CI_Controller
             $data = $cek->row();
             $level  = $data->level;
             $this->session->set_userdata("nik", $data->nik);
+            $this->session->set_userdata("departement_id", $data->departement_id);
             switch ($level) {
                 case 'mgr':
                     redirect('manager/Dashboard');

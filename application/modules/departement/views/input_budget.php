@@ -14,6 +14,15 @@
         </div>
     </div>
 </div>
+<?php if ($this->session->flashdata("fail")) { ?>
+    <div class="alert alert-danger">
+        <span><?= $this->session->flashdata("fail") ?></span>
+    </div>
+<?php } else if ($this->session->flashdata("ok")) { ?>
+    <div class="alert alert-success">
+        <span><?= $this->session->flashdata("ok") ?></span>
+    </div>
+<?php } ?>
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">
         <div class="pull-left">
@@ -21,46 +30,47 @@
         </div>
     </div>
 
-    <form>
+    <form method="post" action="<?= base_url('departement/Input_Budget/input') ?>">
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>TAHUN BUDGET</label>
-                    <input class="form-control" id="tahun_budget" name="tahun_budget" type="text" placeholder="">
+                    <input required class="form-control" id="tahun_budget" name="tahun_budget" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>KODE BUDGET</label>
-                    <input class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
+                    <input required class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>JENIS BUDGET</label>
                     <select id="jenis_budget" name="jenis_budget" class="form-control">
-                        <option>Regular Cost</option>
-                        <option>Perspective Cost</option>
+                        <?php foreach ($jenis as $jn) : ?>
+                            <option value="<?= $jn->id ?>"><?= $jn->jenis_budget ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>KPI</label>
-                    <input id="kpi" name="kpi" class="form-control" type="text" placeholder="">
+                    <input required id="kpi" name="kpi" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>TARGET KPI</label>
-                    <input id="target_kpi" name="target_kpi" class="form-control" type="text" placeholder="">
+                    <input required id="target_kpi" name="target_kpi" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>PIC</label>
-                    <input id="pic" name="pic" class="form-control" type="text" placeholder="">
+                    <input required id="pic" name="pic" class="form-control" type="text" placeholder="">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>IMPROVEMENT</label>
-                    <textarea id="improvement" name="improvement" class="form-control"></textarea>
+                    <textarea required id="improvement" name="improvement" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label>BUDGET</label>
-                    <input id="budget" name="budget" class="form-control" type="text" placeholder="">
+                    <input required id="budget" name="budget" class="form-control" type="text" placeholder="">
                 </div>
 
                 <div class="form-group">

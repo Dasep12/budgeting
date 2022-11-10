@@ -221,6 +221,11 @@
                         </a>
                     </li>
                     <li class="dropdown">
+                        <a href="<?= base_url('departement/Budget') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Budget' ? 'active' : '' ?>">
+                            <span class="micon bi bi-archive"></span><span class="mtext">Budget</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
                         <a href="<?= base_url('departement/Input_Budget') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Input_Budget' ? 'active' : '' ?>">
                             <span class="micon bi bi-archive"></span><span class="mtext">Input Budget</span>
                         </a>
