@@ -14,6 +14,23 @@
         </div>
     </div>
 </div>
+<?php if ($this->session->flashdata("ok")) { ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Berhasil !</strong> <?= $this->session->flashdata("ok") ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <?php $this->session->unset_userdata("ok") ?>
+<?php } else if ($this->session->flashdata("nok")) { ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Gagal !</strong> <?= $this->session->flashdata("nok") ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <?php $this->session->unset_userdata("nok") ?>
+<?php } ?>
 <div class="card-box mb-30">
     <div class="pd-20">
         <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
@@ -23,34 +40,32 @@
         <table class="data-table table stripe hover nowrap table-bordered">
             <thead>
                 <tr>
-                    <th class="table-plus datatable-nosort">Kode Budget</th>
-                    <th>Tanggal</th>
+                    <th>No</th>
+                    <th>Kode Budget</th>
                     <th>Departement</th>
                     <th>Tahun</th>
                     <th>Total Budget</th>
                     <th>Jenis Budget</th>
-                    <th>Status</th>
-                    <th class="datatable-nosort">Action</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="table-plus">BUG-2022</td>
-                    <td>2022-10-11</td>
-                    <td>IT</td>
-                    <td>2022</td>
-                    <td>Rp.200.000,00</td>
-                    <td>Regular Cost</td>
-                    <td><span class="badge badge-primary">menunggu approve</span></td>
-                    <td>
-                        <a href="" class="btn btn-sm btn-success">
-                            <i class="icon-copy fa fa-check" aria-hidden="true"></i>
-                        </a>
-                        <a href="" class="btn btn-sm btn-danger">
-                            <i class="icon-copy fa fa-close" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                </tr>
+                <?php $no = 1;
+                foreach ($daftar->result() as $df) : ?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $df->kode_budget ?></td>
+                        <td><?= $df->nama_departement ?></td>
+                        <td><?= $df->tahun ?></td>
+                        <td><?= 'Rp. ' . number_format($df->budget, 0, ",", ".")  ?></td>
+                        <td><?= $df->jenis_budget ?></td>
+                        <td>
+                            <a href="#" class="badge badge-primary">Checked</a>
+                            <a href="<?= base_url('manager/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                            <a href="" class="badge badge-danger">Reject</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
             </tbody>
         </table>
     </div>
