@@ -7,12 +7,14 @@ class Plant_budget extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_departement', 'model');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function list_budget()
     {
         $data = [
             'uri'       => $this->uri->segment(2),
+            'plant'     => $this->model->daftarPlantBudgetDepartement($this->session->userdata("departement_id"))
         ];
         $this->template->load('template_departement', 'daftar_plant_budget_activity', $data);
     }
@@ -45,6 +47,32 @@ class Plant_budget extends CI_Controller
 
     public function input()
     {
-        # code...
+        $listbulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        $bulan    = $this->input->post("bulan");
+        $activity = $this->input->post("activity");
+        $id_budget = $this->input->post("id_budget");
+
+        $params = array();
+        for ($i = 0; $i < count($bulan); $i++) {
+            $data = [
+                'bulan'                     => $listbulan[$i],
+                'nilai_budget'              => $bulan[$i],
+                'master_budget_id_budget'   => $id_budget,
+                'activity'                  => $activity,
+                'status'                    => 0,
+                'created_at'                => date('Y-m-d H:i:s'),
+                'created_by'                => $this->session->userdata('nik')
+            ];
+            array_push($params, $data);
+        }
+        $save = $this->model->multiInsert($params, "master_planning_budget");
+        if ($save > 0) {
+            $this->session->set_flashdata("ok", "Planing budget di simpan");
+            redirect('departement/Plant_budget/form_input_plant');
+        } else {
+            $this->session->set_flashdata("nok", "Planing budget gagal simpan");
+            redirect('departement/Plant_budget/form_input_plant');
+        }
     }
 }

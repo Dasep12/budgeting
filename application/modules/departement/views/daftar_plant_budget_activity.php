@@ -22,53 +22,28 @@
         <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
     </div>
     <div class="pb-20">
-        <table class="data-table table stripe hover nowrap">
+        <table class="data-table table hover nowrap">
             <thead>
                 <tr>
                     <th class="table-plus datatable-nosort">Kode Budget</th>
+                    <th>Departement</th>
                     <th>Tahun Budget</th>
                     <th>Bulan</th>
                     <th>Budget</th>
-                    <th class="datatable-nosort">Action</th>
+                    <th>Activity</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="table-plus">BUG-2022</td>
-                    <td>2022</td>
-                    <td>Januari</td>
-                    <td>Rp.200.000,00</td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <i class="dw dw-more"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="table-plus">BUG-2022</td>
-                    <td>2022</td>
-                    <td>Februari</td>
-                    <td>Rp.200.000,00</td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <i class="dw dw-more"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                <?php foreach ($plant->result() as $pl) : ?>
+                    <tr>
+                        <td><?= $pl->kode_budget ?></td>
+                        <td><?= $pl->nama_departement ?></td>
+                        <td><?= $pl->tahun ?></td>
+                        <td><?= $pl->bulan ?></td>
+                        <td><?= 'Rp. ' . number_format($pl->nilai_budget, 0, ",", ".") ?></td>
+                        <td><?= $pl->activity ?></td>
+                    </tr>
+                <?php endforeach ?>
             </tbody>
         </table>
     </div>

@@ -17,14 +17,30 @@
         </div>
     </div>
 </div>
+<?php if ($this->session->flashdata("ok")) { ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Berhasil !</strong> <?= $this->session->flashdata("ok") ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <?php $this->session->unset_userdata("ok") ?>
+<?php } else if ($this->session->flashdata("nok")) { ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Gagal !</strong> <?= $this->session->flashdata("nok") ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <?php $this->session->unset_userdata("nok") ?>
+<?php } ?>
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">
         <div class="pull-left">
             <h4 class="text-blue h4 mb-2">PLANT BUDGET</h4>
         </div>
     </div>
-
-    <form method="post" onsubmit="return cek()">
+    <form method="post" action="<?= base_url('departement/Plant_budget/input') ?>" onsubmit="return cek()">
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
@@ -46,6 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label>KODE BUDGET</label>
+                    <input type="hidden" name="id_budget" id="id_budget">
                     <input readonly class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
                 </div>
                 <div class="form-group">
@@ -64,32 +81,32 @@
                 <div class="form-group">
                     <label>JANUARI</label>
                     <input type="hidden" name="bulan[]" id="januari_real">
-                    <input id="januari" class="form-control" type="text" placeholder="">
+                    <input required id="januari" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>FEBRUARI</label>
                     <input type="hidden" name="bulan[]" id="februari_real">
-                    <input id="februari" class="form-control" type="text" placeholder="">
+                    <input required id="februari" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>MARET</label>
                     <input type="hidden" name="bulan[]" id="maret_real">
-                    <input id="maret" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input required id="maret" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>APRIL</label>
                     <input type="hidden" name="bulan[]" id="april_real">
-                    <input id="april" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input required id="april" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>MEI</label>
                     <input type="hidden" name="bulan[]" id="mei_real">
-                    <input id="mei" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input required id="mei" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>JUNI</label>
-                    <input type="hidden" name="bulan[]" id="juni_real">
-                    <input id="juni" name="bulan[]" class="form-control" type="text" placeholder="">
+                    <input required type="hidden" name="bulan[]" id="juni_real">
+                    <input required id="juni" class="form-control" type="text" placeholder="">
                 </div>
             </div>
             <div class="col-lg-4">
@@ -97,32 +114,32 @@
                 <div class="form-group">
                     <label>JULI</label>
                     <input type="hidden" name="bulan[]" id="juli_real">
-                    <input id="juli" class="form-control" type="text" placeholder="">
+                    <input required id="juli" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>AGUSTUS</label>
                     <input type="hidden" name="bulan[]" id="agustus_real">
-                    <input id="agustus" class="form-control" type="text" placeholder="">
+                    <input required id="agustus" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>SEPTEMBER</label>
                     <input type="hidden" name="bulan[]" id="september_real">
-                    <input id="september" class="form-control" type="text" placeholder="">
+                    <input required id="september" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>OKTOBER</label>
                     <input type="hidden" name="bulan[]" id="oktober_real">
-                    <input id="oktober" class="form-control" type="text" placeholder="">
+                    <input required id="oktober" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>NOVEMBER</label>
                     <input type="hidden" name="bulan[]" id="november_real">
-                    <input id="november" class="form-control" type="text" placeholder="">
+                    <input required id="november" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>DESEMBER</label>
                     <input type="hidden" name="bulan[]" id="desember_real">
-                    <input id="desember" class="form-control" type="text" placeholder="">
+                    <input required id="desember" class="form-control" type="text" placeholder="">
                 </div>
 
                 <div class="form-group">
@@ -165,10 +182,12 @@
                 if (e == 0) {
                     alert('tidak ada budget');
                     document.getElementById("budget").value = "";
+                    document.getElementById("id_budget").value = "";
                     document.getElementById("budget_real").value = "";
                     document.getElementById("kode_budget").value = "";
                 } else {
                     var data = JSON.parse(e)
+                    document.getElementById("id_budget").value = data.id_budget;
                     document.getElementById("kode_budget").value = data.kode_budget;
                     document.getElementById("budget").value = formatRupiah(data.budget, "Rp. ");
                     document.getElementById("budget_real").value = data.budget;

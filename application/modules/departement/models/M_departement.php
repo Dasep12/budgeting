@@ -25,4 +25,19 @@ class M_departement extends CI_Model
     {
         return  $this->db->get_where($table, $where);
     }
+
+    public function multiInsert($data, $table)
+    {
+        $this->db->insert_batch($table, $data);
+        return $this->db->affected_rows();
+    }
+
+    public function daftarPlantBudgetDepartement($dept)
+    {
+        $query = $this->db->query("SELECT mb.kode_budget, md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity  FROM master_planning_budget  mpb
+        left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget  
+        inner join master_departement md on mb.departement_id = md.id 
+        WHERE mb.departement_id  = '" . $dept . "' ");
+        return $query;
+    }
 }

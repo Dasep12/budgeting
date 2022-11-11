@@ -44,6 +44,7 @@
                 <div class="form-group">
                     <label>JENIS BUDGET</label>
                     <select id="jenis_budget" name="jenis_budget" class="form-control">
+                        <option value="">Pilih Jenis Budget</option>
                         <?php foreach ($jenis as $jn) : ?>
                             <option value="<?= $jn->id ?>"><?= $jn->jenis_budget ?></option>
                         <?php endforeach ?>
@@ -51,21 +52,21 @@
                 </div>
                 <div class="form-group">
                     <label>KPI</label>
-                    <input required id="kpi" name="kpi" class="form-control" type="text" placeholder="">
+                    <input id="kpi" name="kpi" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>TARGET KPI</label>
-                    <input required id="target_kpi" name="target_kpi" class="form-control" type="text" placeholder="">
+                    <input id="target_kpi" name="target_kpi" class="form-control" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>PIC</label>
-                    <input required id="pic" name="pic" class="form-control" type="text" placeholder="">
+                    <input id="pic" name="pic" class="form-control" type="text" placeholder="">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>IMPROVEMENT</label>
-                    <textarea required id="improvement" name="improvement" class="form-control"></textarea>
+                    <textarea id="improvement" name="improvement" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -83,5 +84,22 @@
 
     </form>
 
-
 </div>
+
+<script>
+    $('select[name=jenis_budget').on('change', function() {
+        var jenis_budget = $("select[name=jenis_budget] option:selected").text();
+        console.log(jenis_budget);
+        if (jenis_budget == 'Reguler Cost' || jenis_budget == 'reguler cost') {
+            $("#pic").prop("disabled", true);
+            $("#kpi").prop("disabled", true);
+            $("#target_kpi").prop("disabled", true);
+            $("#improvement").prop("disabled", true);
+        } else {
+            $("#pic").prop("disabled", false);
+            $("#kpi").prop("disabled", false);
+            $("#target_kpi").prop("disabled", false);
+            $("#improvement").prop("disabled", false);
+        }
+    })
+</script>
