@@ -71,7 +71,8 @@
 
                 <div class="form-group">
                     <label>BUDGET</label>
-                    <input required id="budget" name="budget" class="form-control" type="text" placeholder="">
+                    <input required id="budget_display" class="form-control" type="text" placeholder="">
+                    <input id="budget" name="budget" class="form-control" type="hidden" placeholder="">
                 </div>
 
                 <div class="form-group">
@@ -102,4 +103,33 @@
             $("#improvement").prop("disabled", false);
         }
     })
+
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+
+    function convert(bulan, bulan2) {
+        var parsing = document.getElementById(bulan);
+        parsing.addEventListener('keyup', function(e) {
+            // tambahkan 'Rp.' pada saat form di ketik
+            // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+            parsing.value = formatRupiah(this.value, 'Rp. ');
+            const convert_1 = this.value.replace(/[^\w\s]/gi, '');
+            const convert_2 = convert_1.replace('Rp', '');
+            document.getElementById(bulan2).value = convert_2;
+        });
+    }
+    convert("budget_display", "budget");
 </script>
