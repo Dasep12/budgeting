@@ -68,6 +68,14 @@
                     <label>IMPROVEMENT</label>
                     <textarea id="improvement" name="improvement" class="form-control"></textarea>
                 </div>
+                <div class="form-group">
+                    <label>ACCOUNT BAME</label>
+                    <input id="account_bame" name="account_bame" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label>DESCRIPTION</label>
+                    <input id="description" name="description" class="form-control" placeholder="">
+                </div>
 
                 <div class="form-group">
                     <label>BUDGET</label>
@@ -96,11 +104,18 @@
             $("#kpi").prop("disabled", true);
             $("#target_kpi").prop("disabled", true);
             $("#improvement").prop("disabled", true);
+            $("#account_bame").prop("disabled", false);
+            $("#description").prop("disabled", false);
+        } else if (jenis_budget == 'Perspective Cost' || jenis_budget == 'perspective cost') {
+            $("#account_bame").prop("disabled", true);
+            $("#description").prop("disabled", true);
         } else {
             $("#pic").prop("disabled", false);
             $("#kpi").prop("disabled", false);
             $("#target_kpi").prop("disabled", false);
             $("#improvement").prop("disabled", false);
+            $("#account_bame").prop("disabled", false);
+            $("#description").prop("disabled", false);
         }
     })
 

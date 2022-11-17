@@ -195,6 +195,10 @@
         })
     });
 
+    $('select[name=tahun_budget').on('change', function() {
+        $('#jenis_budget').prop('selectedIndex', 0);
+    })
+
 
     function convert(bulan, bulan2) {
         var parsing = document.getElementById(bulan);

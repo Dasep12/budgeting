@@ -10,7 +10,6 @@
                 </div>
             </div>
         </div>
-
         <div class="lg-6 mt-2">
             <div class="card card-box bg-primary text-white">
                 <div class="card-header">PLANT BUDGET</div>

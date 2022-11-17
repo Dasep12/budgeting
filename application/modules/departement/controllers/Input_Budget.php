@@ -29,20 +29,24 @@ class Input_Budget extends CI_Controller
         $pic = $this->input->post("pic");
         $improvement = $this->input->post("improvement");
         $budget = $this->input->post("budget");
+        $account_bame = $this->input->post("account_bame");
+        $description = $this->input->post("description");
 
         $data = [
-            'tahun'  => $tahun,
-            'kode_budget'   => $kode,
+            'tahun'                     => $tahun,
+            'kode_budget'               => $kode,
             'master_jenis_budget_id'    => $jenis,
-            'target_kpi'    => $target_kpi,
-            'pic'       => $pic,
-            'kpi'           => $kpi,
-            'improvment'    => $improvement,
-            'budget'        => $budget,
-            'created_at'     => date('Y-m-d H:i:s'),
-            'departement_id'    => $this->session->userdata("departement_id"),
-            'status'            => 0,
-            'created_by'        => $this->session->userdata("nik")
+            'target_kpi'                => $target_kpi,
+            'pic'                       => $pic,
+            'kpi'                       => $kpi,
+            'improvment'                => $improvement,
+            'budget'                    => $budget,
+            'description'               => $description,
+            'account_bame'              => $account_bame,
+            'created_at'                => date('Y-m-d H:i:s'),
+            'departement_id'            => $this->session->userdata("departement_id"),
+            'status'                    => 0,
+            'created_by'                => $this->session->userdata("nik")
         ];
 
         $save =  $this->model->insert("master_budget", $data);

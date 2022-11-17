@@ -32,7 +32,7 @@ class Plant_budget extends CI_Controller
     {
         $where = [
             'tahun'                  => $this->input->get("tahun"),
-            'status'                 => 1,
+            'status'                 => 4,
             'departement_id'         => $this->session->userdata("departement_id"),
             'master_jenis_budget_id' => $this->input->get("jenis")
         ];

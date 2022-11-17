@@ -29,6 +29,16 @@ class Login extends CI_Controller
                 case 'dpt':
                     redirect('departement/Dashboard');
                     break;
+                case 'fin':
+                    redirect('finance/Dashboard');
+                    break;
+                case 'acc':
+                    redirect('accounting/Dashboard');
+                    break;
+                case 'gm':
+                    redirect('gm/Dashboard');
+                    break;
+
                 default:
                     echo 'tidak  ada level';
                     break;
