@@ -28,22 +28,34 @@ class Plant_budget extends CI_Controller
         $this->template->load('template_departement', 'input_plant_activity', $data);
     }
 
-    public function getBudget()
+    public function getKodeBudget()
     {
         $where = [
             'tahun'                  => $this->input->get("tahun"),
-            'status'                 => 4,
             'departement_id'         => $this->session->userdata("departement_id"),
             'master_jenis_budget_id' => $this->input->get("jenis")
         ];
 
-        $data = $this->model->ambilData("master_budget", $where);
-        if ($data->num_rows() > 0) {
-            echo json_encode($data->row());
+        $data =  $this->model->ambilData("master_budget", $where);
+        echo json_encode($data->result());
+    }
+
+    public function getSisaBudget()
+    {
+        $where = [
+            'kode_budget'   => $this->input->get("kode_budget")
+        ];
+        $budget =  $this->model->ambilData("master_budget", $where);
+        if ($budget->num_rows() > 0) {
+            $bg  = $budget->row();
+            $data_budget = $this->model->sisaBudgetDikurangiActual($bg->id_budget);
+            echo json_encode($data_budget->row());
         } else {
-            echo "0";
+            echo 0;
         }
     }
+
+
 
     public function input()
     {

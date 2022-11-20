@@ -27,13 +27,25 @@ class Actual_budget extends CI_Controller
         $this->template->load('template_departement', 'input_actual_activity', $data);
     }
 
+    public function getKodeBudget()
+    {
+        $where = [
+            'tahun'                  => $this->input->get("tahun"),
+            'departement_id'         => $this->session->userdata("departement_id"),
+            'master_jenis_budget_id' => $this->input->get("jenis")
+        ];
+
+        $data =  $this->model->ambilData("master_budget", $where);
+        echo json_encode($data->result());
+    }
+
     public function getBudget()
     {
         $dept = $this->session->userdata("departement_id");
         $tahun = $this->input->get("tahun");
         $bulan = $this->input->get("bulan");
-        $jenis = $this->input->get("jenis");
-        $data = $this->model->PlantBudgetDepartementPerBulan($dept, $tahun, $bulan, $jenis);
+        $kode = $this->input->get("kode");
+        $data = $this->model->PlantBudgetDepartementPerBulan($dept, $tahun, $bulan, $kode);
         if ($data->num_rows() > 0) {
             $budget_p = $data->row();
             $detail = $this->model->getActualPlantBudgetBulanan($budget_p->id_planing);

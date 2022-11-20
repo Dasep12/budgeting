@@ -31,7 +31,7 @@ class Approved extends CI_Controller
         $data = [
             'status'    => $status,
             'ket'       => $status == 1 ? 'accept manager' : 'reject manager',
-            'date_approved_manager' => date('Y-m-d H:i:s')
+            'date_approved_mgr' => date('Y-m-d H:i:s')
         ];
         $update = $this->model->updateData($data, "master_budget", ['id_budget' => $id]);
         if ($update > 0) {

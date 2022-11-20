@@ -11,12 +11,16 @@ class Input_Budget extends CI_Controller
 
     public function index()
     {
+        $code_dept = $this->db->query("SELECT kode_departement as code FROM master_departement WHERE id='" . $this->session->userdata("departement_id") . "' ")->row();
         $data = [
-            'uri'       => $this->uri->segment(2),
-            'jenis'     => $this->model->getData("master_jenis_budget")->result()
+            'uri'           => $this->uri->segment(2),
+            'jenis'         => $this->model->getData("master_jenis_budget")->result(),
+            'code_dept'     => $code_dept->code . '/REG' . rand(13, 15) . '/' . rand(10, 30)
+
         ];
         $this->template->load('template_departement', 'input_budget', $data);
     }
+
 
 
     public function input()

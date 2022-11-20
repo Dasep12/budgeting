@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label>KODE BUDGET</label>
-                    <input required class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
+                    <input required readonly value="<?= $code_dept ?>" class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>JENIS BUDGET</label>
@@ -109,6 +109,10 @@
         } else if (jenis_budget == 'Perspective Cost' || jenis_budget == 'perspective cost') {
             $("#account_bame").prop("disabled", true);
             $("#description").prop("disabled", true);
+            $("#pic").prop("disabled", false);
+            $("#kpi").prop("disabled", false);
+            $("#target_kpi").prop("disabled", false);
+            $("#improvement").prop("disabled", false);
         } else {
             $("#pic").prop("disabled", false);
             $("#kpi").prop("disabled", false);

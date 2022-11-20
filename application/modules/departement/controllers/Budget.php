@@ -11,7 +11,7 @@ class Budget extends CI_Controller
     {
         $data = [
             'uri'       => $this->uri->segment(2),
-            'budget'      => $this->model->daftarBudget()->result()
+            'budget'      => $this->model->daftarBudget($this->session->userdata("departement_id"))->result()
         ];
         $this->template->load('template_departement', 'budget', $data);
     }

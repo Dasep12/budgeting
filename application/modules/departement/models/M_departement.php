@@ -15,9 +15,9 @@ class M_departement extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function daftarBudget()
+    public function daftarBudget($id)
     {
-        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget,mb.tahun , mb.pic,mb.kpi,mb.improvment , mb.budget , mb.status , mjb.jenis_budget, md.nama_departement as departement , mb.ket FROM master_budget mb , master_departement md , master_jenis_budget mjb WHERE mb.master_jenis_budget_id = mjb.id AND mb.departement_id = md.id  ");
+        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget,mb.tahun , mb.pic,mb.kpi,mb.improvment , mb.budget , mb.status , mjb.jenis_budget, md.nama_departement as departement , mb.ket FROM master_budget mb , master_departement md , master_jenis_budget mjb WHERE mb.master_jenis_budget_id = mjb.id AND mb.departement_id = md.id AND mb.departement_id='" . $id  . "'  ");
         return $query;
     }
 
@@ -41,13 +41,23 @@ class M_departement extends CI_Model
         return $query;
     }
 
+    public function sisaBudgetDikurangiActual($id)
+    {
+        $query = $this->db->query("SELECT id_budget ,  budget as budget_input  ,
+        (SELECT SUM(nilai_budget) FROM master_planning_budget WHERE master_budget_id_budget = '" . $id . "' ) as budget_planning ,
+        (SELECT ( budget_input - budget_planning  ) ) as budget
+        FROM master_budget mb 
+        WHERE id_budget  = '" . $id . "' ");
+        return $query;
+    }
 
-    public function PlantBudgetDepartementPerBulan($dept, $tahun, $bulan, $jenis)
+
+    public function PlantBudgetDepartementPerBulan($dept, $tahun, $bulan, $kode)
     {
         $query = $this->db->query("SELECT mpb.id_planing  , mb.kode_budget ,  mb.tahun ,mpb.bulan , mpb.nilai_budget  as budget_actual FROM master_budget mb  
         INNER JOIN master_planning_budget mpb  on mpb.master_budget_id_budget  = mb.id_budget
         WHERE mb.tahun  = '" . $tahun . "' and mpb.bulan = '" . $bulan . "' and mb.departement_id  = '" . $dept . "'  
-        and mb.master_jenis_budget_id  = '" . $jenis . "' ");
+        and mb.kode_budget  = '" . $kode . "' ");
         return $query;
     }
 

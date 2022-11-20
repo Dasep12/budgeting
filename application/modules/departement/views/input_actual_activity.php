@@ -48,6 +48,7 @@
                     <label>TAHUN BUDGET</label>
                     <input type="hidden" id="id_planning_budget" name="id_planning">
                     <select id="tahun_budget" name="tahun_budget" class="form-control">
+                        <option value="">Pilih Tahun</option>
                         <option>2022</option>
                         <option>2023</option>
                     </select>
@@ -60,10 +61,18 @@
                             <option value="<?= $jn->id ?>"><?= $jn->jenis_budget ?></option>
                         <?php endforeach ?>
                     </select>
+                    <div id="load_kode" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil kode budget . . .</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>KODE BUDGET</label>
-                    <input readonly class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
+                    <select name="kode_budget" id="kode_budget" class="form-control">
+                        <option value="">Pilih Kode Budget</option>
+                    </select>
+                    <div id="load_budget_nilai" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil nilai budget . . .</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>BUDGET</label>
@@ -77,6 +86,7 @@
                 <div class="form-group">
                     <label>BULAN</label>
                     <select id="bulan_budget" name="bulan_budget" class="form-control">
+                        <option value="">Pilih Bulan</option>
                         <option>JANUARI</option>
                         <option>FEBRUARI</option>
                         <option>MARET</option>
@@ -93,14 +103,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label>PENGGUNAAN BUDGET</label>
-                    <input id="use_budget_real" name="use_budget" type="hidden" placeholder="">
-                    <input class="form-control" id="use_budget" type="text" placeholder="">
-                </div>
-
-                <div class="form-group">
                     <label>ACTIVITY</label>
-                    <textarea id="activity" name="activity" class="form-control" placeholder=""></textarea>
+                    <select name="tipe_trans" class="form-control" id="tipe_trans">
+                        <option value="">Pilih Activity</option>
+                        <option value="01">RAIMBUSMENT</option>
+                        <option value="02">PAYMENT VOUCHER</option>
+                        <option value="03">PATTY CASH</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">Save</button>
@@ -136,39 +145,74 @@
     $('select[name=jenis_budget').on('change', function() {
         var jenis = $("select[name=jenis_budget] option:selected").val();
         var tahun = $("select[name=tahun_budget] option:selected").val();
-        var bulan = $("select[name=bulan_budget] option:selected").val();
         $.ajax({
-            url: "<?= base_url('departement/Actual_budget/getBudget') ?>",
+            url: "<?= base_url('departement/Actual_budget/getKodeBudget') ?>",
             method: "GET",
-            data: "tahun=" + tahun + "&jenis=" + jenis + "&bulan=" + bulan,
+            data: "tahun=" + tahun + "&jenis=" + jenis,
             cache: false,
+            beforeSend: function() {
+                document.getElementById("load_kode").style.display = 'block';
+            },
+            complete: function() {
+                document.getElementById("load_kode").style.display = 'none';
+            },
             success: function(e) {
-                if (e == 0 || e === '0') {
-                    alert('err');
-                } else {
-                    const data = JSON.parse(e);
-                    var budget = formatRupiah(data.budget_actual, 'Rp. ');
-                    document.getElementById("budget").value = budget;
-                    document.getElementById("budget_real").value = data.budget_actual;
-                    document.getElementById("kode_budget").value = data.kode_budget;
-                    document.getElementById("id_planning_budget").value = data.id_planing;
+                var select1 = $('#kode_budget');
+                select1.empty();
+                var added2 = document.createElement('option');
+                added2.value = "";
+                added2.innerHTML = "Pilih Kode Budget";
+                select1.append(added2);
+                var result = JSON.parse(e);
+                for (var i = 0; i < result.length; i++) {
+                    var added = document.createElement('option');
+                    added.value = result[i].kode_budget;
+                    added.innerHTML = result[i].kode_budget;
+                    select1.append(added);
                 }
             }
         })
     });
 
-    function convert(bulan, bulan2) {
-        var parsing = document.getElementById(bulan);
-        parsing.addEventListener('keyup', function(e) {
-            // tambahkan 'Rp.' pada saat form di ketik
-            // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-            parsing.value = formatRupiah(this.value, 'Rp. ');
-            const convert_1 = this.value.replace(/[^\w\s]/gi, '');
-            const convert_2 = convert_1.replace('Rp', '');
-            document.getElementById(bulan2).value = convert_2;
-        });
-    }
-    convert("use_budget", "use_budget_real");
+    $('select[name=kode_budget').on('change', function() {
+        var kode = $("select[name=kode_budget] option:selected").val();
+        var tahun = $("select[name=tahun_budget] option:selected").val();
+        var bulan = $("select[name=bulan_budget] option:selected").val();
+        $.ajax({
+            url: "<?= base_url('departement/Actual_budget/getBudget') ?>",
+            method: "GET",
+            data: "tahun=" + tahun + "&kode=" + kode + "&bulan=" + bulan,
+            cache: false,
+            beforeSend: function() {
+                document.getElementById("load_budget_nilai").style.display = 'block';
+            },
+            complete: function() {
+                document.getElementById("load_budget_nilai").style.display = 'none';
+            },
+            success: function(e) {
+                // console.log(e)
+                if (e == 0 || e === '0') {
+                    alert('err');
+                } else {
+                    const data = JSON.parse(e);
+                    var budget = formatRupiah(data.budget_actual, 'Rp. ');
+                    document.getElementById("budget_real").value = budget;
+                    document.getElementById("budget").value = budget;
+                }
+            }
+        })
+    });
+
+    // function convert(bulan, bulan2) {
+    //     var parsing = document.getElementById(bulan);
+    //     parsing.addEventListener('keyup', function(e) {
+    //         parsing.value = formatRupiah(this.value, 'Rp. ');
+    //         const convert_1 = this.value.replace(/[^\w\s]/gi, '');
+    //         const convert_2 = convert_1.replace('Rp', '');
+    //         document.getElementById(bulan2).value = convert_2;
+    //     });
+    // }
+    // convert("use_budget", "use_budget_real");
 
     function cek() {
         var budget_plant = document.getElementById("budget_real").value;

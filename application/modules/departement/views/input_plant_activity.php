@@ -53,17 +53,27 @@
                 </div>
                 <div class="form-group">
                     <label>JENIS BUDGET</label>
+                    <input type="hidden" name="id_budget" id="id_budget">
                     <select id="jenis_budget" name="jenis_budget" class="form-control">
                         <option value="">Pilih Jenis Budget</option>
                         <?php foreach ($jenis as $jn) : ?>
                             <option value="<?= $jn->id ?>"><?= $jn->jenis_budget ?></option>
                         <?php endforeach ?>
                     </select>
+                    <div id="load_kode" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil kode budget . . .</span>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label>KODE BUDGET</label>
-                    <input type="hidden" name="id_budget" id="id_budget">
-                    <input readonly class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
+                    <select class="form-control" name="kode_budget" id="kode_budget">
+                        <option>Pilih Kode Budget</option>
+                    </select>
+                    <div id="load_budget_nilai" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil nilai budget . . .</span>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label>BUDGET</label>
@@ -173,27 +183,64 @@
         var jenis = $("select[name=jenis_budget] option:selected").val();
         var tahun = $("select[name=tahun_budget] option:selected").val();
         $.ajax({
-            url: "<?= base_url('departement/Plant_budget/getBudget') ?>",
+            url: "<?= base_url('departement/Plant_budget/getKodeBudget') ?>",
             method: "GET",
             data: "tahun=" + tahun + "&jenis=" + jenis,
             cache: false,
+            beforeSend: function() {
+                document.getElementById("load_kode").style.display = 'block';
+            },
+            complete: function() {
+                document.getElementById("load_kode").style.display = 'none';
+            },
+            success: function(e) {
+                var select1 = $('#kode_budget');
+                select1.empty();
+                var added2 = document.createElement('option');
+                added2.value = "";
+                added2.innerHTML = "Pilih Kode Budget";
+                select1.append(added2);
+                var result = JSON.parse(e);
+                for (var i = 0; i < result.length; i++) {
+                    var added = document.createElement('option');
+                    added.value = result[i].kode_budget;
+                    added.innerHTML = result[i].kode_budget;
+                    select1.append(added);
+                }
+            }
+        })
+    });
+
+    $('select[name=kode_budget').on('change', function() {
+        var jenis = $("select[name=kode_budget] option:selected").val();
+        $.ajax({
+            url: "<?= base_url('departement/Plant_budget/getSisaBudget') ?>",
+            method: "GET",
+            data: "kode_budget=" + jenis,
+            cache: false,
+            beforeSend: function() {
+                document.getElementById("load_budget_nilai").style.display = 'block';
+
+            },
+            complete: function() {
+                document.getElementById("load_budget_nilai").style.display = 'none';
+            },
             success: function(e) {
                 if (e == 0) {
                     alert('tidak ada budget');
                     document.getElementById("budget").value = "";
                     document.getElementById("id_budget").value = "";
                     document.getElementById("budget_real").value = "";
-                    document.getElementById("kode_budget").value = "";
                 } else {
                     var data = JSON.parse(e)
                     document.getElementById("id_budget").value = data.id_budget;
-                    document.getElementById("kode_budget").value = data.kode_budget;
                     document.getElementById("budget").value = formatRupiah(data.budget, "Rp. ");
                     document.getElementById("budget_real").value = data.budget;
                 }
             }
         })
     });
+
 
     $('select[name=tahun_budget').on('change', function() {
         $('#jenis_budget').prop('selectedIndex', 0);

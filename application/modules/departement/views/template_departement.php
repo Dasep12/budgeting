@@ -259,19 +259,27 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="dropdown">
-                        <a href="<?= base_url('Dashboard') ?>" class="dropdown-toggle no-arrow">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-file"></span><span class="mtext">Trans Patty Cash</span>
+                        </a>
+                        <ul class="submenu">
+                            <li class="dropdown">
+                                <a href="<?= base_url('Dashboard') ?>">
+                                    Payment Voucher
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="<?= base_url('departement/Dashboard') ?>">
+                                    Panjer
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="<?= base_url('departement/Raimbusment/form_raimbusment') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Raimbusment' ? 'active' : '' ?>">
                             <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Raimbusment</span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="<?= base_url('Dashboard') ?>" class="dropdown-toggle no-arrow">
-                            <span class="micon bi bi-hdd-stack"></span><span class="mtext">Payment Voucher</span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="<?= base_url('departement/Dashboard') ?>" class="dropdown-toggle no-arrow">
-                            <span class="micon bi bi-textarea-resize"></span><span class="mtext">Panjer</span>
                         </a>
                     </li>
                     <li class="dropdown">
