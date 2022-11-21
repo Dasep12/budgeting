@@ -82,4 +82,12 @@ class M_departement extends CI_Model
          left JOIN master_departement md  on mb.departement_id  = md.id  WHERE mb.departement_id  = '" . $id . "' ");
         return $query;
     }
+
+    public function daftarRaimbusment($dept_id)
+    {
+        $query = $this->db->query("SELECT tjp.tanggal_request ,tjp.request_code , tdjp.particullar ,tdjp.ammount , tjp.remarks FROM transaksi_jenis_pembayaran tjp 
+        LEFT JOIN trans_detail_jenis_pembayaran tdjp on tdjp.transaksi_jenis_pembayaran_id = tjp.id
+        WHERE tjp.master_departement_id  = '" . $dept_id . "' ");
+        return $query;
+    }
 }

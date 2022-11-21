@@ -51,6 +51,16 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label>SUB JENIS BUDGET</label>
+                    <select id="sub_jenis_budget" name="sub_jenis_budget" class="form-control">
+                        <option value="">Pilih Sub Jenis Budget</option>
+                        <?php foreach ($sub_jenis as $jn) : ?>
+                            <option value="<?= $jn->id ?>"><?= $jn->sub_jenis_budget ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label>KPI</label>
                     <input id="kpi" name="kpi" class="form-control" type="text" placeholder="">
                 </div>
@@ -106,6 +116,7 @@
             $("#improvement").prop("disabled", true);
             $("#account_bame").prop("disabled", false);
             $("#description").prop("disabled", false);
+            $("#sub_jenis_budget").prop("disabled", true);
         } else if (jenis_budget == 'Perspective Cost' || jenis_budget == 'perspective cost') {
             $("#account_bame").prop("disabled", true);
             $("#description").prop("disabled", true);
@@ -113,9 +124,11 @@
             $("#kpi").prop("disabled", false);
             $("#target_kpi").prop("disabled", false);
             $("#improvement").prop("disabled", false);
+            $("#sub_jenis_budget").prop("disabled", false);
         } else {
             $("#pic").prop("disabled", false);
             $("#kpi").prop("disabled", false);
+            $("#sub_jenis_budget").prop("disabled", false);
             $("#target_kpi").prop("disabled", false);
             $("#improvement").prop("disabled", false);
             $("#account_bame").prop("disabled", false);

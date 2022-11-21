@@ -59,8 +59,28 @@ class Actual_budget extends CI_Controller
         }
     }
 
+    public function getCodeRequest()
+    {
+        $code = $this->input->get("type");
+        $dept_id = $this->session->userdata("departement_id");
+        $where = ['master_departement_id' => $dept_id, 'type' => $code];
+        $cari_kode = $this->model->ambilData("transaksi_jenis_pembayaran", $where);
+        if ($cari_kode->num_rows()) {
+            echo json_encode($cari_kode->result());
+        } else {
+            echo "0";
+        }
+    }
+
+    public function getNilaiTransaksi()
+    {
+        $code = $this->input->post("code");
+        echo $code;
+    }
+
     public function input(Type $var = null)
     {
+
         $kode_planning = $this->input->post("id_planning");
         $activity      = $this->input->post("activity");
         $budget        = $this->input->post("use_budget");

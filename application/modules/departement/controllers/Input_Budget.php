@@ -15,7 +15,8 @@ class Input_Budget extends CI_Controller
         $data = [
             'uri'           => $this->uri->segment(2),
             'jenis'         => $this->model->getData("master_jenis_budget")->result(),
-            'code_dept'     => $code_dept->code . '/REG' . rand(13, 15) . '/' . rand(10, 30)
+            'code_dept'     => $code_dept->code . '/REG' . rand(13, 15) . '/' . rand(10, 30),
+            'sub_jenis'     => $this->model->getData("master_sub_jenis_budget")->result()
 
         ];
         $this->template->load('template_departement', 'input_budget', $data);

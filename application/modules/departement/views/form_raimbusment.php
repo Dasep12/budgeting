@@ -43,7 +43,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>REQUEST CODE</label>
-                    <input readonly class="form-control" value="<?= $code_dept ?>" id="kode_budget" name="kode_budget" type="text" placeholder="">
+                    <input readonly class="form-control" value="<?= $code_dept ?>" id="request_code" name="request_code" type="text" placeholder="">
                 </div>
 
                 <div class="form-group">
@@ -57,14 +57,14 @@
 
                 <div class="form-group">
                     <label>REMARKS</label>
-                    <textarea id="activity" name="activity" class="form-control" placeholder=""></textarea>
+                    <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
                 </div>
 
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>TANGGAL REQUEST</label>
-                    <input class="form-control" id="use_budget" type="date" placeholder="">
+                    <input class="form-control" id="tanggal" name="tanggal" type="date" placeholder="">
                 </div>
 
                 <div class="form-group">
@@ -93,16 +93,23 @@
         <table class="data-table table hover nowrap">
             <thead>
                 <tr>
-                    <th class="table-plus datatable-nosort">Kode Budget</th>
-                    <th>Departement</th>
-                    <th>Tahun Budget</th>
-                    <th>Bulan</th>
-                    <th>Budget</th>
-                    <th>Activity</th>
+                    <th class="table-plus datatable-nosort">Kode Request</th>
+                    <th>Particullars</th>
+                    <th>Ammount</th>
+                    <th>Tanggal Request</th>
+                    <th>Remarks</th>
                 </tr>
             </thead>
             <tbody>
-
+                <?php foreach ($raimbus->result() as $rm) : ?>
+                    <tr>
+                        <td><?= $rm->request_code ?></td>
+                        <td><?= $rm->particullar ?></td>
+                        <td><?= $rm->ammount ?></td>
+                        <td><?= $rm->tanggal_request ?></td>
+                        <td><?= $rm->remarks ?></td>
+                    </tr>
+                <?php endforeach ?>
             </tbody>
         </table>
     </div>

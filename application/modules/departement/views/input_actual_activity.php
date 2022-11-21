@@ -110,7 +110,18 @@
                         <option value="02">PAYMENT VOUCHER</option>
                         <option value="03">PATTY CASH</option>
                     </select>
+                    <div id="load_code_request" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil kode request. . .</span>
+                    </div>
                 </div>
+
+                <div class="form-group">
+                    <label>KODE REQUEST</label>
+                    <select name="code_request" class="form-control" id="code_request">
+                        <option value="">Pilih Code Request</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">Save</button>
                     <button type="reset" class="btn btn-danger btn-sm">Reset</button>
@@ -203,16 +214,55 @@
         })
     });
 
-    // function convert(bulan, bulan2) {
-    //     var parsing = document.getElementById(bulan);
-    //     parsing.addEventListener('keyup', function(e) {
-    //         parsing.value = formatRupiah(this.value, 'Rp. ');
-    //         const convert_1 = this.value.replace(/[^\w\s]/gi, '');
-    //         const convert_2 = convert_1.replace('Rp', '');
-    //         document.getElementById(bulan2).value = convert_2;
-    //     });
-    // }
-    // convert("use_budget", "use_budget_real");
+    $('select[name=tipe_trans').on('change', function() {
+        var type = $("select[name=tipe_trans] option:selected").val();
+        $.ajax({
+            url: "<?= base_url('departement/Actual_budget/getCodeRequest') ?>",
+            method: "GET",
+            data: "type=" + type,
+            cache: false,
+            beforeSend: function() {
+                document.getElementById("load_code_request").style.display = 'block';
+            },
+            complete: function() {
+                document.getElementById("load_code_request").style.display = 'none';
+            },
+            success: function(e) {
+                var select1 = $('#code_request');
+                select1.empty();
+                var added2 = document.createElement('option');
+                added2.value = "";
+                added2.innerHTML = "Pilih Kode Request";
+                select1.append(added2);
+                var result = JSON.parse(e);
+                for (var i = 0; i < result.length; i++) {
+                    var added = document.createElement('option');
+                    added.value = result[i].request_code;
+                    added.innerHTML = result[i].request_code;
+                    select1.append(added);
+                }
+            }
+        })
+    });
+
+    $('select[name=code_request').on('change', function() {
+        var code = $("select[name=code_request] option:selected").val();
+        $.ajax({
+            url: "<?= base_url('departement/Actual_budget/getNilaiTransaksi') ?>",
+            method: "GET",
+            data: "code=" + code,
+            cache: false,
+            beforeSend: function() {
+                document.getElementById("load_code_request").style.display = 'block';
+            },
+            complete: function() {
+                document.getElementById("load_code_request").style.display = 'none';
+            },
+            success: function(e) {
+                console.log(code);
+            }
+        })
+    });
 
     function cek() {
         var budget_plant = document.getElementById("budget_real").value;
