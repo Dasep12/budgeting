@@ -74,8 +74,9 @@ class Actual_budget extends CI_Controller
 
     public function getNilaiTransaksi()
     {
-        $code = $this->input->post("code");
-        echo $code;
+        $code = $this->input->get("code");
+        $data = $this->model->getTotalBelanjaRaimbusment($code);
+        echo json_encode($data->row());
     }
 
     public function input(Type $var = null)

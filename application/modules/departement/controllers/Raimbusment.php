@@ -15,9 +15,18 @@ class Raimbusment extends CI_Controller
         $data = [
             'uri'       => $this->uri->segment(2),
             'code_dept'     => $code_dept->code . 'REQ/RAIMB' . rand(13, 15) . '/' . rand(10, 30),
-            'raimbus'       => $this->model->daftarRaimbusment($this->session->userdata("departement_id"))
+            'raimbus'       => $this->model->ambilData("transaksi_jenis_pembayaran", ['master_departement_id' => $this->session->userdata("departement_id"), 'type' => '01'])
         ];
         $this->template->load('template_departement', 'form_raimbusment', $data);
+    }
+
+    public function detail_raimbusment()
+    {
+        $id = $this->input->post("id");
+        $data = [
+            'raimbus'   => $this->model->ambilData('trans_detail_jenis_pembayaran', ['transaksi_jenis_pembayaran_id' => $id])
+        ];
+        $this->load->view("detail_raimbusment", $data);
     }
 
     public function input()

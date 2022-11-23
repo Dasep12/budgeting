@@ -21,6 +21,12 @@ class M_departement extends CI_Model
         return $query;
     }
 
+    public function TotalNilaiRaimbusment($id)
+    {
+        $query = $this->db->query("SELECT sum(ammount) as total FROM trans_detail_jenis_pembayaran WHERE transaksi_jenis_pembayaran_id = '" . $id . "' ");
+        return $query;
+    }
+
     public function ambilData($table, $where)
     {
         return  $this->db->get_where($table, $where);
@@ -51,6 +57,15 @@ class M_departement extends CI_Model
         return $query;
     }
 
+
+    public function getTotalBelanjaRaimbusment($id)
+    {
+        $query = $this->db->query("SELECT tjp.id , tjp.remarks ,
+        (SELECT sum(tdjp.ammount) FROM trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id  = tjp.id  ) as total
+        from transaksi_jenis_pembayaran tjp 
+        where request_code = '" . $id . "' ");
+        return $query;
+    }
 
     public function PlantBudgetDepartementPerBulan($dept, $tahun, $bulan, $kode)
     {

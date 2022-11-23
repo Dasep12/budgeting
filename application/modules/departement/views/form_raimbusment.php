@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label>PARTICULLARS</label>
                     <a href="" class="add_field_button badge badge-success badge-sm">Tambah</a>
-                    <input class="form-control" name="particullar[]" type="text" placeholder="">
+                    <input class="form-control" id="particullar" name="particullar[]" type="text" placeholder="">
                 </div>
                 <div class="form-group input_fields_wrap">
 
@@ -69,12 +69,18 @@
 
                 <div class="form-group">
                     <label>AMMOUNT</label>
-                    <input class="form-control" name="ammount[]" type="text" placeholder="">
+                    <input class="form-control" id="ammount" name="ammount[]" type="text" placeholder="">
                 </div>
 
                 <div class="add_ammount">
 
                 </div>
+
+                <div class="form-group">
+                    <label>LAMPIRAN</label>
+                    <input class="form-control" name="lampiran" type="text" placeholder="">
+                </div>
+
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">Save</button>
@@ -94,20 +100,41 @@
             <thead>
                 <tr>
                     <th class="table-plus datatable-nosort">Kode Request</th>
-                    <th>Particullars</th>
-                    <th>Ammount</th>
                     <th>Tanggal Request</th>
                     <th>Remarks</th>
+                    <th>Nilai Rupiah</th>
+                    <th>Status</th>
+                    <th>Opsi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($raimbus->result() as $rm) : ?>
                     <tr>
                         <td><?= $rm->request_code ?></td>
-                        <td><?= $rm->particullar ?></td>
-                        <td><?= $rm->ammount ?></td>
                         <td><?= $rm->tanggal_request ?></td>
                         <td><?= $rm->remarks ?></td>
+                        <?php $d = $this->model->TotalNilaiRaimbusment($rm->id)->row() ?>
+                        <td><?= 'Rp. ' . number_format($d->total, 0, ",", ".") ?></td>
+                        <td>
+                            <?php if ($rm->status_approved == 0) { ?>
+                                <span class="badge badge-danger">menunggu approved</span>
+                            <?php } else if ($rm->status_approved == 1) { ?>
+                                <span class="badge badge-success">approved manager</span>
+                            <?php } else if ($rm->status_approved == 2) { ?>
+                                <span class="badge badge-success">approved finance</span>
+                            <?php } else if ($rm->status_approved == 3) { ?>
+                                <span class="badge badge-success">approved accounting</span>
+                            <?php } else if ($rm->status_approved == 4) { ?>
+                                <span class="badge badge-success">approved gm</span>
+                            <?php } else if ($rm->status_approved == 6) { ?>
+                                <span class="badge badge-danger"><?= $bd->ket ?></span>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <span style="cursor:pointer ;" data-id="<?= $rm->id ?>" class="userinfo badge badge-primary"><i class="fa fa-eye"></i></span>
+
+                            <a href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $rm->id) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
@@ -115,12 +142,30 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="empModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detail</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
 <script>
     $(document).ready(function() {
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
         var ammount = $(".add_ammount"); //Fields wrapper
         var add_button = $(".add_field_button"); //Add button ID
-
         var x = 1; //initlal text box count
         $(add_button).click(function(e) { //on add input button click
             e.preventDefault();
@@ -138,10 +183,36 @@
             e.preventDefault();
             $(this).parent('div').remove();
         })
+
+
+        $('.userinfo').click(function() {
+            var userid = $(this).data('id');
+            // AJAX request
+            $.ajax({
+                url: "<?= base_url('departement/Raimbusment/detail_raimbusment') ?>",
+                type: 'post',
+                data: {
+                    id: userid
+                },
+                success: function(response) {
+                    // Add response in Modal body
+                    $('.modal-body').html(response);
+                    // Display Modal
+                    $('#empModal').modal('show');
+                }
+            });
+        });
     });
 
     function cek() {
+        if (document.getElementById("particullar").value == "" || document.getElementById("particullar").value == NULL) {
+            alert("isi data particullars");
+            return false;
+        } else if (document.getElementById("ammount").value == "" || document.getElementById("ammount").value == NULL) {
+            alert("isi data ammount");
+            return false;
+        }
 
-
+        return;
     }
 </script>

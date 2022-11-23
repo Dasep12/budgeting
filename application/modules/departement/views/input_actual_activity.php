@@ -76,7 +76,7 @@
                 </div>
                 <div class="form-group">
                     <label>BUDGET</label>
-                    <input type="hidden" name="budget_real" id="budget_real">
+                    <input type="text" name="budget_real" id="budget_real">
                     <input readonly class="form-control" id="budget" name="budget" type="text" placeholder="">
                 </div>
 
@@ -120,6 +120,16 @@
                     <select name="code_request" class="form-control" id="code_request">
                         <option value="">Pilih Code Request</option>
                     </select>
+                    <div id="load_nil" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil nilai. . .</span>
+                    </div>
+                    <input type="text" placeholder="id raimbusment" name="id_raimbus" id="id_raimbus">
+                    <input type="text" placeholder="total raimbusment" name="n_raimbus" id="n_raimbus">
+                </div>
+
+                <div class="form-group">
+                    <label>NILAI</label>
+                    <input readonly class="form-control" id="nilai_raimbusment" name="nilai_raimbusment" type="text" placeholder="">
                 </div>
 
                 <div class="form-group">
@@ -253,13 +263,16 @@
             data: "code=" + code,
             cache: false,
             beforeSend: function() {
-                document.getElementById("load_code_request").style.display = 'block';
+                document.getElementById("load_nil").style.display = 'block';
             },
             complete: function() {
-                document.getElementById("load_code_request").style.display = 'none';
+                document.getElementById("load_nil").style.display = 'none';
             },
             success: function(e) {
-                console.log(code);
+                const data = JSON.parse(e);
+                document.getElementById("id_raimbus").value = data.id;
+                document.getElementById("n_raimbus").value = data.total;
+                document.getElementById("nilai_raimbusment").value = formatRupiah(data.total, "Rp. ");
             }
         })
     });
