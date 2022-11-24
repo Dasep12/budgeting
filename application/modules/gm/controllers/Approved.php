@@ -19,7 +19,7 @@ class Approved extends CI_Controller
     {
         $data = [
             'uri'       => $this->uri->segment(2),
-            'daftar'    => $this->model->daftarApprove()
+            'daftar'    => $this->model->daftarApprove(1)
         ];
         $this->template->load('template_gm', 'list_approved', $data);
     }
@@ -28,19 +28,17 @@ class Approved extends CI_Controller
     {
         $id = $this->input->get("id_budget");
         $kode = $this->input->get("kode");
-        if ($kode == 6) {
-            $status = 6;
-        } else {
-            $status = $kode;
-        }
+
         $data = [
-            'status'    => $status,
-            'ket'       => $status == 4 ? 'accept general manager' : 'reject general manager',
-            'date_approved_gm' => date('Y-m-d H:i:s')
+            'status'             => $kode,
+            'ket'                => $kode == 1 ? 'accept general manager' : 'reject general manager',
+            'date_approved_gm'   => date('Y-m-d H:i:s'),
+            'approve_gm'         => $kode,
+            'approve_gm_user'    => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "master_budget", ['id_budget' => $id]);
         if ($update > 0) {
-            $this->session->set_flashdata("ok", $status == 4 ? 'budget telah di setujui' : 'budget telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
+            $this->session->set_flashdata("ok", $kode == 1 ? 'budget telah di setujui' : 'budget telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
             redirect('gm/Approved/list_approve');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");

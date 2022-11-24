@@ -60,12 +60,12 @@
 
                         <td>
                             <?php
-                            if ($df->status == 1) { ?>
+                            if ($df->approve == 1) { ?>
                                 <a href="#" class="badge badge-primary">Checked</a>
                             <?php } else { ?>
                                 <a href="#" class="badge badge-primary">Checked</a>
                                 <a href="<?= base_url('manager/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approved/approve?id_budget=' . $df->id_budget . '&kode=6') ?>" class="badge badge-danger">Reject</a>
+                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
 
                             <?php }
                             ?>

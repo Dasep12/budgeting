@@ -29,9 +29,11 @@ class Approved extends CI_Controller
             $status =  $kode;
         }
         $data = [
-            'status'    => $status,
-            'ket'       => $status == 1 ? 'accept manager' : 'reject manager',
-            'date_approved_mgr' => date('Y-m-d H:i:s')
+            'status'            => $status,
+            'ket'               => $status == 1 ? 'accept manager' : 'reject manager',
+            'date_approved_mgr' => date('Y-m-d H:i:s'),
+            'approve_mgr'       => 1,
+            'approve_mgr_user'  => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "master_budget", ['id_budget' => $id]);
         if ($update > 0) {

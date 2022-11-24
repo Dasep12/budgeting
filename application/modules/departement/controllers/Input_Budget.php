@@ -26,16 +26,17 @@ class Input_Budget extends CI_Controller
 
     public function input()
     {
-        $tahun  = $this->input->post("tahun_budget");
-        $kode  = $this->input->post("kode_budget");
-        $jenis  = $this->input->post("jenis_budget");
-        $kpi  = $this->input->post("kpi");
-        $target_kpi  = $this->input->post("target_kpi");
-        $pic = $this->input->post("pic");
-        $improvement = $this->input->post("improvement");
-        $budget = $this->input->post("budget");
-        $account_bame = $this->input->post("account_bame");
-        $description = $this->input->post("description");
+        $tahun          = $this->input->post("tahun_budget");
+        $kode           = $this->input->post("kode_budget");
+        $jenis          = $this->input->post("jenis_budget");
+        $kpi            = $this->input->post("kpi");
+        $target_kpi     = $this->input->post("target_kpi");
+        $pic            = $this->input->post("pic");
+        $improvement    = $this->input->post("improvement");
+        $budget         = $this->input->post("budget");
+        $account_bame   = $this->input->post("account_bame");
+        $description    = $this->input->post("description");
+
 
         $data = [
             'tahun'                     => $tahun,
@@ -51,7 +52,7 @@ class Input_Budget extends CI_Controller
             'created_at'                => date('Y-m-d H:i:s'),
             'departement_id'            => $this->session->userdata("departement_id"),
             'status'                    => 0,
-            'created_by'                => $this->session->userdata("nik")
+            'created_by'                => $this->session->userdata("nik"),
         ];
 
         $save =  $this->model->insert("master_budget", $data);

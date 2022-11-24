@@ -46,7 +46,6 @@
                     <th>Total Budget</th>
                     <th>Jenis Budget</th>
                     <th>Action</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,19 +60,14 @@
 
                         <td>
                             <?php
-                            if ($df->status == 4 ||  $df->status == 6) { ?>
+                            if ($df->approve_gm == 1 ||  $df->approve_gm == 2) { ?>
                                 <a href="#" class="badge badge-primary">Checked</a>
-                            <?php } else { ?>
+                            <?php } else if ($df->approve_acc == 1 ||  $df->approve_gm == 0) { ?>
                                 <a href="#" class="badge badge-primary">Checked</a>
-                                <a href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=4') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=6') ?>" class="badge badge-danger">Reject</a>
+                                <a href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
 
                             <?php }
-                            ?>
-                        </td>
-                        <td>
-                            <?=
-                            ($df->status == 6) ? '<a href="#" class="badge badge-danger">di tolak</a>' : (($df->status == 4) ? '<a href="#" class="badge badge-primary">di setujui</a>' : '')
                             ?>
                         </td>
                     </tr>

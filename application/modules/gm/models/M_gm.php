@@ -17,12 +17,13 @@ class M_gm extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function daftarApprove()
+    public function daftarApprove($stat)
     {
-        $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status
+        $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_gm , mb.approve_acc
         FROM master_budget mb 
          LEFT JOIN master_departement md on mb.departement_id  = md.id 
          LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
+         WHERE mb.approve_acc = '" . $stat . "'
          ");
         return $query;
     }
