@@ -76,7 +76,7 @@
                 </div>
                 <div class="form-group">
                     <label>BUDGET</label>
-                    <input type="text" name="budget_real" id="budget_real">
+                    <input type="hidden" name="budget_real" id="budget_real">
                     <input readonly class="form-control" id="budget" name="budget" type="text" placeholder="">
                 </div>
 
@@ -123,8 +123,8 @@
                     <div id="load_nil" style="display:none ;">
                         <span class="text-danger font-italic small">mengambil nilai. . .</span>
                     </div>
-                    <input type="text" placeholder="id raimbusment" name="id_raimbus" id="id_raimbus">
-                    <input type="text" placeholder="total raimbusment" name="n_raimbus" id="n_raimbus">
+                    <input type="hidden" placeholder="id raimbusment" name="id_raimbus" id="id_raimbus">
+                    <input type="hidden" placeholder="total raimbusment" name="n_raimbus" id="n_raimbus">
                 </div>
 
                 <div class="form-group">

@@ -66,7 +66,6 @@
                                 <a href="#" class="badge badge-primary">Checked</a>
                                 <a href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
                                 <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
-
                             <?php }
                             ?>
                         </td>

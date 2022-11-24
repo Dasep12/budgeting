@@ -39,19 +39,7 @@
                         <td><?= $bd->jenis_budget ?></td>
                         <td><?= 'Rp. ' . number_format($bd->budget, 0, ",", ".")  ?></td>
                         <td>
-                            <?php if ($bd->status == 0) { ?>
-                                <span class="badge badge-danger">menunggu approved</span>
-                            <?php } else if ($bd->status == 1) { ?>
-                                <span class="badge badge-success">approved manager</span>
-                            <?php } else if ($bd->status == 2) { ?>
-                                <span class="badge badge-success">approved finance</span>
-                            <?php } else if ($bd->status == 3) { ?>
-                                <span class="badge badge-success">approved accounting</span>
-                            <?php } else if ($bd->status == 4) { ?>
-                                <span class="badge badge-success">approved gm</span>
-                            <?php } else if ($bd->status == 6) { ?>
-                                <span class="badge badge-danger"><?= $bd->ket ?></span>
-                            <?php } ?>
+                            <label for="" class="badge badge-primary"><?= $bd->ket ?></label>
                         </td>
                     </tr>
                 <?php endforeach ?>

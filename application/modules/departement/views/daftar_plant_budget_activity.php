@@ -28,9 +28,9 @@
                     <th class="table-plus datatable-nosort">Kode Budget</th>
                     <th>Departement</th>
                     <th>Tahun Budget</th>
-                    <th>Bulan</th>
                     <th>Budget</th>
                     <th>Activity</th>
+                    <th>Detail</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,12 +39,65 @@
                         <td><?= $pl->kode_budget ?></td>
                         <td><?= $pl->nama_departement ?></td>
                         <td><?= $pl->tahun ?></td>
-                        <td><?= $pl->bulan ?></td>
-                        <td><?= 'Rp. ' . number_format($pl->nilai_budget, 0, ",", ".") ?></td>
+                        <td><?= 'Rp. ' . number_format($pl->total, 0, ",", ".") ?></td>
                         <td><?= $pl->activity ?></td>
+                        <td>
+                            <button type="button" data-kode="<?= $pl->kp ?>" data-id="<?= $pl->id_budget ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
     </div>
 </div>
+
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body">
+                sedang mengambil data
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+<script>
+    $(function() {
+        $('.userinfo').click(function() {
+            var userid = $(this).data('id');
+            var code = $(this).data('kode');
+            // AJAX request
+            $.ajax({
+                url: "<?= base_url('departement/Plant_budget/viewDetailPlant') ?>",
+                type: 'post',
+                data: {
+                    id: userid,
+                    code: code
+                },
+                success: function(response) {
+                    // Add response in Modal body
+                    $('.modal-body').html(response);
+                    // Display Modal
+                    $('#exampleModal').modal('show');
+                }
+            });
+        });
+
+
+
+    })
+</script>

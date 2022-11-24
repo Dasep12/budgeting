@@ -17,7 +17,7 @@ class M_departement extends CI_Model
 
     public function daftarBudget($id)
     {
-        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget,mb.tahun , mb.pic,mb.kpi,mb.improvment , mb.budget , mb.status , mjb.jenis_budget, md.nama_departement as departement , mb.ket FROM master_budget mb , master_departement md , master_jenis_budget mjb WHERE mb.master_jenis_budget_id = mjb.id AND mb.departement_id = md.id AND mb.departement_id='" . $id  . "'  ");
+        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget,mb.tahun , mb.pic,mb.kpi,mb.improvment , mb.budget , mb.status , mjb.jenis_budget, md.nama_departement as departement , mb.ket , mb.approve_mgr , mb.approve_mgr_user, mb.approve_fin , mb.approve_fin_user, mb.approve_acc , mb.approve_acc_user , mb.approve_gm , mb.approve_gm_user FROM master_budget mb , master_departement md , master_jenis_budget mjb WHERE mb.master_jenis_budget_id = mjb.id AND mb.departement_id = md.id AND mb.departement_id='" . $id  . "'  ");
         return $query;
     }
 
@@ -40,17 +40,25 @@ class M_departement extends CI_Model
 
     public function daftarPlantBudgetDepartement($dept)
     {
-        $query = $this->db->query("SELECT mb.kode_budget, md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity  FROM master_planning_budget  mpb
-        left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget  
-        inner join master_departement md on mb.departement_id = md.id 
-        WHERE mb.departement_id  = '" . $dept . "' ");
+        // $query = $this->db->query("SELECT mb.kode_budget, md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity  FROM master_planning_budget  mpb
+        // left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget  
+        // inner join master_departement md on mb.departement_id = md.id 
+        // WHERE mb.departement_id  = '" . $dept . "' ");
+        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget , mb.tahun , md.nama_departement  , mpb.activity  ,  sum(mpb.nilai_budget) as total , mpb.kode_plant_activity as kp
+        from master_budget mb 
+        left join master_planning_budget mpb on mb.id_budget  = mpb.master_budget_id_budget
+        left join master_departement md  on md.id =  mb.departement_id 
+        where mb.departement_id  = '" . $dept . "'
+        group by mpb.activity  ");
+
         return $query;
     }
 
     public function sisaBudgetDikurangiActual($id)
     {
         $query = $this->db->query("SELECT id_budget ,  budget as budget_input  ,
-        (SELECT SUM(nilai_budget) FROM master_planning_budget WHERE master_budget_id_budget = '" . $id . "' ) as budget_planning ,
+        if((SELECT SUM(nilai_budget) FROM master_planning_budget WHERE master_budget_id_budget = '" . $id . "' ) 
+         is NULL, 0,(SELECT SUM(nilai_budget) FROM master_planning_budget WHERE master_budget_id_budget = '" . $id . "' )) as budget_planning ,
         (SELECT ( budget_input - budget_planning  ) ) as budget
         FROM master_budget mb 
         WHERE id_budget  = '" . $id . "' ");

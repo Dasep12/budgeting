@@ -36,6 +36,7 @@ class Input_Budget extends CI_Controller
         $budget         = $this->input->post("budget");
         $account_bame   = $this->input->post("account_bame");
         $description    = $this->input->post("description");
+        $sub_jenis_budget    = $this->input->post("sub_jenis_budget");
 
 
         $data = [
@@ -52,6 +53,8 @@ class Input_Budget extends CI_Controller
             'created_at'                => date('Y-m-d H:i:s'),
             'departement_id'            => $this->session->userdata("departement_id"),
             'status'                    => 0,
+            'ket'                        => 'menunggu approve manager',
+            'master_sub_jenis_budget_id' => $sub_jenis_budget,
             'created_by'                => $this->session->userdata("nik"),
         ];
 
