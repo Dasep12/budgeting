@@ -10,6 +10,18 @@ class M_manager extends CI_Model
         return $query;
     }
 
+    public function ambilData($table, $where)
+    {
+        return  $this->db->get_where($table, $where);
+    }
+
+    public function TotalNilaiRaimbusment($id)
+    {
+        $query = $this->db->query("SELECT sum(ammount) as total FROM trans_detail_jenis_pembayaran WHERE transaksi_jenis_pembayaran_id = '" . $id . "' ");
+        return $query;
+    }
+
+
     public function updateData($data, $table, $where)
     {
         $this->db->where($where);
@@ -23,6 +35,17 @@ class M_manager extends CI_Model
         FROM master_budget mb 
          LEFT JOIN master_departement md on mb.departement_id  = md.id 
          LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
+         ");
+        return $query;
+    }
+
+
+    public function detailBudget($id)
+    {
+        $query = $this->db->query("SELECT mb.id_budget  , mb.tahun  , mpb.activity , mb.kode_budget ,mpb.kode_plant_activity  from master_budget mb 
+        left join master_planning_budget mpb ON mpb.master_budget_id_budget  = mb.id_budget
+        WHERE mb.id_budget = '" . $id . "' 
+        group  by mpb.activity 
          ");
         return $query;
     }

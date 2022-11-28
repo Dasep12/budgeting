@@ -23,16 +23,11 @@ class Approved extends CI_Controller
     {
         $id = $this->input->get("id_budget");
         $kode = $this->input->get("kode");
-        if ($kode == 6) {
-            $status = 6;
-        } else {
-            $status =  $kode;
-        }
         $data = [
-            'status'            => $status,
-            'ket'               => $status == 1 ? 'accept manager' : 'reject manager',
+            'status'            => $kode,
+            'ket'               => $kode == 1 ? 'accept manager' : 'reject manager',
             'date_approved_mgr' => date('Y-m-d H:i:s'),
-            'approve_mgr'       => 1,
+            'approve_mgr'       => $kode,
             'approve_mgr_user'  => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "master_budget", ['id_budget' => $id]);
@@ -43,5 +38,12 @@ class Approved extends CI_Controller
             $this->session->set_flashdata("nok", "budget di tolak");
             redirect('manager/Approved/list_approve');
         }
+    }
+
+    public function viewDetailPlant()
+    {
+        $id = $this->input->post("id");
+        $data['data']  = $this->model->detailBudget($id);
+        $this->load->view("detail_budget", $data);
     }
 }

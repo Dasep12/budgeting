@@ -45,4 +45,11 @@ class Approved extends CI_Controller
             redirect('gm/Approved/list_approve');
         }
     }
+
+    public function viewDetailPlant()
+    {
+        $id = $this->input->post("id");
+        $data['data']  = $this->model->detailBudget($id);
+        $this->load->view("detail_budget", $data);
+    }
 }

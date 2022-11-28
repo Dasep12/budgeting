@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <form action="<?= base_url('departement/Raimbusment/input') ?>" method="post" onsubmit="return cek()">
+    <form enctype="multipart/form-data" action="<?= base_url('departement/Raimbusment/input') ?>" method="post" onsubmit="return cek()">
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
@@ -76,9 +76,9 @@
 
                 </div>
 
-                <div class="form-group">
+                <div class="form-group ">
                     <label>LAMPIRAN</label>
-                    <input class="form-control" name="lampiran" type="text" placeholder="">
+                    <input required class="form-control" type="file" name="lampiran" id="lampiran">
                 </div>
 
 
@@ -104,6 +104,7 @@
                     <th>Remarks</th>
                     <th>Nilai Rupiah</th>
                     <th>Status</th>
+                    <th>Attach</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -131,9 +132,12 @@
                             <?php } ?>
                         </td>
                         <td>
+                            <a onclick="javascript:void window.open('<?= base_url('assets/lampiran/' . $rm->lampiran) ?>','1429893142534','scrollbars=1');return false;" class="badge badge-danger"><i class="fa fa-image"></i></a>
+                        </td>
+                        <td>
                             <span style="cursor:pointer ;" data-id="<?= $rm->id ?>" class="userinfo badge badge-primary"><i class="fa fa-eye"></i></span>
 
-                            <a href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $rm->id) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $rm->id) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                         </td>
                     </tr>
                 <?php endforeach ?>

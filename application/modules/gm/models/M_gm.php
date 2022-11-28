@@ -10,6 +10,11 @@ class M_gm extends CI_Model
         return $query;
     }
 
+    public function ambilData($table, $where)
+    {
+        return  $this->db->get_where($table, $where);
+    }
+
     public function updateData($data, $table, $where)
     {
         $this->db->where($where);
@@ -24,6 +29,16 @@ class M_gm extends CI_Model
          LEFT JOIN master_departement md on mb.departement_id  = md.id 
          LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
          WHERE mb.approve_acc = '" . $stat . "'
+         ");
+        return $query;
+    }
+
+    public function detailBudget($id)
+    {
+        $query = $this->db->query("SELECT mb.id_budget  , mb.tahun  , mpb.activity , mb.kode_budget ,mpb.kode_plant_activity  from master_budget mb 
+        left join master_planning_budget mpb ON mpb.master_budget_id_budget  = mb.id_budget
+        WHERE mb.id_budget = '" . $id . "'  
+        group  by mpb.activity 
          ");
         return $query;
     }

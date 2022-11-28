@@ -40,4 +40,43 @@ class Approved extends CI_Controller
             redirect('accounting/Approved/list_approve');
         }
     }
+
+    public function viewDetailPlant()
+    {
+        $id = $this->input->post("id");
+        $data['data']  = $this->model->detailBudget($id);
+        $this->load->view("detail_budget", $data);
+    }
+
+    public function editBudget()
+    {
+        $budget_lama = $this->input->post("budget_awal_real");
+        $budget_baru = $this->input->post("budget_baru_real");
+        $id          = $this->input->post("id_budget_update");
+
+        $updateData = [
+            'budget'   => $budget_baru,
+        ];
+
+        $this->db->where("id_budget", $id);
+        $this->db->update("master_budget", $updateData);
+        if ($this->db->affected_rows() > 0) {
+            $this->db->trans_commit();
+            $dataInput = [
+                'master_budget_id_budget'   => $id,
+                'budget_sebelumnya'         => $budget_lama,
+                'budget_update'             => $budget_baru,
+                'updated_at'                => date('Y-m-d H:i:s'),
+                'updated_by'                => $this->session->userdata("nik")
+            ];
+            $this->db->insert("transaksi_edit_budget", $dataInput);
+            $this->session->set_flashdata("ok", "Budget di perbaharui ");
+            redirect('accounting/Approved/list_approve');
+        } else {
+            $this->db->trans_rollback();
+            $this->session->set_flashdata("nok", "Gagal  , terjadi kesalahan");
+            redirect('accounting/Approved/list_approve');
+        }
+    }
 }
+

@@ -4,6 +4,7 @@ class Dashboard extends CI_Controller
 {
     public function index()
     {
+
         $data = [
             'uri'       => $this->uri->segment(2)
         ];

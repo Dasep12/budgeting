@@ -6,11 +6,8 @@
                     <li class="breadcrumb-item">
                         <a href="index.html">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item">
-                        Plant Budget
-                    </li>
                     <li class="breadcrumb-item active ">
-                        Daftar Plant Activity Budget
+                        Approved
                     </li>
                 </ol>
             </nav>
@@ -22,29 +19,29 @@
         <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
     </div>
     <div class="pb-20">
+
         <table class="data-table table hover nowrap">
             <thead>
                 <tr>
-                    <th class="table-plus datatable-nosort">Kode Budget</th>
-                    <th>Departement</th>
-                    <th>Tahun Budget</th>
-                    <th>Budget</th>
-                    <th>Activity</th>
-                    <th>Detail</th>
+                    <th class="table-plus datatable-nosort">Kode Request</th>
+                    <th>Tanggal Request</th>
+                    <th>Remarks</th>
+                    <th>Nilai Rupiah</th>
+                    <th>Status</th>
+                    <th>Opsi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($plant->result() as $pl) : ?>
+                <?php foreach ($raimbus->result() as $rm) : ?>
                     <tr>
-                        <td><?= $pl->kode_budget ?></td>
-                        <td><?= $pl->nama_departement ?></td>
-                        <td><?= $pl->tahun ?></td>
-                        <td><?= 'Rp. ' . number_format($pl->total, 0, ",", ".") ?></td>
-                        <td><?= $pl->activity ?></td>
+                        <td><?= $rm->request_code ?></td>
+                        <td><?= $rm->tanggal_request ?></td>
+                        <td><?= $rm->remarks ?></td>
+                        <?php $d = $this->model->TotalNilaiRaimbusment($rm->id)->row() ?>
+                        <td><?= 'Rp. ' . number_format($d->total, 0, ",", ".") ?></td>
+                        <td><?= $rm->ket ?></td>
                         <td>
-                            <button type="button" data-kode="<?= $pl->kp ?>" data-id="<?= $pl->id_budget ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                <i class="fa fa-eye"></i>
-                            </button>
+                            <a data-id="<?= $rm->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
                         </td>
                     </tr>
                 <?php endforeach ?>
@@ -53,11 +50,9 @@
     </div>
 </div>
 
-
-<!-- Modal -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
@@ -75,28 +70,33 @@
     </div>
 </div>
 <!--  -->
+
 <script>
     $(function() {
+
         $('.userinfo').click(function() {
             var userid = $(this).data('id');
-            var code = $(this).data('kode');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('departement/Plant_budget/viewDetailPlant') ?>",
+                url: "<?= base_url('manager/Approve_raimbusment/viewDetailRaimbes') ?>",
                 type: 'post',
                 data: {
-                    id: userid,
-                    code: code
+                    id: userid
+                },
+                beforeSend: function() {
+
+                },
+                complete: function() {
+
                 },
                 success: function(response) {
+                    // console.log(response)
                     // Add response in Modal body
                     $('.modal-body').html(response);
                     // Display Modal
-                    $('#exampleModal').modal('show');
+                    $('#empModal').modal('show');
                 }
             });
         });
-
-
     })
 </script>

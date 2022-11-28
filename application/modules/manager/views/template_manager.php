@@ -205,8 +205,8 @@
     <div class="left-side-bar">
         <div class="brand-logo">
             <a href="index.html">
-                <img src="<?= base_url('assets/') ?>vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
-                <img src="<?= base_url('assets/') ?>vendors/images/deskapp-logo-white.svg" alt="" class="light-logo" />
+                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="dark-logo" />
+                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="light-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
@@ -229,6 +229,20 @@
                             <li><a href="#">Input Budget</a></li>
                             <li><a href="#">Review Budget</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('manager/Approved/list_approve') ?>">Approved</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-file"></span><span class="mtext">RAIMBEST</span>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'list_approve_raim' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_raimbusment/list_approve_raim') ?>">Approval</a>
+                            </li>
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'histori_approve_raim' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_raimbusment/histori_approve_raim') ?>">History</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown">

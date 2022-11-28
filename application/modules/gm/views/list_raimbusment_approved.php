@@ -37,37 +37,34 @@
     </div>
     <div class="pb-20">
 
-        <table class="data-table table stripe hover nowrap table-bordered">
+        <table class="data-table table hover nowrap">
             <thead>
                 <tr>
-                    <th>Kode Budget</th>
-                    <th>Departement</th>
-                    <th>Tahun</th>
-                    <th>Total Budget</th>
-                    <th>Jenis Budget</th>
-                    <th>Action</th>
+                    <th class="table-plus datatable-nosort">Kode Request</th>
+                    <th>Tanggal Request</th>
+                    <th>Remarks</th>
+                    <th>Nilai Rupiah</th>
+                    <th>Opsi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1;
-                foreach ($daftar->result() as $df) : ?>
+                <?php foreach ($raimbus->result() as $rm) : ?>
                     <tr>
-                        <td><?= $df->kode_budget ?></td>
-                        <td><?= $df->nama_departement ?></td>
-                        <td><?= $df->tahun ?></td>
-                        <td><?= 'Rp. ' . number_format($df->budget, 0, ",", ".")  ?></td>
-                        <td><?= $df->jenis_budget ?></td>
-
+                        <td><?= $rm->request_code ?></td>
+                        <td><?= $rm->tanggal_request ?></td>
+                        <td><?= $rm->remarks ?></td>
+                        <?php $d = $this->model->TotalNilaiRaimbusment($rm->id)->row() ?>
+                        <td><?= 'Rp. ' . number_format($d->total, 0, ",", ".") ?></td>
                         <td>
                             <?php
-                            if ($df->approve_gm == 1 ||  $df->approve_gm == 2) { ?>
-                                <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
-                            <?php } else if ($df->approve_acc == 1 ||  $df->approve_gm == 0) { ?>
-                                <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                            if ($rm->approve_mgr == 1) { ?>
+                                <a data-id="<?= $rm->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                            <?php } else { ?>
+                                <a data-id="<?= $rm->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
-                                <a href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                                <a href="<?= base_url('manager/Approve_raimbusment/approve?id=' . $rm->id . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approve_raimbusment/approve?id_budget=' . $rm->id . '&kode=2') ?>" class="badge badge-danger">Reject</a>
 
-                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
                             <?php }
                             ?>
                         </td>
@@ -78,10 +75,9 @@
     </div>
 </div>
 
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
@@ -107,7 +103,7 @@
             var userid = $(this).data('id');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('gm/Approved/viewDetailPlant') ?>",
+                url: "<?= base_url('manager/Approve_raimbusment/viewDetailRaimbes') ?>",
                 type: 'post',
                 data: {
                     id: userid
@@ -119,7 +115,10 @@
 
                 },
                 success: function(response) {
+                    // console.log(response)
+                    // Add response in Modal body
                     $('.modal-body').html(response);
+                    // Display Modal
                     $('#empModal').modal('show');
                 }
             });

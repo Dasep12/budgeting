@@ -61,9 +61,10 @@
                         <td>
                             <?php
                             if ($df->approve == 1) { ?>
-                                <a href="#" class="badge badge-primary">Checked</a>
+                                <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
                             <?php } else { ?>
-                                <a href="#" class="badge badge-primary">Checked</a>
+                                <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+
                                 <a href="<?= base_url('manager/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
                                 <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
 
@@ -76,3 +77,54 @@
         </table>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body">
+                sedang mengambil data
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+
+<script>
+    $(function() {
+
+        $('.userinfo').click(function() {
+            var userid = $(this).data('id');
+            // AJAX request
+            $.ajax({
+                url: "<?= base_url('manager/Approved/viewDetailPlant') ?>",
+                type: 'post',
+                data: {
+                    id: userid
+                },
+                beforeSend: function() {
+
+                },
+                complete: function() {
+
+                },
+                success: function(response) {
+                    // console.log(response)
+                    // Add response in Modal body
+                    $('.modal-body').html(response);
+                    // Display Modal
+                    $('#empModal').modal('show');
+                }
+            });
+        });
+    })
+</script>

@@ -205,8 +205,8 @@
     <div class="left-side-bar">
         <div class="brand-logo">
             <a href="index.html">
-                <img src="<?= base_url('assets/') ?>vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
-                <img src="<?= base_url('assets/') ?>vendors/images/deskapp-logo-white.svg" alt="" class="light-logo" />
+                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="dark-logo" />
+                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="light-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
@@ -217,7 +217,7 @@
                 <ul id="accordion-menu">
                     <li class="dropdown">
                         <a href="<?= base_url('accounting/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
-                            <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
+                            <span class="micon bi bi-house"></span><span class="mtext">DASHBOARD</span>
                         </a>
                     </li>
                     <li class="dropdown">
