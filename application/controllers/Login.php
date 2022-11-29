@@ -38,6 +38,9 @@ class Login extends CI_Controller
                 case 'gm':
                     redirect('gm/Dashboard');
                     break;
+                case 'adm':
+                    redirect('admin/Dashboard');
+                    break;
 
                 default:
                     echo 'tidak  ada level';

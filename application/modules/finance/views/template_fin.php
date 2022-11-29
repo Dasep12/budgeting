@@ -204,9 +204,9 @@
 
     <div class="left-side-bar">
         <div class="brand-logo">
-            <a href="index.html">
-                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="dark-logo" />
-                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="light-logo" />
+            <a href="#">
+                <img style="height:60px;width:250px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="dark-logo" />
+                <img style="height:60px;width:250px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="light-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
