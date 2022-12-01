@@ -29,7 +29,7 @@ class M_finance extends CI_Model
         FROM master_budget mb 
          LEFT JOIN master_departement md on mb.departement_id  = md.id 
          LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-         WHERE mb.approve_mgr = '" . $stat . "'
+         WHERE mb.approve_gm = '" . $stat . "'
          ");
         return $query;
     }

@@ -60,19 +60,18 @@
 
                         <td>
                             <?php
-                            if ($df->approve_fin == 0 ||  $df->approve_acc == 2  ||  $df->approve_acc == 1) { ?>
+                            if ($df->approve_bc == 2  ||  $df->approve_bc == 1) { ?>
                                 <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
-                                <a data-kode="<?= $df->kode_budget ?>" data-budget="<?= $df->budget ?>" data-id="<?= $df->id_budget ?>" class="editUser badge badge-info text-white" data-toggle="modal" data-target="#editData">edit</a>
 
-                            <?php } else if ($df->approve_fin == 1 ||  $df->approve_acc == 0) { ?>
+                            <?php } else if ($df->approve_mgr == 1 ||  $df->approve_bc == 0) { ?>
+
+
                                 <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
-                                <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                <a href="<?= base_url('budgetControl/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
 
-                                <a href="<?= base_url('accounting/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-
-                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('accounting/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
+                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('budgetControl/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
 
                                 <a data-kode="<?= $df->kode_budget ?>" data-budget="<?= $df->budget ?>" data-id="<?= $df->id_budget ?>" class="editUser badge badge-info text-white" data-toggle="modal" data-target="#editData">edit</a>
 
@@ -99,7 +98,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
-            <div class="modal-body">
+            <div class="modal-body editBudgetModal">
                 sedang mengambil data
             </div>
             <div class="modal-footer">
@@ -120,7 +119,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
-            <form action="<?= base_url('accounting/Approved/editBudget') ?>" method="post">
+            <form action="<?= base_url('budgetControl/Approved/editBudget') ?>" method="post">
                 <div class="modal-body">
                     <label for="">Budget</label>
                     <input type="hidden" name="id_budget_update" id="id_budget_update">
@@ -162,7 +161,7 @@
             var userid = $(this).data('id');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('accounting/Approved/viewDetailPlant') ?>",
+                url: "<?= base_url('budgetControl/Approved/viewDetailPlant') ?>",
                 type: 'post',
                 data: {
                     id: userid
@@ -174,7 +173,7 @@
 
                 },
                 success: function(response) {
-                    $('.modal-body').html(response);
+                    $('.editBudgetModal').html(response);
                     $('#empModal').modal('show');
                 }
             });
@@ -184,7 +183,7 @@
         $('.editUser').click(function() {
             var id = $(this).data('id');
             var budget = $(this).data('budget');
-            document.getElementById('budget_awal').value = formatRupiah(budget, 'Rp. ');
+            document.getElementById('budget_awal').value = formatRupiah(budget.toString(), 'Rp. ');
             document.getElementById('budget_awal_real').value = budget;
             document.getElementById('id_budget_update').value = id;
         });

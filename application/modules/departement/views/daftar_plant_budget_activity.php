@@ -42,10 +42,10 @@
                         <td><?= 'Rp. ' . number_format($pl->budget, 0, ",", ".") ?></td>
                         <td><?= $pl->activity ?></td>
                         <td>
-                            <button type="button" data-kode="<?= $pl->kp ?>" data-id="<?= $pl->id_budget ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" data-id="<?= $pl->id_budget ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <button type="button" data-kode="<?= $pl->kp ?>" data-id="<?= $pl->id_budget ?>" class="approve_modal btn btn-sm btn-success" data-toggle="modal" data-target="#detailApprove">
+                            <button type="button" data-id="<?= $pl->id_budget ?>" class="approve_modal btn btn-sm btn-success" data-toggle="modal" data-target="#detailApprove">
                                 <i class="fa fa-file"></i>
                             </button>
                         </td>
@@ -68,7 +68,6 @@
                 </button> -->
             </div>
             <div class="modal-body approve_body">
-
 
             </div>
             <div class="modal-footer">
@@ -110,7 +109,6 @@
                 type: 'post',
                 data: {
                     id: userid,
-                    code: code
                 },
                 success: function(response) {
                     // Add response in Modal body

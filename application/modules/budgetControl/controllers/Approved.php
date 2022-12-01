@@ -6,7 +6,7 @@ class Approved extends CI_Controller
     public function __construct(Type $var = null)
     {
         parent::__construct();
-        $this->load->model('M_accounting', 'model');
+        $this->load->model('M_bc', 'model');
         date_default_timezone_set('Asia/Jakarta');
     }
 
@@ -16,28 +16,27 @@ class Approved extends CI_Controller
             'uri'       => $this->uri->segment(2),
             'daftar'    => $this->model->daftarApprove(1)
         ];
-        $this->template->load('template_acc', 'list_approved', $data);
+        $this->template->load('template_bc', 'list_approved', $data);
     }
 
     public function approve()
     {
         $id = $this->input->get("id_budget");
         $kode = $this->input->get("kode");
-
         $data = [
             'status'            => $kode,
-            'ket'               => $kode == 1 ? 'accept accounting' : 'reject accounting',
-            'date_approved_acc' => date('Y-m-d H:i:s'),
-            'approve_acc'      => $kode,
-            'approve_acc_user' => $this->session->userdata("nik")
+            'ket'               => $kode == 1 ? 'accept budget controller' : 'reject budget controller',
+            'date_approved_bc' => date('Y-m-d H:i:s'),
+            'approve_bc'       => $kode,
+            'approve_bc_user'  => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "master_budget", ['id_budget' => $id]);
         if ($update > 0) {
             $this->session->set_flashdata("ok", $kode == 1 ? 'budget telah di setujui' : 'budget telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
-            redirect('accounting/Approved/list_approve');
+            redirect('budgetControl/Approved/list_approve');
         } else {
             $this->session->set_flashdata("nok", "budget di tolak");
-            redirect('accounting/Approved/list_approve');
+            redirect('budgetControl/Approved/list_approve');
         }
     }
 
@@ -79,4 +78,3 @@ class Approved extends CI_Controller
         }
     }
 }
-

@@ -6,7 +6,7 @@ class Approve_raimbusment extends CI_Controller
     public function __construct(Type $var = null)
     {
         parent::__construct();
-        $this->load->model('M_accounting', 'model');
+        $this->load->model('M_bc', 'model');
         date_default_timezone_set('Asia/Jakarta');
     }
 
@@ -14,9 +14,9 @@ class Approve_raimbusment extends CI_Controller
     {
         $data = [
             'uri'        => $this->uri->segment(2),
-            'raimbus'    => $this->model->ambilData("transaksi_jenis_pembayaran", ['approve_acc' => 0])
+            'raimbus'    => $this->model->ambilData("transaksi_jenis_pembayaran", ['approve_bc' => 0])
         ];
-        $this->template->load('template_acc', 'list_raimbusment_approved', $data);
+        $this->template->load('template_bc', 'list_raimbusment_approved', $data);
     }
 
     public function approve()
@@ -24,19 +24,19 @@ class Approve_raimbusment extends CI_Controller
         $id = $this->input->get("id");
         $kode = $this->input->get("kode");
         $data = [
-            'status_approved'            => $kode,
-            'ket'               => $kode == 1 ? 'accept accounting' : 'reject accounting',
-            'date_approve_acc' => date('Y-m-d H:i:s'),
-            'approve_acc'       => $kode,
-            'approve_acc_user'  => $this->session->userdata("nik")
+            'status_approved'       => $kode,
+            'ket'                   => $kode == 1 ? 'accept budget controller' : 'reject budget controller',
+            'date_approve_bc'       => date('Y-m-d H:i:s'),
+            'approve_bc'            => $kode,
+            'approve_bc_user'       => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "transaksi_jenis_pembayaran", ['id' => $id]);
         if ($update > 0) {
             $this->session->set_flashdata("ok", "raimbes telah di setujui, silahkan konfirmasi ke pihak Finnance");
-            redirect('accounting/Approve_raimbusment/list_approve_raim');
+            redirect('budgetControl/Approve_raimbusment/list_approve_raim');
         } else {
             $this->session->set_flashdata("nok", "raimbes di tolak");
-            redirect('accounting/Approve_raimbusment/list_approve_raim');
+            redirect('budgetControl/Approve_raimbusment/list_approve_raim');
         }
     }
 
@@ -53,8 +53,8 @@ class Approve_raimbusment extends CI_Controller
     {
         $data = [
             'uri'       => $this->uri->segment(2),
-            'raimbus'    => $this->model->ambilData("transaksi_jenis_pembayaran", ['approve_acc  !=' => 0])
+            'raimbus'    => $this->model->ambilData("transaksi_jenis_pembayaran", ['approve_bc  !=' => 0])
         ];
-        $this->template->load('template_acc', 'histori_raimbusment_approved', $data);
+        $this->template->load('template_bc', 'histori_raimbusment_approved', $data);
     }
 }

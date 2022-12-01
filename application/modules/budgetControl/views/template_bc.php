@@ -216,7 +216,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li class="dropdown">
-                        <a href="<?= base_url('accounting/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
+                        <a href="<?= base_url('budgetControl/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
                             <span class="micon bi bi-house"></span><span class="mtext">DASHBOARD</span>
                         </a>
                     </li>
@@ -228,7 +228,7 @@
                             <li><a href="#">Total Budget</a></li>
                             <li><a href="#">Input Budget</a></li>
                             <li><a href="#">Review Budget</a></li>
-                            <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('accounting/Approved/list_approve') ?>">Approved</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Approved/list_approve') ?>">Approved</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

@@ -17,10 +17,12 @@
 <?php if ($this->session->flashdata("fail")) { ?>
     <div class="alert alert-danger">
         <span><?= $this->session->flashdata("fail") ?></span>
+        <?= $this->session->unset_userdata('fail') ?>
     </div>
 <?php } else if ($this->session->flashdata("ok")) { ?>
     <div class="alert alert-success">
         <span><?= $this->session->flashdata("ok") ?></span>
+        <?= $this->session->unset_userdata('ok') ?>
     </div>
 <?php } ?>
 <div class="pd-20 card-box mb-30">
@@ -86,7 +88,7 @@
                         <textarea id="improvement" name="improvement" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>ACCOUNT BAME</label>
+                        <label>ACCOUNT NAME</label>
                         <input id="account_bame" name="account_bame" class="form-control" placeholder="">
                     </div>
                     <div class="form-group">

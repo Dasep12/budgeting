@@ -32,8 +32,8 @@ class Login extends CI_Controller
                 case 'fin':
                     redirect('finance/Dashboard');
                     break;
-                case 'acc':
-                    redirect('accounting/Dashboard');
+                case 'bc':
+                    redirect('budgetControl/Dashboard');
                     break;
                 case 'gm':
                     redirect('gm/Dashboard');

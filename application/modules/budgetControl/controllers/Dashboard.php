@@ -7,6 +7,6 @@ class Dashboard extends CI_Controller
         $data = [
             'uri'       => $this->uri->segment(2)
         ];
-        $this->template->load('template_acc', 'dashboard', $data);
+        $this->template->load('template_bc', 'dashboard', $data);
     }
 }
