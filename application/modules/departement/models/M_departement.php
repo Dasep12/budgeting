@@ -44,7 +44,7 @@ class M_departement extends CI_Model
         // left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget  
         // inner join master_departement md on mb.departement_id = md.id 
         // WHERE mb.departement_id  = '" . $dept . "' ");
-        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget , mb.tahun , md.nama_departement  , mpb.activity  ,  sum(mpb.nilai_budget) as total , mpb.kode_plant_activity as kp
+        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget , mb.tahun , md.nama_departement  , mb.budget , mpb.activity  ,  sum(mpb.nilai_budget) as total , mpb.kode_plant_activity as kp
         from master_budget mb 
         left join master_planning_budget mpb on mb.id_budget  = mpb.master_budget_id_budget
         left join master_departement md  on md.id =  mb.departement_id 

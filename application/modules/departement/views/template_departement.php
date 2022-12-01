@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/') ?>src/plugins/datatables/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/') ?>src/plugins/datatables/css/responsive.bootstrap4.min.css" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/') ?>vendors/styles/style.css" />
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/') ?>src/styles/wizards.css" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/') ?>src/plugins/jquery-steps/jquery.steps.css" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/') ?>vendors/styles/icon-font.min.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -221,22 +222,12 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="<?= base_url('departement/Budget') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Budget' ? 'active' : '' ?>">
-                            <span class="micon bi bi-archive"></span><span class="mtext">Budget</span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="<?= base_url('departement/Input_Budget') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Input_Budget' ? 'active' : '' ?>">
-                            <span class="micon bi bi-archive"></span><span class="mtext">Input Budget</span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle show <?= $uri == 'Plant_budget' ? 'active ' : '' ?>">
                             <span class="micon bi bi-table"></span><span class="mtext">Plant Budget</span>
                         </a>
                         <ul class="submenu show ">
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'form_input_plant' ? 'active ' : '' ?>" href="<?= base_url('departement/Plant_budget/form_input_plant') ?>">Input Plant Actvity Budget</a>
+                                <a class="<?= $this->uri->segment(2) == 'Input_Budget' ? 'active ' : '' ?>" href="<?= base_url('departement/Input_Budget') ?>">Input Plant Actvity Budget</a>
                             </li>
                             <li>
                                 <a class="<?= $this->uri->segment(3)  == 'list_budget' ? 'active ' : '' ?>" href="<?= base_url('departement/Plant_budget/list_budget') ?>">Daftar Plant Actvity Budget</a>
@@ -261,25 +252,8 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file"></span><span class="mtext">Trans Patty Cash</span>
-                        </a>
-                        <ul class="submenu">
-                            <li class="dropdown">
-                                <a href="<?= base_url('Dashboard') ?>">
-                                    Payment Voucher
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="<?= base_url('departement/Dashboard') ?>">
-                                    Panjer
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
                         <a href="<?= base_url('departement/Raimbusment/form_raimbusment') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Raimbusment' ? 'active' : '' ?>">
-                            <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Raimbusment</span>
+                            <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Payment Voucher</span>
                         </a>
                     </li>
                     <li class="dropdown">
@@ -317,5 +291,6 @@
 </body>
 
 <script src="<?= base_url('assets/') ?>vendors/scripts/script.min.js"></script>
+<script src="<?= base_url('assets/') ?>src/scripts/wizards.js"></script>
 
 </html>

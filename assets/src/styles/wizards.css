@@ -1,0 +1,93 @@
+ /* Style the form */
+ 
+  /* Style the input fields */
+  input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+  }
+  
+  /* Mark input boxes that gets an error on validation: */
+  input.invalid {
+    background-color: #ffdddd;
+  }
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  /* Mark the active step: */
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #04AA6D;
+  } 
+
+
+  /* timeline */
+  
+/* Timeline Container */
+.timeline_approve {
+  background: var(--primary-color);
+  margin: 20px auto;
+  padding:20px;
+}
+
+/* Outer Layer with the timeline border */
+.outer_approve {
+  border-left: 2px solid #333;
+}
+/* Card container */
+.card_approve {
+  position: relative;
+  margin: 0 0 20px 20px;
+  padding: 10px;
+  background: #333;
+  color: gray;
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+/* Information about the timeline */
+.info_approve {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Title of the card */
+.title_approve {
+  color: orangered;
+  position: relative;
+}
+
+/* Timeline dot  */
+.title_approve::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 999px;
+  left: -38px;
+  border: 3px solid orangered;
+}
+  /* end */

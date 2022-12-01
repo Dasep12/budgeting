@@ -24,7 +24,7 @@ class Input_Budget extends CI_Controller
 
 
 
-    public function input()
+    public function input_v1()
     {
         $tahun          = $this->input->post("tahun_budget");
         $kode           = $this->input->post("kode_budget");
@@ -58,6 +58,7 @@ class Input_Budget extends CI_Controller
             'created_by'                => $this->session->userdata("nik"),
         ];
 
+
         $save =  $this->model->insert("master_budget", $data);
         if ($save) {
             $this->session->set_flashdata("ok", "Budget di ajukan , menunggu approval");
@@ -65,6 +66,74 @@ class Input_Budget extends CI_Controller
         } else {
             $this->session->set_flashdata("fail", "gagal input");
             redirect('departement/Input_Budget');
+        }
+    }
+
+    public function input(Type $var = null)
+    {
+        $tahun               = $this->input->post("tahun_budget");
+        $kode                = $this->input->post("kode_budget");
+        $jenis               = $this->input->post("jenis_budget");
+        $kpi                 = $this->input->post("kpi");
+        $target_kpi          = $this->input->post("target_kpi");
+        $pic                 = $this->input->post("pic");
+        $improvement         = $this->input->post("improvement");
+        $budget              = $this->input->post("budget");
+        $account_bame        = $this->input->post("account_bame");
+        $description         = $this->input->post("description");
+        $sub_jenis_budget    = $this->input->post("sub_jenis_budget");
+
+        $data = [
+            'tahun'                      => $tahun,
+            'kode_budget'                => $kode,
+            'master_jenis_budget_id'     => $jenis,
+            'target_kpi'                 => $target_kpi,
+            'pic'                        => $pic,
+            'kpi'                        => $kpi,
+            'improvment'                 => $improvement,
+            'budget'                     => $budget,
+            'description'                => $description,
+            'account_bame'               => $account_bame,
+            'created_at'                 => date('Y-m-d H:i:s'),
+            'departement_id'             => $this->session->userdata("departement_id"),
+            'status'                     => 0,
+            'ket'                        => 'menunggu approve manager',
+            'master_sub_jenis_budget_id' => $sub_jenis_budget,
+            'created_by'                 => $this->session->userdata("nik"),
+        ];
+
+        $this->db->insert("master_budget", $data);
+        if ($this->db->affected_rows() > 0) {
+            $this->db->trans_commit();
+            $id = $this->db->insert_id();
+            $listbulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            $bulan    = $this->input->post("bulan");
+            $activity = $this->input->post("activity");
+            $params = array();
+            for ($i = 0; $i < count($bulan); $i++) {
+                $data2 = [
+                    'bulan'                     => $listbulan[$i],
+                    'nilai_budget'              => $bulan[$i],
+                    'master_budget_id_budget'   => $id,
+                    'activity'                  => $activity,
+                    'status'                    => 0,
+                    'created_at'                => date('Y-m-d H:i:s'),
+                    'created_by'                => $this->session->userdata('nik')
+                ];
+                array_push($params, $data2);
+            };
+            $save = $this->model->multiInsert($params, "master_planning_budget");
+            if ($save > 0) {
+                $this->session->set_flashdata("ok", "Planing budget di simpan");
+                redirect('departement/Input_budget');
+            } else {
+                $this->session->set_flashdata("nok", "Planing budget gagal simpan");
+                redirect('departement/Input_budget');
+            }
+        } else {
+            $this->db->trans_rollback();
+            $this->session->set_flashdata("nok", "Gagal  , terjadi kesalahan");
+            redirect('departement/Input_budget');
         }
     }
 }
