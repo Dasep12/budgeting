@@ -79,28 +79,20 @@
                 </table>
             </div>
             <div class="col6" style="width:35%;justify-content: center;margin-left:5px;align-items:center">
-                <h4 style="text-align: center;">PT RAVALIA INTI MANDIRI<br><u>PAYMENT VOUCHER</u></h4>
-                <h6 style="text-align: center;">Date : 2022-10-11 </h6>
+                <h4 style="text-align: center;">PT BENECOM TRICOM<br><u>PAYMENT VOUCHER</u></h4>
             </div>
             <div class="col6">
-                <table class="table" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th colspan="2">Finance Division</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="height: 90px;border-bottom: none"></td>
-                            <td style="border-bottom: none;"></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td style="border:none ;">Manager</td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
+                <table class="table2" style="width: 100%;">
+                    <tr>
+                        <td style="width:32% ;">Date</td>
+                        <td>:</td>
+                        <td></td>
+                    <tr>
+                    <tr>
+                        <td>NO BK</td>
+                        <td>:</td>
+                        <td></td>
+                    <tr>
                 </table>
             </div>
         </div>
@@ -110,56 +102,72 @@
             <table class="table" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th colspan="2">Debit</th>
+                        <th colspan="4">Debit</th>
                         <th rowspan="2">Particullars</th>
-                        <th colspan="2">Credit</th>
+                        <th colspan="4">Credit</th>
                     </tr>
                     <tr>
-                        <th>Ammount</th>
-                        <th>Acc No</th>
-                        <th>Acc</th>
-                        <th>Ammount</th>
+                        <th colspan="2">Ammount</th>
+                        <th colspan="2">Acc No</th>
+                        <th colspan="2">Acc No</th>
+                        <th colspan="2">Ammount</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $total = 0;
+
                     foreach ($raim as $r) : ?>
                         <tr>
-                            <td><?= 'Rp.' . number_format($r->ammount, 0, ",", ".")  ?></td>
-                            <td style="width:40px;"></td>
+                            <td colspan="2"><?= 'Rp.' . number_format($r->ammount, 0, ",", ".")  ?></td>
+                            <td colspan="2" style="width:40px;"></td>
                             <td><?= $r->particullar ?></td>
-                            <td></td>
-                            <td></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
                         </tr>
                         <?php $total += $r->ammount; ?>
                     <?php endforeach ?>
                     <tr>
-                        <td><?= 'Rp.' . number_format($total, 0, ",", ".")  ?></td>
-                        <td>Total</td>
+                        <td colspan="2"><?= 'Rp.' . number_format($total, 0, ",", ".")  ?></td>
+                        <td colspan="2">Total</td>
                         <td></td>
-                        <td>Total</td>
-                        <td></td>
+                        <td colspan="2">Total</td>
+                        <td colspan="2"></td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td style="height: 40px;width:20px;"> TERBILANG</td>
-                        <td align="center" colspan="4"><?= strtoupper(penyebut($total) . ' RUPIAH') ?></td>
+                        <td align="center" colspan="8"><?= strtoupper(penyebut($total) . ' RUPIAH') ?></td>
                     </tr>
                     <tr>
-                        <td colspan="5"></td>
+                        <td colspan="9"></td>
                     </tr>
                     <tr>
-                        <td colspan="2" rowspan="2">Remarks</td>
-                        <td style="width:40px;">Section</td>
-                        <td style="width:40px;">Dept.Manager</td>
-                        <td style="width:40px;">Director</td>
+                        <td colspan="3" rowspan="2">Remarks</td>
+                        <td align="center" colspan="4">Approved</td>
+                        <td align="center" rowspan="2">Checked</td>
+                        <td align="center" rowspan="2">Prepared</td>
                     </tr>
                     <tr>
-                        <td align="center" style="height:70px;">
-                            <img height="90px" width="90px" src="./assets/ttd/tanda.png" alt=""><br>
-                            Ahmad Febri Hartanto
-                        </td>
+                        <td align="center">Director</td>
+                        <td align="center">General Manager</td>
+                        <td align="center">Finance </td>
+                        <td align="center">Accounting</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" colspan="3"><?= $remarks->remarks ?></td>
+                        <td style="height:60px ;"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="height:20px ;"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>

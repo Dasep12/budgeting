@@ -25,7 +25,8 @@
         <table class="data-table table hover nowrap">
             <thead>
                 <tr>
-                    <th class="table-plus datatable-nosort">Kode Budget</th>
+                    <!-- <th>Tanggal</th> -->
+                    <th class="table-sm small table-plus datatable-nosort">Kode Budget</th>
                     <th>Departement</th>
                     <th>Tahun Budget</th>
                     <th>Budget</th>
@@ -36,6 +37,7 @@
             <tbody>
                 <?php foreach ($plant->result() as $pl) : ?>
                     <tr>
+                        <!-- <td><?= $pl->created_at ?></td> -->
                         <td><?= $pl->kode_budget ?></td>
                         <td><?= $pl->nama_departement ?></td>
                         <td><?= $pl->tahun ?></td>
@@ -80,7 +82,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detail</h5>

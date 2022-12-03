@@ -232,6 +232,9 @@
                             <li>
                                 <a class="<?= $this->uri->segment(3)  == 'list_budget' ? 'active ' : '' ?>" href="<?= base_url('departement/Plant_budget/list_budget') ?>">Daftar Plant Actvity Budget</a>
                             </li>
+                            <li>
+                                <a class="<?= $this->uri->segment(2) == 'Input_Budget' ? 'active ' : '' ?>" href="<?= base_url('departement/Input_Budget') ?>">Request Tambah Budget</a>
+                            </li>
                         </ul>
                     </li>
 

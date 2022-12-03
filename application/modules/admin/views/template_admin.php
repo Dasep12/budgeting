@@ -216,7 +216,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li class="dropdown">
-                        <a href="<?= base_url('departement/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
+                        <a href="<?= base_url('admin/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
                             <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
                         </a>
                     </li>
@@ -238,6 +238,11 @@
                                 <a class="<?= $uri == 'AccountName' ? 'active ' : '' ?>" href="<?= base_url('admin/AccountName') ?>">Account Name</a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="<?= base_url('admin/Pengguna') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Pengguna' ? 'active' : '' ?>">
+                            <span class="micon bi bi-people"></span><span class="mtext">User</span>
+                        </a>
                     </li>
                 </ul>
             </div>

@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label>IMPROVEMENT</label>
+                        <label>IMPROVMENT</label>
                         <textarea id="improvement" name="improvement" class="form-control"></textarea>
                     </div>
                     <div class="form-group">

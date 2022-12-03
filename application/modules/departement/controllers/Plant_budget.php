@@ -59,7 +59,8 @@ class Plant_budget extends CI_Controller
     {
         $id = $this->input->post("id");
         $data = [
-            'data'  => $this->model->ambilData("master_planning_budget", ['master_budget_id_budget' => $id])
+            'data'      => $this->model->ambilData("master_planning_budget", ['master_budget_id_budget' => $id]),
+            'detail'    => $this->model->DetaildaftarPlantBudgetDepartement($id)->row()
         ];
         $this->load->view("detail_plant", $data);
     }
