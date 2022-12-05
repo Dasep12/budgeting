@@ -41,139 +41,102 @@
         </div>
     </div>
 
-    <form id="regForm" action="<?= base_url('departement/Actual_budget/input') ?>" method="post" onsubmit="return cek()">
-        <div class="tab">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>TAHUN BUDGET</label>
-                        <input type="hidden" id="id_planning_budget" name="id_planning">
-                        <select id="tahun_budget" name="tahun_budget" class="form-control">
-                            <option value="">Pilih Tahun</option>
-                            <option>2022</option>
-                            <option>2023</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>JENIS BUDGET</label>
-                        <select id="jenis_budget" name="jenis_budget" class="form-control">
-                            <option value="">Pilih Jenis Budget</option>
-                            <?php foreach ($jenis as $jn) : ?>
-                                <option value="<?= $jn->id ?>"><?= $jn->jenis_budget ?></option>
-                            <?php endforeach ?>
-                        </select>
-                        <div id="load_kode" style="display:none ;">
-                            <span class="text-danger font-italic small">mengambil kode budget . . .</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>KODE BUDGET</label>
-                        <select name="kode_budget" id="kode_budget" class="form-control">
-                            <option value="">Pilih Kode Budget</option>
-                        </select>
-                        <div id="load_budget_nilai" style="display:none ;">
-                            <span class="text-danger font-italic small">mengambil nilai budget . . .</span>
-                        </div>
-                    </div>
-
-
-
+    <form action="<?= base_url('departement/Actual_budget/input') ?>" method="post" onsubmit="return cek()">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>TAHUN BUDGET</label>
+                    <input type="hidden" id="id_planning_budget" name="id_planning">
+                    <select id="tahun_budget" name="tahun_budget" class="form-control">
+                        <option value="">Pilih Tahun</option>
+                        <option>2022</option>
+                        <option>2023</option>
+                    </select>
                 </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>BULAN</label>
-                        <select id="bulan_budget" name="bulan_budget" class="form-control">
-                            <option value="">Pilih Bulan</option>
-                            <option>JANUARI</option>
-                            <option>FEBRUARI</option>
-                            <option>MARET</option>
-                            <option>APRIL</option>
-                            <option>MEI</option>
-                            <option>JUNI</option>
-                            <option>JULI</option>
-                            <option>AGUSTUS</option>
-                            <option>SEPTEMBER</option>
-                            <option>OKTOBER</option>
-                            <option>NOVEMBER</option>
-                            <option>DESEMBER</option>
-                        </select>
+                <div class="form-group">
+                    <label>JENIS BUDGET</label>
+                    <select id="jenis_budget" name="jenis_budget" class="form-control">
+                        <option value="">Pilih Jenis Budget</option>
+                        <?php foreach ($jenis as $jn) : ?>
+                            <option value="<?= $jn->id ?>"><?= $jn->jenis_budget ?></option>
+                        <?php endforeach ?>
+                    </select>
+                    <div id="load_kode" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil kode budget . . .</span>
                     </div>
-                    <div class="form-group">
-                        <label>BUDGET TERSEDIA</label>
-                        <input type="hidden" name="budget_real" id="budget_real">
-                        <input readonly class="form-control" id="budget" name="budget" type="text" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label>KODE BUDGET</label>
+                    <select name="kode_budget" id="kode_budget" class="form-control">
+                        <option value="">Pilih Kode Budget</option>
+                    </select>
+                    <div id="load_budget_nilai" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil nilai budget . . .</span>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label>BUDGET</label>
+                    <input type="hidden" name="budget_real" id="budget_real">
+                    <input readonly class="form-control" id="budget" name="budget" type="text" placeholder="">
+                </div>
 
 
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>BULAN</label>
+                    <select id="bulan_budget" name="bulan_budget" class="form-control">
+                        <option value="">Pilih Bulan</option>
+                        <option>JANUARI</option>
+                        <option>FEBRUARI</option>
+                        <option>MARET</option>
+                        <option>APRIL</option>
+                        <option>MEI</option>
+                        <option>JUNI</option>
+                        <option>JULI</option>
+                        <option>AGUSTUS</option>
+                        <option>SEPTEMBER</option>
+                        <option>OKTOBER</option>
+                        <option>NOVEMBER</option>
+                        <option>DESEMBER</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>ACTIVITY</label>
+                    <select name="tipe_trans" class="form-control" id="tipe_trans">
+                        <option value="">Pilih Activity</option>
+                        <option value="01">RAIMBUSMENT</option>
+                        <option value="02">PAYMENT VOUCHER</option>
+                        <option value="03">PATTY CASH</option>
+                    </select>
+                    <div id="load_code_request" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil kode request. . .</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>KODE REQUEST</label>
+                    <select name="code_request" class="form-control" id="code_request">
+                        <option value="">Pilih Code Request</option>
+                    </select>
+                    <div id="load_nil" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil nilai. . .</span>
+                    </div>
+                    <input type="hidden" placeholder="id raimbusment" name="id_raimbus" id="id_raimbus">
+                    <input type="hidden" placeholder="total raimbusment" name="n_raimbus" id="n_raimbus">
+                </div>
+
+                <div class="form-group">
+                    <label>NILAI</label>
+                    <input readonly class="form-control" id="nilai_raimbusment" name="nilai_raimbusment" type="text" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    <button type="reset" class="btn btn-danger btn-sm">Reset</button>
                 </div>
             </div>
-        </div>
-
-        <div class="tab">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>REQUEST CODE</label>
-                        <input readonly class="form-control" value="<?= $code_dept ?>" id="request_code" name="request_code" type="text" placeholder="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>PARTICULLARS</label>
-                        <a href="" class="add_field_button badge badge-success badge-sm">Tambah</a>
-                        <input class="form-control" id="particullar" name="particullar[]" type="text" placeholder="">
-                    </div>
-                    <div class="form-group input_fields_wrap">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>REMARKS</label>
-                        <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
-                    </div>
-
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="">JENIS TRANSAKSI</label>
-                        <select class="form-control" name="jenis_transaksi" id="jenis_transaksi">
-                            <option value="">PILIH JENIS TRANSAKSI</option>
-                            <?php foreach ($jenis_transaksi as $jn) : ?>
-                                <option><?= $jn->jenis_transaksi ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>TANGGAL REQUEST</label>
-                        <input class="form-control" id="tanggal" name="tanggal" type="date" placeholder="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>AMMOUNT</label>
-                        <input class="form-control" id="ammount" name="ammount[]" type="text" placeholder="">
-                    </div>
-
-                    <div class="add_ammount">
-
-                    </div>
-
-                    <div class="form-group ">
-                        <label>LAMPIRAN</label>
-                        <input required class="form-control" type="file" name="lampiran" id="lampiran">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="overflow:auto;">
-            <div style="float:right;">
-                <button type="button" class="btn btn-sm btn-success" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button type="button" class="btn btn-sm btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
-            </div>
-        </div>
-
-        <!-- Circles which indicates the steps of the form: -->
-        <div style="text-align:center;margin-top:40px;">
-            <span class="step"></span>
-            <span class="step"></span>
         </div>
     </form>
 </div>
@@ -324,27 +287,4 @@
         }
         return;
     }
-
-    $(document).ready(function() {
-        var wrapper = $(".input_fields_wrap"); //Fields wrapper
-        var ammount = $(".add_ammount"); //Fields wrapper
-        var add_button = $(".add_field_button"); //Add button ID
-        var x = 1; //initlal text box count
-        $(add_button).click(function(e) { //on add input button click
-            e.preventDefault();
-
-            $(wrapper).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" name="particullar[]" class="form-control"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
-
-            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]" class="form-control"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
-        });
-
-        $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
-            e.preventDefault();
-            $(this).parent('div').remove();
-        })
-        $(ammount).on("click", ".remove_field2 ", function(e) { //user click on remove text
-            e.preventDefault();
-            $(this).parent('div').remove();
-        })
-    });
 </script>

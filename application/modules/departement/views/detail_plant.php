@@ -1,39 +1,39 @@
 <div class="row">
     <div class="col-lg-6">
-        <table class="small" style="width:100% ;border-collapse:collapse;border:1px solid #000">
+        <table class="" style="width:100% ;">
 
             <tbody>
-                <tr style="border-collapse:collapse;border:1px solid #000">
+                <tr>
                     <td>Kode Budget</td>
                     <td>:</td>
                     <td><?= $detail->kode_budget ?></td>
                 </tr>
-                <tr style="border-collapse:collapse;border:1px solid #000">
+                <tr>
                     <td>Tahun Budget</td>
                     <td>:</td>
                     <td><?= $detail->tahun ?></td>
                 </tr>
-                <tr style="border-collapse:collapse;border:1px solid #000">
+                <tr>
                     <td>Departement</td>
                     <td>:</td>
                     <td><?= $detail->nama_departement ?></td>
                 </tr>
-                <tr style="border-collapse:collapse;border:1px solid #000">
+                <tr>
                     <td>Jenis Budget</td>
                     <td>:</td>
                     <td><?= $detail->jenis_budget ?></td>
                 </tr>
-                <tr style="border-collapse:collapse;border:1px solid #000">
+                <tr>
                     <td>Improvment</td>
                     <td>:</td>
                     <td><?= $detail->improvment ?></td>
                 </tr>
-                <tr style="border-collapse:collapse;border:1px solid #000">
+                <tr>
                     <td>Pic</td>
                     <td>:</td>
                     <td><?= $detail->pic ?></td>
                 </tr>
-                <tr style="border-collapse:collapse;border:1px solid #000">
+                <tr>
                     <td>Budget</td>
                     <td>:</td>
                     <td><?= 'Rp. ' . number_format($detail->budget, 0, ",", ".") ?></td>
@@ -42,7 +42,7 @@
         </table>
     </div>
     <div class="col-lg-6">
-        <table class="small" style="width:100% ;border-collapse:collapse;border:1px solid #000">
+        <table class="" style="width:100% ;border-collapse:collapse;border:1px solid #000">
             <thead>
                 <tr>
                     <th>Activity</th>

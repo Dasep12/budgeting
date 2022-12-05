@@ -20,8 +20,12 @@ class Actual_budget extends CI_Controller
 
     public function form_input_actual()
     {
+        $code_dept = $this->db->query(" SELECT kode_departement as code FROM master_departement WHERE id='" . $this->session->userdata("departement_id") . "' ")->row();
+
         $data = [
-            'uri'       => $this->uri->segment(2),
+            'uri'               => $this->uri->segment(2),
+            'jenis_transaksi'   => $this->model->getData("master_jenis_transaksi")->result(),
+            'code_dept'     => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
             'jenis'     => $this->model->getData("master_jenis_budget")->result()
         ];
         $this->template->load('template_departement', 'input_actual_activity', $data);

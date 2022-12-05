@@ -233,7 +233,7 @@
                                 <a class="<?= $this->uri->segment(3)  == 'list_budget' ? 'active ' : '' ?>" href="<?= base_url('departement/Plant_budget/list_budget') ?>">Daftar Plant Actvity Budget</a>
                             </li>
                             <li>
-                                <a class="<?= $this->uri->segment(2) == 'Input_Budget' ? 'active ' : '' ?>" href="<?= base_url('departement/Input_Budget') ?>">Request Tambah Budget</a>
+                                <a class="<?= $this->uri->segment(2) == 'TambahBudget' ? 'active ' : '' ?>" href="<?= base_url('departement/TambahBudget') ?>">Request Tambah Budget</a>
                             </li>
                         </ul>
                     </li>
@@ -254,11 +254,12 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="<?= base_url('departement/Raimbusment/form_raimbusment') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Raimbusment' ? 'active' : '' ?>">
                             <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Payment Voucher</span>
                         </a>
-                    </li>
+                    </li> -->
+
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-file-pdf"></span><span class="mtext">Report</span>
