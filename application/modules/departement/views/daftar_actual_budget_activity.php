@@ -25,21 +25,25 @@
         <table class="data-table table hover nowrap">
             <thead>
                 <tr>
+                    <th>Departement</th>
                     <th>Tanggal</th>
-                    <th>Kode Budget</th>
-                    <th>Jenis Budget</th>
-                    <th>Tahun Budget</th>
-                    <th>Budget Digunakan</th>
+                    <th>Kode Request</th>
+                    <th>Jenis Transaksi</th>
+                    <th>Remarks</th>
+                    <th>Detail</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($daftar->result() as $df) : ?>
                     <tr>
-                        <td><?= $df->tanggal_transaksi ?></td>
-                        <td><?= $df->kode_budget ?></td>
-                        <td><?= $df->jenis_budget ?></td>
-                        <td><?= $df->tahun ?></td>
-                        <td><?= 'Rp. ' . number_format($df->nilai_budget, 0, ",", ".") ?></td>
+                        <td><?= $df->nama_departement ?></td>
+                        <td><?= $df->tanggal_request ?></td>
+                        <td><?= $df->request_code ?></td>
+                        <td><?= $df->jenis_transaksi ?></td>
+                        <td><?= $df->remarks  ?></td>
+                        <td>
+                            <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>

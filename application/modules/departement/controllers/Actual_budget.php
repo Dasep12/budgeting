@@ -6,6 +6,7 @@ class Actual_budget extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_departement', 'model');
+        $this->load->helper('convertbulan');
         date_default_timezone_set('Asia/Jakarta');
     }
 
@@ -24,9 +25,10 @@ class Actual_budget extends CI_Controller
 
         $data = [
             'uri'               => $this->uri->segment(2),
+            'bulan'             => convertbulan(date('m')),
             'jenis_transaksi'   => $this->model->getData("master_jenis_transaksi")->result(),
-            'code_dept'     => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
-            'jenis'     => $this->model->getData("master_jenis_budget")->result()
+            'code_dept'         => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
+            'jenis'             => $this->model->getData("master_jenis_budget")->result()
         ];
         $this->template->load('template_departement', 'input_actual_activity', $data);
     }
@@ -86,26 +88,52 @@ class Actual_budget extends CI_Controller
     public function input(Type $var = null)
     {
 
-        $kode_planning = $this->input->post("id_planning");
-        $activity      = $this->input->post("activity");
-        $budget        = $this->input->post("use_budget");
-        $data =  [
-            'master_planning_budget_id_planing'    => $kode_planning,
-            'nilai_budget'                         => $budget,
-            'activity'                             => $activity,
-            'created_at'                           => date('Y-m-d H:i:s'),
-            'created_by'                           => $this->session->userdata("nik"),
-            'status'                               => 1,
-            'tanggal_transaksi'                    => date('Y-m-d')
-        ];
 
-        $save = $this->model->insert("transaksi_actual_budget", $data);
-        if ($save > 0) {
-            $this->session->set_flashdata("ok", "berhasil di input");
-            redirect('departement/Actual_budget/form_input_actual');
+        $ammount        = $this->input->post("ammount");
+        $particullars   = $this->input->post("particullar");
+        $part           = array();
+        $config['upload_path']          = './assets/lampiran/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['file_name']            = str_replace('.', '', $this->session->userdata("nik") . rand(98, 98));
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('lampiran')) {
+            $data['error'] = $this->upload->display_errors();
+            echo $this->upload->display_errors();
         } else {
-            $this->session->set_flashdata("nok", "gagal di input");
-            redirect('departement/Actual_budget/form_input_actual');
+            $data = [
+                'master_departement_id'          => $this->session->userdata("departement_id"),
+                'master_jenis_transaksi_id'      => $this->input->post("jenis_transaksi"),
+                'request_code'                   => $this->input->post("request_code"),
+                'tanggal_request'                => $this->input->post("tanggal"),
+                'remarks'                        => $this->input->post("remarks"),
+                'status_approved'                => 0,
+                'lampiran'                       => $this->upload->data('file_name'),
+                'approve_mgr'                    => 0,
+                'ket'                            => "menunggu approved manager",
+                'created_at'                     => date('Y-m-d H:i:s'),
+                'created_by'                     => $this->session->userdata("nik")
+            ];
+
+            $this->db->insert("transaksi_jenis_pembayaran", $data);
+            if ($this->db->affected_rows() > 0) {
+                $this->db->trans_commit();
+                $id = $this->db->insert_id();
+                for ($i = 0; $i < count($ammount); $i++) {
+                    $arr = [
+                        'ammount'                          => $ammount[$i],
+                        'particullar'                      => $particullars[$i],
+                        'transaksi_jenis_pembayaran_id'    => $id
+                    ];
+                    array_push($part, $arr);
+                }
+                $this->db->insert_batch("trans_detail_jenis_pembayaran", $part);
+                $this->session->set_flashdata("ok", "berhasil di input");
+                redirect('departement/Actual_budget/form_input_actual');
+            } else {
+                $this->db->trans_rollback();
+                $this->session->set_flashdata("nok", "gagal di input");
+                redirect('departement/Actual_budget/form_input_actual');
+            }
         }
     }
 }

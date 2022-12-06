@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <form id="regForm" action="<?= base_url('departement/Actual_budget/input') ?>" method="post" onsubmit="return cek()">
+    <form id="regForm" enctype="multipart/form-data" action="<?= base_url('departement/Actual_budget/input') ?>" method="post" onsubmit="return cek()">
         <div class="tab">
             <div class="row">
                 <div class="col-lg-6">
@@ -76,35 +76,17 @@
                         </div>
                     </div>
 
-
-
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>BULAN</label>
-                        <select id="bulan_budget" name="bulan_budget" class="form-control">
-                            <option value="">Pilih Bulan</option>
-                            <option>JANUARI</option>
-                            <option>FEBRUARI</option>
-                            <option>MARET</option>
-                            <option>APRIL</option>
-                            <option>MEI</option>
-                            <option>JUNI</option>
-                            <option>JULI</option>
-                            <option>AGUSTUS</option>
-                            <option>SEPTEMBER</option>
-                            <option>OKTOBER</option>
-                            <option>NOVEMBER</option>
-                            <option>DESEMBER</option>
-                        </select>
+                        <input type="text" readonly value="<?= $bulan ?>" class="form-control" name="bulan_budget" id="bulan_budget">
                     </div>
                     <div class="form-group">
                         <label>BUDGET TERSEDIA</label>
                         <input type="hidden" name="budget_real" id="budget_real">
                         <input readonly class="form-control" id="budget" name="budget" type="text" placeholder="">
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -113,10 +95,19 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label>REQUEST CODE</label>
+                        <label>KODE TRANSAKSI</label>
                         <input readonly class="form-control" value="<?= $code_dept ?>" id="request_code" name="request_code" type="text" placeholder="">
                     </div>
 
+                    <div class="form-group">
+                        <label>TO</label>
+                        <input class="form-control" id="to" name="to" type="text" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>REKENING</label>
+                        <input class="form-control" id="rekening" name="rekening" type="text" placeholder="">
+                    </div>
                     <div class="form-group">
                         <label>PARTICULLARS</label>
                         <a href="" class="add_field_button badge badge-success badge-sm">Tambah</a>
@@ -131,20 +122,28 @@
                         <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
                     </div>
 
+
+
                 </div>
                 <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>TANGGAL REQUEST</label>
+                        <input class="form-control" id="tanggal" name="tanggal" type="date" placeholder="">
+                    </div>
+
                     <div class="form-group">
                         <label for="">JENIS TRANSAKSI</label>
                         <select class="form-control" name="jenis_transaksi" id="jenis_transaksi">
                             <option value="">PILIH JENIS TRANSAKSI</option>
                             <?php foreach ($jenis_transaksi as $jn) : ?>
-                                <option><?= $jn->jenis_transaksi ?></option>
+                                <option value="<?= $jn->id ?>"><?= $jn->jenis_transaksi ?></option>
                             <?php endforeach ?>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label>TANGGAL REQUEST</label>
-                        <input class="form-control" id="tanggal" name="tanggal" type="date" placeholder="">
+                        <label>BANK</label>
+                        <input class="form-control" id="bank" name="bank" type="text" placeholder="">
                     </div>
 
                     <div class="form-group">
@@ -235,7 +234,7 @@
     $('select[name=kode_budget').on('change', function() {
         var kode = $("select[name=kode_budget] option:selected").val();
         var tahun = $("select[name=tahun_budget] option:selected").val();
-        var bulan = $("select[name=bulan_budget] option:selected").val();
+        var bulan = document.getElementById("bulan_budget").value;
         $.ajax({
             url: "<?= base_url('departement/Actual_budget/getBudget') ?>",
             method: "GET",
@@ -253,66 +252,42 @@
                     alert('err');
                 } else {
                     const data = JSON.parse(e);
+                    console.log(e);
                     var budget = formatRupiah(data.budget_actual, 'Rp. ');
                     document.getElementById("budget_real").value = budget;
                     document.getElementById("budget").value = budget;
+                    document.getElementById("id_planning_budget").value = data.id_planing;
                 }
             }
         })
     });
 
-    $('select[name=tipe_trans').on('change', function() {
-        var type = $("select[name=tipe_trans] option:selected").val();
-        $.ajax({
-            url: "<?= base_url('departement/Actual_budget/getCodeRequest') ?>",
-            method: "GET",
-            data: "type=" + type,
-            cache: false,
-            beforeSend: function() {
-                document.getElementById("load_code_request").style.display = 'block';
-            },
-            complete: function() {
-                document.getElementById("load_code_request").style.display = 'none';
-            },
-            success: function(e) {
-                var select1 = $('#code_request');
-                select1.empty();
-                var added2 = document.createElement('option');
-                added2.value = "";
-                added2.innerHTML = "Pilih Kode Request";
-                select1.append(added2);
-                var result = JSON.parse(e);
-                for (var i = 0; i < result.length; i++) {
-                    var added = document.createElement('option');
-                    added.value = result[i].request_code;
-                    added.innerHTML = result[i].request_code;
-                    select1.append(added);
-                }
-            }
-        })
+    $('select[name=jenis_transaksi').on('change', function() {
+        var jenis = $("select[name=jenis_transaksi] option:selected").text();
+        if (jenis == "PANJAR") {
+            $("#rekening").prop("disabled", true);
+            $("#to").prop("disabled", true);
+            $("#bank").prop("disabled", true);
+            $("#particullars").prop("disabled", true);
+            $("#ammount").prop("disabled", true);
+            $("#particullar").prop("disabled", true);
+        } else if (jenis == "PAYMENT VOUCHER") {
+            $("#rekening").prop("disabled", false);
+            $("#to").prop("disabled", false);
+            $("#bank").prop("disabled", false);
+            $("#particullars").prop("disabled", false);
+            $("#ammount").prop("disabled", false);
+            $("#particullar").prop("disabled", false);
+        } else {
+            $("#particullar").prop("disabled", false);
+            $("#rekening").prop("disabled", false);
+            $("#to").prop("disabled", false);
+            $("#bank").prop("disabled", false);
+            $("#particullars").prop("disabled", false);
+            $("#ammount").prop("disabled", false);
+        }
     });
 
-    $('select[name=code_request').on('change', function() {
-        var code = $("select[name=code_request] option:selected").val();
-        $.ajax({
-            url: "<?= base_url('departement/Actual_budget/getNilaiTransaksi') ?>",
-            method: "GET",
-            data: "code=" + code,
-            cache: false,
-            beforeSend: function() {
-                document.getElementById("load_nil").style.display = 'block';
-            },
-            complete: function() {
-                document.getElementById("load_nil").style.display = 'none';
-            },
-            success: function(e) {
-                const data = JSON.parse(e);
-                document.getElementById("id_raimbus").value = data.id;
-                document.getElementById("n_raimbus").value = data.total;
-                document.getElementById("nilai_raimbusment").value = formatRupiah(data.total, "Rp. ");
-            }
-        })
-    });
 
     function cek() {
         var budget_plant = document.getElementById("budget_real").value;

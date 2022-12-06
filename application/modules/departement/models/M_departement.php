@@ -106,14 +106,20 @@ class M_departement extends CI_Model
         return $query;
     }
 
-    public function daftarActualActivity($id)
+    public function daftarActualActivity($dept_id)
     {
-        $query = $this->db->query("SELECT mjb.jenis_budget ,   mb.kode_budget , mb.tahun , md.nama_departement  , tab.tanggal_transaksi  , tab.nilai_budget , tab.activity  , tab.created_at 
-        FROM transaksi_actual_budget tab 
-         LEFT JOIN master_planning_budget mpb on mpb.id_planing  = tab.master_planning_budget_id_planing 
-         LEFT JOIN master_budget mb on mb.id_budget  = mpb.master_budget_id_budget 
-         LEFt JOIN master_jenis_budget mjb  on mb.master_jenis_budget_id  = mjb.id
-         left JOIN master_departement md  on mb.departement_id  = md.id  WHERE mb.departement_id  = '" . $id . "' ");
+        // $query = $this->db->query("SELECT mjb.jenis_budget ,   mb.kode_budget , mb.tahun , md.nama_departement  , tab.tanggal_transaksi  , tab.nilai_budget , tab.activity  , tab.created_at 
+        // FROM transaksi_actual_budget tab 
+        //  LEFT JOIN master_planning_budget mpb on mpb.id_planing  = tab.master_planning_budget_id_planing 
+        //  LEFT JOIN master_budget mb on mb.id_budget  = mpb.master_budget_id_budget 
+        //  LEFt JOIN master_jenis_budget mjb  on mb.master_jenis_budget_id  = mjb.id
+        //  left JOIN master_departement md  on mb.departement_id  = md.id  WHERE mb.departement_id  = '" . $id . "' ");
+
+        $query = $this->db->query("SELECT tjp.id ,  md.nama_departement  , mjt.jenis_transaksi , tjp.request_code  , tjp.tanggal_request , tjp.remarks  ,tjp.ket 
+        from transaksi_jenis_pembayaran tjp  
+        left join master_departement md  on md.id  = tjp.master_departement_id 
+        left join master_jenis_transaksi mjt on mjt.id  = tjp.master_jenis_transaksi_id 
+        where md.id  = '" . $dept_id . "' ");
         return $query;
     }
 

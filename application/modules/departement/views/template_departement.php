@@ -240,15 +240,15 @@
 
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle <?= $uri == 'Actual_budget' ? 'active' : '' ?>">
-                            <span class="micon bi bi-table"></span><span class="mtext">Actual Budget</span>
+                            <span class="micon bi bi-table"></span><span class="mtext">Transaction</span>
                         </a>
                         <ul class="submenu ">
                             <li>
-                                <a class="<?= $this->uri->segment(3)  == 'form_input_actual' ? 'active ' : '' ?>" href="<?= base_url('departement/Actual_budget/form_input_actual') ?>">Input Actual Actvity Budget
+                                <a class="<?= $this->uri->segment(3)  == 'form_input_actual' ? 'active ' : '' ?>" href="<?= base_url('departement/Actual_budget/form_input_actual') ?>">Input Transaksi
                                 </a>
                             </li>
                             <li>
-                                <a class="<?= $this->uri->segment(3)  == 'list_actual' ? 'active ' : '' ?>" href="<?= base_url('departement/Actual_budget/list_actual') ?>">Daftar Actual Actvity Budget
+                                <a class="<?= $this->uri->segment(3)  == 'list_actual' ? 'active ' : '' ?>" href="<?= base_url('departement/Actual_budget/list_actual') ?>">Histori Transaksi
                                 </a>
                             </li>
                         </ul>

@@ -11,6 +11,7 @@ class Input_Budget extends CI_Controller
 
     public function index()
     {
+
         $code_dept = $this->db->query("SELECT kode_departement as code FROM master_departement WHERE id='" . $this->session->userdata("departement_id") . "' ")->row();
         $data = [
             'uri'           => $this->uri->segment(2),
