@@ -225,10 +225,20 @@
                             <span class="micon bi bi-file"></span><span class="mtext">E-BUDGET</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="#">Total Budget</a></li>
-                            <li><a href="#">Input Budget</a></li>
-                            <li><a href="#">Review Budget</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('finance/Approved/list_approve') ?>">Approved</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-file"></span><span class="mtext">TRANSACTION</span>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'list_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('finance/Approve_trans/list_approve_trans') ?>">Approval</a>
+                            </li>
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'histori_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('finance/Approve_trans/histori_approve_trans') ?>">History</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown">

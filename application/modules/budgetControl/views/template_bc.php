@@ -233,6 +233,19 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-file"></span><span class="mtext">TRANSACTION</span>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'list_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Approve_trans/list_approve_trans') ?>">Approval</a>
+                            </li>
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'histori_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Approve_trans/histori_approve_trans') ?>">History</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-file-pdf"></span><span class="mtext">REPORT</span>
                         </a>
                         <ul class="submenu">

@@ -101,7 +101,7 @@
 
                     <div class="form-group">
                         <label>TO</label>
-                        <input class="form-control" id="to" name="to" type="text" placeholder="">
+                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
                     </div>
 
                     <div class="form-group">
@@ -155,6 +155,11 @@
 
                     </div>
 
+                    <div class="form-group">
+                        <label>NILAI PANJAR</label>
+                        <input class="form-control" id="panjar" name="panjar[]" type="text" placeholder="">
+                    </div>
+
                     <div class="form-group ">
                         <label>LAMPIRAN</label>
                         <input required class="form-control" type="file" name="lampiran" id="lampiran">
@@ -202,33 +207,39 @@
     $('select[name=jenis_budget').on('change', function() {
         var jenis = $("select[name=jenis_budget] option:selected").val();
         var tahun = $("select[name=tahun_budget] option:selected").val();
-        $.ajax({
-            url: "<?= base_url('departement/Actual_budget/getKodeBudget') ?>",
-            method: "GET",
-            data: "tahun=" + tahun + "&jenis=" + jenis,
-            cache: false,
-            beforeSend: function() {
-                document.getElementById("load_kode").style.display = 'block';
-            },
-            complete: function() {
-                document.getElementById("load_kode").style.display = 'none';
-            },
-            success: function(e) {
-                var select1 = $('#kode_budget');
-                select1.empty();
-                var added2 = document.createElement('option');
-                added2.value = "";
-                added2.innerHTML = "Pilih Kode Budget";
-                select1.append(added2);
-                var result = JSON.parse(e);
-                for (var i = 0; i < result.length; i++) {
-                    var added = document.createElement('option');
-                    added.value = result[i].kode_budget;
-                    added.innerHTML = result[i].kode_budget;
-                    select1.append(added);
+
+        if (tahun == null || tahun == "") {
+            alert("Pilih Tahun Terlebih Dahulu");
+            $('#jenis_budget').prop('selectedIndex', 0);
+        } else {
+            $.ajax({
+                url: "<?= base_url('departement/Actual_budget/getKodeBudget') ?>",
+                method: "GET",
+                data: "tahun=" + tahun + "&jenis=" + jenis,
+                cache: false,
+                beforeSend: function() {
+                    document.getElementById("load_kode").style.display = 'block';
+                },
+                complete: function() {
+                    document.getElementById("load_kode").style.display = 'none';
+                },
+                success: function(e) {
+                    var select1 = $('#kode_budget');
+                    select1.empty();
+                    var added2 = document.createElement('option');
+                    added2.value = "";
+                    added2.innerHTML = "Pilih Kode Budget";
+                    select1.append(added2);
+                    var result = JSON.parse(e);
+                    for (var i = 0; i < result.length; i++) {
+                        var added = document.createElement('option');
+                        added.value = result[i].kode_budget;
+                        added.innerHTML = result[i].kode_budget;
+                        select1.append(added);
+                    }
                 }
-            }
-        })
+            })
+        }
     });
 
     $('select[name=kode_budget').on('change', function() {
@@ -249,7 +260,7 @@
             success: function(e) {
                 // console.log(e)
                 if (e == 0 || e === '0') {
-                    alert('err');
+                    alert('budget belum selesai di approve');
                 } else {
                     const data = JSON.parse(e);
                     console.log(e);

@@ -39,6 +39,19 @@ class M_manager extends CI_Model
         return $query;
     }
 
+    public function listTransaksi($dept, $stat)
+    {
+        $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , 
+        (select(tdjp.ammount)) as total   ,
+        tjp.approve_mgr , tjp.approve_acc  , tjp.lampiran  , tjp.tanggal_request 
+        from transaksi_jenis_pembayaran tjp 
+        left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
+        left join master_departement md  on md.id  = tjp.master_departement_id 
+        left join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
+        where tjp.master_departement_id  = '" . $dept . "' and tjp.approve_mgr  = '" . $stat . "' ");
+        return $query;
+    }
+
 
     public function detailBudget($id)
     {

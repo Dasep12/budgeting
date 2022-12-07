@@ -216,7 +216,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li class="dropdown">
-                        <a href="<?= base_url('departement/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
+                        <a href="<?= base_url('manager/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
                             <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
                         </a>
                     </li>
@@ -224,24 +224,24 @@
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-file"></span><span class="mtext">E-BUDGET</span>
                         </a>
-                        <ul class="submenu">
+                        <!-- <ul class="submenu">
                             <li><a href="#">Total Budget</a></li>
                             <li><a href="#">Input Budget</a></li>
                             <li><a href="#">Review Budget</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('manager/Approved/list_approve') ?>">Approved</a></li>
-                        </ul>
+                        </ul> -->
                     </li>
 
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file"></span><span class="mtext">RAIMBEST</span>
+                            <span class="micon bi bi-file"></span><span class="mtext">TRANSACTION</span>
                         </a>
                         <ul class="submenu">
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'list_approve_raim' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_raimbusment/list_approve_raim') ?>">Approval</a>
+                                <a class="<?= $this->uri->segment(3) == 'list_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_trans/list_approve_trans') ?>">Approval</a>
                             </li>
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'histori_approve_raim' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_raimbusment/histori_approve_raim') ?>">History</a>
+                                <a class="<?= $this->uri->segment(3) == 'histori_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_trans/histori_approve_trans') ?>">History</a>
                             </li>
                         </ul>
                     </li>

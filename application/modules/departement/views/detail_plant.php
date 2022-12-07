@@ -41,7 +41,11 @@
             </tbody>
         </table>
     </div>
-    <div class="col-lg-6">
+
+</div>
+
+<div class="row mt-2">
+    <div class="col-lg-12">
         <table class="" style="width:100% ;border-collapse:collapse;border:1px solid #000">
             <thead>
                 <tr>
@@ -69,5 +73,4 @@
             </tfoot>
         </table>
     </div>
-
 </div>

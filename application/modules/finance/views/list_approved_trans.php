@@ -42,7 +42,7 @@
                 <tr>
                     <th class="table-plus datatable-nosort">Kode Request</th>
                     <th>Tanggal Request</th>
-                    <th>Remarks</th>
+                    <th>Jenis Transaksi</th>
                     <th>Nilai Rupiah</th>
                     <th>Opsi</th>
                 </tr>
@@ -52,19 +52,17 @@
                     <tr>
                         <td><?= $rm->request_code ?></td>
                         <td><?= $rm->tanggal_request ?></td>
-                        <td><?= $rm->remarks ?></td>
-                        <?php $d = $this->model->TotalNilaiRaimbusment($rm->id)->row() ?>
-                        <td><?= 'Rp. ' . number_format($d->total, 0, ",", ".") ?></td>
+                        <td><?= $rm->jenis_transaksi ?></td>
+                        <td><?= 'Rp. ' . number_format($rm->total, 0, ",", ".") ?></td>
                         <td>
                             <?php
-                            if ($rm->approve_mgr == 1) { ?>
-                                <a data-id="<?= $rm->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                            if ($rm->approve_gm == 1) { ?>
+                                <a data-id="<?= $rm->id_trans ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
                             <?php } else { ?>
-                                <a data-id="<?= $rm->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                <a data-id="<?= $rm->id_trans ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
-                                <a href="<?= base_url('manager/Approve_raimbusment/approve?id=' . $rm->id . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approve_raimbusment/approve?id_budget=' . $rm->id . '&kode=2') ?>" class="badge badge-danger">Reject</a>
-
+                                <a href="<?= base_url('finance/Approve_trans/approve?id=' . $rm->id_trans . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('finance/Approve_trans/approve?id_budget=' . $rm->id_trans . '&kode=2') ?>" class="badge badge-danger">Reject</a>
                             <?php }
                             ?>
                         </td>
@@ -103,7 +101,7 @@
             var userid = $(this).data('id');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('manager/Approve_raimbusment/viewDetailRaimbes') ?>",
+                url: "<?= base_url('finance/Approve_trans/viewDetailRaimbes') ?>",
                 type: 'post',
                 data: {
                     id: userid

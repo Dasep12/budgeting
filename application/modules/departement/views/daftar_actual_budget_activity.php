@@ -17,36 +17,160 @@
         </div>
     </div>
 </div>
-<div class="card-box mb-30">
-    <div class="pd-20">
-        <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">APPROVAL DEPT HEAD</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">APPROVAL BUDGET CONTROLLER </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">APPROVAL GM</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab2" data-toggle="tab" data-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">APPROVAL FINANCE</button>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="card-box mb-30" style="margin-top:-1px">
+            <div class="pd-20">
+                <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
+            </div>
+            <div class="pb-20">
+                <table class="data-table table hover nowrap">
+                    <thead>
+                        <tr>
+                            <th>Kode Request</th>
+                            <th>Tanggal</th>
+                            <th>Jenis Transaksi</th>
+                            <th>Nilai</th>
+                            <th>Status</th>
+                            <th>Cetak</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($manager->result() as $df) : ?>
+                            <tr>
+                                <td> <a href="#" class="text-primary tx-under"><?= $df->request_code ?></a> </td>
+                                <td><?= $df->tanggal_request ?></td>
+                                <td><?= $df->jenis_transaksi ?></td>
+                                <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
+                                <td>
+                                    <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($df->jenis_transaksi == "PANJAR") { ?>
+                                        <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                    <?php  } else { ?>
+                                        <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPayment?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="pb-20">
-        <table class="data-table table hover nowrap">
-            <thead>
-                <tr>
-                    <th>Departement</th>
-                    <th>Tanggal</th>
-                    <th>Kode Request</th>
-                    <th>Jenis Transaksi</th>
-                    <th>Remarks</th>
-                    <th>Detail</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($daftar->result() as $df) : ?>
-                    <tr>
-                        <td><?= $df->nama_departement ?></td>
-                        <td><?= $df->tanggal_request ?></td>
-                        <td><?= $df->request_code ?></td>
-                        <td><?= $df->jenis_transaksi ?></td>
-                        <td><?= $df->remarks  ?></td>
-                        <td>
-                            <label for="" class="badge badge-primary"><?= $df->ket ?></label>
-                        </td>
-                    </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="card-box mb-30" style="margin-top:-1px">
+            <div class="pd-20">
+                <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
+            </div>
+            <div class="pb-20">
+                <table class="data-table table hover nowrap">
+                    <thead>
+                        <tr>
+                            <th>Kode Request</th>
+                            <th>Tanggal</th>
+                            <th>Jenis Transaksi</th>
+                            <th>Nilai</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($bc->result() as $df) : ?>
+                            <tr>
+                                <td> <a href="#" class="text-primary tx-under"><?= $df->request_code ?></a> </td>
+                                <td><?= $df->tanggal_request ?></td>
+                                <td><?= $df->jenis_transaksi ?></td>
+                                <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
+                                <td>
+                                    <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="card-box mb-30" style="margin-top:-1px">
+            <div class="pd-20">
+                <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
+            </div>
+            <div class="pb-20">
+                <table class="data-table table hover nowrap">
+                    <thead>
+                        <tr>
+                            <th>Kode Request</th>
+                            <th>Tanggal</th>
+                            <th>Jenis Transaksi</th>
+                            <th>Nilai</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($gm->result() as $df) : ?>
+                            <tr>
+                                <td> <a href="#" class="text-primary tx-under"><?= $df->request_code ?></a> </td>
+                                <td><?= $df->tanggal_request ?></td>
+                                <td><?= $df->jenis_transaksi ?></td>
+                                <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
+                                <td>
+                                    <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
+        <div class="card-box mb-30" style="margin-top:-1px">
+            <div class="pd-20">
+                <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
+            </div>
+            <div class="pb-20">
+                <table class="data-table table hover nowrap">
+                    <thead>
+                        <tr>
+                            <th>Kode Request</th>
+                            <th>Tanggal</th>
+                            <th>Jenis Transaksi</th>
+                            <th>Nilai</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($finance->result() as $df) : ?>
+                            <tr>
+                                <td> <a href="#" class="text-primary tx-under"><?= $df->request_code ?></a> </td>
+                                <td><?= $df->tanggal_request ?></td>
+                                <td><?= $df->jenis_transaksi ?></td>
+                                <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
+                                <td>
+                                    <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
