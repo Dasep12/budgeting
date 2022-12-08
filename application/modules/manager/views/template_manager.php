@@ -78,6 +78,9 @@
         })(window, document, "script", "dataLayer", "GTM-NXZMQSS");
     </script>
     <!-- End Google Tag Manager -->
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -224,12 +227,12 @@
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-file"></span><span class="mtext">E-BUDGET</span>
                         </a>
-                        <!-- <ul class="submenu">
+                        <ul class="submenu">
                             <li><a href="#">Total Budget</a></li>
                             <li><a href="#">Input Budget</a></li>
                             <li><a href="#">Review Budget</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('manager/Approved/list_approve') ?>">Approved</a></li>
-                        </ul> -->
+                        </ul>
                     </li>
 
                     <li class="dropdown">

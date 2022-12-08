@@ -13,8 +13,9 @@ class Approved extends CI_Controller
     public function list_approve()
     {
         $data = [
-            'uri'       => $this->uri->segment(2),
-            'daftar'    => $this->model->daftarApprove(1)
+            'uri'        => $this->uri->segment(2),
+            'daftar'     => $this->model->daftarApprove(0),
+            'selesai'    => $this->model->daftarApprove(1),
         ];
         $this->template->load('template_bc', 'list_approved', $data);
     }

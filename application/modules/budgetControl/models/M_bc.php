@@ -37,12 +37,22 @@ class M_bc extends CI_Model
 
     public function daftarApprove($stat)
     {
-        $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr , mb.approve_bc
-        FROM master_budget mb 
-         LEFT JOIN master_departement md on mb.departement_id  = md.id 
-         LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-         WHERE mb.approve_mgr = '" . $stat . "'
-         ");
+        if ($stat ==  0) {
+            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr , mb.approve_bc , mb.ket
+            FROM master_budget mb  
+             LEFT JOIN master_departement md on mb.departement_id  = md.id 
+             LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id
+             WHERE mb.approve_bc = '" . $stat . "'
+             ");
+        } else {
+            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr , mb.approve_bc , mb.ket
+            FROM master_budget mb 
+             LEFT JOIN master_departement md on mb.departement_id  = md.id 
+             LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
+             WHERE mb.approve_bc = '1' or mb.approve_bc = '2' 
+             ");
+        }
+
         return $query;
     }
 

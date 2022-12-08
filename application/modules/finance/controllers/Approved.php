@@ -13,8 +13,9 @@ class Approved extends CI_Controller
     public function list_approve()
     {
         $data = [
-            'uri'       => $this->uri->segment(2),
-            'daftar'    => $this->model->daftarApprove(1)
+            'uri'        => $this->uri->segment(2),
+            'daftar'     => $this->model->daftarApprove(0),
+            'selesai'    => $this->model->daftarApprove(1),
         ];
         $this->template->load('template_fin', 'list_approved', $data);
     }
@@ -24,8 +25,8 @@ class Approved extends CI_Controller
         $id = $this->input->get("id_budget");
         $kode = $this->input->get("kode");
         $data = [
-            'status'    => $kode,
-            'ket'       => $kode == 2 ? 'accept finance' : 'reject finance',
+            'status'                => $kode,
+            'ket'                   => $kode == 1 ? 'accept finance' : 'reject finance',
             'date_approved_finance' => date('Y-m-d H:i:s'),
             'approve_fin'           => $kode,
             'approve_fin_user'      => $this->session->userdata("nik")
