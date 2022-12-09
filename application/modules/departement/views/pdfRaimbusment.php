@@ -64,17 +64,17 @@
                     <tr>
                         <td style="width:32% ;">To</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= $remarks->to ?></td>
                     <tr>
                     <tr>
                         <td>Bank</td>
                         <td>:</td>
-                        <td></td>
+                        <td> <?= $remarks->bank ?></td>
                     <tr>
                     <tr>
                         <td>Giro / Cheque / TT No</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= $remarks->rekening ?></td>
                     <tr>
                 </table>
             </div>
@@ -86,7 +86,7 @@
                     <tr>
                         <td style="width:32% ;">Date</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= $remarks->tanggal ?></td>
                     <tr>
                     <tr>
                         <td>NO BK</td>
@@ -156,10 +156,10 @@
                     </tr>
                     <tr>
                         <td rowspan="2" colspan="3"><?= $remarks->remarks ?></td>
-                        <td style="height:60px ;"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td style="height:60px ;"><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
+                        <td align="center"><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
+                        <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
+                        <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
                         <td></td>
                         <td></td>
                     </tr>

@@ -135,4 +135,20 @@ class M_departement extends CI_Model
         WHERE tjp.master_departement_id  = '" . $dept_id . "' ");
         return $query;
     }
+
+    // dashboard
+    public function totalPlaningBudget($dept)
+    {
+        $year = date('Y');
+        $query = $this->db->query("SELECT sum(mb.budget) as nilai_budget , md.nama_departement  from master_budget mb 
+        left join master_departement md  on md.id  = mb.departement_id 
+        where mb.tahun = $year and mb.approve_fin  = 1  and md.id = '" . $dept . "' ");
+        if ($query->num_rows() > 0) {
+            $data = $query->row();
+            return $data->nilai_budget;
+        } else {
+            return 0;
+        }
+    }
+    // 
 }

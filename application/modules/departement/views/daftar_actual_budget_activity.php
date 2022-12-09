@@ -46,7 +46,6 @@
                             <th>Jenis Transaksi</th>
                             <th>Nilai</th>
                             <th>Status</th>
-                            <th>Cetak</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,14 +57,6 @@
                                 <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
                                 <td>
                                     <label for="" class="badge badge-primary"><?= $df->ket ?></label>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($df->jenis_transaksi == "PANJAR") { ?>
-                                        <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
-                                    <?php  } else { ?>
-                                        <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPayment?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
-                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -155,6 +146,7 @@
                             <th>Jenis Transaksi</th>
                             <th>Nilai</th>
                             <th>Status</th>
+                            <th>Cetak</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -166,6 +158,14 @@
                                 <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
                                 <td>
                                     <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($df->jenis_transaksi == "PANJAR") { ?>
+                                        <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                    <?php  } else { ?>
+                                        <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPayment?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php endforeach ?>
