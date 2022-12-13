@@ -62,7 +62,7 @@
                                 <a data-id="<?= $rm->id_trans ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
                                 <a href="<?= base_url('manager/Approve_trans/approve?id=' . $rm->id_trans . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approve_trans/approve?id_budget=' . $rm->id_trans . '&kode=2') ?>" class="badge badge-danger">Reject</a>
+                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approve_trans/approve?id=' . $rm->id_trans . '&kode=2') ?>" class="badge badge-danger">Reject</a>
 
                             <?php }
                             ?>

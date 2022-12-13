@@ -150,5 +150,27 @@ class M_departement extends CI_Model
             return 0;
         }
     }
+
+
+    public function totalActualBudget($dept)
+    {
+        $year = date('Y');
+        $query = $this->db->query("SELECT mb.budget  ,
+        (select sum(ammount) )as total ,
+        (select (mb.budget - sum(ammount) ) ) as sisa
+        from master_planning_budget mpb 
+        inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
+        inner join transaksi_jenis_pembayaran tjp  on tjp.master_planning_budget_id_planing = mpb.id_planing 
+        inner join trans_detail_jenis_pembayaran tdjp  on tjp.id  = tdjp.transaksi_jenis_pembayaran_id 
+        inner join master_departement md  on md.id  = tjp.master_departement_id 
+        where mb.departement_id  = '" . $dept . "' and tjp.approve_gm  = 1 and mb.tahun  = 2022
+        group by mpb.master_budget_id_budget  ");
+        if ($query->num_rows() > 0) {
+            $data = $query->row();
+            return $data->total;
+        } else {
+            return 0;
+        }
+    }
     // 
 }

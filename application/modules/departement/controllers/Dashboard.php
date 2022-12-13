@@ -12,7 +12,8 @@ class Dashboard extends CI_Controller
 
         $data = [
             'uri'           => $this->uri->segment(2),
-            'plan_budget'   => $this->model->totalPlaningBudget($this->session->userdata("departement_id"))
+            'plan_budget'   => $this->model->totalPlaningBudget($this->session->userdata("departement_id")),
+            'actual_budget' => $this->model->totalActualBudget($this->session->userdata("departement_id"))
         ];
         $this->template->load('template_departement', 'dashboard', $data);
     }

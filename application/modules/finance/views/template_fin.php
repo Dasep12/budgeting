@@ -36,7 +36,7 @@
     <script src="<?= base_url('assets/') ?>src/plugins/datatables/js/jquery.dataTables.min.js"></script>
     <script src="<?= base_url('assets/') ?>src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url('assets/') ?>src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-    <script src="<?= base_url('assets/') ?>src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+    <!-- <script src="<?= base_url('assets/') ?>src/plugins/datatables/js/responsive.bootstrap4.min.js"></script> -->
     <!-- buttons for Export datatable -->
     <script src="<?= base_url('assets/') ?>src/plugins/datatables/js/dataTables.buttons.min.js"></script>
     <script src="<?= base_url('assets/') ?>src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
@@ -78,6 +78,9 @@
         })(window, document, "script", "dataLayer", "GTM-NXZMQSS");
     </script>
     <!-- End Google Tag Manager -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <body>
@@ -246,9 +249,9 @@
                             <span class="micon bi bi-file-pdf"></span><span class="mtext">REPORT</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="#">Actual & Plant Budget</a></li>
-                            <li><a href="#">Pengeluaran / Pembelian Pemakaian</a></li>
-                            <li><a href="#">Raimbustment</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/panjer') ?>">Panjer</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/payment') ?>">Payment Voucher</a></li>
+                            <!-- <li><a href="#">Raimbustment</a></li> -->
                         </ul>
                     </li>
                 </ul>

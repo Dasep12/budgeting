@@ -21,7 +21,13 @@ class M_bc extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function listTransaksi($dept, $stat)
+    public function TotalNilaiRaimbusment($id)
+    {
+        $query = $this->db->query("SELECT sum(ammount) as total FROM trans_detail_jenis_pembayaran WHERE transaksi_jenis_pembayaran_id = '" . $id . "' ");
+        return $query;
+    }
+
+    public function listTransaksi($stat)
     {
         $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , 
         (select(tdjp.ammount)) as total   ,
@@ -30,7 +36,7 @@ class M_bc extends CI_Model
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
         left join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
-        where tjp.approve_mgr  = '" . $stat . "' ");
+        where tjp.approve_acc  = '" . $stat . "' and tjp.approve_mgr = 1    ");
         return $query;
     }
 

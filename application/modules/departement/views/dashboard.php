@@ -38,7 +38,7 @@
                 depth: 45,
                 dataLabels: {
                     enabled: true,
-                    format: '{point.name}:' + formatRupiah('{point.total}', 'Rp.')
+                    format: '{point.name}' + formatRupiah('', 'Rp.')
                 }
             }
         },
@@ -52,7 +52,7 @@
                 },
                 {
                     name: 'Budget Terserap',
-                    y: 30000,
+                    y: <?= $actual_budget ?>,
                     sliced: true,
                     color: '#f70737',
                 },

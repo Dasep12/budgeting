@@ -14,7 +14,7 @@ class Approve_trans extends CI_Controller
     {
         $data = [
             'uri'       => $this->uri->segment(2),
-            'raimbus'    => $this->model->listTransaksi($this->session->userdata("departement_id"), 1)
+            'raimbus'    => $this->model->listTransaksi(0)
         ];
         $this->template->load('template_bc', 'list_approved_trans', $data);
     }
@@ -32,10 +32,10 @@ class Approve_trans extends CI_Controller
         ];
         $update = $this->model->updateData($data, "transaksi_jenis_pembayaran", ['id' => $id]);
         if ($update > 0) {
-            $this->session->set_flashdata("ok", "raimbes telah di setujui, silahkan konfirmasi ke pihak Finnance");
+            $this->session->set_flashdata("ok", $kode == 1 ? 'transaksi telah di setujui' : 'transaksi telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
             redirect('budgetControl/Approve_trans/list_approve_trans');
         } else {
-            $this->session->set_flashdata("nok", "raimbes di tolak");
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
             redirect('budgetControl/Approve_trans/list_approve_trans');
         }
     }

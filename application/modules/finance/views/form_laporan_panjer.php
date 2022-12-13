@@ -1,0 +1,133 @@
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="">Report</a>
+                    </li>
+                    <li class="breadcrumb-item active ">
+                        Panjer
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="pd-20 card-box mb-30">
+    <div class="clearfix">
+
+    </div>
+
+    <form action="<?= base_url('finance/Laporan/getPanjer') ?>" method="post" onsubmit="return cek()">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>Departement</label>
+                    <select id="departement" name="departement" class="form-control">
+                        <option value="">Pilih Departement</option>
+                        <?php foreach ($departement->result() as $dpt) : ?>
+                            <option value="<?= $dpt->id ?>"><?= $dpt->nama_departement ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>Jenis Transaksi</label>
+                    <select id="jenis_trans" name="jenis_trans" class="form-control">
+                        <?php foreach ($jenis->result() as $jns) : ?>
+                            <option selected value="<?= $jns->id ?>"><?= $jns->jenis_transaksi ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <input type="text" id="tanggal" name="tanggal" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-3 mt-4">
+                <label for=""></label>
+                <button type="button" id="filter" class="btn btn-primary mt-1">view</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="pd-20 card-box mb-30">
+    <div class="form-inline">
+        <a href="" class="btn btn-sm btn-danger"><span class="micon bi bi-file-pdf"></span></a>
+        <a href="" class="btn btn-sm btn-success ml-2"><span class="micon bi bi-file-excel"></span> </a>
+    </div>
+    <div class="card-body">
+        <table id="panjerTable" style="width: 100%;" class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Kode Request</th>
+                    <th>Tanggal</th>
+                    <th>Ammount</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('input[name="tanggal"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+
+
+        let tablePayment = $('#panjerTable').DataTable({
+            paging: true,
+            scrollX: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            // autoWidth: true,
+            processing: true,
+            serverSide: false,
+            ajax: {
+                url: "<?= base_url('finance/Laporan/list_payment') ?>",
+                dataSrc: '',
+                data: function() {
+                    var drp = $('#tanggal').data('daterangepicker');
+                    var param = {
+                        'start': drp.startDate.format('YYYY-MM-DD'),
+                        'end': drp.endDate.format('YYYY-MM-DD'),
+                        'deptId': $('#departement').find(":selected").val(),
+                        'jenis': $('#jenis_trans').find(":selected").val(),
+                    }
+                    return param
+                }
+            },
+            pageLength: 25,
+            columns: [{
+                    data: 'request_code'
+                },
+                {
+                    data: 'tanggal_request'
+                },
+                {
+                    data: 'ammount'
+                },
+                {
+                    data: 'remarks'
+                }
+            ]
+        });
+
+        $('#filter').click(function() {
+            tablePayment.ajax.reload();
+        })
+    });
+</script>

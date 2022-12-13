@@ -15,6 +15,12 @@ class M_gm extends CI_Model
         return  $this->db->get_where($table, $where);
     }
 
+    public function TotalNilaiRaimbusment($id)
+    {
+        $query = $this->db->query("SELECT sum(ammount) as total FROM trans_detail_jenis_pembayaran WHERE transaksi_jenis_pembayaran_id = '" . $id . "' ");
+        return $query;
+    }
+
     public function updateData($data, $table, $where)
     {
         $this->db->where($where);
@@ -31,7 +37,7 @@ class M_gm extends CI_Model
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
         left join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
-        where tjp.approve_acc  = '" . $stat . "' ");
+        where tjp.approve_gm  = '" . $stat . "' and tjp.approve_acc = 1 ");
         return $query;
     }
 

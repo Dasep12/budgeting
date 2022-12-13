@@ -32,10 +32,10 @@ class Approve_trans extends CI_Controller
         ];
         $update = $this->model->updateData($data, "transaksi_jenis_pembayaran", ['id' => $id]);
         if ($update > 0) {
-            $this->session->set_flashdata("ok", "raimbes telah di setujui, silahkan konfirmasi ke pihak Finnance");
+            $this->session->set_flashdata("ok", $kode == 1 ? 'budget telah di setujui' : 'budget telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
             redirect('manager/Approve_trans/list_approve_trans');
         } else {
-            $this->session->set_flashdata("nok", "raimbes di tolak");
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
             redirect('manager/Approve_trans/list_approve_trans');
         }
     }
