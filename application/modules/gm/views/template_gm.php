@@ -225,7 +225,8 @@
                             <span class="micon bi bi-file"></span><span class="mtext">E-BUDGET</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('gm/Approved/list_approve') ?>">Approved</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'list_approve_req' ? 'active ' : '' ?>" href="<?= base_url('gm/ApproveRequestTambah/list_approve_req') ?>">Approve Tambah Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('gm/Approved/list_approve') ?>">Approved Plant Budget</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

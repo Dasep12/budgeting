@@ -4,7 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="#">Dashboard</a>
+                        <a href="#">Plant Budget</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="<?= base_url('departement/TambahBudget') ?>">List Request Tambah Budget </a>
                     </li>
                     <li class="breadcrumb-item active ">
                         Tambah Budget
@@ -43,9 +46,10 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>TAHUN BUDGET</label>
+                    <input required type="hidden" name="id_planning_budget" id="id_planning_budget">
                     <select class="form-control" name="tahun_budget" id="tahun_budget">
                         <option value="">Pilih Tahun</option>
-                        <?php for ($i = 21; $i < 60; $i++) { ?>
+                        <?php for ($i = 21; $i < 70; $i++) { ?>
                             <option><?= 20 . $i ?></option>
                         <?php } ?>
                     </select>
@@ -53,7 +57,7 @@
 
                 <div class="form-group">
                     <label>JENIS BUDGET</label>
-                    <select id="jenis_budget" name="jenis_budget" class="form-control">
+                    <select required id="jenis_budget" name="jenis_budget" class="form-control">
                         <option value="">Pilih Jenis Budget</option>
                         <?php foreach ($jenis as $jn) : ?>
                             <option value="<?= $jn->id ?>"><?= $jn->jenis_budget ?></option>
@@ -65,7 +69,7 @@
                 </div>
                 <div class="form-group">
                     <label>KODE BUDGET</label>
-                    <select name="kode_budget" id="kode_budget" class="form-control">
+                    <select required name="kode_budget" id="kode_budget" class="form-control">
                         <option value="">Pilih Kode Budget</option>
                     </select>
                     <div id="load_budget_nilai" style="display:none ;">
@@ -79,7 +83,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>BULAN</label>
-                    <select id="bulan_budget" name="bulan_budget" class="form-control">
+                    <select required id="bulan_budget" name="bulan_budget" class="form-control">
                         <option value="">Pilih Bulan</option>
                         <option>JANUARI</option>
                         <option>FEBRUARI</option>
@@ -94,16 +98,21 @@
                         <option>NOVEMBER</option>
                         <option>DESEMBER</option>
                     </select>
+                    <div id="load_budget_nilai" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil nilai budget . . .</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>BUDGET TERSEDIA</label>
-                    <input readonly class="form-control" id="budget" name="budget" type="text" placeholder="">
+                    <input readonly class="form-control" required id="budget" type="text" placeholder="">
+                    <input id="budget_real" name="budget" type="hidden" placeholder="">
                 </div>
 
                 <div class="form-group">
                     <label>REQUEST NILAI BUDGET</label>
-                    <input class="form-control" id="budget" name="budget" type="text" placeholder="">
+                    <input required class="form-control" id="budget_request" type="text" placeholder="">
+                    <input class="form-control" id="budget_request_real" name="budget_request" type="hidden" placeholder="">
                 </div>
 
                 <div class="form-group">
@@ -115,26 +124,107 @@
     </form>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="empModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Detail</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--  -->
 <script>
+    $('select[name=jenis_budget').on('change', function() {
+        var jenis = $("select[name=jenis_budget] option:selected").val();
+        var tahun = $("select[name=tahun_budget] option:selected").val();
 
+        if (tahun == null || tahun == "") {
+            alert("Pilih tahun terlebih dahulu");
+            $('#jenis_budget').prop('selectedIndex', 0);
+        } else {
+            $.ajax({
+                url: "<?= base_url('departement/TambahBudget/getKodeBudget') ?>",
+                method: "GET",
+                data: "tahun=" + tahun + "&jenis=" + jenis,
+                cache: false,
+                beforeSend: function() {
+                    document.getElementById("load_kode").style.display = 'block';
+                },
+                complete: function() {
+                    document.getElementById("load_kode").style.display = 'none';
+                },
+                success: function(e) {
+                    var select1 = $('#kode_budget');
+                    select1.empty();
+                    var added2 = document.createElement('option');
+                    added2.value = "";
+                    added2.innerHTML = "Pilih Kode Budget";
+                    select1.append(added2);
+                    var result = JSON.parse(e);
+                    for (var i = 0; i < result.length; i++) {
+                        var added = document.createElement('option');
+                        added.value = result[i].kode_budget;
+                        added.innerHTML = result[i].kode_budget;
+                        select1.append(added);
+                    }
+                }
+            })
+        }
+    });
+
+
+    $('select[name=bulan_budget').on('change', function() {
+        var kode = $("select[name=kode_budget] option:selected").val();
+        var tahun = $("select[name=tahun_budget] option:selected").val();
+        var bulan = document.getElementById("bulan_budget").value;
+
+        if (kode == null || tahun == "") {
+            alert("Pilih Kode Budget Dahulu");
+            $('#bulan_budget').prop('selectedIndex', 0);
+        } else {
+
+            $.ajax({
+                url: "<?= base_url('departement/TambahBudget/getBudget') ?>",
+                method: "GET",
+                data: "tahun=" + tahun + "&kode=" + kode + "&bulan=" + bulan,
+                cache: false,
+                beforeSend: function() {
+                    document.getElementById("load_budget_nilai").style.display = 'block';
+                },
+                complete: function() {
+                    document.getElementById("load_budget_nilai").style.display = 'none';
+                },
+                success: function(e) {
+                    // console.log(e)
+                    if (e == 0 || e === '0') {
+                        alert('budget belum selesai di approve');
+                    } else {
+                        const data = JSON.parse(e);
+                        console.log(e);
+                        var budget = formatRupiah(data.budget_actual, 'Rp. ');
+                        document.getElementById("budget_real").value = data.budget_actual;
+                        document.getElementById("budget").value = budget;
+                        document.getElementById("id_planning_budget").value = data.id_planing;
+                    }
+                }
+            })
+        }
+    })
+
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+
+    var parsing = document.getElementById("budget_request");
+    parsing.addEventListener('keyup', function(e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        parsing.value = formatRupiah(this.value, 'Rp. ');
+        const convert_1 = this.value.replace(/[^\w\s]/gi, '');
+        const convert_2 = convert_1.replace('Rp', '');
+        document.getElementById("budget_request_real").value = convert_2;
+    });
 </script>

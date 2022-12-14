@@ -73,4 +73,25 @@ class M_manager extends CI_Model
          ");
         return $query;
     }
+
+    // request budget
+    public function list_request($dept, $app, $stat)
+    {
+        $where = "";
+        if ($app == 'mgr') {
+            if ($stat == 0) {
+                $where .= "trtb.approve_mgr  = 0 ";
+            } else {
+                $where .= "trtb.approve_mgr  != 0 ";
+            }
+        }
+        $query =  $this->db->query("SELECT trtb.id ,  trtb.budget_sebelumnya  , trtb.budget_request  , trtb.ket , trtb.created_at as tanggal  , mpb.bulan  , mb.tahun  
+        from  transaksi_request_tambah_budget trtb 
+        inner join master_planning_budget mpb  on mpb.id_planing  = trtb.master_planning_budget_id_planing 
+        inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
+        where trtb.master_departement_id  = '" . $dept . "'  and $where  ");
+        return $query;
+    }
+    //
+
 }

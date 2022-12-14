@@ -79,4 +79,24 @@ class M_finance extends CI_Model
         where tjp.master_departement_id = '" . $dept . "' and tjp.tanggal_request  between  '" . $start . "' and '" . $end . "' and tjp.master_jenis_transaksi_id  = '" . $jenis . "' and tjp.approve_fin = 1   ");
         return $query;
     }
+
+    // request budget
+    public function list_request($app, $stat)
+    {
+        $where = "";
+        if ($app == 'fin') {
+            if ($stat == 0) {
+                $where .= "trtb.approve_gm  = 1  and trtb.approve_fin = 0 ";
+            } else {
+                $where .= "trtb.approve_fin  != 0  ";
+            }
+        }
+        $query =  $this->db->query("SELECT trtb.id ,  trtb.budget_sebelumnya  , trtb.budget_request  , trtb.ket , trtb.created_at as tanggal  , mpb.bulan  , mb.tahun  ,  mb.id_budget as id_budget  ,  mpb.id_planing as id_plant
+         from  transaksi_request_tambah_budget trtb 
+         inner join master_planning_budget mpb  on mpb.id_planing  = trtb.master_planning_budget_id_planing 
+         inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
+         where  $where  ");
+        return $query;
+    }
+    //
 }

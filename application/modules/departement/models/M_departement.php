@@ -136,6 +136,29 @@ class M_departement extends CI_Model
         return $query;
     }
 
+    // request budget
+    public function list_request($col, $dept, $app)
+    {
+        $where = "";
+        if ($app == 'mgr') {
+            $where .= "trtb.approve_mgr  = 0 or trtb.approve_mgr = 2";
+        } else if ($app == 'bc') {
+            $where .= "trtb.approve_mgr  = 1 AND trtb.approve_bc = 0 or trtb.approve_bc = 2 ";
+        } else if ($app == 'gm') {
+            $where .= "trtb.approve_bc  = 1 AND trtb.approve_gm = 0 or trtb.approve_gm = 2 ";
+        } else if ($app == 'fin') {
+            $where .= "trtb.approve_gm  = 1 AND trtb.approve_fin = 0 or trtb.approve_fin = 2 or trtb.approve_fin = 1  ";
+        }
+        $col = "trtb." . $col;
+        $query =  $this->db->query("SELECT  trtb.budget_sebelumnya  , trtb.budget_request  , trtb.ket , trtb.created_at as tanggal  , mpb.bulan  , mb.tahun  
+        from  transaksi_request_tambah_budget trtb 
+        inner join master_planning_budget mpb  on mpb.id_planing  = trtb.master_planning_budget_id_planing 
+        inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
+        where trtb.master_departement_id  = '" . $dept . "'  and $where  ");
+        return $query;
+    }
+    // 
+
     // dashboard
     public function totalPlaningBudget($dept)
     {
