@@ -33,7 +33,7 @@
             <tbody>
                 <?php foreach ($budget as $bd) : ?>
                     <tr>
-                        <td class="table-plus"><?= $bd->kode_budget ?></td>
+                        <td class="table-plus"><span class="text-danger"><?= $bd->kode_budget ?></span></td>
                         <td><?= $bd->departement ?></td>
                         <td><?= $bd->tahun ?></td>
                         <td><?= $bd->jenis_budget ?></td>

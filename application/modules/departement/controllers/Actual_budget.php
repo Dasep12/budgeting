@@ -13,11 +13,11 @@ class Actual_budget extends CI_Controller
     public function list_actual()
     {
         $data = [
-            'uri'       => $this->uri->segment(2),
-            'manager'    => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "approve_mgr", 0),
-            'bc'    => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "approve_mgr", 1),
-            'gm'    => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "approve_acc", 1),
-            'finance'    => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "approve_acc", 1),
+            'uri'           => $this->uri->segment(2),
+            'manager'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "mgr"),
+            'bc'            => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "bc"),
+            'gm'            => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "gm"),
+            'finance'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "fin"),
         ];
         $this->template->load('template_departement', 'daftar_actual_budget_activity', $data);
     }

@@ -19,16 +19,16 @@
 </div>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">APPROVAL DEPT HEAD</button>
+        <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Approval Dept Head</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">APPROVAL BUDGET CONTROLLER </button>
+        <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Approval Budget Controller</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">APPROVAL GM</button>
+        <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Approval General Manager</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab2" data-toggle="tab" data-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">APPROVAL FINANCE</button>
+        <button class="nav-link" id="contact-tab2" data-toggle="tab" data-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">Approval Finance</button>
     </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -56,7 +56,7 @@
                                 <td><?= $df->jenis_transaksi ?></td>
                                 <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
                                 <td>
-                                    <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                    <label for="" class="badge <?= $df->approve_mgr == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->ket ?></label>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -89,7 +89,7 @@
                                 <td><?= $df->jenis_transaksi ?></td>
                                 <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
                                 <td>
-                                    <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                    <label for="" class="badge <?= $df->approve_acc == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->ket ?></label>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -122,7 +122,7 @@
                                 <td><?= $df->jenis_transaksi ?></td>
                                 <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
                                 <td>
-                                    <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                    <label for="" class="badge <?= $df->approve_gm == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->ket ?></label>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -157,7 +157,7 @@
                                 <td><?= $df->jenis_transaksi ?></td>
                                 <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
                                 <td>
-                                    <label for="" class="badge badge-primary"><?= $df->ket ?></label>
+                                    <label for="" class="badge <?= $df->approve_fin == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->ket ?></label>
                                 </td>
                                 <td>
                                     <?php

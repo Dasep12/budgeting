@@ -38,7 +38,7 @@
                 <?php foreach ($plant->result() as $pl) : ?>
                     <tr>
                         <!-- <td><?= $pl->created_at ?></td> -->
-                        <td><?= $pl->kode_budget ?></td>
+                        <td><span class="text-primary"><?= $pl->kode_budget ?></span></td>
                         <td><?= $pl->nama_departement ?></td>
                         <td><?= $pl->tahun ?></td>
                         <td><?= 'Rp. ' . number_format($pl->budget, 0, ",", ".") ?></td>

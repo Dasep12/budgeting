@@ -107,24 +107,27 @@ class M_departement extends CI_Model
         return $query;
     }
 
-    public function daftarActualActivity($dept_id,  $col, $stat)
+    public function daftarActualActivity($dept_id,  $col)
     {
-        // $query = $this->db->query("SELECT mjb.jenis_budget ,   mb.kode_budget , mb.tahun , md.nama_departement  , tab.tanggal_transaksi  , tab.nilai_budget , tab.activity  , tab.created_at 
-        // FROM transaksi_actual_budget tab 
-        //  LEFT JOIN master_planning_budget mpb on mpb.id_planing  = tab.master_planning_budget_id_planing 
-        //  LEFT JOIN master_budget mb on mb.id_budget  = mpb.master_budget_id_budget 
-        //  LEFt JOIN master_jenis_budget mjb  on mb.master_jenis_budget_id  = mjb.id
-        //  left JOIN master_departement md  on mb.departement_id  = md.id  WHERE mb.departement_id  = '" . $id . "' ");
-
+        $where = "";
+        if ($col == "mgr") {
+            $where .= 'tjp.approve_mgr = 0 ';
+        } else if ($col == "bc") {
+            $where .= 'tjp.approve_mgr = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
+        } else if ($col == "gm") {
+            $where .= 'tjp.approve_acc = 1 and tjp.approve_gm = 0  or tjp.approve_gm = 2 ';
+        } else if ($col == "fin") {
+            $where .= 'tjp.approve_gm = 1  ';
+        }
         $co = "tjp." . $col;
         $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , tjp.ket ,
         (select(tdjp.ammount)) as total   ,
-        tjp.approve_mgr  , tjp.lampiran  , tjp.tanggal_request 
+        tjp.approve_mgr , tjp.approve_fin , tjp.approve_acc  , tjp.approve_gm  , tjp.lampiran_1, tjp.lampiran_3, tjp.lampiran_3  , tjp.tanggal_request 
         from transaksi_jenis_pembayaran tjp 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
         left join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
-        where tjp.master_departement_id  = $dept_id and $co  = $stat  ");
+        where tjp.master_departement_id  = $dept_id and  $where ");
         return $query;
     }
 
