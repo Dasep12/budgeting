@@ -162,7 +162,9 @@
 
                     <div class="form-group ">
                         <label>LAMPIRAN</label>
-                        <input required class="form-control" type="file" name="lampiran" id="lampiran">
+                        <input required class="form-control" type="file" name="lampiran[]" id="lampiran">
+                        <input required class="form-control" type="file" name="lampiran[]" id="lampiran">
+                        <input required class="form-control" type="file" name="lampiran[]" id="lampiran">
                     </div>
                 </div>
             </div>
