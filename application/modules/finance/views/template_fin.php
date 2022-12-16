@@ -252,7 +252,7 @@
                         <ul class="submenu">
                             <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/panjer') ?>">Panjer</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/payment') ?>">Payment Voucher</a></li>
-                            <!-- <li><a href="#">Raimbustment</a></li> -->
+                            <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('finance/ReportBudget') ?>">Plant Budget</a></li>
                         </ul>
                     </li>
                 </ul>

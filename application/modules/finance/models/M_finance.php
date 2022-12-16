@@ -99,4 +99,22 @@ class M_finance extends CI_Model
         return $query;
     }
     //
+
+    // report budget plant
+    public function getReportBudgetPlant($tahun)
+    {
+        $query = $this->db->query("SELECT mb.id_budget as id , mb.kode_budget  , mb.target_kpi  , mb.pic  , mb.budget , mb.improvment ,mb.created_at ,mb.kpi , mb.created_at from  master_budget mb 
+        left join master_jenis_budget mjb  on mjb.id = mb.master_jenis_budget_id WHERE mb.tahun='" . $tahun . "' ");
+        return $query;
+    }
+
+    function getReportDetail($id, $bulan)
+    {
+        $query = $this->db->query("SELECT  mb.kode_budget  , mpb.bulan , mpb.nilai_budget , mpb.activity  from master_budget mb 
+        left join master_planning_budget mpb on mpb.master_budget_id_budget  = mb.id_budget 
+        WHERE mb.id_budget ='" . $id . "' and mpb.bulan  = '" . $bulan . "'
+        order by mpb.id_planing  asc");
+        return $query;
+    }
+    // 
 }
