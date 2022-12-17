@@ -83,6 +83,11 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+
+                    <div class="form-group">
+                        <label>DUE DATE</label>
+                        <input type="date" id="due_date" name="due_date" class="form-control" placeholder="">
+                    </div>
                     <div class="form-group">
                         <label>IMPROVMENT</label>
                         <textarea id="improvement" name="improvement" class="form-control"></textarea>
@@ -213,6 +218,7 @@
             $("#kpi").prop("disabled", true);
             $("#target_kpi").prop("disabled", true);
             $("#improvement").prop("disabled", true);
+            $("#due_date").prop("disabled", true);
             $("#account_bame").prop("disabled", false);
             $("#description").prop("disabled", false);
             $("#sub_jenis_budget").prop("disabled", true);
@@ -223,10 +229,12 @@
             $("#kpi").prop("disabled", false);
             $("#target_kpi").prop("disabled", false);
             $("#improvement").prop("disabled", false);
+            $("#due_date").prop("disabled", false);
             $("#sub_jenis_budget").prop("disabled", false);
         } else {
             $("#pic").prop("disabled", false);
             $("#kpi").prop("disabled", false);
+            $("#due_date").prop("disabled", false);
             $("#sub_jenis_budget").prop("disabled", false);
             $("#target_kpi").prop("disabled", false);
             $("#improvement").prop("disabled", false);

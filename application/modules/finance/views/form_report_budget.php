@@ -7,7 +7,7 @@
                         <a href="">Report</a>
                     </li>
                     <li class="breadcrumb-item active ">
-                        Panjer
+                        Plant Budget
                     </li>
                 </ol>
             </nav>
@@ -20,7 +20,7 @@
 
     </div>
 
-    <form action="<?= base_url('finance/Laporan/getPanjer') ?>" method="post" onsubmit="return cek()">
+    <form action="<?= base_url('finance/ReportBudget/download') ?>" method="post">
         <div class="row">
 
             <div class="col-lg-3">
@@ -46,7 +46,7 @@
             </div>
             <div class="col-lg-3 mt-4 ">
                 <label for=""></label>
-                <a id="filter" class="text-white btn btn-success mt-2">download</a>
+                <button id="filter" class="text-white btn btn-success mt-2">download</button>
             </div>
         </div>
     </form>
