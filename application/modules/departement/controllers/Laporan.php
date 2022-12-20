@@ -164,9 +164,10 @@ class Laporan extends CI_Controller
     public function cetak_pdfPanjer()
     {
         $id              = $this->input->get("id");
-        $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'Legal']);
-        $data['raim']    = $this->db->get_where("trans_detail_jenis_pembayaran", ['transaksi_jenis_pembayaran_id' => $id])->result();
-        $data['remarks'] = $this->db->query("SELECT remarks from transaksi_jenis_pembayaran where id='" . $id  . "' ")->row();
+        // $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4']);
+        $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [120, 236]]);
+        $data['panjar']    = $this->db->get_where("trans_detail_jenis_pembayaran", ['transaksi_jenis_pembayaran_id' => $id])->result();
+        $data['remarks'] = $this->db->query("SELECT remarks , bk , tanggal_request  from transaksi_jenis_pembayaran where id='" . $id  . "' ")->row();
         $res = $this->load->view('pdfPanjer', $data, TRUE);
         $mpdf->WriteHTML($res);
         $mpdf->Output();
