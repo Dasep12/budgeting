@@ -87,6 +87,17 @@
                         <input type="hidden" name="budget_real" id="budget_real">
                         <input readonly class="form-control" id="budget" name="budget" type="text" placeholder="">
                     </div>
+
+                    <div class="form-group">
+                        <label for="">AKUN</label>
+                        <select id="acc" name="acc" class="form-control">
+                            <option value="">Pilih Jenis Akun</option>
+                            <?php foreach ($acc as $jn) : ?>
+                                <option value="<?= $jn->id ?>"><?= $jn->acc_no . ' - ' . $jn->acc_name ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -139,6 +150,11 @@
                                 <option value="<?= $jn->id ?>"><?= $jn->jenis_transaksi ?></option>
                             <?php endforeach ?>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>NO BK</label>
+                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
                     </div>
 
                     <div class="form-group">
@@ -277,6 +293,16 @@
 
     $('select[name=jenis_transaksi').on('change', function() {
         var jenis = $("select[name=jenis_transaksi] option:selected").text();
+        $.ajax({
+            url: "<?= base_url('departement/Actual_budget/getNilaiBK') ?>",
+            data: 'jenis=' + jenis,
+            method: "POST",
+            success: function(e) {
+                document.getElementById("bk").value = e
+            }
+        })
+
+
         if (jenis == "PANJAR") {
             $("#rekening").prop("disabled", true);
             $("#to").prop("disabled", true);

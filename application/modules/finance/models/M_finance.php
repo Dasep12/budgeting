@@ -32,9 +32,10 @@ class M_finance extends CI_Model
     public function listTransaksi($dept, $stat)
     {
         $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , 
-        (select(tdjp.ammount)) as total   ,
-        tjp.approve_gm   , tjp.approve_fin , tjp.lampiran  , tjp.tanggal_request 
+        (select(tdjp.ammount)) as total   , ma.nama_lengkap , ma.nik,
+        tjp.approve_gm   , tjp.approve_fin , tjp.lampiran_1 , tjp.lampiran_2 ,tjp.lampiran_3  , tjp.tanggal_request 
         from transaksi_jenis_pembayaran tjp 
+        left join master_akun ma on ma.nik = tjp.created_by 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
         left join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
@@ -74,7 +75,7 @@ class M_finance extends CI_Model
 
     public function reportPayment($dept, $jenis, $start, $end)
     {
-        $query = $this->db->query("SELECT tjp.id, tjp.tanggal_request  , tdjp.ammount  , tdjp.particullar  , tjp.remarks  , tjp.request_code from transaksi_jenis_pembayaran tjp 
+        $query = $this->db->query("SELECT tjp.id, tjp.tanggal_request  , concat('Rp. ',format(tdjp.ammount,0)) as ammount   , tdjp.particullar  , tjp.remarks  , tjp.request_code from transaksi_jenis_pembayaran tjp 
         inner join trans_detail_jenis_pembayaran tdjp on tdjp.transaksi_jenis_pembayaran_id = tjp.id 
         where tjp.master_departement_id = '" . $dept . "' and tjp.tanggal_request  between  '" . $start . "' and '" . $end . "' and tjp.master_jenis_transaksi_id  = '" . $jenis . "' and tjp.approve_fin = 1   ");
         return $query;
@@ -101,11 +102,11 @@ class M_finance extends CI_Model
     //
 
     // report budget plant
-    public function getReportBudgetPlant($tahun, $jenis)
+    public function getReportBudgetPlant($tahun, $jenis, $dept)
     {
         $query = $this->db->query("SELECT mb.id_budget as id , mb.kode_budget  , mb.target_kpi  , mb.pic ,mb.due_date , mb.budget , mb.improvment ,mb.created_at ,mb.kpi , mb.account_bame , mb.description , mb.created_at from  master_budget mb 
         left join master_jenis_budget mjb  on mjb.id = mb.master_jenis_budget_id
-        WHERE mb.tahun='" . $tahun . "'  and mb.master_jenis_budget_id = '" . $jenis . "' and mb.approve_fin = 1   ");
+        WHERE mb.tahun='" . $tahun . "'  and mb.master_jenis_budget_id = '" . $jenis . "' and mb.approve_fin = 1 and mb.departement_id = '" . $dept . "'   ");
         return $query;
     }
 
@@ -117,5 +118,21 @@ class M_finance extends CI_Model
         order by mpb.id_planing  asc");
         return $query;
     }
+    // 
+
+    // report jurnal
+    function getReportJurnal($tgl1, $tgl2, $dept)
+    {
+        $query = $this->db->query("SELECT tjp.tanggal_request as tanggal , tjp.request_code  , md.nama_departement  , tjp.bk ,
+        ma.ket , ma.acc_no , ma.acc_name ,
+        (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id  ) as debit
+        from transaksi_jenis_pembayaran tjp 
+        inner join master_acc ma on ma.id = tjp.master_acc_id 
+        inner join master_departement md on tjp.master_departement_id  = md.id
+        where tjp.tanggal_request between '" . $tgl1 . "' and '" . $tgl2 . "' and tjp.master_departement_id  = '" . $dept . "' 
+        and tjp.approve_fin  = 1 ");
+        return $query;
+    }
+
     // 
 }

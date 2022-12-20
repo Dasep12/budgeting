@@ -41,7 +41,7 @@
                         <td><?= 'Rp. ' . number_format($d->total, 0, ",", ".") ?></td>
                         <td><?= $rm->ket ?></td>
                         <td>
-                            <a data-id="<?= $rm->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                            <a data-id="<?= $rm->id ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
                         </td>
                     </tr>
                 <?php endforeach ?>
@@ -52,7 +52,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
@@ -76,12 +76,25 @@
 
         $('.userinfo').click(function() {
             var userid = $(this).data('id');
+            var userid = $(this).data('id');
+            var file1 = $(this).data('file1');
+            var file2 = $(this).data('file2');
+            var file3 = $(this).data('file3');
+            var nama = $(this).data('nama');
+            var remarks = $(this).data('remarks');
+            var jenis = $(this).data('jenis');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('manager/Approve_raimbusment/viewDetailRaimbes') ?>",
+                url: "<?= base_url('gm/Approve_trans/viewDetailRaimbes') ?>",
                 type: 'post',
                 data: {
-                    id: userid
+                    id: userid,
+                    'file1': file1,
+                    'file2': file2,
+                    'file3': file3,
+                    'nama': nama,
+                    'remarks': remarks,
+                    'jenis': jenis
                 },
                 beforeSend: function() {
 

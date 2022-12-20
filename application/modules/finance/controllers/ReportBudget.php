@@ -10,13 +10,18 @@ class ReportBudget extends CI_Controller
         parent::__construct();
         $this->load->model('M_finance', 'model');
         date_default_timezone_set('Asia/Jakarta');
+        $role = $this->session->userdata("level");
+        if ($role != 'fin') {
+            redirect('Login');
+        }
     }
 
     public function index()
     {
         $data = [
             'uri'           => $this->uri->segment(2),
-            'jenis'         => $this->model->getData("master_jenis_budget")
+            'jenis'         => $this->model->getData("master_jenis_budget"),
+            'departement'   => $this->model->getData("master_departement"),
         ];
         $this->template->load('template_fin', 'form_report_budget', $data);
     }
@@ -27,16 +32,17 @@ class ReportBudget extends CI_Controller
         $jenis = $this->input->post("jenis_trans");
         $tahun = $this->input->post("tahun");
 
+        $dept = $this->input->post("departement");
         $cari = $this->db->query("SELECT jenis_budget FROM master_jenis_budget WHERE id='" . $jenis . "' ")->row();
 
         if ($cari->jenis_budget == 'Reguler Cost' || $cari->jenis_budget == 'REGULER COST') {
-            $this->reportRegular($jenis, $tahun);
+            $this->reportRegular($jenis, $tahun, $dept);
         } else {
-            $this->reportPerspective($jenis, $tahun);
+            $this->reportPerspective($jenis, $tahun, $dept);
         }
     }
 
-    private function reportPerspective($jenis, $tahun)
+    private function reportPerspective($jenis, $tahun, $dept)
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -180,7 +186,7 @@ class ReportBudget extends CI_Controller
         $i = 3;
         $p = 3;
         $subTotal = 0;
-        $data = $this->model->getReportBudgetPlant($tahun, $jenis)->result();
+        $data = $this->model->getReportBudgetPlant($tahun, $jenis, $dept)->result();
         foreach ($data as $hd) {
             $sheet->setCellValue('A' . $i, "PERSPECTIVE");
             $sheet->setCellValue('B' . $i, $hd->kpi);
@@ -273,7 +279,7 @@ class ReportBudget extends CI_Controller
     }
 
 
-    private function reportRegular($jenis, $tahun)
+    private function reportRegular($jenis, $tahun, $dept)
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -416,7 +422,7 @@ class ReportBudget extends CI_Controller
         $l = 3;
         $p = 3;
         $subTotal = 0;
-        $data = $this->model->getReportBudgetPlant($tahun, $jenis)->result();
+        $data = $this->model->getReportBudgetPlant($tahun, $jenis, $dept)->result();
         foreach ($data as $hd) {
             $sheet->setCellValue('A' . $l, "REGULAR");
             $sheet->setCellValue('B' . $l, $hd->account_bame);

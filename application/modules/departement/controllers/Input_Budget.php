@@ -7,6 +7,10 @@ class Input_Budget extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_departement', 'model');
+        $role = $this->session->userdata("level");
+        if ($role != 'dpt') {
+            redirect('Login');
+        }
     }
 
     public function index()

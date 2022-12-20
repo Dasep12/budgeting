@@ -25,4 +25,11 @@ class M_admin extends CI_Model
     {
         return  $this->db->get_where($table, $where);
     }
+
+    // list tertanda
+    public function getTertanda(Type $var = null)
+    {
+        $query = $this->db->query("SELECT * FROM master_tertanda ");
+        return $query;
+    }
 }

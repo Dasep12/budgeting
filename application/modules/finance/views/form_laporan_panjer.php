@@ -80,11 +80,61 @@
 
 <script>
     $(function() {
+        moment.locale('id'); // id
+        var start = moment().subtract(2, 'days');
+        var end = moment();
         $('input[name="tanggal"]').daterangepicker({
-            opens: 'left'
+            opens: 'left',
+            "autoApply": true,
+            ranges: {
+                'Hari Ini': [moment(), moment()],
+                'Kemarin': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '7 hari terakhir': [moment().subtract(6, 'days'), moment()],
+                '30 hari terakhir': [moment().subtract(29, 'days'), moment()],
+                'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+            },
+            "locale": {
+                format: 'D/M/YYYY',
+                "separator": " - ",
+                "applyLabel": "Apply",
+                "cancelLabel": "Cancel",
+                "fromLabel": "Dari",
+                "toLabel": "Sampai",
+                "customRangeLabel": "Custom",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "Min",
+                    "Sen",
+                    "Sel",
+                    "Rab",
+                    "Kam",
+                    "Jum",
+                    "Sab"
+                ],
+                "monthNames": [
+                    "Januari",
+                    "Februari",
+                    "Maret",
+                    "April",
+                    "Mei",
+                    "Juni",
+                    "Juli",
+                    "Augustus",
+                    "September",
+                    "Oktober",
+                    "November",
+                    "Desember"
+                ],
+                "firstDay": 1
+            },
+            "alwaysShowCalendars": true,
+            "startDate": start,
+            "endDate": end,
+            "opens": "center",
+            "drops": "auto"
         }, function(start, end, label) {
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-        });
+        }, );
 
 
         let tablePayment = $('#panjerTable').DataTable({

@@ -78,7 +78,7 @@
             var userid = $(this).data('id');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('manager/Approve_raimbusment/viewDetailRaimbes') ?>",
+                url: "<?= base_url('budgetControl/Approve_raimbusment/viewDetailRaimbes') ?>",
                 type: 'post',
                 data: {
                     id: userid

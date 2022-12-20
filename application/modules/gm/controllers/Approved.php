@@ -13,6 +13,10 @@ class Approved extends CI_Controller
         parent::__construct();
         $this->load->model('M_gm', 'model');
         date_default_timezone_set('Asia/Jakarta');
+        $role = $this->session->userdata("level");
+        if ($role != 'gm') {
+            redirect('Login');
+        }
     }
 
     public function list_approve()

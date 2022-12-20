@@ -57,9 +57,9 @@
                         <td>
                             <?php
                             if ($rm->approve_gm == 1 && $rm->approve_fin != 0) { ?>
-                                <a data-id="<?= $rm->id_trans ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
                             <?php } else { ?>
-                                <a data-id="<?= $rm->id_trans ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
                                 <a href="<?= base_url('finance/Approve_trans/approve?id=' . $rm->id_trans . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
                                 <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('finance/Approve_trans/approve?id=' . $rm->id_trans . '&kode=2') ?>" class="badge badge-danger">Reject</a>
@@ -75,7 +75,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
@@ -99,12 +99,24 @@
 
         $('.userinfo').click(function() {
             var userid = $(this).data('id');
+            var file1 = $(this).data('file1');
+            var file2 = $(this).data('file2');
+            var file3 = $(this).data('file3');
+            var nama = $(this).data('nama');
+            var remarks = $(this).data('remarks');
+            var jenis = $(this).data('jenis');
             // AJAX request
             $.ajax({
                 url: "<?= base_url('finance/Approve_trans/viewDetailRaimbes') ?>",
                 type: 'post',
                 data: {
-                    id: userid
+                    id: userid,
+                    'file1': file1,
+                    'file2': file2,
+                    'file3': file3,
+                    'nama': nama,
+                    'remarks': remarks,
+                    'jenis': jenis
                 },
                 beforeSend: function() {
 

@@ -8,6 +8,11 @@ class Actual_budget extends CI_Controller
         $this->load->model('M_departement', 'model');
         $this->load->helper('convertbulan');
         date_default_timezone_set('Asia/Jakarta');
+
+        $role = $this->session->userdata("level");
+        if ($role != 'dpt') {
+            redirect('Login');
+        }
     }
 
     public function list_actual()
@@ -25,13 +30,17 @@ class Actual_budget extends CI_Controller
     public function form_input_actual()
     {
         $code_dept = $this->db->query(" SELECT kode_departement as code FROM master_departement WHERE id='" . $this->session->userdata("departement_id") . "' ")->row();
+        $bk = $this->db->query("  SELECT ifnull(max(bk),0) as nilai_bk from  transaksi_jenis_pembayaran ")->row();
 
+        $d = explode('/', $bk->nilai_bk);
         $data = [
             'uri'               => $this->uri->segment(2),
+            'bk'                => $d[0] . '/' . $d[1] . '/' . $d[2] + 1,
             'bulan'             => convertbulan(date('m')),
             'jenis_transaksi'   => $this->model->getData("master_jenis_transaksi")->result(),
             'code_dept'         => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
-            'jenis'             => $this->model->getData("master_jenis_budget")->result()
+            'jenis'             => $this->model->getData("master_jenis_budget")->result(),
+            'acc'               => $this->model->getData("master_acc")->result()
         ];
         $this->template->load('template_departement', 'input_actual_activity', $data);
     }
@@ -135,9 +144,10 @@ class Actual_budget extends CI_Controller
     public function input()
     {
         $ammount        = $this->input->post("ammount");
-        $panjar_nilai        = $this->input->post("panjar");
+        $panjar_nilai   = $this->input->post("panjar");
         $particullars   = $this->input->post("particullar");
         $jenis          = $this->input->post("jenis_transaksi");
+        $acc            = $this->input->post("acc");
         $part           = array();
         $cari_jenis = $this->db->query("SELECT jenis_transaksi FROM master_jenis_transaksi  WHERE id='" . $jenis . "' ")->row();
 
@@ -154,11 +164,13 @@ class Actual_budget extends CI_Controller
                 'master_departement_id'          => $this->session->userdata("departement_id"),
                 'master_jenis_transaksi_id'      => $jenis,
                 'master_planning_budget_id_planing'  => $this->input->post("id_planning"),
+                'master_acc_id'                  => $acc,
                 'request_code'                   => $this->input->post("request_code"),
                 'tanggal_request'                => $this->input->post("tanggal"),
                 'remarks'                        => $this->input->post("remarks"),
                 'status_approved'                => 0,
                 'approve_mgr'                    => 0,
+                'bk'                             => $this->input->post("bk"),
                 'ket'                            => "menunggu approved dept head",
                 'created_at'                     => date('Y-m-d H:i:s'),
                 'created_by'                     => $this->session->userdata("nik"),
@@ -199,103 +211,18 @@ class Actual_budget extends CI_Controller
                 redirect('departement/Actual_budget/form_input_actual');
             }
         }
+    }
 
-        // if ($cari_jenis->jenis_transaksi == "PANJAR") {
-        //     if ($this->upload->do_upload('lampiran')) {
-        //         $imge = array();
-        //         for ($p = 0; $p < count($_FILES['lampiran']['name']); $p++) {
-        //             $vkl = [
-        //                 'lampiran_' . $o => $_FILES['lampiran']['name'][$p]
-        //             ];
-        //             array_push($imge, $vkl);
-        //         }
-
-        //         $panjar_nilai = $this->input->post("panjar");
-        //         $data = array();
-        //         $par  = array(
-        //             'master_departement_id'          => $this->session->userdata("departement_id"),
-        //             'master_jenis_transaksi_id'      => $jenis,
-        //             'master_planning_budget_id_planing'  => $this->input->post("id_planning"),
-        //             'request_code'                   => $this->input->post("request_code"),
-        //             'tanggal_request'                => $this->input->post("tanggal"),
-        //             'remarks'                        => $this->input->post("remarks"),
-        //             'status_approved'                => 0,
-        //             'approve_mgr'                    => 0,
-        //             'ket'                            => "menunggu approved dept head",
-        //             'created_at'                     => date('Y-m-d H:i:s'),
-        //             'created_by'                     => $this->session->userdata("nik"),
-        //             'to'                             => $this->input->post("toPenerima"),
-        //             'bank'                           => $this->input->post("bank"),
-        //             'rekening'                       => $this->input->post("rekening"),
-        //         );
-        //         var_dump($data);
-        //         // $this->db->insert("transaksi_jenis_pembayaran", $data);
-        //         // if ($this->db->affected_rows() > 0) {
-        //         //     $this->db->trans_commit();
-        //         //     $id = $this->db->insert_id();
-        //         //     for ($i = 0; $i < count($panjar_nilai); $i++) {
-        //         //         $arr = [
-        //         //             'ammount'                          => $panjar_nilai[$i],
-        //         //             'transaksi_jenis_pembayaran_id'    => $id
-        //         //         ];
-        //         //         array_push($part, $arr);
-        //         //     }
-        //         //     $this->db->insert_batch("trans_detail_jenis_pembayaran", $part);
-        //         //     $this->session->set_flashdata("ok", "berhasil di input");
-        //         //     redirect('departement/Actual_budget/form_input_actual');
-        //         // } else {
-        //         //     $this->db->trans_rollback();
-        //         //     $this->session->set_flashdata("nok", "gagal di input");
-        //         //     redirect('departement/Actual_budget/form_input_actual');
-        //         // }
-        //     } else {
-        //         $data['error'] = $this->upload->display_errors();
-        //         echo $this->upload->display_errors();
-        //     }
-        // }
-        //  else {
-        //     if (!$this->upload->do_upload('lampiran')) {
-        //         $data['error'] = $this->upload->display_errors();
-        //         echo $this->upload->display_errors();
-        //     } else {
-        //         $data = [
-        //             'master_departement_id'          => $this->session->userdata("departement_id"),
-        //             'master_jenis_transaksi_id'      => $jenis,
-        //             'master_planning_budget_id_planing'  => $this->input->post("id_planning"),
-        //             'request_code'                   => $this->input->post("request_code"),
-        //             'tanggal_request'                => $this->input->post("tanggal"),
-        //             'remarks'                        => $this->input->post("remarks"),
-        //             'status_approved'                => 0,
-        //             'lampiran'                       => $this->upload->data('file_name'),
-        //             'approve_mgr'                    => 0,
-        //             'ket'                            => "menunggu approved manager",
-        //             'created_at'                     => date('Y-m-d H:i:s'),
-        //             'created_by'                     => $this->session->userdata("nik"),
-        //             'to'                             => $this->input->post("toPenerima"),
-        //             'bank'                           => $this->input->post("bank"),
-        //             'rekening'                       => $this->input->post("rekening"),
-        //         ];
-        //         $this->db->insert("transaksi_jenis_pembayaran", $data);
-        //         if ($this->db->affected_rows() > 0) {
-        //             $this->db->trans_commit();
-        //             $id = $this->db->insert_id();
-        //             for ($i = 0; $i < count($ammount); $i++) {
-        //                 $arr = [
-        //                     'ammount'                          => $ammount[$i],
-        //                     'particullar'                      => $particullars[$i],
-        //                     'transaksi_jenis_pembayaran_id'    => $id
-        //                 ];
-        //                 array_push($part, $arr);
-        //             }
-        //             $this->db->insert_batch("trans_detail_jenis_pembayaran", $part);
-        //             $this->session->set_flashdata("ok", "berhasil di input");
-        //             redirect('departement/Actual_budget/form_input_actual');
-        //         } else {
-        //             $this->db->trans_rollback();
-        //             $this->session->set_flashdata("nok", "gagal di input");
-        //             redirect('departement/Actual_budget/form_input_actual');
-        //         }
-        //     }
-        // }
+    public function getNilaiBK()
+    {
+        $bk = $this->db->query("  SELECT ifnull(max(bk),0) as nilai_bk from  transaksi_jenis_pembayaran ")->row();
+        $jenis = $this->input->post("jenis");
+        if ($jenis == "PANJAR") {
+            $jn = "PJ";
+        } else {
+            $jn = "PV";
+        }
+        $d = explode('/', $bk->nilai_bk);
+        echo $d[0]  . '/' . $jn . '/' . $d[2] + 1;
     }
 }

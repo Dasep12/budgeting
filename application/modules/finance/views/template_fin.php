@@ -51,6 +51,7 @@
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -253,6 +254,7 @@
                             <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/panjer') ?>">Panjer</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/payment') ?>">Payment Voucher</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('finance/ReportBudget') ?>">Plant Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(2) == 'Jurnal' ? 'active ' : '' ?>" href="<?= base_url('finance/Jurnal') ?>">Jurnal</a></li>
                         </ul>
                     </li>
                 </ul>

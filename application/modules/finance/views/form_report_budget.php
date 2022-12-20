@@ -22,7 +22,17 @@
 
     <form action="<?= base_url('finance/ReportBudget/download') ?>" method="post">
         <div class="row">
-
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>Departement</label>
+                    <select id="departement" name="departement" class="form-control">
+                        <option value="">Pilih Departement</option>
+                        <?php foreach ($departement->result() as $dpt) : ?>
+                            <option value="<?= $dpt->id ?>"><?= $dpt->nama_departement ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+            </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <label>Jenis Transaksi</label>

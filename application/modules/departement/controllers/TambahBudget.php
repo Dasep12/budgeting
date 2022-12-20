@@ -7,6 +7,10 @@ class TambahBudget extends CI_Controller
         parent::__construct();
         $this->load->model('M_departement', 'model');
         date_default_timezone_set('Asia/Jakarta');
+        $role = $this->session->userdata("level");
+        if ($role != 'dpt') {
+            redirect('Login');
+        }
     }
 
     public function index()

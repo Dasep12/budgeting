@@ -7,6 +7,7 @@
         .table th,
         .table td {
             border: 1px solid #000;
+            font-size: 8px;
         }
 
         .table2 {
@@ -91,7 +92,7 @@
                     <tr>
                         <td>NO BK</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= $remarks->bk ?></td>
                     <tr>
                 </table>
             </div>
@@ -160,15 +161,15 @@
                         <td align="center"><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
                         <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
                         <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
-                        <td></td>
-                        <td></td>
+                        <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
+                        <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
                     </tr>
                     <tr>
                         <td style="height:20px ;"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><?= $gm->nama_lengkap ?></td>
+                        <td><?= $acc->nama_lengkap ?></td>
+                        <td><?= $fin->nama_lengkap ?></td>
+                        <td><?= $depthead->nama_lengkap ?></td>
                         <td></td>
                     </tr>
                 </tfoot>

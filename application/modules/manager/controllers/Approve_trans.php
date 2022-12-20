@@ -8,6 +8,10 @@ class Approve_trans extends CI_Controller
         parent::__construct();
         $this->load->model('M_manager', 'model');
         date_default_timezone_set('Asia/Jakarta');
+        $role = $this->session->userdata("level");
+        if ($role != 'mgr') {
+            redirect('Login');
+        }
     }
 
     public function list_approve_trans()
@@ -42,9 +46,21 @@ class Approve_trans extends CI_Controller
 
     public function viewDetailRaimbes()
     {
-        $id = $this->input->post("id");
+        $id    = $this->input->post("id");
+        $file1 = $this->input->post("file1");
+        $file2 = $this->input->post("file2");
+        $file3 = $this->input->post("file3");
+        $nama  = $this->input->post("nama");
+        $remarks  = $this->input->post("remarks");
+        $jenis  = $this->input->post("jenis");
         $data = [
-            'raimbus'   => $this->model->ambilData('trans_detail_jenis_pembayaran', ['transaksi_jenis_pembayaran_id' => $id])
+            'raimbus'   => $this->model->ambilData('trans_detail_jenis_pembayaran', ['transaksi_jenis_pembayaran_id' => $id]),
+            'file1'      => $file1,
+            'file2'      => $file2,
+            'file3'      => $file3,
+            'nama'       => $nama,
+            'remarks'    => $remarks,
+            'jenis'       => $jenis,
         ];
         $this->load->view("detail_approved_trans", $data);
     }
@@ -53,7 +69,12 @@ class Approve_trans extends CI_Controller
     {
         $data = [
             'uri'       => $this->uri->segment(2),
-            'raimbus'    => $this->model->ambilData("transaksi_jenis_pembayaran", ['approve_mgr  !=' => 0])
+            'raimbus'    => $this->db->query("SELECT tjp.id , tjp.ket , ma.nama_lengkap , tjp.request_code , tjp.remarks , tjp.lampiran_1 , tjp.lampiran_2  , tjp.lampiran_3  , tjp.created_by , 
+            tjp.tanggal_request , mjt.jenis_transaksi  
+            from transaksi_jenis_pembayaran tjp  
+            left join master_akun ma  on ma.nik  = tjp.created_by  
+            left join master_jenis_transaksi mjt on mjt.id  = tjp.master_jenis_transaksi_id 
+            where tjp.approve_mgr  != 0 ")
         ];
         $this->template->load('template_manager', 'histori_raimbusment_approved', $data);
     }

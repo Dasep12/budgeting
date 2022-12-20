@@ -90,6 +90,11 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/highcharts-3d.js"></script>
     <!--  -->
+    <!-- End Google Tag Manager -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
 </head>
 
 <body>
@@ -276,8 +281,9 @@
                             <span class="micon bi bi-file-pdf"></span><span class="mtext">Report</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?= base_url('Anggaran') ?>">Actual & Plant Budget</a></li>
-                            <li><a href="<?= base_url('Anggaran') ?>">Pengeluaran / Pembelian Pemakaian</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('departement/Laporan/panjer') ?>">Panjer</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('departement/Laporan/payment') ?>">Payment Voucher</a></li>
+                            <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('departement/ReportBudget') ?>">Plant Budget</a></li>
                         </ul>
                     </li>
                 </ul>

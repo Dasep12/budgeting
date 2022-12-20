@@ -237,6 +237,9 @@
                             <li>
                                 <a class="<?= $uri == 'AccountName' ? 'active ' : '' ?>" href="<?= base_url('admin/AccountName') ?>">Account Name</a>
                             </li>
+                            <li>
+                                <a class="<?= $uri == 'Tertanda' ? 'active ' : '' ?>" href="<?= base_url('admin/Tertanda') ?>">Tanda Tangan</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown">
