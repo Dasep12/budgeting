@@ -9,7 +9,7 @@ class Plant_budget extends CI_Controller
         $this->load->model('M_departement', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'dpt') {
+        if ($role != 'DPT') {
             redirect('Login');
         }
     }

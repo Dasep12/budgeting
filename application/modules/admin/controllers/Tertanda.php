@@ -14,7 +14,8 @@ class Tertanda extends CI_Controller
         $data = [
             'uri'       => $this->uri->segment(2),
             'data'      => $this->model->getData("master_departement"),
-            'akun'      => $this->model->getData("master_akun")
+            'akun'      => $this->db->query("SELECT ma.nik , ml.level , ma.nama_lengkap , md.nama_departement as dept FROM  master_akun ma INNER JOIN master_departement md on md.id = ma.departement_id INNER JOIN master_level ml on ml.id = ma.level "),
+            'ttd'       => $this->model->getTertanda()
         ];
         $this->template->load('template_admin', 'master_tertanda', $data);
     }

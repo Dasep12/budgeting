@@ -8,7 +8,7 @@ class TambahBudget extends CI_Controller
         $this->load->model('M_departement', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'dpt') {
+        if ($role != 'DPT') {
             redirect('Login');
         }
     }
@@ -73,12 +73,14 @@ class TambahBudget extends CI_Controller
         $id_planing     = $this->input->post("id_planning_budget");
         $budget_real    = $this->input->post("budget");
         $budget_request = $this->input->post("budget_request");
+        $keperluan      = $this->input->post("keperluan");
         $data = [
             'master_planning_budget_id_planing'   => $id_planing,
             'master_departement_id'               => $this->session->userdata("departement_id"),
             'budget_sebelumnya'                   => $budget_real,
             'budget_request'                      => $budget_request,
             'created_at'                          => date('Y-m-d H:i:s'),
+            'keperluan'                           => $keperluan,
             'created_by'                          => $this->session->userdata("nik"),
             'ket'                                 => 'menunggu approve dept head',
         ];

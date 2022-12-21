@@ -27,18 +27,22 @@
         <table class="data-table table hover nowrap">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>Nik</th>
                     <th>Nama</th>
                     <th>Level</th>
-                    <th>Keterangan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no = 1;
-                foreach ($data->result() as $dpt) : ?>
+                foreach ($ttd->result() as $dpt) : ?>
                     <tr>
-
+                        <td><?= $dpt->nik ?></td>
+                        <td><?= strtoupper($dpt->nama_lengkap) ?></td>
+                        <td><?= $dpt->level ?></td>
+                        <td>
+                            <a href="" class="btn btn-outline btn-sm btn-success">edit</a>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
@@ -60,7 +64,7 @@
                             <label for="">NAMA USER</label>
                             <select class="form-control" name="user" id="user">
                                 <?php foreach ($akun->result() as $us) : ?>
-                                    <option value="<?= $us->nik ?>"><?= $us->nama_lengkap ?></option>
+                                    <option value="<?= $us->nik ?>"><?= strtoupper($us->nama_lengkap . ' - ' . $us->level) ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>

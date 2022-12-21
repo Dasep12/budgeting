@@ -8,7 +8,7 @@ class Dashboard extends CI_Controller
         $this->load->model('M_bc', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'bc') {
+        if ($role != 'BC') {
             redirect('Login');
         }
     }
@@ -16,7 +16,8 @@ class Dashboard extends CI_Controller
     public function index()
     {
         $data = [
-            'uri'       => $this->uri->segment(2)
+            'uri'       => $this->uri->segment(2),
+            'depar'     => $this->model->getDept()
         ];
         $this->template->load('template_bc', 'dashboard', $data);
     }

@@ -46,6 +46,7 @@
                             <th>Bulan Budget</th>
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
+                            <th>Keterangan</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -56,6 +57,7 @@
                                 <td><?= $mg->bulan . ' ' . $mg->tahun ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
+                                <td><?= $mg->keperluan ?></td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
@@ -78,6 +80,7 @@
                             <th>Bulan Budget</th>
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
+                            <th>Keterangan</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -88,6 +91,7 @@
                                 <td><?= $mg->bulan . ' ' . $mg->tahun ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
+                                <td><?= $mg->keperluan ?></td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
@@ -110,6 +114,7 @@
                             <th>Bulan Budget</th>
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
+                            <th>Keterangan</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -120,6 +125,7 @@
                                 <td><?= $mg->bulan . ' ' . $mg->tahun ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
+                                <td><?= $mg->keperluan ?></td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
@@ -128,6 +134,7 @@
             </div>
         </div>
     </div>
+
     <div class="tab-pane fade show" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">
@@ -141,6 +148,7 @@
                             <th>Bulan Budget</th>
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
+                            <th>Keterangan</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -151,6 +159,7 @@
                                 <td><?= $mg->bulan . ' ' . $mg->tahun ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
+                                <td><?= $mg->keperluan ?></td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>

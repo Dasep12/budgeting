@@ -77,6 +77,11 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label>KEPERLUAN</label>
+                    <textarea name="keperluan" class="form-control" id="keperluan"></textarea>
+                </div>
+
 
 
             </div>

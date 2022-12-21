@@ -310,6 +310,7 @@
             $("#particullars").prop("disabled", true);
             $("#ammount").prop("disabled", true);
             $("#particullar").prop("disabled", true);
+            $("#panjar").prop("disabled", false);
         } else if (jenis == "PAYMENT VOUCHER") {
             $("#rekening").prop("disabled", false);
             $("#to").prop("disabled", false);
@@ -317,6 +318,7 @@
             $("#particullars").prop("disabled", false);
             $("#ammount").prop("disabled", false);
             $("#particullar").prop("disabled", false);
+            $("#panjar").prop("disabled", true);
         } else {
             $("#particullar").prop("disabled", false);
             $("#rekening").prop("disabled", false);
@@ -324,6 +326,8 @@
             $("#bank").prop("disabled", false);
             $("#particullars").prop("disabled", false);
             $("#ammount").prop("disabled", false);
+            $("#panjar").prop("disabled", false);
+
         }
     });
 

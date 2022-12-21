@@ -9,7 +9,7 @@ class Approve_trans extends CI_Controller
         $this->load->model('M_finance', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'fin') {
+        if ($role != 'FIN') {
             redirect('Login');
         }
     }

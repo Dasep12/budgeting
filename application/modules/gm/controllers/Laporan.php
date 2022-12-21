@@ -11,7 +11,7 @@ class Laporan extends CI_Controller
         $this->load->model('M_gm', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'gm') {
+        if ($role != 'GM') {
             redirect('Login');
         }
     }

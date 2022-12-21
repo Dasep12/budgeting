@@ -65,7 +65,7 @@
                     <tr>
                         <td style="width:32% ;">To</td>
                         <td>:</td>
-                        <td><?= $remarks->to ?></td>
+                        <td><?= ucwords($remarks->to) ?></td>
                     <tr>
                     <tr>
                         <td>Bank</td>
@@ -156,20 +156,20 @@
                         <td align="center">Accounting</td>
                     </tr>
                     <tr>
-                        <td rowspan="2" colspan="3"><?= $remarks->remarks ?></td>
+                        <td rowspan="2" colspan="3"><?= ucwords($remarks->remarks) ?></td>
                         <td style="height:60px ;"><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
-                        <td align="center"><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
-                        <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
-                        <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
-                        <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
-                        <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
+                        <td align="center"><img height="60px" width="60px" src="./assets/ttd/<?= $gm->file ?>" alt=""></td>
+                        <td><img height="60px" width="60px" src="./assets/ttd/<?= $acc->file ?>" alt=""></td>
+                        <td><img height="60px" width="60px" src="./assets/ttd/<?= $fin->file ?>" alt=""></td>
+                        <td><img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file  ?>" alt=""></td>
+                        <td><img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file  ?>" alt=""></td>
                     </tr>
                     <tr>
                         <td style="height:20px ;"></td>
-                        <td><?= $gm->nama_lengkap ?></td>
-                        <td><?= $acc->nama_lengkap ?></td>
-                        <td><?= $fin->nama_lengkap ?></td>
-                        <td><?= $depthead->nama_lengkap ?></td>
+                        <td><?= ucwords($gm->nama_lengkap) ?></td>
+                        <td><?= ucwords($fin->nama_lengkap) ?></td>
+                        <td><?= ucwords($acc->nama_lengkap) ?></td>
+                        <td><?= ucwords($depthead->nama_lengkap) ?></td>
                         <td></td>
                     </tr>
                 </tfoot>

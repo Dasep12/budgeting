@@ -9,7 +9,7 @@ class Approved extends CI_Controller
         $this->load->model('M_manager', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'mgr') {
+        if ($role != 'MGR') {
             redirect('Login');
         }
     }

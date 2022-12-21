@@ -7,7 +7,7 @@ class Dashboard extends CI_Controller
         parent::__construct();
         $this->load->model('M_departement', 'model');
         $role = $this->session->userdata("level");
-        if ($role != 'dpt') {
+        if ($role != 'DPT') {
             redirect('Login');
         }
     }

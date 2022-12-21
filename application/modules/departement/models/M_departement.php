@@ -153,7 +153,7 @@ class M_departement extends CI_Model
             $where .= "trtb.approve_gm  = 1 AND trtb.approve_fin = 0 or trtb.approve_fin = 2 or trtb.approve_fin = 1  ";
         }
         $col = "trtb." . $col;
-        $query =  $this->db->query("SELECT  trtb.budget_sebelumnya  , trtb.budget_request  , trtb.ket , trtb.created_at as tanggal  , mpb.bulan  , mb.tahun  
+        $query =  $this->db->query("SELECT  trtb.budget_sebelumnya  , trtb.budget_request  , trtb.ket , trtb.created_at as tanggal  , mpb.bulan  , mb.tahun  ,trtb.keperluan 
         from  transaksi_request_tambah_budget trtb 
         inner join master_planning_budget mpb  on mpb.id_planing  = trtb.master_planning_budget_id_planing 
         inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
@@ -228,4 +228,15 @@ class M_departement extends CI_Model
         return $query;
     }
     // 
+
+    // 
+    public function lisTertanda($level)
+    {
+
+        $query = $this->db->query("SELECT ma.nik ,ma.nama_lengkap , ml.`level`  , ml.kode_level , mt.file  from master_tertanda mt 
+        inner join master_akun ma on ma.nik = mt.master_akun_nik 
+        inner join master_level ml  on ml.id  = ma.`level` 
+        where ml.kode_level  = '" . $level . "'");
+        return $query;
+    }
 }

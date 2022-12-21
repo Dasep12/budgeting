@@ -11,7 +11,7 @@ class ReportBudget extends CI_Controller
         $this->load->model('M_gm', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'gm') {
+        if ($role != 'GM') {
             redirect('Login');
         }
     }
@@ -32,13 +32,21 @@ class ReportBudget extends CI_Controller
         $jenis = $this->input->post("jenis_trans");
         $tahun = $this->input->post("tahun");
         $dept = $this->input->post("departement");
+        $type = $this->input->post("jenis");
 
         $cari = $this->db->query("SELECT jenis_budget FROM master_jenis_budget WHERE id='" . $jenis . "' ")->row();
-
         if ($cari->jenis_budget == 'Reguler Cost' || $cari->jenis_budget == 'REGULER COST') {
-            $this->reportRegular($jenis, $tahun, $dept);
+            if ($type == 0) {
+                $this->reportRegular($jenis, $tahun, $dept);
+            } else {
+                $this->reportRegularPdf($jenis, $tahun, $dept);
+            }
         } else {
-            $this->reportPerspective($jenis, $tahun, $dept);
+            if ($type == 0) {
+                $this->reportPerspective($jenis, $tahun, $dept);
+            } else {
+                $this->reportPerspectivePdf($jenis, $tahun, $dept);
+            }
         }
     }
 
@@ -503,5 +511,247 @@ class ReportBudget extends CI_Controller
         header('Cache-Control: max-age=0');
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
+    }
+
+    private function reportPerspectivePdf($jenis, $tahun, $dept)
+    {
+        $depat = $this->db->query("SELECT nama_departement FROM master_departement WHERE id='" . $dept . "'")->row();
+
+        $page1 = "";
+        $page2 = "";
+        $id              = $this->input->get("id");
+        $headPers      = $this->model->getReportBudgetPlant($tahun, $jenis, $dept)->result();
+        $bodyPers = "";
+        $detailPers = "";
+        $subT = 0;
+        foreach ($headPers as $hp) {
+            $bodyPers .= "<tr>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>PERSPECTIVE</td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . $hp->kpi . "</td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . $hp->target_kpi . "</td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . $hp->improvment . "</td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . $hp->due_date . "</td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . $hp->pic . "</td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($hp->budget, 0) . "</td>";
+            $bodyPers .= "</tr>";
+            $subT += $hp->budget;
+
+
+            $jan = $this->model->getReportDetail($hp->id, "Januari")->row();
+            $feb = $this->model->getReportDetail($hp->id, "Februari")->row();
+            $mar = $this->model->getReportDetail($hp->id, "Maret")->row();
+            $apr = $this->model->getReportDetail($hp->id, "April")->row();
+            $mei = $this->model->getReportDetail($hp->id, "Mei")->row();
+            $jun = $this->model->getReportDetail($hp->id, "Juni")->row();
+            $jul = $this->model->getReportDetail($hp->id, "Juli")->row();
+            $agu = $this->model->getReportDetail($hp->id, "Agustus")->row();
+            $sep = $this->model->getReportDetail($hp->id, "September")->row();
+            $okt = $this->model->getReportDetail($hp->id, "Oktober")->row();
+            $nov = $this->model->getReportDetail($hp->id, "November")->row();
+            $des = $this->model->getReportDetail($hp->id, "Desember")->row();
+
+            $detailPers .= "<tr>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>$jan->kode_budget</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>$jan->activity</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($jan->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($feb->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($mar->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($apr->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($mei->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($jun->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($jul->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($agu->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($sep->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($okt->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($nov->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($des->nilai_budget, 0) . "</td>";
+            $detailPers .= "</tr>";
+        }
+
+
+        $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L']);
+        $mpdf->SetColumns(2);
+        $page1 .= "<table style='border:1px solid #000;border-collapse:collapse'>
+            <tr style='border:1px solid #000;border-collapse:collapse'>
+            <th style='border:1px solid #000;border-collapse:collapse'>Jenis Budget</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>KPI</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>Target KPI</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>Improvement</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>Due Date</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>PIC</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>Budget</th>
+            </tr>
+            <tbody style='border:1px solid #000;border-collapse:collapse'>
+             $bodyPers
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style='border:1px solid #000;border-collapse:collapse' colspan='6'>Sub Total</td>
+                    <td style='border:1px solid #000;border-collapse:collapse'>" . number_format($subT, 0) . "</td>
+                </tr>
+            </tfoot>
+        </table>";
+        $page2 .= "<table style='border:1px solid #000;border-collapse:collapse'>
+            <tr>
+                <th style='border:1px solid #000;border-collapse:collapse' rowspan='2'>Code</th>
+                <th style='border:1px solid #000;border-collapse:collapse' rowspan='2'>Activity</th>
+                <th style='border:1px solid #000;border-collapse:collapse' colspan='12'>Schedule</th>
+            </tr>
+            <tr>
+              <th style='border:1px solid #000;border-collapse:collapse'>Jan</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Feb</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Mar</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Apr</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Mei</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Jun</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Jul</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Agu</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Sep</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Okt</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Nov</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Des</th>
+              </tr>
+              <tbody>
+              $detailPers
+              </tbody>
+        </table>";
+
+        $mpdf->SetHTMLHeader('<h2 style="position:absolute;left:300px">' . $depat->nama_departement . '<br>BUDGET FY ' . $tahun . '</h2><div style="position:absolute;margin-left:90px;top:-40px">
+        <img style="position:absolute;" height="250px" width="250px" src="assets/ttd/tanda.png"/>
+        </div>');
+        $mpdf->AddPage(
+            '', // L - landscape, P - portrait 
+            '',
+            '',
+            '',
+            '',
+            5, // margin_left
+            5, // margin right
+            40, // margin top
+            25, // margin bottom
+            10, // margin header
+            0
+        );
+        $mpdf->WriteHTML($page1);
+        $mpdf->AddColumn();
+        $mpdf->WriteHTML($page2);
+        $mpdf->Output("Report Perspective.pdf", 'I');
+    }
+
+    private function reportRegularPdf($jenis, $tahun, $dept)
+    {
+        $depat = $this->db->query("SELECT nama_departement FROM master_departement WHERE id='" . $dept . "'")->row();
+        $page1 = "";
+        $page2 = "";
+        $id              = $this->input->get("id");
+        $headPers      = $this->model->getReportBudgetPlant($tahun, $jenis, $dept)->result();
+        $bodyPers = "";
+        $detailPers = "";
+        $subT = 0;
+        $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L']);
+        $mpdf->SetColumns(2);
+        foreach ($headPers as $hp) {
+            $bodyPers .= "<tr>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>REGULAR </td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . $hp->account_bame . "</td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . $hp->description . "</td>";
+            $bodyPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($hp->budget, 0) . "</td>";
+            $bodyPers .= "</tr>";
+            $subT += $hp->budget;
+
+
+            $jan = $this->model->getReportDetail($hp->id, "Januari")->row();
+            $feb = $this->model->getReportDetail($hp->id, "Februari")->row();
+            $mar = $this->model->getReportDetail($hp->id, "Maret")->row();
+            $apr = $this->model->getReportDetail($hp->id, "April")->row();
+            $mei = $this->model->getReportDetail($hp->id, "Mei")->row();
+            $jun = $this->model->getReportDetail($hp->id, "Juni")->row();
+            $jul = $this->model->getReportDetail($hp->id, "Juli")->row();
+            $agu = $this->model->getReportDetail($hp->id, "Agustus")->row();
+            $sep = $this->model->getReportDetail($hp->id, "September")->row();
+            $okt = $this->model->getReportDetail($hp->id, "Oktober")->row();
+            $nov = $this->model->getReportDetail($hp->id, "November")->row();
+            $des = $this->model->getReportDetail($hp->id, "Desember")->row();
+
+            $detailPers .= "<tr>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>$jan->kode_budget</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>$jan->activity</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($jan->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($feb->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($mar->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($apr->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($mei->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($jun->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($jul->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($agu->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($sep->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($okt->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($nov->nilai_budget, 0) . "</td>";
+            $detailPers .= "<td style='border:1px solid #000;border-collapse:collapse'>" . number_format($des->nilai_budget, 0) . "</td>";
+            $detailPers .= "</tr>";
+        }
+
+        $page1 .= "<table style='border:1px solid #000;border-collapse:collapse'>
+            <tr style='border:1px solid #000;border-collapse:collapse'>
+            <th style='border:1px solid #000;border-collapse:collapse'>Jenis Budget</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>Account Name</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>Description</th>
+            <th style='border:1px solid #000;border-collapse:collapse'>Budget</th>
+            </tr>
+            <tbody style='border:1px solid #000;border-collapse:collapse'>
+             $bodyPers
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style='border:1px solid #000;border-collapse:collapse' colspan='3'>Sub Total</td>
+                    <td style='border:1px solid #000;border-collapse:collapse'>" . number_format($subT, 0) . "</td>
+                </tr>
+            </tfoot>
+        </table>";
+        $page2 .= "<table style='border:1px solid #000;border-collapse:collapse'>
+            <tr>
+                <th style='border:1px solid #000;border-collapse:collapse' rowspan='2'>Code</th>
+                <th style='border:1px solid #000;border-collapse:collapse' rowspan='2'>Activity</th>
+                <th style='border:1px solid #000;border-collapse:collapse' colspan='12'>Schedule</th>
+            </tr>
+            <tr>
+              <th style='border:1px solid #000;border-collapse:collapse'>Jan</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Feb</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Mar</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Apr</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Mei</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Jun</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Jul</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Agu</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Sep</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Okt</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Nov</th>
+              <th style='border:1px solid #000;border-collapse:collapse'>Des</th>
+              </tr>
+              <tbody>
+              $detailPers
+              </tbody>
+        </table>";
+
+        $mpdf->SetHTMLHeader('<h2 style="position:absolute;left:300px">' . $depat->nama_departement . '<br>BUDGET FY ' . $tahun . '</h2><div style="position:absolute;margin-left:90px;top:-40px">
+        <img style="position:absolute;" height="250px" width="250px" src="assets/ttd/tanda.png"/>
+        </div>');
+        $mpdf->AddPage(
+            '', // L - landscape, P - portrait 
+            '',
+            '',
+            '',
+            '',
+            5, // margin_left
+            5, // margin right
+            40, // margin top
+            25, // margin bottom
+            10, // margin header
+            0
+        );
+        $mpdf->WriteHTML($page1);
+        $mpdf->AddColumn();
+        $mpdf->WriteHTML($page2);
+        $mpdf->Output("Report Regular.pdf", 'I');
     }
 }

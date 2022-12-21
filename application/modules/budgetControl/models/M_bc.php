@@ -120,4 +120,17 @@ class M_bc extends CI_Model
         return $query;
     }
     //
+
+    // dashboard
+    public function getDept(Type $var = null)
+    {
+        $data = array();
+        $query = $this->db->get("master_departement");
+        foreach ($query->result_array() as $key => $rso) {
+            $data[] = $rso['nama_departement'];
+        }
+
+        return json_encode($data, true);
+    }
+    // 
 }

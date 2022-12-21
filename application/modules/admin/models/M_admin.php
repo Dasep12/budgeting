@@ -27,9 +27,11 @@ class M_admin extends CI_Model
     }
 
     // list tertanda
-    public function getTertanda(Type $var = null)
+    public function getTertanda()
     {
-        $query = $this->db->query("SELECT * FROM master_tertanda ");
+        $query = $this->db->query("SELECT ma.nik ,ma.nama_lengkap , ml.`level`  , ml.kode_level , mt.file  from master_tertanda mt 
+        inner join master_akun ma on ma.nik = mt.master_akun_nik 
+        inner join master_level ml  on ml.id  = ma.`level` ");
         return $query;
     }
 }

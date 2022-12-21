@@ -20,7 +20,7 @@
 
     </div>
 
-    <form action="<?= base_url('gm/ReportBudget/download') ?>" method="post">
+    <form target="_blank" action="<?= base_url('gm/ReportBudget/download') ?>" method="post">
         <div class="row">
 
             <div class="col-lg-3">
@@ -56,9 +56,18 @@
                     </select>
                 </div>
             </div>
-            <div class="col-lg-3 mt-4 ">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>Jenis</label>
+                    <select name="jenis" id="jenis" class="form-control">
+                        <option value="0">Excel</option>
+                        <option value="1">Pdf</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
                 <label for=""></label>
-                <button id="filter" class="text-white btn btn-success mt-2">download</button>
+                <button id="filter" class="text-white btn btn-success">download</button>
             </div>
         </div>
     </form>

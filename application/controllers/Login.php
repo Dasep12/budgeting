@@ -24,22 +24,22 @@ class Login extends CI_Controller
             $this->session->set_userdata("departement_id", $data->departement_id);
             $this->session->set_userdata("level", $level);
             switch ($level) {
-                case 'mgr':
+                case 'MGR':
                     redirect('manager/Dashboard');
                     break;
-                case 'dpt':
+                case 'DPT':
                     redirect('departement/Dashboard');
                     break;
-                case 'fin':
+                case 'FIN':
                     redirect('finance/Dashboard');
                     break;
-                case 'bc':
+                case 'BC':
                     redirect('budgetControl/Dashboard');
                     break;
-                case 'gm':
+                case 'GM':
                     redirect('gm/Dashboard');
                     break;
-                case 'adm':
+                case 'ADM':
                     redirect('admin/Dashboard');
                     break;
 
