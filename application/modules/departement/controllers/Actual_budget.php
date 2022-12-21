@@ -225,4 +225,26 @@ class Actual_budget extends CI_Controller
         $d = explode('/', $bk->nilai_bk);
         echo $d[0]  . '/' . $jn . '/' . $d[2] + 1;
     }
+
+
+    public function viewDetailRaimbes()
+    {
+        $id    = $this->input->post("id");
+        $file1 = $this->input->post("file1");
+        $file2 = $this->input->post("file2");
+        $file3 = $this->input->post("file3");
+        $nama  = $this->input->post("nama");
+        $remarks  = $this->input->post("remarks");
+        $jenis  = $this->input->post("jenis");
+        $data = [
+            'raimbus'   => $this->model->ambilData('trans_detail_jenis_pembayaran', ['transaksi_jenis_pembayaran_id' => $id]),
+            'file1'      => $file1,
+            'file2'      => $file2,
+            'file3'      => $file3,
+            'nama'       => $nama,
+            'remarks'    => $remarks,
+            'jenis'       => $jenis,
+        ];
+        $this->load->view("detail_approved_trans", $data);
+    }
 }

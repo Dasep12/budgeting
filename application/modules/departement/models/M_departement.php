@@ -120,12 +120,13 @@ class M_departement extends CI_Model
             $where .= 'tjp.approve_gm = 1  ';
         }
         $co = "tjp." . $col;
-        $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , tjp.ket ,
-        (select(tdjp.ammount)) as total   ,
-        tjp.approve_mgr , tjp.approve_fin , tjp.approve_acc  , tjp.approve_gm  , tjp.lampiran_1, tjp.lampiran_3, tjp.lampiran_3  , tjp.tanggal_request 
+        $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement ,
+        (select(tdjp.ammount)) as total   , tjp.ket ,
+        tjp.approve_mgr , tjp.approve_fin , tjp.approve_acc  , tjp.approve_gm  , tjp.lampiran_1, tjp.lampiran_2, tjp.lampiran_3  , tjp.tanggal_request  , ma.nama_lengkap , ma.nik
         from transaksi_jenis_pembayaran tjp 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
+        left join master_akun ma on ma.nik = tjp.created_by 
         left join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
         where tjp.master_departement_id  = $dept_id and  $where ");
         return $query;
