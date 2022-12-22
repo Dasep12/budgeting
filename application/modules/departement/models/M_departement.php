@@ -240,4 +240,13 @@ class M_departement extends CI_Model
         where ml.kode_level  = '" . $level . "'");
         return $query;
     }
+
+    // list retur panjar
+    public function returPanjar($dept)
+    {
+        $query = $this->db->query("SELECT tr.nilai_awal , tr.nilai_retur , tr.keterangan , tjp.request_code  from transaksi_retur tr  
+        inner join transaksi_jenis_pembayaran tjp on tjp.id  = tr.transaksi_jenis_pembayaran_id 
+        where tr.master_departement_id  = '" . $dept . "' ");
+        return $query;
+    }
 }
