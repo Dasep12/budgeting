@@ -176,6 +176,30 @@
                     <input type="hidden" name="id_budget_update" id="id_budget_update">
                     <input type="hidden" name="budget_awal_real" id="budget_awal_real">
                     <input readonly class="form-control" type="text" name="budget_awal" id="budget_awal">
+                    <label for="">Bulan</label>
+                    <select name="bulan" id="bulan" class="form-control">
+                        <option value="">Pilih Bulan</option>
+                        <option>Januari</option>
+                        <option>Februari</option>
+                        <option>Maret</option>
+                        <option>April</option>
+                        <option>Mei</option>
+                        <option>Juni</option>
+                        <option>Juli</option>
+                        <option>Agustus</option>
+                        <option>September</option>
+                        <option>Oktober</option>
+                        <option>November</option>
+                        <option>Desember</option>
+                    </select>
+                    <div id="load_budget_nilai" style="display:none ;">
+                        <span class="text-danger font-italic small">mengambil nilai budget . . .</span>
+                    </div>
+                    <label for="" id="bln">Nilai Budget </label>
+                    <input type="hidden" name="id_planing" id="id_planing">
+                    <input type="hidden" name="bulan_budget_real" id="bulan_budget_real">
+                    <input required readonly class="form-control" type="text" name="budget_bulan" id="budget_bulan">
+
                     <label for="">Input Perubahan Budget</label>
                     <input type="hidden" name="budget_baru_real" id="budget_baru_real">
                     <input required class="form-control" type="text" name="budget_baru" id="budget_baru">
@@ -251,5 +275,40 @@
             const convert_2 = convert_1.replace('Rp', '');
             document.getElementById('budget_baru_real').value = convert_2;
         });
+
+        $('select[name=bulan').on('change', function() {
+            var bulan = $("select[name=bulan] option:selected").text();
+            var id = document.getElementById("id_budget_update").value;
+            if (bulan == null || bulan == "") {
+                alert("Pilih Kode Transaksi")
+                $('#bulan').prop('selectedIndex', 0);
+            } else {
+                $.ajax({
+                    url: "<?= base_url('budgetControl/Approved/getBudgetBulanan') ?>",
+                    method: "GET",
+                    data: "bulan=" + bulan + "&id_plant=" + id,
+                    cache: false,
+                    beforeSend: function() {
+                        document.getElementById("load_budget_nilai").style.display = 'block';
+                    },
+                    complete: function() {
+                        document.getElementById("load_budget_nilai").style.display = 'none';
+                    },
+                    success: function(e) {
+                        if (e == 0 || e === '0') {
+                            alert('tidak ada data');
+                        } else {
+                            const data = JSON.parse(e);
+                            console.log(data)
+                            var budget = formatRupiah(data.nilai_budget, 'Rp. ');
+                            document.getElementById("bln").innerHTML = "Nilai Budget " + bulan
+                            document.getElementById("id_planing").value = data.id_planing;
+                            document.getElementById("bulan_budget_real").value = data.nilai_budget;
+                            document.getElementById("budget_bulan").value = budget;
+                        }
+                    }
+                })
+            }
+        })
     })
 </script>

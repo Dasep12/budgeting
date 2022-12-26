@@ -18,9 +18,10 @@ class Laporan extends CI_Controller
 
     public function payment()
     {
+        $nik = $this->session->userdata("nik");
         $data = [
             'uri'           => $this->uri->segment(2),
-            'departement'   => $this->model->getData("master_departement"),
+            'departement'   => $this->model->listDep($nik),
             'jenis'         => $this->db->query("SELECT id , jenis_transaksi from master_jenis_transaksi WHERE jenis_transaksi = 'PAYMENT VOUCHER'  ")
         ];
         $this->template->load('template_manager', 'form_laporan_payment', $data);
@@ -28,9 +29,10 @@ class Laporan extends CI_Controller
 
     public function panjer()
     {
+        $nik = $this->session->userdata("nik");
         $data = [
             'uri'           => $this->uri->segment(2),
-            'departement'   => $this->model->getData("master_departement"),
+            'departement'   => $this->model->listDep($nik),
             'jenis'         => $this->db->query("SELECT id , jenis_transaksi from master_jenis_transaksi WHERE jenis_transaksi = 'PANJAR' ")
         ];
         $this->template->load('template_manager', 'form_laporan_panjer', $data);

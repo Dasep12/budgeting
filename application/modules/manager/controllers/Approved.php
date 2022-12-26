@@ -16,10 +16,11 @@ class Approved extends CI_Controller
 
     public function list_approve()
     {
+        $sess = $this->session->userdata("nik");
         $data = [
             'uri'        => $this->uri->segment(2),
-            'wait'       => $this->model->daftarApprove(0, $this->session->userdata("departement_id")),
-            'proces'    => $this->model->daftarApprove(1, $this->session->userdata("departement_id")),
+            'wait'       => $this->model->daftarApprove(0, $this->session->userdata("departement_id"), $sess),
+            'proces'    => $this->model->daftarApprove(1, $this->session->userdata("departement_id"), $sess),
         ];
         $this->template->load('template_manager', 'list_approved', $data);
     }

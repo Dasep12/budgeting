@@ -3,9 +3,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-inline">
-                    <select name="" class="form-control form-control-sm" id="">
-                        <option>2022</option>
-                        <option>2023</option>
+                    <select name="plant_chart" class="form-control form-control-sm" id="">
+                        <option value="">Choose Year</option>
+                        <?php for ($i = 21; $i < 60; $i++) : ?>
+                            <option>20<?= $i ?></option>
+                        <?php endfor; ?>
                     </select>
                 </div>
                 <canvas id="myChart"></canvas>
@@ -19,9 +21,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-inline">
-                    <select name="" class="form-control form-control-sm" id="">
-                        <option>2022</option>
-                        <option>2023</option>
+                    <select name="actual_chart" class="form-control form-control-sm" id="">
+                        <option value="">Choose Year</option>
+                        <?php for ($i = 21; $i < 60; $i++) : ?>
+                            <option>20<?= $i ?></option>
+                        <?php endfor; ?>
                     </select>
                 </div>
                 <canvas id="myChart2"></canvas>
@@ -38,13 +42,13 @@
     const ctx = document.getElementById('myChart');
     const ctx2 = document.getElementById('myChart2');
 
-    new Chart(ctx, {
+    var plantBudget = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: <?= $depar ?>,
             datasets: [{
                 label: 'Total',
-                data: [12, 19, 3, 5, 2, 3, 3, 5, 2, 3],
+                data: <?= $plantBudget ?>,
                 borderWidth: 1,
                 backgroundColor: 'rgba(200,120,40,0.9)'
             }]
@@ -58,13 +62,13 @@
         }
     });
 
-    new Chart(ctx2, {
+    var actualBudget = new Chart(ctx2, {
         type: 'bar',
         data: {
             labels: <?= $depar ?>,
             datasets: [{
                 label: 'Total',
-                data: [12, 19, 3, 5, 2, 3, 3, 5, 2, 3],
+                data: <?= $actualBudget ?>,
                 borderWidth: 1,
                 backgroundColor: 'rgba(10,80,40,0.9)'
             }]
@@ -77,4 +81,32 @@
             }
         }
     });
+
+    $('select[name=plant_chart').on('change', function() {
+        var tahun = $("select[name=plant_chart] option:selected").text();
+        $.ajax({
+            url: "<?= base_url('budgetControl/Dashboard/getPlant') ?>",
+            data: 'tahun=' + tahun,
+            method: 'get',
+            success: function(e) {
+                console.log(JSON.parse(e));
+                plantBudget.data.datasets[0].data = JSON.parse(e);
+                plantBudget.update();
+            }
+        })
+    })
+
+    $('select[name=actual_chart').on('change', function() {
+        var tahun = $("select[name=actual_chart] option:selected").text();
+        $.ajax({
+            url: "<?= base_url('budgetControl/Dashboard/getActual') ?>",
+            data: 'tahun=' + tahun,
+            method: 'get',
+            success: function(e) {
+                console.log(JSON.parse(e));
+                actualBudget.data.datasets[0].data = JSON.parse(e);
+                actualBudget.update();
+            }
+        })
+    })
 </script>

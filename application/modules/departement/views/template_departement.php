@@ -388,13 +388,14 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="<?= $this->uri->segment(3)  == 'form_input' ? 'active ' : '' ?>" href="<?= base_url('departement/Retur/form_input') ?>">Retur Panjar
-                                </a>
-                            </li>
-                            <li>
                                 <a class="<?= $this->uri->segment(3)  == 'list_actual' ? 'active ' : '' ?>" href="<?= base_url('departement/Actual_budget/list_actual') ?>">Histori Transaksi
                                 </a>
                             </li>
+                            <li>
+                                <a class="<?= $this->uri->segment(3)  == 'form_input' ? 'active ' : '' ?>" href="<?= base_url('departement/Retur/form_input') ?>">Retur Panjar
+                                </a>
+                            </li>
+
                             <li>
                                 <a class="<?= $this->uri->segment(3)  == 'historiPanjer' ? 'active ' : '' ?>" href="<?= base_url('departement/Retur/historiPanjer') ?>">Histori Retur Panjar
                                 </a>

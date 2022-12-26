@@ -18,8 +18,8 @@ class ApproveRequestTambah extends CI_Controller
     {
         $data = [
             'uri'            => $this->uri->segment(2),
-            'menunggu'    => $this->model->list_request($this->session->userdata("departement_id"), 'mgr', 0),
-            'selesai'    => $this->model->list_request($this->session->userdata("departement_id"), 'mgr', 1)
+            'menunggu'    => $this->model->list_request($this->session->userdata("nik"), 'mgr', 0),
+            'selesai'    => $this->model->list_request($this->session->userdata("nik"), 'mgr', 1)
         ];
         $this->template->load('template_manager', 'list_approved_request_tambah', $data);
     }

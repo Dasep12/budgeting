@@ -52,34 +52,52 @@ class Approved extends CI_Controller
         $this->load->view("detail_budget", $data);
     }
 
+
+    public function getBudgetBulanan(Type $var = null)
+    {
+        $bulan = $this->input->get("bulan");
+        $idplant = $this->input->get("id_plant");
+        $query = $this->db->query("SELECT nilai_budget , id_planing FROM master_planning_budget WHERE master_budget_id_budget='" . $idplant . "' and bulan='" . $bulan . "' ");
+        if ($query->num_rows() > 0) {
+            echo json_encode($query->row());
+        } else {
+            echo 0;
+        }
+    }
+
     public function editBudget()
     {
-        $budget_lama = $this->input->post("budget_awal_real");
         $budget_baru = $this->input->post("budget_baru_real");
         $id          = $this->input->post("id_budget_update");
+        $idplant     = $this->input->post("id_planing");
+        $budgetBulan = $this->input->post("bulan_budget_real");
 
         $updateData = [
-            'budget'   => $budget_baru,
+            'nilai_budget'   => $budget_baru,
         ];
 
-        $this->db->where("id_budget", $id);
-        $this->db->update("master_budget", $updateData);
+        $this->db->where("id_planing", $idplant);
+        $this->db->update("master_planning_budget", $updateData);
         if ($this->db->affected_rows() > 0) {
             $this->db->trans_commit();
+            $totalBudget = $this->db->query("SELECT sum(nilai_budget)as total FROM master_planning_budget WHERE master_budget_id_budget='" . $id . "'  ")->row();
+            $this->model->updateData(['budget' => $totalBudget->total], 'master_budget', ['id_budget' => $id]);
+
             $dataInput = [
                 'master_budget_id_budget'   => $id,
-                'budget_sebelumnya'         => $budget_lama,
+                'master_planing_id'         => $idplant,
+                'budget_sebelumnya'         => $budgetBulan,
                 'budget_update'             => $budget_baru,
                 'updated_at'                => date('Y-m-d H:i:s'),
                 'updated_by'                => $this->session->userdata("nik")
             ];
             $this->db->insert("transaksi_edit_budget", $dataInput);
             $this->session->set_flashdata("ok", "Budget di perbaharui ");
-            redirect('accounting/Approved/list_approve');
+            redirect('budgetControl/Approved/list_approve');
         } else {
             $this->db->trans_rollback();
             $this->session->set_flashdata("nok", "Gagal  , terjadi kesalahan");
-            redirect('accounting/Approved/list_approve');
+            redirect('budgetControl/Approved/list_approve');
         }
     }
 }

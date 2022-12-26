@@ -32,46 +32,53 @@
     <?php $this->session->unset_userdata("nok") ?>
 <?php } ?>
 <div class="card-box mb-30">
-    <div class="pd-20">
-        <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
-    </div>
-    <div class="pb-20">
+    <form action="<?= base_url('manager/Approve_trans/multiApprove') ?>" method="post">
+        <div class="pd-20">
+            <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
+        </div>
+        <div class="pb-20">
 
-        <table class="data-table table hover nowrap">
-            <thead>
-                <tr>
-                    <th class="table-plus datatable-nosort">Kode Request</th>
-                    <th>Tanggal Request</th>
-                    <th>Jenis Transaksi</th>
-                    <th>Nilai Rupiah</th>
-                    <th>Opsi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($raimbus->result() as $rm) : ?>
+            <table class="data-table table hover nowrap">
+                <thead>
                     <tr>
-                        <td><?= $rm->request_code ?></td>
-                        <td><?= $rm->tanggal_request ?></td>
-                        <td><?= $rm->jenis_transaksi ?></td>
-                        <td><?= 'Rp. ' . number_format($rm->total, 0, ",", ".") ?></td>
-                        <td>
-                            <?php
-                            if ($rm->approve_mgr == 1) { ?>
-                                <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
-                            <?php } else { ?>
-                                <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
-
-                                <a href="<?= base_url('manager/Approve_trans/approve?id=' . $rm->id_trans . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-                                <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approve_trans/approve?id=' . $rm->id_trans . '&kode=2') ?>" class="badge badge-danger">Reject</a>
-
-                            <?php }
-                            ?>
-                        </td>
+                        <th></th>
+                        <th class="table-plus datatable-nosort">Kode Request</th>
+                        <th>Tanggal Request</th>
+                        <th>Jenis Transaksi</th>
+                        <th>Nilai Rupiah</th>
+                        <th>Opsi</th>
                     </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    <?php foreach ($raimbus->result() as $rm) : ?>
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="multi" name="multi[]" id="multi" value="<?= $rm->id_trans ?>">
+                            </th>
+                            <td><?= $rm->request_code ?></td>
+                            <td><?= $rm->tanggal_request ?></td>
+                            <td><?= $rm->jenis_transaksi ?></td>
+                            <td><?= 'Rp. ' . number_format($rm->total, 0, ",", ".") ?></td>
+                            <td>
+                                <?php
+                                if ($rm->approve_mgr == 1) { ?>
+                                    <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                <?php } else { ?>
+                                    <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+
+                                    <a href="<?= base_url('manager/Approve_trans/approve?id=' . $rm->id_trans . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                                    <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approve_trans/approve?id=' . $rm->id_trans . '&kode=2') ?>" class="badge badge-danger">Reject</a>
+
+                                <?php }
+                                ?>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    </form>
+
 </div>
 
 <!-- Modal -->
@@ -134,5 +141,25 @@
                 }
             });
         });
+
+        $(".multi").click(function() {
+            var panjang = $('[name="multi[]"]:checked').length;
+            if (panjang > 0) {
+                document.getElementById('btn_delete_all').style.display = "block";
+            } else {
+                document.getElementById('btn_delete_all').style.display = "none";
+            }
+        })
+
+        $("#check-all").click(function() {
+            if ($(this).is(":checked")) {
+                $(".multi").prop("checked", true);
+                document.getElementById('btn_delete_all').style.display = "block";
+                var panjang = $('[name="multi[]"]:checked').length;
+            } else {
+                $(".multi").prop("checked", false);
+                document.getElementById('btn_delete_all').style.display = "none";
+            }
+        })
     })
 </script>

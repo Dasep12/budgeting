@@ -616,8 +616,8 @@ class ReportBudget extends CI_Controller
               </tbody>
         </table>";
 
-        $mpdf->SetHTMLHeader('<h2 style="position:absolute;left:300px">' . $depat->nama_departement . '<br>BUDGET FY ' . $tahun . '</h2><div style="position:absolute;margin-left:90px;top:-40px">
-        <img style="position:absolute;" height="250px" width="250px" src="assets/ttd/tanda.png"/>
+        $mpdf->SetHTMLHeader('<h2 style="position:absolute;left:300px">' . $depat->nama_departement . '<br>BUDGET FY ' . $tahun . '</h2><div style="position:absolute;margin-left:90px;">
+        <img style="position:absolute;" height="100px" width="250px" src="assets/ttd/LOGO.jpg"/>
         </div>');
         $mpdf->AddPage(
             '', // L - landscape, P - portrait 
@@ -734,7 +734,7 @@ class ReportBudget extends CI_Controller
         </table>";
 
         $mpdf->SetHTMLHeader('<h2 style="position:absolute;left:300px">' . $depat->nama_departement . '<br>BUDGET FY ' . $tahun . '</h2><div style="position:absolute;margin-left:90px;top:-40px">
-        <img style="position:absolute;" height="250px" width="250px" src="assets/ttd/tanda.png"/>
+        <img style="position:absolute;" height="250px" width="250px" src="assets/ttd/LOGO.jpg"/>
         </div>');
         $mpdf->AddPage(
             '', // L - landscape, P - portrait 
