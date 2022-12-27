@@ -254,9 +254,9 @@
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         <span class="user-icon">
-                            <img src="<?= base_url('assets/') ?>vendors/images/photo1.jpg" alt="" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/640px-User_icon_2.svg.png" alt="" />
                         </span>
-                        <span class="user-name">Ahmad Febri</span>
+                        <span class="user-name"><?= ucwords($this->session->userdata("nama")) ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         <a class="dropdown-item" href="<?= base_url('Logout') ?>"><i class="dw dw-logout"></i> Log Out</a>

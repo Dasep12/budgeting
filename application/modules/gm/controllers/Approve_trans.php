@@ -67,14 +67,10 @@ class Approve_trans extends CI_Controller
 
     public function histori_approve_trans()
     {
+        $sess = $this->session->userdata("nik");
         $data = [
             'uri'       => $this->uri->segment(2),
-            'raimbus'    => $this->db->query("SELECT tjp.id , tjp.ket , ma.nama_lengkap , tjp.request_code , tjp.remarks , tjp.lampiran_1 , tjp.lampiran_2  , tjp.lampiran_3  , tjp.created_by , 
-            tjp.tanggal_request , mjt.jenis_transaksi  
-            from transaksi_jenis_pembayaran tjp  
-            left join master_akun ma  on ma.nik  = tjp.created_by  
-            left join master_jenis_transaksi mjt on mjt.id  = tjp.master_jenis_transaksi_id 
-            where tjp.approve_mgr  != 0 ")
+            'raimbus'    => $this->model->listTransaksi($this->session->userdata("departement_id"), 1, $sess)
         ];
         $this->template->load('template_gm', 'histori_raimbusment_approved', $data);
     }

@@ -73,12 +73,11 @@ class M_manager extends CI_Model
             $st .= 'tjp.approve_mgr =0';
         }
         $query = $this->db->query("SELECT tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  ,  tjp.ket ,
-        (select(tdjp.ammount)) as total   , ma.nama_lengkap , ma.nik,
-        tjp.approve_mgr , tjp.approve_acc  , tjp.lampiran_1 ,tjp.lampiran_2 , tjp.lampiran_3  , tjp.tanggal_request
+        (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,
+        tjp.approve_mgr , tjp.approve_acc  , tjp.lampiran_1 ,tjp.lampiran_2 , tjp.lampiran_3  , tjp.tanggal_request 
         from transaksi_jenis_pembayaran tjp 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
-        left join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
         left join master_bawahan_depthead mhb on mhb.master_departement_id =  tjp.master_departement_id
         left join master_akun ma on ma.nik = tjp.created_by 
         where $st 

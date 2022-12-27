@@ -10,6 +10,7 @@ class Login extends CI_Controller
     public function index()
     {
         $this->load->view("login");
+        // echo md5('123');
     }
 
     public function cek_login()
@@ -23,6 +24,7 @@ class Login extends CI_Controller
             $this->session->set_userdata("nik", $data->nik);
             $this->session->set_userdata("departement_id", $data->departement_id);
             $this->session->set_userdata("level", $level);
+            $this->session->set_userdata("nama", $data->nama_lengkap);
             switch ($level) {
                 case 'MGR':
                     redirect('manager/Dashboard');

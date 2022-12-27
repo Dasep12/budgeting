@@ -32,7 +32,11 @@ class Actual_budget extends CI_Controller
         $code_dept = $this->db->query(" SELECT kode_departement as code FROM master_departement WHERE id='" . $this->session->userdata("departement_id") . "' ")->row();
         $bk = $this->db->query("  SELECT ifnull(max(bk),0) as nilai_bk from  transaksi_jenis_pembayaran ")->row();
 
-        $d = explode('/', $bk->nilai_bk);
+        if ($bk->nilai_bk == 0) {
+            $d = explode('/', date('Y') . '/TRN/00');
+        } else {
+            $d = explode('/', $bk->nilai_bk);
+        }
         $data = [
             'uri'               => $this->uri->segment(2),
             'bk'                => $d[0] . '/' . $d[1] . '/' . $d[2] + 1,
@@ -223,7 +227,11 @@ class Actual_budget extends CI_Controller
             $jn = "PV";
         }
         $d = explode('/', $bk->nilai_bk);
-        echo $d[0]  . '/' . $jn . '/' . $d[2] + 1;
+        if ($bk->nilai_bk == 0) {
+            echo date('Y') . '/' . $jn . '/' . 0 + 1;
+        } else {
+            echo $d[0]  . '/' . $jn . '/' . $d[2] + 1;
+        }
     }
 
 

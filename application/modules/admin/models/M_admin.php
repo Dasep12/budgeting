@@ -14,6 +14,13 @@ class M_admin extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function delete($data, $table)
+    {
+        $this->db->where($data);
+        $this->db->delete($table);
+        return $this->db->affected_rows();
+    }
+
     public function updateData($data, $table, $where)
     {
         $this->db->where($where);
@@ -32,6 +39,22 @@ class M_admin extends CI_Model
         $query = $this->db->query("SELECT ma.nik ,ma.nama_lengkap , ml.`level`  , ml.kode_level , mt.file  from master_tertanda mt 
         inner join master_akun ma on ma.nik = mt.master_akun_nik 
         inner join master_level ml  on ml.id  = ma.`level` ");
+        return $query;
+    }
+
+    public function daftarUser($nik)
+    {
+        $where = "";
+        if ($nik != NULL) {
+            $where .= 'ma.nik=' . $nik;
+            $query = $this->db->query("SELECT ma.nik , ma.nama_lengkap  , ma.user_name  , ml.`level`  , md.nama_departement , ma.departement_id , ma.`level` , ml.`level` as dept from master_akun ma 
+            left join master_departement md on md.id = ma.departement_id 
+            left join master_level ml on ml.id = ma.`level`  WHERE $where ");
+        } else {
+            $query = $this->db->query("SELECT ma.nik , ma.nama_lengkap  , ma.user_name  , ml.`level` as dept  , md.nama_departement , ma.departement_id , ma.`level` as lev , ml.`level`  from master_akun ma 
+            left join master_departement md on md.id = ma.departement_id 
+            left join master_level ml on ml.id = ma.`level` ");
+        }
         return $query;
     }
 }
