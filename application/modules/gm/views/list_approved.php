@@ -44,43 +44,49 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="card-box mb-30">
-            <div class="pd-20">
-                <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
-            </div>
-            <div class="pb-20">
-                <table class="data-table table stripe hover nowrap table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Kode Budget</th>
-                            <th>Departement</th>
-                            <th>Tahun</th>
-                            <th>Total Budget</th>
-                            <th>Jenis Budget</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $no = 1;
-                        foreach ($daftar->result() as $df) : ?>
+            <form action="<?= base_url('gm/Approve/multiApprove') ?>" method="post">
+                <div class="pd-20">
+                    <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
+                </div>
+                <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap table-bordered">
+                        <thead>
                             <tr>
-                                <td><?= $df->kode_budget ?></td>
-                                <td><?= $df->nama_departement ?></td>
-                                <td><?= $df->tahun ?></td>
-                                <td><?= 'Rp. ' . number_format($df->budget, 0, ",", ".")  ?></td>
-                                <td><?= $df->jenis_budget ?></td>
-
-                                <td>
-                                    <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
-
-                                    <a href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-
-                                    <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
-                                </td>
+                                <th></th>
+                                <th>Kode Budget</th>
+                                <th>Departement</th>
+                                <th>Tahun</th>
+                                <th>Total Budget</th>
+                                <th>Jenis Budget</th>
+                                <th>Action</th>
                             </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1;
+                            foreach ($daftar->result() as $df) : ?>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" class="multi" name="multi[]" id="multi" value="<?= $df->id_budget ?>">
+                                    </th>
+                                    <td><?= $df->kode_budget ?></td>
+                                    <td><?= $df->nama_departement ?></td>
+                                    <td><?= $df->tahun ?></td>
+                                    <td><?= 'Rp. ' . number_format($df->budget, 0, ",", ".")  ?></td>
+                                    <td><?= $df->jenis_budget ?></td>
+
+                                    <td>
+                                        <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+
+                                        <a href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+
+                                        <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('gm/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -172,5 +178,25 @@
                 }
             });
         });
+
+        $(".multi").click(function() {
+            var panjang = $('[name="multi[]"]:checked').length;
+            if (panjang > 0) {
+                document.getElementById('btn_delete_all').style.display = "block";
+            } else {
+                document.getElementById('btn_delete_all').style.display = "none";
+            }
+        })
+
+        $("#check-all").click(function() {
+            if ($(this).is(":checked")) {
+                $(".multi").prop("checked", true);
+                document.getElementById('btn_delete_all').style.display = "block";
+                var panjang = $('[name="multi[]"]:checked').length;
+            } else {
+                $(".multi").prop("checked", false);
+                document.getElementById('btn_delete_all').style.display = "none";
+            }
+        })
     })
 </script>

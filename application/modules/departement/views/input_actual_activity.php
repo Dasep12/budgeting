@@ -80,7 +80,22 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>BULAN</label>
-                        <input type="text" readonly value="<?= $bulan ?>" class="form-control" name="bulan_budget" id="bulan_budget">
+                        <!-- <input type="text" readonly value="<?= $bulan ?>" class="form-control" name="bulan_budget" id="bulan_budget"> -->
+                        <select name="bulan_budget" id="bulan_budget" class="form-control">
+                            <option value="">Pilih Bulan</option>
+                            <option>Januari</option>
+                            <option>Februari</option>
+                            <option>Maret</option>
+                            <option>April</option>
+                            <option>Mei</option>
+                            <option>Juni</option>
+                            <option>Juli</option>
+                            <option>Agustus</option>
+                            <option>September</option>
+                            <option>Oktober</option>
+                            <option>November</option>
+                            <option>Desember</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>BUDGET TERSEDIA</label>
@@ -263,7 +278,7 @@
     $('select[name=kode_budget').on('change', function() {
         var kode = $("select[name=kode_budget] option:selected").val();
         var tahun = $("select[name=tahun_budget] option:selected").val();
-        var bulan = document.getElementById("bulan_budget").value;
+        var bulan = $("select[name=bulan_budget] option:selected").val();
         $.ajax({
             url: "<?= base_url('departement/Actual_budget/getBudget') ?>",
             method: "GET",

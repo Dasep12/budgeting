@@ -18,9 +18,52 @@ class SubJenisBudget extends CI_Controller
         $this->template->load('template_admin', 'master_subjenis_budget', $data);
     }
 
-    public function input(Type $var = null)
+    public function input()
     {
-        $nama  = $this->input->post("nama_departement");
-        $kode  = $this->input->post("kode_departement");
+        $jenis  = $this->input->post("jenis_budget2");
+        $data = [
+            'sub_jenis_budget'  => $jenis
+        ];
+        $save = $this->model->insert("master_sub_jenis_budget", $data);
+        if ($save > 0) {
+            $this->session->set_flashdata("ok", "data berhasil di tambah");
+            redirect('admin/SubJenisBudget/');
+        } else {
+            $this->session->set_flashdata("nok", "data gagal di tambah");
+            redirect('admin/SubJenisBudget/');
+        }
+    }
+
+    public function delete()
+    {
+        $id  = $this->input->get("id");
+        $where = [
+            'id'  => $id
+        ];
+        $delete = $this->model->delete($where, ['master_sub_jenis_budget']);
+        if ($delete > 0) {
+            $this->session->set_flashdata("ok", "data berhasil di hapus");
+            redirect('admin/SubJenisBudget/');
+        } else {
+            $this->session->set_flashdata("nok", "data gagal di hapus");
+            redirect('admin/SubJenisBudget/');
+        }
+    }
+
+    public function update(Type $var = null)
+    {
+        $jenis  = $this->input->post("sub_jenis_budget");
+        $id  = $this->input->post("id");
+        $data = [
+            'sub_jenis_budget'  => $jenis
+        ];
+        $upd = $this->model->updateData($data, "master_sub_jenis_budget", ['id' => $id]);
+        if ($upd > 0) {
+            $this->session->set_flashdata("ok", "data berhasil di update");
+            redirect('admin/SubJenisBudget/');
+        } else {
+            $this->session->set_flashdata("nok", "data gagal di update");
+            redirect('admin/SubJenisBudget/');
+        }
     }
 }
