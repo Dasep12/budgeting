@@ -44,7 +44,7 @@
     <div class="pb-20">
         <div class="card-body">
 
-            <form action="<?= base_url('Admin/Pengguna/edit') ?>" method="post">
+            <form action="<?= base_url('Admin/Pengguna/update') ?>" method="post">
                 <div class="row md-2">
 
                     <div class="col-lg-6">
@@ -54,6 +54,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Nik</label>
+                            <input type="hidden" name="jab" id="jab" value="<?= $user->dept ?>">
                             <input type="text" readonly value="<?= $user->nik ?>" class="form-control" required autocomplete="off" name="nik" id="nik">
                         </div>
                         <div class="form-group">
@@ -62,7 +63,7 @@
                         </div>
 
                         <button type="reset" class="btn btn-danger btn-sm">Reset</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -82,12 +83,15 @@
                             <label for="">Departement</label>
                             <select name="departement[]" required id="departement" class="form-control js-select2" multiple="multiple" style="height: 40px;">
                                 <?php if ($user->dept == "DEPT HEAD" || $user->dept == "dept head") { ?>
-                                    <?php foreach ($departement->result() as $lv) : ?>
-                                        <?php if ($user->departement_id == $lv->id) { ?>
+                                    <?php foreach ($departement->result() as $lv) :
+                                        $nilai  = $this->db->get_where("master_bawahan_depthead", ['master_akun_nik' => $user->nik, 'master_departement_id' => $lv->id]);
+                                        if ($nilai->num_rows() > 0) { ?>
                                             <option selected value="<?= $lv->id ?>"><?= $lv->nama_departement ?></option>
                                         <?php } else { ?>
                                             <option value="<?= $lv->id ?>"><?= $lv->nama_departement ?></option>
-                                        <?php } ?>
+                                        <?php  }
+                                        ?>
+
                                     <?php endforeach ?>
                                 <?php } else { ?>
                                     <?php foreach ($departement->result() as $lv) : ?>

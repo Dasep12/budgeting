@@ -7,6 +7,10 @@ class Tertanda extends CI_Controller
         parent::__construct();
         $this->load->model('M_admin', 'model');
         date_default_timezone_set('Asia/Jakarta');
+        $role = $this->session->userdata("level");
+        if ($role != 'ADM') {
+            redirect('Login');
+        }
     }
 
     public function index()
@@ -35,7 +39,8 @@ class Tertanda extends CI_Controller
             $data = [
                 'master_akun_nik'       => $user,
                 'file'                  => $this->upload->data('file_name'),
-                'created_at'            => date('Y-m-d H:i:s')
+                'created_at'            => date('Y-m-d H:i:s'),
+                'created_by'            => $this->session->userdata("nik")
             ];
             if ($search->num_rows() > 0) {
                 $this->session->set_flashdata("nok", "data sudah ada di master");
@@ -52,6 +57,53 @@ class Tertanda extends CI_Controller
             }
         } else {
             $this->session->set_flashdata("nok", $this->upload->display_errors());
+            redirect('admin/Tertanda/');
+        }
+    }
+
+    public function update()
+    {
+        $config = array(
+            'upload_path'   => './assets/ttd/',
+            'allowed_types' => 'jpg|png|jpeg',
+            'overwrite'     => true,
+        );
+        $id = $this->input->post("id_2");
+
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload("lampiran_1")) {
+
+            $data = [
+                'file'                  => $this->upload->data('file_name'),
+                'updated_at'            => date('Y-m-d H:i:s'),
+                'updated_by'            => $this->session->userdata("nik")
+            ];
+            $update = $this->model->updateData($data, "master_tertanda", ['id' => $id]);
+            if ($update > 0) {
+                $this->session->set_flashdata("ok", "data berhasil di update");
+                redirect('admin/Tertanda/');
+            } else {
+                $this->session->set_flashdata("nok", "data gagal di update");
+                redirect('admin/Tertanda/');
+            }
+        } else {
+            $this->session->set_flashdata("nok", $this->upload->display_errors());
+            redirect('admin/Tertanda/');
+        }
+    }
+
+    public function delete()
+    {
+        $id  = $this->input->get("id");
+        $where = [
+            'id'  => $id
+        ];
+        $delete = $this->model->delete($where, ['master_tertanda']);
+        if ($delete > 0) {
+            $this->session->set_flashdata("ok", "data berhasil di hapus");
+            redirect('admin/Tertanda/');
+        } else {
+            $this->session->set_flashdata("nok", "data gagal di hapus");
             redirect('admin/Tertanda/');
         }
     }

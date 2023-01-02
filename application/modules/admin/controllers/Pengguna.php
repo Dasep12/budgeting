@@ -8,6 +8,10 @@ class Pengguna extends CI_Controller
         parent::__construct();
         $this->load->model('M_admin', 'model');
         date_default_timezone_set('Asia/Jakarta');
+        $role = $this->session->userdata("level");
+        if ($role != 'ADM') {
+            redirect('Login');
+        }
     }
 
     public function index()
@@ -112,5 +116,46 @@ class Pengguna extends CI_Controller
             'user'        => $this->model->daftarUser($nik)->row()
         ];
         $this->template->load('template_admin', 'form_edit_pengguna', $data);
+    }
+
+    public function update()
+    {
+        $nama_lengkap = $this->input->post("nama_lengkap");
+        $nik          = $this->input->post("nik");
+        $username     = $this->input->post("username");
+        $level        = $this->input->post("level");
+        $dept         = $this->input->post("departement[]");
+        $jab          = $this->input->post("jab");
+
+        $dataDept = array();
+
+
+        $data = [
+            'nama_lengkap'      => $nama_lengkap,
+            'user_name'         => $username,
+            'level'             => $level,
+            'departement_id'    => $dept[0],
+            'status'            => 1,
+            'created_at'        => date('Y-m-d H:i:s')
+        ];
+        $save = $this->model->updateData($data, "master_akun", ['nik' => $nik]);
+        if ($save > 0) {
+            if ($jab == 'DEPT HEAD' || $jab == 'dept head') {
+                $this->model->delete(['master_akun_nik' => $nik], "master_bawahan_depthead");
+                for ($i = 0; $i < count($dept); $i++) {
+                    $dataDep = array(
+                        'master_akun_nik'       => $nik,
+                        'master_departement_id' => $dept[$i]
+                    );
+                    array_push($dataDept, $dataDep);
+                }
+                $this->db->insert_batch("master_bawahan_depthead", $dataDept);
+            }
+            $this->session->set_flashdata("ok", "data berhasil di update");
+            redirect('admin/Pengguna/');
+        } else {
+            $this->session->set_flashdata("nok", "data gagal di update");
+            redirect('admin/Pengguna/');
+        }
     }
 }
