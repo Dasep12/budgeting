@@ -221,12 +221,12 @@
                 <ul id="accordion-menu">
                     <li class="dropdown">
                         <a href="<?= base_url('budgetControl/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
-                            <span class="micon bi bi-house"></span><span class="mtext">DASHBOARD</span>
+                            <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
                         </a>
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file"></span><span class="mtext">E-BUDGET</span>
+                            <span class="micon bi bi-file"></span><span class="mtext">E-Budget</span>
                         </a>
                         <ul class="submenu">
                             <li><a class="<?= $this->uri->segment(3) == 'list_approve_req' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/ApproveRequestTambah/list_approve_req') ?>">Approve Tambah Budget</a></li>
@@ -235,7 +235,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file"></span><span class="mtext">TRANSACTION</span>
+                            <span class="micon bi bi-file"></span><span class="mtext">Transaksi</span>
                         </a>
                         <ul class="submenu">
                             <li>
@@ -248,10 +248,10 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file-pdf"></span><span class="mtext">REPORT</span>
+                            <span class="micon bi bi-file-pdf"></span><span class="mtext">Laporan</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('BudgetControl/Laporan/panjer') ?>">Panjer</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('BudgetControl/Laporan/panjer') ?>">Panjar</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('BudgetControl/Laporan/payment') ?>">Payment Voucher</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('BudgetControl/ReportBudget') ?>">Plant Budget</a></li>
                         </ul>

@@ -26,6 +26,7 @@
                     <th class="table-sm small table-plus datatable-nosort">Kode Budget</th>
                     <th>Nilai Transaksi</th>
                     <th>Nilai Retur</th>
+                    <!-- <th>Status</th> -->
                     <th>Keterangan</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                         <td><?= $pl->request_code ?></td>
                         <td><?= 'Rp. ' . number_format($pl->nilai_awal, 0, ",", ".")  ?></td>
                         <td><?= 'Rp. ' . number_format($pl->nilai_retur, 0, ",", ".")   ?></td>
+                        <!-- <td><?= $pl->status_retur == 1 ? '<span class="bg-success d-block text-center text-white">CLOSE</span>' : '<span class="bg-danger d-block text-center text-white">OPEN</span>' ?></td> -->
                         <td><?= ucwords($pl->keterangan) ?></td>
                     </tr>
                 <?php endforeach ?>

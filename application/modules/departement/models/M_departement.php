@@ -32,6 +32,13 @@ class M_departement extends CI_Model
         return  $this->db->get_where($table, $where);
     }
 
+    public function updateData($data, $table, $where)
+    {
+        $this->db->where($where);
+        $this->db->update($table, $data);
+        return $this->db->affected_rows();
+    }
+
     public function multiInsert($data, $table)
     {
         $this->db->insert_batch($table, $data);
@@ -120,9 +127,9 @@ class M_departement extends CI_Model
             $where .= 'tjp.approve_gm = 1  ';
         }
         $co = "tjp." . $col;
-        $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement ,
+        $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement , tjp.status_retur ,
          (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total   , tjp.ket ,
-        tjp.approve_mgr , tjp.approve_fin , tjp.approve_acc  , tjp.approve_gm  , tjp.lampiran_1, tjp.lampiran_2, tjp.lampiran_3  , tjp.tanggal_request  , ma.nama_lengkap , ma.nik
+        tjp.approve_mgr , tjp.approve_fin , tjp.approve_acc  , tjp.approve_gm  , tjp.lampiran_1, tjp.lampiran_2, tjp.lampiran_3  , tjp.tanggal_request  , ma.nama_lengkap , ma.nik , tjp.payment_close as pcl 
         from transaksi_jenis_pembayaran tjp 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
@@ -191,7 +198,7 @@ class M_departement extends CI_Model
         inner join transaksi_jenis_pembayaran tjp  on tjp.master_planning_budget_id_planing = mpb.id_planing 
         inner join trans_detail_jenis_pembayaran tdjp  on tjp.id  = tdjp.transaksi_jenis_pembayaran_id 
         inner join master_departement md  on md.id  = tjp.master_departement_id 
-        where mb.departement_id  = '" . $dept . "' and tjp.approve_fin  = 1 and mb.tahun  = 2022
+        where mb.departement_id  = '" . $dept . "' and tjp.approve_fin  = 1 and mb.tahun  = '" . $year . "'
         group by mpb.master_budget_id_budget  ");
         if ($query->num_rows() > 0) {
             $data = $query->row();
@@ -222,7 +229,7 @@ class M_departement extends CI_Model
 
     public function reportPayment($dept, $jenis, $start, $end)
     {
-        $query = $this->db->query("SELECT tjp.id, tjp.tanggal_request  , concat('Rp. ',format(tdjp.ammount,0)) as ammount  , tdjp.particullar  , tjp.remarks  , tjp.request_code from transaksi_jenis_pembayaran tjp 
+        $query = $this->db->query("SELECT tjp.id, tjp.tanggal_request  , concat('Rp. ',format(tdjp.ammount,0)) as ammount  , tdjp.particullar  , tjp.remarks  , tjp.request_code , tjp.status_retur from transaksi_jenis_pembayaran tjp 
         inner join trans_detail_jenis_pembayaran tdjp on tdjp.transaksi_jenis_pembayaran_id = tjp.id 
         where tjp.master_departement_id = '" . $dept . "' and tjp.tanggal_request  between  '" . $start . "' and '" . $end . "' and tjp.master_jenis_transaksi_id  = '" . $jenis . "' and tjp.approve_fin = 1   ");
         return $query;
@@ -243,7 +250,7 @@ class M_departement extends CI_Model
     // list retur panjar
     public function returPanjar($dept)
     {
-        $query = $this->db->query("SELECT tr.nilai_awal , tr.nilai_retur , tr.keterangan , tjp.request_code  from transaksi_retur tr  
+        $query = $this->db->query("SELECT tr.nilai_awal , tr.nilai_retur , tr.keterangan , tjp.request_code , tjp.status_retur  from transaksi_retur tr  
         inner join transaksi_jenis_pembayaran tjp on tjp.id  = tr.transaksi_jenis_pembayaran_id 
         where tr.master_departement_id  = '" . $dept . "' ");
         return $query;

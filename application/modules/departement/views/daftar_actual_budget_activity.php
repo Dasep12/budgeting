@@ -155,6 +155,7 @@
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
                             <th>Nilai</th>
+                            <th>Approval</th>
                             <th>Status</th>
                             <th>Cetak</th>
                         </tr>
@@ -170,8 +171,17 @@
                                 <td><?= $df->tanggal_request ?></td>
                                 <td><?= $df->jenis_transaksi ?></td>
                                 <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
+
                                 <td>
+
                                     <label for="" class="badge <?= $df->approve_fin == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->ket ?></label>
+                                </td>
+                                <td>
+                                    <?php if ($df->jenis_transaksi == "PANJAR") { ?>
+                                        <label for="" class="badge <?= $df->status_retur == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->status_retur == '1' ? 'CLOSE' : 'OPEN' ?></label>
+                                    <?php } else if ($df->jenis_transaksi == "PAYMENT VOUCHER") { ?>
+                                        <label for="" class="badge <?= $df->pcl == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->pcl == '1' ? 'CLOSE' : 'OPEN' ?></label>
+                                    <?php } ?>
                                 </td>
                                 <td>
                                     <?php

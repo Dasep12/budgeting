@@ -48,7 +48,7 @@ class M_bc extends CI_Model
             FROM master_budget mb  
              LEFT JOIN master_departement md on mb.departement_id  = md.id 
              LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id
-             WHERE mb.approve_bc = '" . $stat . "'
+             WHERE mb.approve_bc = '" . $stat . "' and mb.approve_mgr = 1 
              ");
         } else {
             $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr , mb.approve_bc , mb.ket

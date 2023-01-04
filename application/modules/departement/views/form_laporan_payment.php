@@ -69,9 +69,9 @@
                     <!-- <th>No</th> -->
                     <th>Kode Request</th>
                     <th>Tanggal</th>
-                    <th>Particullar</th>
-                    <th>Ammount</th>
                     <th>Remarks</th>
+                    <th>Ammount</th>
+                    <th>Particullar</th>
                 </tr>
             </thead>
             <tbody>

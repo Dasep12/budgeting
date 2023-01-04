@@ -99,4 +99,22 @@ class Approve_trans extends CI_Controller
             redirect('finance/Approve_trans/list_approve_trans');
         }
     }
+
+    public function closePayment()
+    {
+        $id = $this->input->get("id");
+        $kode = $this->input->get("kode");
+        $data = [
+            'payment_close'              => $kode,
+            'date_payment_close'         => date('Y-m-d H:i:s'),
+        ];
+        $update = $this->model->updateData($data, "transaksi_jenis_pembayaran", ['id' => $id]);
+        if ($update > 0) {
+            $this->session->set_flashdata("ok", "transaksi telah di tutup,silahkan konfirmasi ke departement terkait");
+            redirect('finance/Approve_trans/histori_approve_trans');
+        } else {
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('finance/Approve_trans/histori_approve_trans');
+        }
+    }
 }

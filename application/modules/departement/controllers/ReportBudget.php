@@ -635,7 +635,7 @@ class ReportBudget extends CI_Controller
         $mpdf->WriteHTML($page1);
         $mpdf->AddColumn();
         $mpdf->WriteHTML($page2);
-        $mpdf->Output("Report Perspective.pdf", 'I');
+        $mpdf->Output("Report Perspective.pdf", 'D');
     }
 
     private function reportRegularPdf($jenis, $tahun, $dept)

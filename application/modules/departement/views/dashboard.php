@@ -17,7 +17,7 @@
             }
         },
         title: {
-            text: 'Budget  2022',
+            text: 'Budget ' + <?= date('Y') ?>,
             align: 'center'
         },
 

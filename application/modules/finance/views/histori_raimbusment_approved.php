@@ -4,10 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Dashboard</a>
+                        <a href="#">Dashboard</a>
                     </li>
                     <li class="breadcrumb-item active ">
-                        Approved
+                        Histori Approved
                     </li>
                 </ol>
             </nav>
@@ -25,7 +25,7 @@
                 <tr>
                     <th class="table-plus datatable-nosort">Kode Request</th>
                     <th>Tanggal Request</th>
-                    <th>Remarks</th>
+                    <th>Particullar</th>
                     <th>Nilai Rupiah</th>
                     <th>Status</th>
                     <th>Opsi</th>
@@ -36,12 +36,28 @@
                     <tr>
                         <td><?= $rm->request_code ?></td>
                         <td><?= $rm->tanggal_request ?></td>
-                        <td><?= $rm->remarks ?></td>
+                        <td><?php
+                            $data = $this->model->ambilData("trans_detail_jenis_pembayaran", ['transaksi_jenis_pembayaran_id' => $rm->id])->result();
+                            foreach ($data as $lp) {
+                                echo "<li>" . $lp->particullar . "</li>";
+                            }
+                            ?></td>
                         <?php $d = $this->model->TotalNilaiRaimbusment($rm->id)->row() ?>
                         <td><?= 'Rp. ' . number_format($d->total, 0, ",", ".") ?></td>
                         <td><?= $rm->ket ?></td>
                         <td>
                             <a data-id="<?= $rm->id ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+
+                            <?php
+                            if ($rm->jenis_transaksi == "PAYMENT VOUCHER" || $rm->jenis_transaksi == "payment voucher") {
+                                if ($rm->pcl == 0) { ?>
+                                    <a onclick="return confirm('Close Transaksi ?')" href="<?= base_url('finance/Approve_trans/closePayment?id=' . $rm->id_trans . '&kode=1') ?>" class="badge badge-danger text-white">close</a>
+                                <?php   } else { ?>
+                                    <a href="#" onclick="alert('Transaksi Sudah Close')" class="badge badge-success text-white">close</a>
+                                <?php    }
+                                ?>
+
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php endforeach ?>

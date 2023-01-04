@@ -44,10 +44,10 @@
                         <td><?= 'Rp. ' . number_format($pl->budget, 0, ",", ".") ?></td>
                         <td><?= $pl->activity ?></td>
                         <td>
-                            <button type="button" data-id="<?= $pl->id_budget ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" data-id="<?= $pl->id_budget ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#detailPlant">
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <button type="button" data-id="<?= $pl->id_budget ?>" class="approve_modal btn btn-sm btn-success" data-toggle="modal" data-target="#detailApprove">
+                            <button type="button" data-id="<?= $pl->id_budget ?>" class="approve_modal  btn btn-sm btn-success" data-toggle="modal" data-target="#detailApprove">
                                 <i class="fa fa-file"></i>
                             </button>
                         </td>
@@ -81,7 +81,7 @@
 <!--  -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailPlant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -90,7 +90,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
-            <div class="modal-body">
+            <div class="modal-body data_detail">
                 sedang mengambil data
             </div>
             <div class="modal-footer">
@@ -101,10 +101,14 @@
 </div>
 <!--  -->
 <script>
-    $(function() {
-        $('.userinfo').click(function() {
-            var userid = $(this).data('id');
-            var code = $(this).data('kode');
+    $(document).ready(function() {
+        // Untuk sunting modal data edit zona
+        $("#detailPlant").on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            // Tombol dimana modal di tampilkan
+            var modal = $(this);
+            var userid = div.data('id');
+            var code = div.data('kode');
             // AJAX request
             $.ajax({
                 url: "<?= base_url('departement/Plant_budget/viewDetailPlant') ?>",
@@ -113,17 +117,19 @@
                     id: userid,
                 },
                 success: function(response) {
-                    // Add response in Modal body
-                    $('.modal-body').html(response);
-                    // Display Modal
-                    $('#exampleModal').modal('show');
+                    // console.log(response)
+                    $('.data_detail').html(response);
+                    // $('#detailPlant').modal('show');
                 }
             });
         });
 
-        $('.approve_modal').click(function() {
-            var userid = $(this).data('id');
-            var code = $(this).data('kode');
+        $("#detailApprove").on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            // Tombol dimana modal di tampilkan
+            var modal = $(this);
+            var userid = div.data('id');
+            var code = div.data('kode');
             // AJAX request
             $.ajax({
                 url: "<?= base_url('departement/Plant_budget/viewDetailApprove') ?>",
@@ -135,11 +141,9 @@
                     // Add response in Modal body
                     $('.approve_body').html(response);
                     // Display Modal
-                    $('#detailApprove').modal('show');
+                    // $('#detailApprove').modal('show');
                 }
             });
         });
-
-
-    })
+    });
 </script>

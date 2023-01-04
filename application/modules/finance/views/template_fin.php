@@ -236,7 +236,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file"></span><span class="mtext">TRANSACTION</span>
+                            <span class="micon bi bi-file"></span><span class="mtext">Transaksi</span>
                         </a>
                         <ul class="submenu">
                             <li>
@@ -249,10 +249,10 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file-pdf"></span><span class="mtext">REPORT</span>
+                            <span class="micon bi bi-file-pdf"></span><span class="mtext">Laporan</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/panjer') ?>">Panjer</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/panjer') ?>">Panjar</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/payment') ?>">Payment Voucher</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('finance/ReportBudget') ?>">Plant Budget</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'Jurnal' ? 'active ' : '' ?>" href="<?= base_url('finance/Jurnal') ?>">Jurnal</a></li>

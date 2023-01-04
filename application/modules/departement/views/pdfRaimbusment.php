@@ -52,6 +52,11 @@
             float: left;
             margin-bottom: 10px;
         }
+
+        .tb-detail td,
+        .tb-detail th {
+            font-size: large;
+        }
     </style>
     <title>Raimbusment</title>
 </head>
@@ -80,7 +85,7 @@
                 </table>
             </div>
             <div class="col6" style="width:35%;justify-content: center;margin-left:5px;align-items:center">
-                <h4 style="text-align: center;">PT BENECOM TRICOM<br><u>PAYMENT VOUCHER</u></h4>
+                <h4 style="text-align: center;">PT BONECOM TRICOM<br><u>PAYMENT VOUCHER</u></h4>
             </div>
             <div class="col6">
                 <table class="table2" style="width: 100%;">
@@ -100,7 +105,7 @@
 
 
         <div class="detail">
-            <table class="table" style="width: 100%;">
+            <table class="table tb-detail" style="width: 100%;">
                 <thead>
                     <tr>
                         <th colspan="4">Debit</th>
@@ -153,16 +158,16 @@
                         <td align="center">Director</td>
                         <td align="center">General Manager</td>
                         <td align="center">Finance </td>
-                        <td align="center">Accounting</td>
+                        <td align="center">Budget Controller</td>
                     </tr>
                     <tr>
                         <td rowspan="2" colspan="3"><?= ucwords($remarks->remarks) ?></td>
-                        <td style="height:60px ;"><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
-                        <td align="center"><img height="60px" width="60px" src="./assets/ttd/<?= $gm->file ?>" alt=""></td>
-                        <td><img height="60px" width="60px" src="./assets/ttd/<?= $acc->file ?>" alt=""></td>
-                        <td><img height="60px" width="60px" src="./assets/ttd/<?= $fin->file ?>" alt=""></td>
-                        <td><img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file  ?>" alt=""></td>
-                        <td><img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file  ?>" alt=""></td>
+                        <td style="height:90px ;"></td>
+                        <td align="center"><img height="90px" width="90px" src="./assets/ttd/<?= $gm->file ?>" alt=""></td>
+                        <td><img height="90px" width="90px" src="./assets/ttd/<?= $fin->file ?>" alt=""></td>
+                        <td><img height="90px" width="90px" src="./assets/ttd/<?= $acc->file ?>" alt=""></td>
+                        <td><img height="90px" width="90px" src="./assets/ttd/<?= $depthead->file  ?>" alt=""></td>
+                        <td><img height="90px" width="90px" src="./assets/ttd/<?= $pre->tertanda  ?>" alt=""></td>
                     </tr>
                     <tr>
                         <td style="height:20px ;"></td>
@@ -170,7 +175,7 @@
                         <td><?= ucwords($fin->nama_lengkap) ?></td>
                         <td><?= ucwords($acc->nama_lengkap) ?></td>
                         <td><?= ucwords($depthead->nama_lengkap) ?></td>
-                        <td></td>
+                        <td><?= ucwords($remarks->nama_lengkap) ?></td>
                     </tr>
                 </tfoot>
             </table>

@@ -69,6 +69,7 @@
                     <th>Kode Request</th>
                     <th>Tanggal</th>
                     <th>Ammount</th>
+                    <!-- <th>Status</th> -->
                     <th>Keterangan</th>
                 </tr>
             </thead>
@@ -172,6 +173,25 @@
                 {
                     data: 'ammount'
                 },
+                // {
+                //     data: null,
+                //     render: function(data, type, row) {
+                //         var persentage = null;
+                //         if (row.status_retur == 0) {
+                //             persentage = 0
+                //         } else if (row.status_retur == 1) {
+                //             persentage = 1
+                //         }
+
+                //         if (persentage == 0) {
+                //             return '<span class="bg-danger d-block text-center text-white">OPEN</span>'
+                //         }
+                //         if (persentage == 1) {
+                //             return '<span class="bg-success d-block text-center text-white">CLOSE</span>'
+                //         }
+
+                //     }
+                // },
                 {
                     data: 'remarks'
                 }

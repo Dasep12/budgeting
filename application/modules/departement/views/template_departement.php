@@ -380,7 +380,7 @@
 
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle <?= $uri == 'Actual_budget' ? 'active' : '' ?>">
-                            <span class="micon bi bi-table"></span><span class="mtext">Transaction</span>
+                            <span class="micon bi bi-table"></span><span class="mtext">Transaksi</span>
                         </a>
                         <ul class="submenu ">
                             <li>
@@ -392,12 +392,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="<?= $this->uri->segment(3)  == 'form_input' ? 'active ' : '' ?>" href="<?= base_url('departement/Retur/form_input') ?>">Retur Panjar
+                                <a class="<?= $this->uri->segment(3)  == 'form_input' ? 'active ' : '' ?>" href="<?= base_url('departement/Retur/form_input') ?>">Lapor Panjar
                                 </a>
                             </li>
 
                             <li>
-                                <a class="<?= $this->uri->segment(3)  == 'historiPanjer' ? 'active ' : '' ?>" href="<?= base_url('departement/Retur/historiPanjer') ?>">Histori Retur Panjar
+                                <a class="<?= $this->uri->segment(3)  == 'historiPanjer' ? 'active ' : '' ?>" href="<?= base_url('departement/Retur/historiPanjer') ?>">Histori Lapor Panjar
                                 </a>
                             </li>
                         </ul>
@@ -411,10 +411,10 @@
 
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file-pdf"></span><span class="mtext">Report</span>
+                            <span class="micon bi bi-file-pdf"></span><span class="mtext">Laporan</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('departement/Laporan/panjer') ?>">Panjer</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('departement/Laporan/panjer') ?>">Panjar</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('departement/Laporan/payment') ?>">Payment Voucher</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('departement/ReportBudget') ?>">Plant Budget</a></li>
                         </ul>

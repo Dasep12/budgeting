@@ -43,7 +43,7 @@
 
 <body>
     <div class="card">
-        <h2>PT BENECOM TRICOM<br>FORM PANJAR</h2>
+        <h2>PT BONECOM TRICOM<br>FORM PANJAR</h2>
 
         <div class="date">
             <div style="background-color:#FFF;height:30px">
@@ -90,12 +90,12 @@
                         <tr>
                             <td><img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file ?>" alt=""></td>
                             <td><img height="60px" width="60px" src="./assets/ttd/<?= $fin_ttd->file ?>" alt=""></td>
-                            <td><img height="60px" width="60px" src="./assets/ttd/tanda.png" alt=""></td>
+                            <td><img height="60px" width="60px" src="./assets/ttd/<?= $pre->tertanda ?>" alt=""></td>
                         </tr>
                         <tr>
                             <td><?= ucwords($depthead->nama_lengkap) ?></td>
                             <td><?= ucwords($fin_ttd->nama_lengkap) ?></td>
-                            <td>Dasep Depiyawan</td>
+                            <td><?= ucwords($pre->name) ?></td>
                         </tr>
                     </tbody>
                 </table>

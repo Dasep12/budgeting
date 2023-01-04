@@ -234,7 +234,41 @@
     }
 
     $('select[name=bulan_budget').on('change', function() {
-        $('#jenis_budget').prop('selectedIndex', 0);
+
+        var kode = $("select[name=kode_budget] option:selected").val();
+        var tahun = $("select[name=tahun_budget] option:selected").val();
+        var bulan = $("select[name=bulan_budget] option:selected").val();
+
+        if (kode == "" || kode == null) {
+            alert("Pilih Kode Budget Dahulu");
+            $('#bulan_budget').prop('selectedIndex', 0);
+        } else {
+            $.ajax({
+                url: "<?= base_url('departement/Actual_budget/getBudget') ?>",
+                method: "GET",
+                data: "tahun=" + tahun + "&kode=" + kode + "&bulan=" + bulan,
+                cache: false,
+                beforeSend: function() {
+                    document.getElementById("load_budget_nilai").style.display = 'block';
+                },
+                complete: function() {
+                    document.getElementById("load_budget_nilai").style.display = 'none';
+                },
+                success: function(e) {
+                    // console.log(e)
+                    if (e == 0 || e === '0') {
+                        alert('budget belum selesai di approve');
+                    } else {
+                        const data = JSON.parse(e);
+                        console.log(e);
+                        var budget = formatRupiah(data.budget_actual, 'Rp. ');
+                        document.getElementById("budget_real").value = budget;
+                        document.getElementById("budget").value = budget;
+                        document.getElementById("id_planning_budget").value = data.id_planing;
+                    }
+                }
+            })
+        }
     })
 
     $('select[name=jenis_budget').on('change', function() {
@@ -275,36 +309,6 @@
         }
     });
 
-    $('select[name=kode_budget').on('change', function() {
-        var kode = $("select[name=kode_budget] option:selected").val();
-        var tahun = $("select[name=tahun_budget] option:selected").val();
-        var bulan = $("select[name=bulan_budget] option:selected").val();
-        $.ajax({
-            url: "<?= base_url('departement/Actual_budget/getBudget') ?>",
-            method: "GET",
-            data: "tahun=" + tahun + "&kode=" + kode + "&bulan=" + bulan,
-            cache: false,
-            beforeSend: function() {
-                document.getElementById("load_budget_nilai").style.display = 'block';
-            },
-            complete: function() {
-                document.getElementById("load_budget_nilai").style.display = 'none';
-            },
-            success: function(e) {
-                // console.log(e)
-                if (e == 0 || e === '0') {
-                    alert('budget belum selesai di approve');
-                } else {
-                    const data = JSON.parse(e);
-                    console.log(e);
-                    var budget = formatRupiah(data.budget_actual, 'Rp. ');
-                    document.getElementById("budget_real").value = budget;
-                    document.getElementById("budget").value = budget;
-                    document.getElementById("id_planning_budget").value = data.id_planing;
-                }
-            }
-        })
-    });
 
     $('select[name=jenis_transaksi').on('change', function() {
         var jenis = $("select[name=jenis_transaksi] option:selected").text();
@@ -344,6 +348,11 @@
             $("#panjar").prop("disabled", false);
 
         }
+    });
+
+    $('select[name=kode_budget]').on('change', function() {
+        // $('#jenis_budget').prop('selectedIndex', 0);
+        // $('#kode_budget').prop('selectedIndex', 0);
     });
 
 
