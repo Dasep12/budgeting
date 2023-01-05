@@ -82,17 +82,20 @@
             <div style="background-color:#FFF;margin-top:10px">
                 <table class="tb" style="padding: 10px;border:1px solid #000;border-collapse:collapse;margin-left:170px;height:300px">
                     <tr>
+                        <th>GM</th>
                         <th>Manager</th>
                         <th>Finance</th>
                         <th>Received</th>
                     </tr>
                     <tbody>
                         <tr>
+                            <td style="width: 90px;"><img height="60px" width="60px" alt=""></td>
                             <td><img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file ?>" alt=""></td>
                             <td><img height="60px" width="60px" src="./assets/ttd/<?= $fin_ttd->file ?>" alt=""></td>
                             <td><img height="60px" width="60px" src="./assets/ttd/<?= $pre->tertanda ?>" alt=""></td>
                         </tr>
                         <tr>
+                            <td></td>
                             <td><?= ucwords($depthead->nama_lengkap) ?></td>
                             <td><?= ucwords($fin_ttd->nama_lengkap) ?></td>
                             <td><?= ucwords($pre->name) ?></td>

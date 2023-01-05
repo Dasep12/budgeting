@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '103.63.25.164',
-	'username' => 'server_digital',
-	'password' => 'Indom@r3t',
+	'hostname' => '103.250.11.72',
+	'username' => 'server_benecom',
+	'password' => 'K4rawang!',
 	'database' => 'db_budget',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

@@ -246,6 +246,21 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-file"></span><span class="mtext">AP-Voucher</span>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'list_approveVoucher' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Approve_voucher/list_approveVoucher') ?>">Approve Plant</a>
+                            </li>
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Approve_voucher/list_trans_voucher') ?>">Approve Lapor Voucher</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-file-pdf"></span><span class="mtext">Laporan</span>

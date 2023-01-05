@@ -402,13 +402,24 @@
                             </li>
                         </ul>
                     </li>
-
-                    <!-- <li class="dropdown">
-                        <a href="<?= base_url('departement/Raimbusment/form_raimbusment') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Raimbusment' ? 'active' : '' ?>">
-                            <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Payment Voucher</span>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-file-pdf"></span><span class="mtext">Transaksi Ap Voucher</span>
                         </a>
-                    </li> -->
+                        <ul class="submenu">
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'form_input_voucher' ? 'active ' : '' ?>" href="<?= base_url('departement/InputVoucher/form_input_voucher') ?>">Input Transaksi</a>
+                            </li>
 
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'report' ? 'active ' : '' ?>" href="<?= base_url('departement/ReportVoucher/report') ?>">Lapor</a>
+                            </li>
+
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'list_plantVoucher' ? 'active ' : '' ?>" href="<?= base_url('departement/HistoriVoucher/list_plantVoucher') ?>">Plant AP Voucher</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-file-pdf"></span><span class="mtext">Laporan</span>
@@ -419,6 +430,9 @@
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('departement/ReportBudget') ?>">Plant Budget</a></li>
                         </ul>
                     </li>
+
+
+
                 </ul>
             </div>
         </div>
