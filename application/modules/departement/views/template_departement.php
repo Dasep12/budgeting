@@ -404,20 +404,25 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file-pdf"></span><span class="mtext">Transaksi Ap Voucher</span>
+                            <span class="micon bi bi-file-pdf"></span><span class="mtext">Transaksi<br> Ap Voucher</span>
                         </a>
                         <ul class="submenu">
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'form_input_voucher' ? 'active ' : '' ?>" href="<?= base_url('departement/InputVoucher/form_input_voucher') ?>">Input Transaksi</a>
+                                <a class="<?= $this->uri->segment(3) == 'form_input_voucher' ? 'active ' : '' ?>" href="<?= base_url('departement/InputVoucher/form_input_voucher') ?>">Input Plant</a>
+                            </li>
+                            <li>
+                                <a class="<?= $this->uri->segment(3) == 'list_plantVoucher' ? 'active ' : '' ?>" href="<?= base_url('departement/HistoriVoucher/list_plantVoucher') ?>">Histori Plant</a>
                             </li>
 
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'report' ? 'active ' : '' ?>" href="<?= base_url('departement/ReportVoucher/report') ?>">Lapor</a>
+                                <a class="<?= $this->uri->segment(3) == 'reportVoucher' ? 'active ' : '' ?>" href="<?= base_url('departement/ReportVoucher/reportVoucher') ?>">Lapor Ap Voucher</a>
                             </li>
 
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'list_plantVoucher' ? 'active ' : '' ?>" href="<?= base_url('departement/HistoriVoucher/list_plantVoucher') ?>">Plant AP Voucher</a>
+                                <a class="<?= $this->uri->segment(3) == 'histori_lapor' ? 'active ' : '' ?>" href="<?= base_url('departement/ReportVoucher/histori_lapor') ?>">Histori Lapor</a>
                             </li>
+
+
                         </ul>
                     </li>
                     <li class="dropdown">

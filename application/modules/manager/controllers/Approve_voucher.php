@@ -77,4 +77,57 @@ class Approve_voucher extends CI_Controller
             redirect('manager/Approve_voucher/list_approveVoucher');
         }
     }
+
+    public function multiApproveLapor()
+    {
+        $multi = $this->input->post("multi[]");
+        $data = array();
+        for ($i = 0; $i < count($multi); $i++) {
+            $params = array(
+                'status'                  => 1,
+                'date_lapor_mgr'          => date('Y-m-d H:i:s'),
+                'approve_lapor_mgr'       => 1,
+                'id'                      => $multi[$i]
+            );
+            array_push($data, $params);
+        }
+        $this->db->update_batch('transaksi_plant_voucher', $data, 'id');
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata("ok", 'budget telah di setujui,silahkan konfirmasi ke departement terkait');
+            redirect('manager/Approve_voucher/list_approve_lapor');
+        } else {
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('manager/Approve_voucher/list_approve_lapor');
+        }
+    }
+
+
+    public function list_approve_lapor()
+    {
+        $sess = $this->session->userdata("nik");
+        $data = [
+            'uri'        => $this->uri->segment(2),
+            'wait'       => $this->model->listLaporVoucher($this->session->userdata("nik"), 0),
+            'proces'    => $this->model->listLaporVoucher($this->session->userdata("nik"), 1),
+        ];
+        $this->template->load('template_manager', 'list_approved_lapor_voucher', $data);
+    }
+
+    public function approveLapor()
+    {
+        $id = $this->input->get("id_budget");
+        $kode = $this->input->get("kode");
+        $data = [
+            'date_lapor_mgr'          => date('Y-m-d H:i:s'),
+            'approve_lapor_mgr'       => $kode,
+        ];
+        $update = $this->model->updateData($data, "transaksi_plant_voucher", ['id' => $id]);
+        if ($update > 0) {
+            $this->session->set_flashdata("ok",  $kode == 1 ? 'Voucher Approve' : 'Voucher Rejected' . 'silahkan konfirmasi ke pihak terkait');
+            redirect('manager/Approve_voucher/list_approve_lapor');
+        } else {
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('manager/Approve_voucher/list_approve_lapor');
+        }
+    }
 }

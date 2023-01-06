@@ -151,4 +151,25 @@ class M_gm extends CI_Model
         group by tpv.request_code ");
         return $query;
     }
+
+    public function listLaporVoucher($stat)
+    {
+        $where = "";
+
+        if ($stat == 0) {
+            $where .= "tpv.approve_lapor_bc=1 and tpv.approve_lapor_gm=0";
+        } else {
+            $where .= "tpv.approve_lapor_bc=1 and tpv.approve_lapor_gm=1 or tpv.approve_lapor_gm=2";
+        }
+        $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
+        tpv.lampiran_2  , tpv.lampiran_3,
+        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr ,tpv.approve_lapor_bc , tpv.plant_sebelumnya,tpv.approve_lapor_gm
+        from transaksi_plant_voucher tpv 
+        inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
+        inner join master_departement md on md.id = tpv.master_departement_id 
+        inner join master_bawahan_depthead mbd on mbd.master_departement_id  = tpv.master_departement_id 
+        where $where  and tpv.stat_lapor = 1 
+        group by tpv.request_code ");
+        return $query;
+    }
 }

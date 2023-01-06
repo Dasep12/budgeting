@@ -7,9 +7,9 @@
             <?php if ($data->approve_mgr == 0) { ?>
                 <span>Menunggu Approved</span>
             <?php } else if ($data->approve_mgr  == 1) { ?>
-                <span>Approved on <?= $data->date_approved_mgr ?></span>
+                <span>Approved on <?= $data->date_approve_mgr ?></span>
             <?php } else if ($data->approve_mgr  == 2) { ?>
-                <span>Rejected on <?= $data->date_approved_mgr ?></span>
+                <span>Rejected on <?= $data->date_approve_mgr ?></span>
             <?php } ?>
         </div>
         <div class="card_approve">
@@ -19,9 +19,9 @@
             <?php if ($data->approve_acc == 0) { ?>
                 <span>Menunggu Approved</span>
             <?php } else if ($data->approve_acc  == 1) { ?>
-                <span>Approved on <?= $data->date_approved_acc ?></span>
+                <span>Approved on <?= $data->date_approve_acc ?></span>
             <?php } else if ($data->approve_acc  == 2) { ?>
-                <span>Rejected on <?= $data->date_approved_acc ?></span>
+                <span>Rejected on <?= $data->date_approve_acc ?></span>
             <?php } ?>
         </div>
         <div class="card_approve">
@@ -31,9 +31,9 @@
             <?php if ($data->approve_gm == 0) { ?>
                 <span>Menunggu Approved</span>
             <?php } else if ($data->approve_gm  == 1) { ?>
-                <span>Approved on <?= $data->date_approved_gm ?></span>
+                <span>Approved on <?= $data->date_approve_gm ?></span>
             <?php } else if ($data->approve_gm  == 2) { ?>
-                <span>Rejected on <?= $data->date_approved_gm ?></span>
+                <span>Rejected on <?= $data->date_approve_gm ?></span>
             <?php } ?>
         </div>
         <div class="card_approve">
@@ -43,9 +43,9 @@
             <?php if ($data->approve_fin == 0) { ?>
                 <span>Menunggu Approved</span>
             <?php } else if ($data->approve_fin == 1) { ?>
-                <span>Approved on <?= $data->date_approved_finance ?></span>
+                <span>Approved on <?= $data->date_approve_fin ?></span>
             <?php } else if ($data->approve_fin == 2) { ?>
-                <span>Rejected on <?= $data->date_approved_finance ?></span>
+                <span>Rejected on <?= $data->date_approve_fin ?></span>
             <?php } ?>
         </div>
     </div>

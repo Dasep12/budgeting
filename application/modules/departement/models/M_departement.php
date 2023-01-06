@@ -271,4 +271,19 @@ class M_departement extends CI_Model
         ");
         return $query;
     }
+
+    public function historiVoucherReport($dept)
+    {
+        $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 ,
+        tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , 
+        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_lapor_mgr,
+        tpv.approve_lapor_bc, tpv.approve_lapor_gm, tpv.approve_lapor_fin , tpv.plant_sebelumnya
+        from transaksi_plant_voucher tpv 
+        inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
+        inner join master_departement md on md.id = tpv.master_departement_id 
+        inner join master_akun ma on ma.nik  = tpv.created_by  
+        WHERE md.id = '" . $dept . "' and stat_lapor = 1 
+        ");
+        return $query;
+    }
 }

@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label>KODE BUDGET</label>
-                        <input required readonly value="<?= $code_dept ?>" class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
+                        <input required value="<?= $code_dept ?>" class="form-control" id="kode_budget" name="kode_budget" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>JENIS BUDGET</label>
