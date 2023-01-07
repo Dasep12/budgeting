@@ -15,6 +15,13 @@ class M_departement extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function delete($data, $table)
+    {
+        $this->db->where($data);
+        $this->db->delete($table);
+        return $this->db->affected_rows();
+    }
+
     public function daftarBudget($id)
     {
         $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget,mb.tahun , mb.pic,mb.kpi,mb.improvment , mb.budget , mb.status , mjb.jenis_budget, md.nama_departement as departement , mb.ket , mb.approve_mgr , mb.approve_mgr_user, mb.approve_fin , mb.approve_fin_user, mb.approve_acc , mb.approve_acc_user , mb.approve_gm , mb.approve_gm_user FROM master_budget mb , master_departement md , master_jenis_budget mjb WHERE mb.master_jenis_budget_id = mjb.id AND mb.departement_id = md.id AND mb.departement_id='" . $id  . "'  ");

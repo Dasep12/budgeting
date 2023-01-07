@@ -157,9 +157,6 @@ class Approve_voucher extends CI_Controller
             'created_by'                        => $getTrans->created_by,
         ];
 
-
-
-
         // echo "<pre>";
         // print_r($dataTrans);
         // print_r($dataDetailTrans);
@@ -174,7 +171,8 @@ class Approve_voucher extends CI_Controller
                 $dataDet = array(
                     'transaksi_jenis_pembayaran_id'    => $id_last,
                     'particullar'                      => $dtl->particullar,
-                    'ammount'                          => $dtl->ammount
+                    'ammount'                          => $dtl->ammount,
+                    'ammount_plant'                    => $dtl->ammount_plant
                 );
                 array_push($dataDetailTrans, $dataDet);
             }

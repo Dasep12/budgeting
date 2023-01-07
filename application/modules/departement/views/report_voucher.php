@@ -56,6 +56,10 @@
                         </div>
                     </div>
 
+                    <div id="parti_load">
+                        <!-- particullar  -->
+                    </div>
+
                     <div class="form-group">
                         <label>PARTICULLARS</label>
                         <a href="" class="add_field_button badge badge-success badge-sm">Tambah</a>
@@ -66,15 +70,22 @@
                     </div>
 
                     <div class="form-group">
-
+                        <label for="">PO ROP</label>
+                        <input type="file" class="form-control" name="lampiran">
                     </div>
-
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>VOUCHER PLANT</label>
                         <input type="hidden" name="budget_real" id="budget_real">
                         <input readonly class="form-control" id="budget" type="text" placeholder="">
+                    </div>
+
+                    <div id="ammount_load">
+
                     </div>
 
                     <div class="form-group">
@@ -87,9 +98,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -132,17 +140,23 @@
                 document.getElementById("load_budget_nilai").style.display = 'none';
             },
             success: function(e) {
-                // console.log(e)
-                if (e == 0 || e === '0') {
-                    alert('budget belum selesai di approve');
-                } else {
-                    const data = JSON.parse(e);
-                    console.log(data);
-                    var budget = formatRupiah(data.total_voucher, 'Rp. ');
-                    document.getElementById("budget_real").value = data.total_voucher;
-                    document.getElementById("budget").value = budget;
-                    document.getElementById("id_planning").value = data.id;
+                const data = JSON.parse(e);
+                // console.log(data[0].header.total_voucher);
+                // console.log(data[0].detail);
+                var parti = $("#parti_load"); //Fields wrapper
+                var ammount = $("#ammount_load"); //Fields wrapper
+                const details = data[0].detail;
+                for (let i = 0; i < details.length; i++) {
+                    $(parti).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" value=' + details[i].particullar + ' name="particullar[]" class="form-control"/></div>');
+
+                    $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="hidden" name="ammount_plant[]" value=' + details[i].ammount + '><input type="text" value=' + details[i].ammount + ' name="ammount[]" class="form-control"/>'); //add input box
                 }
+
+                var budget = formatRupiah(data[0].header.total_voucher, 'Rp. ');
+                document.getElementById("budget_real").value = data[0].header.total_voucher;
+                document.getElementById("budget").value = budget;
+                document.getElementById("id_planning").value = data[0].header.id;
+
             }
         })
     })

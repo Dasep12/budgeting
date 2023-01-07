@@ -120,10 +120,10 @@ class Approve_voucher extends CI_Controller
         $update = $this->model->updateData($data, "transaksi_plant_voucher", ['id' => $id]);
         if ($update > 0) {
             $this->session->set_flashdata("ok",  $kode == 1 ? 'Voucher Approve' : 'Voucher Rejected' . 'silahkan konfirmasi ke pihak terkait');
-            redirect('budgetControl/Approve_voucher/list_approved_lapor_voucher');
+            redirect('budgetControl/Approve_voucher/list_approve_lapor');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('budgetControl/Approve_voucher/list_approved_lapor_voucher');
+            redirect('budgetControl/Approve_voucher/list_approve_lapor');
         }
     }
 }
