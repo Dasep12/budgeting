@@ -122,6 +122,7 @@
                         <span class="user-name"><?= ucwords($this->session->userdata("nama")) ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                        <a class="dropdown-item" href="<?= base_url('budgetControl/Password/') ?>"><i class="dw dw-settings2"></i> Ganti Password</a>
                         <a class="dropdown-item" href="<?= base_url('Logout') ?>"><i class="dw dw-logout"></i> Log Out</a>
                     </div>
                 </div>
