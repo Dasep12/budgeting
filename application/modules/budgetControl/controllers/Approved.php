@@ -125,4 +125,21 @@ class Approved extends CI_Controller
             redirect('budgetControl/Approved/list_approve');
         }
     }
+
+
+    public function delete()
+    {
+        $id = $this->input->get("id_budget");
+        $del = $this->model->delete(['master_budget_id_budget' => $id], "master_planning_budget");
+        if ($del > 0) {
+            $this->db->trans_commit();
+            $this->model->delete(['id_budget' => $id], "master_budget");
+            $this->session->set_flashdata("ok", 'plant budget di hapus');
+            redirect('budgetControl/Approved/list_approve');
+        } else {
+            $this->db->trans_rollback();
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('budgetControl/Approved/list_approve');
+        }
+    }
 }

@@ -21,6 +21,13 @@ class M_bc extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function delete($data, $table)
+    {
+        $this->db->where($data);
+        $this->db->delete($table);
+        return $this->db->affected_rows();
+    }
+
     public function TotalNilaiRaimbusment($id)
     {
         $query = $this->db->query("SELECT sum(ammount) as total FROM trans_detail_jenis_pembayaran WHERE transaksi_jenis_pembayaran_id = '" . $id . "' ");

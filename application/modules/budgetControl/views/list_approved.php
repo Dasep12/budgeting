@@ -84,7 +84,9 @@
 
                                             <a href="<?= base_url('budgetControl/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
 
-                                            <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('budgetControl/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
+                                            <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('budgetControl/Approved/delete?id_budget=' . $df->id_budget) ?>" class="badge badge-danger">Delete</a>
+
+                                            <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('budgetControl/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-warning text-white">Reject</a>
 
                                             <a data-kode="<?= $df->kode_budget ?>" data-budget="<?= $df->budget ?>" data-id="<?= $df->id_budget ?>" class="editUser badge badge-info text-white" data-toggle="modal" data-target="#editData">edit</a>
 

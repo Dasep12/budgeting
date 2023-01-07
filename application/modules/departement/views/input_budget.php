@@ -213,7 +213,7 @@
     $('select[name=jenis_budget').on('change', function() {
         var jenis_budget = $("select[name=jenis_budget] option:selected").text();
         console.log(jenis_budget);
-        if (jenis_budget == 'Reguler Cost' || jenis_budget == 'reguler cost') {
+        if (jenis_budget == 'REGULER' || jenis_budget == 'reguler') {
             $("#pic").prop("disabled", true);
             $("#kpi").prop("disabled", true);
             $("#target_kpi").prop("disabled", true);
@@ -222,7 +222,7 @@
             $("#account_bame").prop("disabled", false);
             $("#description").prop("disabled", false);
             $("#sub_jenis_budget").prop("disabled", true);
-        } else if (jenis_budget == 'Perspective Cost' || jenis_budget == 'perspective cost') {
+        } else if (jenis_budget == 'PERSPECTIVE' || jenis_budget == 'perspective') {
             $("#account_bame").prop("disabled", true);
             $("#description").prop("disabled", true);
             $("#pic").prop("disabled", false);
