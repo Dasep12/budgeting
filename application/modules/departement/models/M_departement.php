@@ -206,7 +206,7 @@ class M_departement extends CI_Model
         inner join trans_detail_jenis_pembayaran tdjp  on tjp.id  = tdjp.transaksi_jenis_pembayaran_id 
         inner join master_departement md  on md.id  = tjp.master_departement_id 
         where mb.departement_id  = '" . $dept . "' and tjp.approve_fin  = 1 and mb.tahun  = '" . $year . "'
-        group by mpb.master_budget_id_budget  ");
+       group by md.id");
         if ($query->num_rows() > 0) {
             $data = $query->row();
             return $data->total;

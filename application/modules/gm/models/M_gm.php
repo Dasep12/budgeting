@@ -142,7 +142,8 @@ class M_gm extends CI_Model
             $where .= "tpv.approve_acc=1 and tpv.approve_gm=1 or tpv.approve_gm=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
-        tpv.lampiran_2  , tpv.lampiran_3,  tpv.approve_acc ,tpv.approve_gm ,
+        tpv.lampiran_2  , tpv.lampiran_3, mjt.jenis_transaksi ,
+        (select nama_lengkap from master_akun where nik = tpv.created_by )as nama, tpv.approve_acc ,tpv.approve_gm ,
         (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
@@ -163,6 +164,8 @@ class M_gm extends CI_Model
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3,
+        mjt.jenis_transaksi ,
+        (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
         (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr ,tpv.approve_lapor_bc , tpv.plant_sebelumnya,tpv.approve_lapor_gm
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 

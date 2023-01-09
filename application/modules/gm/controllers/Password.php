@@ -12,7 +12,7 @@ class Password extends CI_Controller
         date_default_timezone_set('Asia/Jakarta');
 
         $role = $this->session->userdata("level");
-        if ($role != 'DPT') {
+        if ($role != 'GM') {
             redirect('Login');
         }
     }

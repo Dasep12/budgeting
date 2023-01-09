@@ -117,7 +117,7 @@
                             <th>Particullar</th>
                             <th>Total </th>
                             <th>Status</th>
-                            <!-- <th>Action</th> -->
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -140,9 +140,9 @@
                                     <?= $df->ket ?>
                                 </td>
 
-                                <!-- <td>
-                                    <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
-                                </td> -->
+                                <td>
+                                    <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                </td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
@@ -163,7 +163,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
-            <div class="modal-body">
+            <div class="modal-body approve_body">
                 sedang mengambil data
             </div>
             <div class="modal-footer">
@@ -177,27 +177,37 @@
 <script>
     $(function() {
 
-        $('.userinfo').click(function() {
-            var userid = $(this).data('id');
+        $("#exampleModal").on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            // Tombol dimana modal di tampilkan
+            var modal = $(this);
+            var userid = div.data('id');
+            var code = div.data('kode');
+            var userid = div.data('id');
+            var file1 = div.data('file1');
+            var file2 = div.data('file2');
+            var file3 = div.data('file3');
+            var nama = div.data('nama');
+            var remarks = div.data('remarks');
+            var jenis = div.data('jenis');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('budgetControl/Approved_voucher/viewDetailPlant') ?>",
+                url: "<?= base_url('budgetControl/Approve_voucher/viewDetailPlant') ?>",
                 type: 'post',
                 data: {
-                    id: userid
-                },
-                beforeSend: function() {
-
-                },
-                complete: function() {
-
+                    id: userid,
+                    'file1': file1,
+                    'file2': file2,
+                    'file3': file3,
+                    'nama': nama,
+                    'remarks': remarks,
+                    'jenis': jenis
                 },
                 success: function(response) {
-                    // console.log(response)
                     // Add response in Modal body
-                    $('.modal-body').html(response);
+                    $('.approve_body').html(response);
                     // Display Modal
-                    $('#empModal').modal('show');
+                    $('#exampleModal').modal('show');
                 }
             });
         });

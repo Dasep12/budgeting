@@ -150,7 +150,8 @@ class M_bc extends CI_Model
             $where .= "tpv.approve_mgr=1 and tpv.approve_acc=1 or tpv.approve_acc=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
-        tpv.lampiran_2  , tpv.lampiran_3,  tpv.approve_acc ,
+        tpv.lampiran_2  , tpv.lampiran_3,  tpv.approve_acc , mjt.jenis_transaksi ,
+        (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
         (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
@@ -163,14 +164,14 @@ class M_bc extends CI_Model
     public function listLaporVoucher($stat)
     {
         $where = "";
-
         if ($stat == 0) {
             $where .= "tpv.approve_lapor_mgr=1 and tpv.approve_lapor_bc=0";
         } else {
             $where .= "tpv.approve_lapor_mgr=1 and tpv.approve_lapor_bc=1 or tpv.approve_lapor_bc=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
-        tpv.lampiran_2  , tpv.lampiran_3,
+        tpv.lampiran_2  , tpv.lampiran_3,mjt.jenis_transaksi ,
+        (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
         (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr ,tpv.approve_lapor_mgr , tpv.plant_sebelumnya,tpv.approve_lapor_bc
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 

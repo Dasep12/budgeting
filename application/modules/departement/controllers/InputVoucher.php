@@ -112,11 +112,10 @@ class InputVoucher extends CI_Controller
         );
 
         $res_field = array_merge($par, $field_img);
-        $this->db->insert("transaksi_plant_voucher", $res_field);
-        if ($this->db->affected_rows() > 0) {
+        $save = $this->model->insert("transaksi_plant_voucher", $res_field);
+        if ($save > 0) {
             $this->db->trans_commit();
             $id = $this->db->insert_id();
-
             for ($i = 0; $i < count($ammount); $i++) {
                 $arr = [
                     'ammount'                          => $ammount[$i],
