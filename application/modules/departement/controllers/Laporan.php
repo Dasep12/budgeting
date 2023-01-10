@@ -36,6 +36,29 @@ class Laporan extends CI_Controller
         $this->template->load('template_departement', 'form_laporan_panjer', $data);
     }
 
+    public function apvoucher()
+    {
+        $data = [
+            'uri'           => $this->uri->segment(2),
+            'departement'   => $this->model->ambilData("master_departement", ['id' => $this->session->userdata("departement_id")]),
+            'jenis'         => $this->db->query("SELECT id , jenis_transaksi from master_jenis_transaksi WHERE jenis_transaksi = 'AP VOUCHER' ")
+        ];
+        $this->template->load('template_departement', 'form_laporan_voucher', $data);
+    }
+
+    public function list_voucher()
+    {
+        $dept = $this->input->get("deptId");
+        $start = $this->input->get("start");
+        $end = $this->input->get("end");
+        $jenis = $this->input->get("jenis");
+        $data = [];
+        $data = $this->model->reportVoucher($dept, $jenis, $start, $end)->result();
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(200)
+            ->set_output(json_encode($data));
+    }
 
     public function list_payment()
     {

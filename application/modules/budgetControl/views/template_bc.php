@@ -267,9 +267,10 @@
                             <span class="micon bi bi-file-pdf"></span><span class="mtext">Laporan</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('BudgetControl/Laporan/panjer') ?>">Panjar</a></li>
-                            <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('BudgetControl/Laporan/payment') ?>">Payment Voucher</a></li>
-                            <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('BudgetControl/ReportBudget') ?>">Plant Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Laporan/panjer') ?>">Panjar</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Laporan/payment') ?>">Payment Voucher</a></li>
+                            <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/ReportBudget') ?>">Plant Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'apvoucher' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Laporan/apvoucher') ?>">AP Voucher</a></li>
                         </ul>
                     </li>
                 </ul>

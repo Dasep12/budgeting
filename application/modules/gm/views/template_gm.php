@@ -269,6 +269,7 @@
                             <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('gm/Laporan/panjer') ?>">Panjar</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('gm/Laporan/payment') ?>">Payment Voucher</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('gm/ReportBudget') ?>">Plant Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'apvoucher' ? 'active ' : '' ?>" href="<?= base_url('gm/Laporan/apvoucher') ?>">AP Voucher</a></li>
                         </ul>
                     </li>
                 </ul>

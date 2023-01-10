@@ -1,8 +1,8 @@
 <table class="table">
     <thead>
         <th>Jenis Transaksi</th>
-        <th>Ammount</th>
-        <th>Remarks</th>
+        <th>Particullar</th>
+        <th>Ammmount</th>
         <th>Request By</th>
         <th>Keterangan</th>
         <th>Lampiran</th>

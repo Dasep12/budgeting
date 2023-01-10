@@ -40,8 +40,9 @@
             <h4 class="text-blue h4 mb-2">ACTUAL BUDGET</h4>
         </div>
     </div>
+    <!--  -->
 
-    <form id="regForm" enctype="multipart/form-data" action="<?= base_url('departement/Actual_budget/input') ?>" method="post" onsubmit="return cek()">
+    <form id="regForm" enctype="multipart/form-data" action="<?= base_url('departement/Actual_budget/input') ?>" method="post">
         <div class="tab">
             <div class="row">
                 <div class="col-lg-6">
@@ -179,7 +180,7 @@
 
                     <div class="form-group">
                         <label>AMMOUNT</label>
-                        <input class="form-control" id="ammount" name="ammount[]" type="text" placeholder="">
+                        <input class="form-control" autocomplete="off" id="ammount" name="ammount[]" type="text" placeholder="">
                     </div>
 
                     <div class="add_ammount">
@@ -188,14 +189,15 @@
 
                     <div class="form-group">
                         <label>NILAI PANJAR</label>
-                        <input class="form-control" id="panjar" name="panjar[]" type="text" placeholder="">
+                        <input class="form-control" autocomplete="off" id="panjar" name="panjar[]" type="text" placeholder="">
+                        <span id="info_panjar" style="display: none;" class="text-danger small font-italic">nilai panjar di atas satu juta wajib ada lampiran</span>
                     </div>
 
                     <div class="form-group ">
                         <label>LAMPIRAN</label>
-                        <input required class="form-control" type="file" name="lampiran[]" id="lampiran">
-                        <input required class="form-control" type="file" name="lampiran[]" id="lampiran">
-                        <input required class="form-control" type="file" name="lampiran[]" id="lampiran">
+                        <input class="form-control" type="file" name="lampiran[]" id="lampiran1">
+                        <input class="form-control" type="file" name="lampiran[]" id="lampiran2">
+                        <input class="form-control" type="file" name="lampiran[]" id="lampiran3">
                     </div>
                 </div>
             </div>
@@ -330,6 +332,10 @@
             $("#ammount").prop("disabled", true);
             $("#particullar").prop("disabled", true);
             $("#panjar").prop("disabled", false);
+
+            $("#lampiran1").prop("disabled", true);
+            $("#lampiran2").prop("disabled", true);
+            $("#lampiran3").prop("disabled", true);
         } else if (jenis == "PAYMENT VOUCHER") {
             $("#rekening").prop("disabled", false);
             $("#to").prop("disabled", false);
@@ -338,6 +344,9 @@
             $("#ammount").prop("disabled", false);
             $("#particullar").prop("disabled", false);
             $("#panjar").prop("disabled", true);
+            $("#lampiran1").prop("disabled", false);
+            $("#lampiran2").prop("disabled", false);
+            $("#lampiran3").prop("disabled", false);
         } else {
             $("#particullar").prop("disabled", false);
             $("#rekening").prop("disabled", false);
@@ -346,6 +355,9 @@
             $("#particullars").prop("disabled", false);
             $("#ammount").prop("disabled", false);
             $("#panjar").prop("disabled", false);
+            $("#lampiran1").prop("disabled", false);
+            $("#lampiran2").prop("disabled", false);
+            $("#lampiran3").prop("disabled", false);
 
         }
     });
@@ -356,16 +368,21 @@
     });
 
 
-    function cek() {
-        var budget_plant = document.getElementById("budget_real").value;
-        var budget_input = document.getElementById("use_budget_real").value;
+    var parsing = document.getElementById("panjar");
+    parsing.addEventListener('keyup', function(e) {
 
-        if (parseInt(budget_input) > parseInt(budget_plant)) {
-            alert("budget melebih kapasitas");
-            return false;
+        if (parsing.value >= 1000000) {
+            document.getElementById("info_panjar").style.display = 'block';
+            $("#lampiran1").attr("disabled", false);
+            $("#lampiran2").attr("disabled", false);
+            $("#lampiran3").attr("disabled", false);
+        } else {
+            $("#lampiran1").attr("disabled", true);
+            $("#lampiran2").attr("disabled", true);
+            $("#lampiran3").attr("disabled", true);
+            document.getElementById("info_panjar").style.display = 'none';
         }
-        return;
-    }
+    })
 
     $(document).ready(function() {
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
@@ -377,7 +394,7 @@
 
             $(wrapper).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" name="particullar[]" class="form-control"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
 
-            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]" class="form-control"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
+            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]"  autocomplete="off" class="form-control"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
         });
 
         $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text

@@ -168,7 +168,7 @@ class M_finance extends CI_Model
         tpv.lampiran_2  , tpv.lampiran_3,  tpv.approve_fin ,tpv.approve_gm ,
         mjt.jenis_transaksi ,
         (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
-        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 
+        (select sum(tdv.ammount_plant) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
@@ -197,6 +197,16 @@ class M_finance extends CI_Model
         inner join master_bawahan_depthead mbd on mbd.master_departement_id  = tpv.master_departement_id 
         where $where  and tpv.stat_lapor = 1 
         group by tpv.request_code ");
+        return $query;
+    }
+
+    public function reportVoucher($dept, $jenis, $start, $end)
+    {
+        $query = $this->db->query("SELECT tjp.id, tjp.tanggal_request  , concat('Rp. ',format(tdjp.ammount,0)) as ammount  , tdjp.particullar  , tjp.remarks  , tjp.request_code , ma.nama_lengkap as nama 
+        from transaksi_jenis_pembayaran tjp 
+        inner join trans_detail_jenis_pembayaran tdjp on tdjp.transaksi_jenis_pembayaran_id = tjp.id 
+        inner join master_akun ma on ma.nik  = tjp.created_by 
+        where tjp.master_departement_id = '" . $dept . "' and tjp.tanggal_request  between  '" . $start . "' and '" . $end . "' and tjp.master_jenis_transaksi_id  = '" . $jenis . "' and tjp.approve_fin = 1   ");
         return $query;
     }
 }

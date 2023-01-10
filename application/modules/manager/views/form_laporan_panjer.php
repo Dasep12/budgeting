@@ -147,7 +147,10 @@
             processing: true,
             serverSide: false,
             dom: 'Bfrtip',
-            buttons: ['csv', 'excel'],
+            buttons: [{
+                extend: 'csv',
+                title: 'Data Panjar'
+            }],
             ajax: {
                 url: "<?= base_url('manager/Laporan/list_payment') ?>",
                 dataSrc: '',

@@ -85,8 +85,8 @@ class InputVoucher extends CI_Controller
         $jenis          = $this->input->post("jenis_transaksi");
         $acc            = $this->input->post("acc");
         $part           = array();
-        $upload =  $this->upload_multiple($_FILES['lampiran'], date('ymd'));
-        $field_img = [];
+        $upload         =  $this->upload_multiple($_FILES['lampiran'], date('ymd'));
+        $field_img      = [];
         $nom = 1;
         foreach ($upload as $key => $item_file) {
             $field_img['lampiran_' . $nom] = $item_file['file_name'];
@@ -119,6 +119,7 @@ class InputVoucher extends CI_Controller
             for ($i = 0; $i < count($ammount); $i++) {
                 $arr = [
                     'ammount'                          => $ammount[$i],
+                    'ammount_plant'                    => $ammount[$i],
                     'particullar'                      => $particullars[$i],
                     'transaksi_plant_voucher_id'       => $id
                 ];

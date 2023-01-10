@@ -158,6 +158,15 @@ class Actual_budget extends CI_Controller
         $panjar_nilai = $this->input->post("panjar");
         if ($cari_jenis->jenis_transaksi == "PANJAR") {
             $field_img = [];
+
+            if ($panjar_nilai[0] >= 1000000) {
+                $upload =  $this->upload_multiple($_FILES['lampiran'], date('ymd'));
+                $nom = 1;
+                foreach ($upload as $key => $item_file) {
+                    $field_img['lampiran_' . $nom] = $item_file['file_name'];
+                    $nom++;
+                }
+            }
             $par  = array(
                 'master_departement_id'          => $this->session->userdata("departement_id"),
                 'master_jenis_transaksi_id'      => $jenis,
@@ -204,8 +213,6 @@ class Actual_budget extends CI_Controller
                 'rekening'                       => $this->input->post("rekening"),
             );
         }
-
-
 
         $res_field = array_merge($par, $field_img);
         $this->db->insert("transaksi_jenis_pembayaran", $res_field);

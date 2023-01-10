@@ -7,7 +7,7 @@
                         <a href="">Report</a>
                     </li>
                     <li class="breadcrumb-item active ">
-                        Payment
+                        Panjer
                     </li>
                 </ol>
             </nav>
@@ -20,7 +20,7 @@
 
     </div>
 
-    <form action="<?= base_url('manager/Laporan/getPayment') ?>" method="post" onsubmit="return cek()">
+    <form action="<?= base_url('departement/Laporan/getPanjer') ?>" method="post" onsubmit="return cek()">
         <div class="row">
             <div class="col-lg-3">
                 <div class="form-group">
@@ -63,15 +63,15 @@
         <a href="" class="btn btn-sm btn-success ml-2"><span class="micon bi bi-file-excel"></span> </a> -->
     </div>
     <div class="card-body">
-        <table id="paymentTable" style="width: 100%;" class="table table-sm">
+        <table id="panjerTable" style="width: 100%;" class="table table-sm">
             <thead>
                 <tr>
-                    <!-- <th>No</th> -->
                     <th>Kode Request</th>
                     <th>Tanggal</th>
+                    <th>Request</th>
                     <th>Particullar</th>
                     <th>Ammount</th>
-                    <th>Remarks</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
@@ -139,7 +139,7 @@
         }, );
 
 
-        let tablePayment = $('#paymentTable').DataTable({
+        let tablePayment = $('#panjerTable').DataTable({
             paging: true,
             scrollX: true,
             lengthChange: true,
@@ -147,14 +147,8 @@
             ordering: true,
             // autoWidth: true,
             processing: true,
-            serverSide: false,
-            dom: 'Bfrtip',
-            buttons: [{
-                extend: 'csv',
-                title: 'Data Payment'
-            }],
             ajax: {
-                url: "<?= base_url('manager/Laporan/list_payment') ?>",
+                url: "<?= base_url('departement/Laporan/list_voucher') ?>",
                 dataSrc: '',
                 data: function() {
                     var drp = $('#tanggal').data('daterangepicker');
@@ -175,15 +169,22 @@
                     data: 'tanggal_request'
                 },
                 {
-                    data: 'remarks'
-                },
-                {
-                    data: 'ammount'
+                    data: 'nama'
                 },
                 {
                     data: 'particullar'
+                }, {
+                    data: 'ammount'
+                },
+                {
+                    data: 'remarks'
                 }
-            ]
+            ],
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'csv',
+                title: 'Data Ap Voucher'
+            }],
         });
 
         $('#filter').click(function() {

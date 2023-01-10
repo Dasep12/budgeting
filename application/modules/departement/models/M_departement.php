@@ -293,4 +293,14 @@ class M_departement extends CI_Model
         ");
         return $query;
     }
+
+    public function reportVoucher($dept, $jenis, $start, $end)
+    {
+        $query = $this->db->query("SELECT tjp.id, tjp.tanggal_request  , concat('Rp. ',format(tdjp.ammount,0)) as ammount  , tdjp.particullar  , tjp.remarks  , tjp.request_code , ma.nama_lengkap as nama 
+        from transaksi_jenis_pembayaran tjp 
+        inner join trans_detail_jenis_pembayaran tdjp on tdjp.transaksi_jenis_pembayaran_id = tjp.id 
+        inner join master_akun ma on ma.nik  = tjp.created_by 
+        where tjp.master_departement_id = '" . $dept . "' and tjp.tanggal_request  between  '" . $start . "' and '" . $end . "' and tjp.master_jenis_transaksi_id  = '" . $jenis . "' and tjp.approve_fin = 1   ");
+        return $query;
+    }
 }
