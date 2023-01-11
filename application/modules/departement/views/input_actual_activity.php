@@ -4,13 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        Actual Budget
+                        Transaksi
                     </li>
                     <li class="breadcrumb-item active ">
-                        Input Actual Activity Budget
+                        Planing Transaksi
                     </li>
                 </ol>
             </nav>
@@ -37,7 +34,7 @@
 <div class="pd-20 card-box mb-30">
     <div class="clearfix">
         <div class="pull-left">
-            <h4 class="text-blue h4 mb-2">ACTUAL BUDGET</h4>
+            <h4 class="text-blue h4 mb-2">PLAN TRANSAKSI</h4>
         </div>
     </div>
     <!--  -->

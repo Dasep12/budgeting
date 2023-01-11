@@ -41,7 +41,7 @@ class Actual_budget extends CI_Controller
             'uri'               => $this->uri->segment(2),
             'bk'                => $d[0] . '/' . $d[1] . '/' . $d[2] + 1,
             'bulan'             => convertbulan(date('m')),
-            'jenis_transaksi'   => $this->model->getData("master_jenis_transaksi")->result(),
+            'jenis_transaksi'   => $this->db->query("SELECT * FROM master_jenis_transaksi where jenis_transaksi != 'AP VOUCHER' ")->result(),
             'code_dept'         => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
             'jenis'             => $this->model->getData("master_jenis_budget")->result(),
             'acc'               => $this->model->getData("master_acc")->result()

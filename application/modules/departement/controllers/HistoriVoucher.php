@@ -28,19 +28,22 @@ class HistoriVoucher extends CI_Controller
     public function viewDetailPlant()
     {
         $id = $this->input->post("id");
+        $id    = $this->input->post("id");
+        $file1 = $this->input->post("file1");
+        $file2 = $this->input->post("file2");
+        $file3 = $this->input->post("file3");
+        $nama  = $this->input->post("nama");
+        $remarks  = $this->input->post("remarks");
+        $jenis  = $this->input->post("jenis");
         $data = [
-            'data'      => $this->model->ambilData("transaksi_detail_voucher", ['transaksi_plant_voucher_id' => $id]),
-            // 'detail'    => $this->model->DetaildaftarPlantBudgetDepartement($id)->row()
+            'data'   => $this->model->ambilData('transaksi_detail_voucher', ['transaksi_plant_voucher_id' => $id]),
+            'file1'      => $file1,
+            'file2'      => $file2,
+            'file3'      => $file3,
+            'nama'       => $nama,
+            'remarks'    => $remarks,
+            'jenis'       => $jenis,
         ];
         $this->load->view("detail_plant_voucher", $data);
-    }
-
-    public function viewDetailApprove()
-    {
-        $id = $this->input->post("id");
-        $data = [
-            'data'  => $this->model->ambilData("transaksi_plant_voucher", ['id' => $id])->row()
-        ];
-        $this->load->view("timeline_approved_voucher", $data);
     }
 }

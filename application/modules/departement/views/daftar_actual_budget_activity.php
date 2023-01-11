@@ -181,6 +181,8 @@
                                         <label for="" class="badge <?= $df->status_retur == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->status_retur == '1' ? 'CLOSE' : 'OPEN' ?></label>
                                     <?php } else if ($df->jenis_transaksi == "PAYMENT VOUCHER") { ?>
                                         <label for="" class="badge <?= $df->pcl == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->pcl == '1' ? 'CLOSE' : 'OPEN' ?></label>
+                                    <?php } else if ($df->jenis_transaksi == "AP VOUCHER") { ?>
+                                        <label for="" class="badge <?= $df->pcl == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->pcl == '1' ? 'CLOSE' : 'OPEN' ?></label>
                                     <?php } ?>
                                 </td>
                                 <td>
@@ -192,13 +194,18 @@
                                         <?php } else { ?>
                                             <a target="_blank" onclick="alert('Transaksi di tolak tidak bisa cetak')"><i class="fa fa-print"></i></a>
                                         <?php } ?>
-                                    <?php  } else { ?>
+                                    <?php  } else if ($df->jenis_transaksi == "PAYMENT VOUCHER") { ?>
                                         <?php if ($df->approve_fin == 1) { ?>
                                             <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPayment?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                                         <?php } else { ?>
                                             <a href="#" onclick="alert('Transaksi di tolak tidak bisa cetak')" class="badge badge-danger"><i class="fa fa-print"></i></a>
                                         <?php } ?>
-
+                                    <?php } else if ($df->jenis_transaksi == "AP VOUCHER") { ?>
+                                        <?php if ($df->approve_fin == 1) { ?>
+                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfVoucher?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                        <?php } else { ?>
+                                            <a href="#" onclick="alert('Transaksi di tolak tidak bisa cetak')" class="badge badge-danger"><i class="fa fa-print"></i></a>
+                                        <?php } ?>
                                     <?php } ?>
                                 </td>
                             </tr>

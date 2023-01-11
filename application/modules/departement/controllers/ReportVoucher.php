@@ -107,4 +107,36 @@ class ReportVoucher extends CI_Controller
         ];
         $this->template->load('template_departement', 'histori_report_voucher', $data);
     }
+
+
+    public function viewDetailApprove()
+    {
+        $id = $this->input->post("id");
+        $data = [
+            'data'  => $this->model->ambilData("transaksi_plant_voucher", ['id' => $id])->row()
+        ];
+        $this->load->view("timeline_approved_lapor_voucher", $data);
+    }
+
+    public function cetak_pdfVoucher()
+    {
+        $id              = $this->input->get("id");
+        $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-P']);
+        $data['raim']    = $this->db->get_where("transaksi_detail_voucher", ['transaksi_plant_voucher_id' => $id])->result();
+        $data['remarks'] = $this->db->query("SELECT ma.nik, remarks , tanggal_request as tanggal , `to`, bank , rekening , bk , ma.nama_lengkap from transaksi_plant_voucher
+        inner join master_akun ma on ma.nik = created_by 
+        where id='" . $id  . "' ")->row();
+
+        $data['depthead'] = $this->db->query("SELECT  nama_lengkap , mt.file FROM master_akun ma 
+        INNER JOIN master_level ml on ml.id = ma.level 
+        INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
+        WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR' ")->row();
+        $data['acc'] =  $this->model->lisTertanda("BC")->row();
+        $data['gm'] =  $this->model->lisTertanda("GM")->row();
+        $data['fin'] =  $this->model->lisTertanda("FIN")->row();
+        $data['pre'] = $this->db->query("SELECT `file` as tertanda  FROM master_tertanda WHERE master_akun_nik='" . $data['remarks']->nik . "' ")->row();
+        $res = $this->load->view('pdfVoucher', $data, TRUE);
+        $mpdf->WriteHTML($res);
+        $mpdf->Output();
+    }
 }

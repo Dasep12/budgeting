@@ -51,7 +51,7 @@
                             <!-- <button type="button" data-id="<?= $pl->id ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#detailPlant">
                                 <i class="fa fa-eye"></i>
                             </button> -->
-                            <button type="button" data-id="<?= $pl->id ?>" class="approve_modal  btn btn-sm btn-success" data-toggle="modal" data-target="#detailApprove">
+                            <button type="button" data-file1="<?= $pl->lampiran_1 ?>" data-file2="<?= $pl->lampiran_2 ?>" data-file3="<?= $pl->lampiran_3 ?>" data-nama="<?= $pl->nama ?>" data-remarks="<?= $pl->remarks ?>" data-jenis="<?= $pl->jenis_transaksi ?>" data-id="<?= $pl->id ?>" class="approve_modal  btn btn-sm btn-success" data-toggle="modal" data-target="#detailApprove">
                                 <i class="fa fa-file"></i>
                             </button>
                         </td>
@@ -86,7 +86,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="detailPlant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
@@ -132,13 +132,24 @@
             // Tombol dimana modal di tampilkan
             var modal = $(this);
             var userid = div.data('id');
-            var code = div.data('kode');
+            var file1 = div.data('file1');
+            var file2 = div.data('file2');
+            var file3 = div.data('file3');
+            var nama = div.data('nama');
+            var remarks = div.data('remarks');
+            var jenis = div.data('jenis');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('departement/HistoriVoucher/viewDetailApprove') ?>",
+                url: "<?= base_url('departement/HistoriVoucher/viewDetailPlant') ?>",
                 type: 'post',
                 data: {
                     id: userid,
+                    'file1': file1,
+                    'file2': file2,
+                    'file3': file3,
+                    'nama': nama,
+                    'remarks': remarks,
+                    'jenis': jenis
                 },
                 success: function(response) {
                     // Add response in Modal body

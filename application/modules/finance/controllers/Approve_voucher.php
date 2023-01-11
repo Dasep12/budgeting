@@ -143,6 +143,8 @@ class Approve_voucher extends CI_Controller
             'master_jenis_transaksi_id'         => $getTrans->master_jenis_transaksi_id,
             'master_planning_budget_id_planing' => $getTrans->master_planning_budget_id_planing,
             'master_acc_id'                     => 1,
+            'payment_close'                     => 1,
+            'date_payment_close'                => date('Y-m-d H:i:s'),
             'request_code'                      => $getTrans->request_code,
             'tanggal_request'                   => $getTrans->tanggal_request,
             'remarks'                           => $getTrans->remarks,

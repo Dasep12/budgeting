@@ -4,9 +4,6 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item">
                         Transaksi Ap Voucer
                     </li>
                     <li class="breadcrumb-item active ">
