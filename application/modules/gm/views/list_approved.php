@@ -157,8 +157,9 @@
 <script>
     $(function() {
 
-        $('.userinfo').click(function() {
-            var userid = $(this).data('id');
+        $('#exampleModal').on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            var userid = div.data('id');
             // AJAX request
             $.ajax({
                 url: "<?= base_url('gm/Approved/viewDetailPlant') ?>",
@@ -174,7 +175,7 @@
                 },
                 success: function(response) {
                     $('.modal-body').html(response);
-                    $('#empModal').modal('show');
+                    // $('#empModal').modal('show');
                 }
             });
         });

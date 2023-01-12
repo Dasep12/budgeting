@@ -242,8 +242,9 @@
     }
     $(function() {
 
-        $('.userinfo').click(function() {
-            var userid = $(this).data('id');
+        $('#exampleModal').on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            var userid = div.data('id');
             // AJAX request
             $.ajax({
                 url: "<?= base_url('budgetControl/Approved/viewDetailPlant') ?>",
@@ -259,15 +260,16 @@
                 },
                 success: function(response) {
                     $('.editBudgetModal').html(response);
-                    $('#empModal').modal('show');
+                    // $('#empModal').modal('show');
                 }
             });
         });
 
 
-        $('.editUser').click(function() {
-            var id = $(this).data('id');
-            var budget = $(this).data('budget');
+        $('.editUser').on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            var id = div.data('id');
+            var budget = div.data('budget');
             document.getElementById('budget_awal').value = formatRupiah(budget.toString(), 'Rp. ');
             document.getElementById('budget_awal_real').value = budget;
             document.getElementById('id_budget_update').value = id;

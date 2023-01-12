@@ -82,6 +82,7 @@
                                             <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
                                             <a href="<?= base_url('manager/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+
                                             <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approved/approve?id_budget=' . $df->id_budget . '&kode=2') ?>" class="badge badge-danger">Reject</a>
 
                                         <?php }
@@ -171,8 +172,9 @@
 <script>
     $(function() {
 
-        $('.userinfo').click(function() {
-            var userid = $(this).data('id');
+        $('#exampleModal').on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            var userid = div.data('id');
             // AJAX request
             $.ajax({
                 url: "<?= base_url('manager/Approved/viewDetailPlant') ?>",
@@ -191,7 +193,7 @@
                     // Add response in Modal body
                     $('.modal-body').html(response);
                     // Display Modal
-                    $('#empModal').modal('show');
+                    // $('#exampleModal').modal('show');
                 }
             });
         });

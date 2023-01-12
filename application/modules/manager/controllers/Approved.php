@@ -49,7 +49,8 @@ class Approved extends CI_Controller
     public function viewDetailPlant()
     {
         $id = $this->input->post("id");
-        $data['data']  = $this->model->detailBudget($id);
+        $data['data']    = $this->model->detailBudget($id);
+        $data['detail']  = $this->model->DetaildaftarPlantBudgetDepartement($id)->row();
         $this->load->view("detail_budget", $data);
     }
 

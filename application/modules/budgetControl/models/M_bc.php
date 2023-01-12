@@ -79,6 +79,15 @@ class M_bc extends CI_Model
         return $query;
     }
 
+    public function DetaildaftarPlantBudgetDepartement($id)
+    {
+        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget, mb.budget ,  md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity , mb.created_at  , mb.improvment , mb.pic  , mjb.jenis_budget  FROM master_planning_budget  mpb
+        left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget  
+        left join master_jenis_budget mjb on mb.master_jenis_budget_id = mjb.id
+        inner join master_departement md on mb.departement_id = md.id 
+        WHERE mb.id_budget  = '" . $id . "' ");
+        return $query;
+    }
 
     // request budget
     public function list_request($app, $stat)

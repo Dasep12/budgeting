@@ -158,8 +158,9 @@
 <script>
     $(function() {
 
-        $('.userinfo').click(function() {
-            var userid = $(this).data('id');
+        $('#exampleModal').on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            var userid = div.data('id');
             // AJAX request
             $.ajax({
                 url: "<?= base_url('finance/Approved/viewDetailPlant') ?>",
@@ -178,7 +179,7 @@
                     // Add response in Modal body
                     $('.modal-body').html(response);
                     // Display Modal
-                    $('#empModal').modal('show');
+                    // $('#empModal').modal('show');
                 }
             });
         });
