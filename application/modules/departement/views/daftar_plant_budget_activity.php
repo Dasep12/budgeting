@@ -41,12 +41,19 @@
                         <td><?= 'Rp. ' . number_format($pl->budget, 0, ",", ".") ?></td>
                         <td><?= $pl->activity ?></td>
                         <td>
-                            <button type="button" data-id="<?= $pl->id_budget ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#detailPlant">
+                            <a data-id="<?= $pl->id_budget ?>" class="text-white userinfo badge badge-primary" data-toggle="modal" data-target="#detailPlant">
                                 <i class="fa fa-eye"></i>
-                            </button>
-                            <button type="button" data-id="<?= $pl->id_budget ?>" class="approve_modal  btn btn-sm btn-success" data-toggle="modal" data-target="#detailApprove">
+                            </a>
+                            <a data-id="<?= $pl->id_budget ?>" class="text-white approve_modal badge badge-success" data-toggle="modal" data-target="#detailApprove">
                                 <i class="fa fa-file"></i>
-                            </button>
+                            </a>
+
+                            <?php
+                            if ($pl->approve_mgr == 0) { ?>
+                                <a onclick="return confirm('Yakin Hapus ?')" href="<?= base_url('departement/Plant_budget/delete?id_budget=' . $pl->id_budget) ?>" class="badge badge-danger text-white">
+                                    <i class="fa fa-close"></i>
+                                </a>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php endforeach ?>

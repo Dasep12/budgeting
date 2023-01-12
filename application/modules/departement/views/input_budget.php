@@ -86,7 +86,7 @@
 
                     <div class="form-group">
                         <label>DUE DATE</label>
-                        <input type="date" id="due_date" name="due_date" class="form-control" placeholder="">
+                        <input type="date" id="due_date" value="<?= date('Y-m-d') ?>" name="due_date" class="form-control" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>IMPROVMENT</label>
@@ -118,66 +118,66 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label>JANUARI</label>
-                        <input type="hidden" name="bulan[]" id="januari_real">
-                        <input required id="januari" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="januari_real">
+                        <input id="januari" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>FEBRUARI</label>
-                        <input type="hidden" name="bulan[]" id="februari_real">
-                        <input required id="februari" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="februari_real">
+                        <input id="februari" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>MARET</label>
-                        <input type="hidden" name="bulan[]" id="maret_real">
-                        <input required id="maret" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="maret_real">
+                        <input id="maret" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>APRIL</label>
-                        <input type="hidden" name="bulan[]" id="april_real">
-                        <input required id="april" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="april_real">
+                        <input id="april" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>MEI</label>
-                        <input type="hidden" name="bulan[]" id="mei_real">
-                        <input required id="mei" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="mei_real">
+                        <input id="mei" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>JUNI</label>
-                        <input required type="hidden" name="bulan[]" id="juni_real">
-                        <input required id="juni" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="juni_real">
+                        <input id="juni" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                 </div>
                 <div class="col-lg-4">
 
                     <div class="form-group">
                         <label>JULI</label>
-                        <input type="hidden" name="bulan[]" id="juli_real">
-                        <input required id="juli" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="juli_real">
+                        <input id="juli" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>AGUSTUS</label>
-                        <input type="hidden" name="bulan[]" id="agustus_real">
-                        <input required id="agustus" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="agustus_real">
+                        <input id="agustus" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>SEPTEMBER</label>
-                        <input type="hidden" name="bulan[]" id="september_real">
-                        <input required id="september" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="september_real">
+                        <input id="september" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>OKTOBER</label>
-                        <input type="hidden" name="bulan[]" id="oktober_real">
-                        <input required id="oktober" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="oktober_real">
+                        <input id="oktober" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>NOVEMBER</label>
-                        <input type="hidden" name="bulan[]" id="november_real">
-                        <input required id="november" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="november_real">
+                        <input id="november" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>DESEMBER</label>
-                        <input type="hidden" name="bulan[]" id="desember_real">
-                        <input required id="desember" class="form-control" type="text" placeholder="">
+                        <input type="hidden" value="0" name="bulan[]" id="desember_real">
+                        <input id="desember" value="Rp. 0" class="form-control" name="input[]" type="text" placeholder="">
                     </div>
 
                 </div>
@@ -243,6 +243,28 @@
         }
     })
 
+    function counting() {
+        var jan = document.getElementById("januari_real").value;
+        var feb = document.getElementById("februari_real").value;
+        var mar = document.getElementById("maret_real").value;
+        var apr = document.getElementById("april_real").value;
+        var mei = document.getElementById("mei_real").value;
+        var jun = document.getElementById("juni_real").value;
+        var jul = document.getElementById("juli_real").value;
+        var agu = document.getElementById("agustus_real").value;
+        var sep = document.getElementById("september_real").value;
+        var okt = document.getElementById("oktober_real").value;
+        var nov = document.getElementById("november_real").value;
+        var des = document.getElementById("desember_real").value;
+        let total = parseInt(jan) + parseInt(feb) + parseInt(mar) +
+            parseInt(apr) + parseInt(mei) + parseInt(jun) + parseInt(jul) + parseInt(agu) +
+            parseInt(sep) + parseInt(okt) + parseInt(nov) + parseInt(des);
+        document.getElementById("budget").value = total;
+        document.getElementById("budget_display").value = formatRupiah(total.toString(), 'Rp.');
+    }
+
+    counting();
+
     function formatRupiah(angka, prefix) {
         var number_string = angka.replace(/[^,\d]/g, '').toString(),
             split = number_string.split(','),
@@ -266,7 +288,7 @@
             // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
             parsing.value = formatRupiah(this.value, 'Rp. ');
             const convert_1 = this.value.replace(/[^\w\s]/gi, '');
-            const convert_2 = convert_1.replace('Rp', '');
+            const convert_2 = convert_1.replace('Rp ', '');
             document.getElementById(bulan2).value = convert_2;
 
             // total budget 

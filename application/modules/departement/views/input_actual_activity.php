@@ -152,7 +152,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>TANGGAL REQUEST</label>
-                        <input class="form-control" id="tanggal" name="tanggal" type="date" placeholder="">
+                        <input class="form-control" value="<?= date('Y-m-d') ?>" readonly id="tanggal" name="tanggal" type="date" placeholder="">
                     </div>
 
                     <div class="form-group">

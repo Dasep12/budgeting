@@ -64,7 +64,7 @@ class Plant_budget extends CI_Controller
         $id = $this->input->post("id");
         $data = [
             'data'      => $this->model->ambilData("master_planning_budget", ['master_budget_id_budget' => $id]),
-            'detail'    => $this->model->DetaildaftarPlantBudgetDepartement($id)->row()
+            'detail'    => $this->model->DetaildaftarPlantBudgetDepartement($id)->row(),
         ];
         $this->load->view("detail_plant", $data);
     }
@@ -98,7 +98,7 @@ class Plant_budget extends CI_Controller
         for ($i = 0; $i < count($bulan); $i++) {
             $data = [
                 'bulan'                     => $listbulan[$i],
-                'nilai_budget'              => $bulan[$i],
+                'nilai_budget'              => $bulan[$i] == null ? '0' : $bulan[$i],
                 'master_budget_id_budget'   => $id_budget,
                 'activity'                  => $activity,
                 'status'                    => 0,
@@ -115,6 +115,22 @@ class Plant_budget extends CI_Controller
         } else {
             $this->session->set_flashdata("nok", "Planing budget gagal simpan");
             redirect('departement/Plant_budget/form_input_plant');
+        }
+    }
+
+    public function delete()
+    {
+        $id = $this->input->get("id_budget");
+        $del = $this->model->delete(['master_budget_id_budget' => $id], "master_planning_budget");
+        if ($del > 0) {
+            $this->db->trans_commit();
+            $this->model->delete(['id_budget' => $id], "master_budget");
+            $this->session->set_flashdata("ok", 'plant budget di hapus');
+            redirect('departement/Plant_budget/list_budget');
+        } else {
+            $this->db->trans_rollback();
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('departement/Plant_budget/list_budget');
         }
     }
 }

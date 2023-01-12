@@ -38,6 +38,11 @@
                     <td>:</td>
                     <td><?= 'Rp. ' . number_format($detail->budget, 0, ",", ".") ?></td>
                 </tr>
+                <tr>
+                    <td>Activity</td>
+                    <td>:</td>
+                    <td><?= $detail->activity ?></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -49,7 +54,7 @@
         <table class="" style="width:100% ;border-collapse:collapse;border:1px solid #000">
             <thead>
                 <tr>
-                    <th>Activity</th>
+                    <!-- <th>Activity</th> -->
                     <th style="border-collapse:collapse;border:1px solid #000">Bulan</th>
                     <th>Nilai</th>
                 </tr>
@@ -58,7 +63,7 @@
                 <?php $total = 0;
                 foreach ($data->result() as $d) : ?>
                     <tr style="border-collapse:collapse;border:1px solid #000">
-                        <td><?= $d->activity ?></td>
+                        <!-- <td><?= $d->activity ?></td> -->
                         <td style="border-collapse:collapse;border:1px solid #000"><?= $d->bulan ?></td>
                         <td><?= 'Rp. ' . number_format($d->nilai_budget, 0, ",", ".") ?></td>
                         <?php $total += $d->nilai_budget; ?>
@@ -67,7 +72,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td align="center" colspan="2">Total</td>
+                    <td align="center">Total</td>
                     <td style="border-collapse:collapse;border:1px solid #000"><?= 'Rp. ' . number_format($total, 0, ",", ".") ?></td>
                 </tr>
             </tfoot>
