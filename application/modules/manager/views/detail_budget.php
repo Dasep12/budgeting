@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th>ACTIVITY</th>
-                    <th>TAHUN</th>
+                    <th>KODE</th>
                     <th>JANUARI</th>
                     <th>FEBRUARI</th>
                     <th>MARET</th>

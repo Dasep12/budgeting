@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '103.250.11.72',
-	'username' => 'server_benecom',
-	'password' => 'K4rawang!',
-	'database' => 'db_budget',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => 'Astra123',
+	'database' => 'ebudget',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

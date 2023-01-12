@@ -109,14 +109,14 @@
                 <thead>
                     <tr>
                         <th colspan="4">Debit</th>
-                        <th rowspan="2">Particullars</th>
-                        <th colspan="4">Credit</th>
+                        <th rowspan="2" colspan="5">Particullars</th>
+                        <!-- <th colspan="4"></th> -->
                     </tr>
                     <tr>
                         <th colspan="2">Ammount</th>
                         <th colspan="2">Acc No</th>
-                        <th colspan="2">Acc No</th>
-                        <th colspan="2">Ammount</th>
+                        <!-- <th></th> -->
+                        <!-- <th></th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -126,24 +126,24 @@
                         <tr>
                             <td colspan="2"><?= 'Rp.' . number_format($r->ammount, 0, ",", ".")  ?></td>
                             <td colspan="2" style="width:40px;"></td>
-                            <td><?= $r->particullar ?></td>
-                            <td colspan="2"></td>
-                            <td colspan="2"></td>
+                            <td colspan="5"><?= $r->particullar ?></td>
+                            <!-- <td colspan="5"></td> -->
+                            <!-- <td colspan="2"></td>  -->
                         </tr>
                         <?php $total += $r->ammount; ?>
                     <?php endforeach ?>
                     <tr>
                         <td colspan="2"><?= 'Rp.' . number_format($total, 0, ",", ".")  ?></td>
                         <td colspan="2">Total</td>
-                        <td></td>
-                        <td colspan="2">Total</td>
-                        <td colspan="2"></td>
+                        <td colspan="5"></td>
+                        <!-- <td colspan="2">Total</td>
+                        <td colspan="2"></td> -->
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td style="height: 40px;width:20px;"> TERBILANG</td>
-                        <td align="center" colspan="8"><?= strtoupper(penyebut($total) . ' RUPIAH') ?></td>
+                        <td align="left" colspan="8"><?= strtoupper(penyebut($total) . ' RUPIAH') ?></td>
                     </tr>
                     <tr>
                         <td colspan="9"></td>

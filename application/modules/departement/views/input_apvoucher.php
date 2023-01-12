@@ -354,6 +354,7 @@
         return;
     }
 
+
     $(document).ready(function() {
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
         var ammount = $(".add_ammount"); //Fields wrapper
