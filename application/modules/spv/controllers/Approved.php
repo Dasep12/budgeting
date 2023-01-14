@@ -1,63 +1,59 @@
 <?php
-// 1.Departement 
-// 2.Manager Dept 
-// 3.Finn 
-// 4.Acc 
-// 5.GM
-// 0 di tolak
+
 
 class Approved extends CI_Controller
 {
     public function __construct(Type $var = null)
     {
         parent::__construct();
-        $this->load->model('M_gm', 'model');
+        $this->load->model('M_supervisor', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'GM') {
+        if ($role != 'SPV') {
             redirect('Login');
         }
     }
 
     public function list_approve()
     {
+        $sess = $this->session->userdata("nik");
         $data = [
             'uri'        => $this->uri->segment(2),
-            'daftar'     => $this->model->daftarApprove(0),
-            'selesai'    => $this->model->daftarApprove(1)
+            'wait'       => $this->model->daftarApprove(0, $this->session->userdata("departement_id"), $sess),
+            'proces'    => $this->model->daftarApprove(1, $this->session->userdata("departement_id"), $sess),
         ];
-        $this->template->load('template_gm', 'list_approved', $data);
+        $this->template->load('template_supervisor', 'list_approved', $data);
     }
 
     public function approve()
     {
         $id = $this->input->get("id_budget");
         $kode = $this->input->get("kode");
-
         $data = [
-            'status'             => $kode,
-            'ket'                => $kode == 1 ? 'accept general manager' : 'reject general manager',
-            'date_approved_gm'   => date('Y-m-d H:i:s'),
-            'approve_gm'         => $kode,
-            'approve_gm_user'    => $this->session->userdata("nik")
+            'status'            => $kode,
+            'ket'               => $kode == 1 ? 'accept supervisor' : 'reject supervisor',
+            'date_approved_spv' => date('Y-m-d H:i:s'),
+            'approve_spv'       => $kode,
+            'approve_spv_user'  => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "master_budget", ['id_budget' => $id]);
         if ($update > 0) {
-            $this->session->set_flashdata("ok", $kode == 1 ? 'budget telah di setujui' : 'budget telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
-            redirect('gm/Approved/list_approve');
+            $this->session->set_flashdata("ok", "budget telah di setujui, silahkan konfirmasi ke pihak Budget Controller");
+            redirect('spv/Approved/list_approve');
         } else {
-            $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('gm/Approved/list_approve');
+            $this->session->set_flashdata("nok", "budget di tolak");
+            redirect('spv/Approved/list_approve');
         }
     }
 
     public function viewDetailPlant()
     {
         $id = $this->input->post("id");
-        $data['data']  = $this->model->detailBudget($id);
+        $data['data']    = $this->model->detailBudget($id);
         $data['detail']  = $this->model->DetaildaftarPlantBudgetDepartement($id)->row();
         $this->load->view("detail_budget", $data);
     }
+
 
     public function multiApprove()
     {
@@ -66,10 +62,10 @@ class Approved extends CI_Controller
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
                 'status'            => 1,
-                'ket'               => 'accept general manager',
-                'date_approved_gm'  => date('Y-m-d H:i:s'),
-                'approve_gm'        => 1,
-                'approve_gm_user'   => $this->session->userdata("nik"),
+                'ket'               => 'accept supervisor',
+                'date_approved_spv' => date('Y-m-d H:i:s'),
+                'approve_spv'       => 1,
+                'approve_spv_user'  => $this->session->userdata("nik"),
                 'id_budget'         => $multi[$i]
             );
             array_push($data, $params);
@@ -77,10 +73,10 @@ class Approved extends CI_Controller
         $this->db->update_batch('master_budget', $data, 'id_budget');
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata("ok", 'budget telah di setujui,silahkan konfirmasi ke departement terkait');
-            redirect('gm/Approved/list_approve');
+            redirect('spv/Approved/list_approve');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('gm/Approved/list_approve');
+            redirect('spv/Approved/list_approve');
         }
     }
 }

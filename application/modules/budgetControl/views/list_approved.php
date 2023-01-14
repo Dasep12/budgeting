@@ -4,10 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Dashboard</a>
+                        <a href="#">E-Budget</a>
                     </li>
                     <li class="breadcrumb-item active ">
-                        Approved
+                        Approved Plant
                     </li>
                 </ol>
             </nav>
@@ -44,7 +44,7 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="card-box mb-30">
-            <form action="<?= base_url('budgetControl/Approve/multiApprove') ?>" method="post">
+            <form action="<?= base_url('budgetControl/Approved/multiApprove') ?>" method="post">
                 <div class="pd-20">
                     <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
                 </div>
@@ -132,7 +132,7 @@
                                 <td><?= $df->ket ?></td>
 
                                 <td>
-                                    <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                    <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" data-budget="<?= $df->budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
                                 </td>
                             </tr>
@@ -266,10 +266,12 @@
         });
 
 
-        $('.editUser').on("show.bs.modal", function(event) {
+        $('#editData').on("show.bs.modal", function(event) {
             var div = $(event.relatedTarget);
             var id = div.data('id');
             var budget = div.data('budget');
+            var kode = div.data('kode');
+            console.log(budget)
             document.getElementById('budget_awal').value = formatRupiah(budget.toString(), 'Rp. ');
             document.getElementById('budget_awal_real').value = budget;
             document.getElementById('id_budget_update').value = id;
@@ -309,7 +311,7 @@
                             alert('tidak ada data');
                         } else {
                             const data = JSON.parse(e);
-                            console.log(data)
+                            // console.log(data)
                             var budget = formatRupiah(data.nilai_budget, 'Rp. ');
                             document.getElementById("bln").innerHTML = "Nilai Budget " + bulan
                             document.getElementById("id_planing").value = data.id_planing;

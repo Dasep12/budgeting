@@ -113,11 +113,11 @@ class Approved extends CI_Controller
                 'date_approved_bc'  => date('Y-m-d H:i:s'),
                 'approve_bc'        => 1,
                 'approve_bc_user'   => $this->session->userdata("nik"),
-                'id'                => $multi[$i]
+                'id_budget'         => $multi[$i]
             );
             array_push($data, $params);
         }
-        $this->db->update_batch('master_budget', $data, 'id');
+        $this->db->update_batch('master_budget', $data, 'id_budget');
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata("ok", 'budget telah di setujui,silahkan konfirmasi ke departement terkait');
             redirect('budgetControl/Approved/list_approve');

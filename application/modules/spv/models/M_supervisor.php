@@ -1,7 +1,7 @@
 <?php
 
 
-class M_manager extends CI_Model
+class M_supervisor extends CI_Model
 
 {
     public function getData($table)
@@ -53,20 +53,18 @@ class M_manager extends CI_Model
     public function daftarApprove($stat, $dept, $nik)
     {
         if ($stat != 0) {
-            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr as approve , mb.ket
+            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_spv as approve , mb.ket
             FROM master_budget mb 
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-             INNER JOIN master_bawahan_depthead mhb on mhb.master_departement_id =  mb.departement_id
-             WHERE mb.approve_spv = 1 and  mb.approve_mgr = '1' or mb.approve_mgr = '2' and mhb.master_akun_nik = '" . $nik . "'  GROUP BY mb.id_budget
+             WHERE mb.approve_spv = '1' or mb.approve_spv = '2' GROUP BY mb.id_budget
              ");
         } else {
             $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr as approve
             FROM master_budget mb 
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-             INNER JOIN master_bawahan_depthead mhb on mhb.master_departement_id =  mb.departement_id
-             WHERE mb.approve_mgr = '" . $stat . "' and mb.approve_spv = 1  and mhb.master_akun_nik = '" . $nik . "'
+             WHERE mb.approve_spv = '" . $stat . "'
              GROUP BY mb.id_budget
              ");
         }
@@ -74,25 +72,23 @@ class M_manager extends CI_Model
         return $query;
     }
 
-    public function listTransaksi($dept, $stat, $nik)
+    public function listTransaksi($dept, $stat)
     {
         $st = "";
 
         if ($stat != 0) {
-            $st .= 'tjp.approve_mgr !=0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_spv !=0';
         } else {
-            $st .= 'tjp.approve_mgr =0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_spv =0';
         }
         $query = $this->db->query("SELECT tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  ,  tjp.ket ,
         (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,
-        tjp.approve_mgr , tjp.approve_acc  , tjp.lampiran_1 ,tjp.lampiran_2 , tjp.lampiran_3  , tjp.tanggal_request 
+        tjp.approve_mgr,tjp.approve_spv , tjp.approve_acc  , tjp.lampiran_1 ,tjp.lampiran_2 , tjp.lampiran_3  , tjp.tanggal_request 
         from transaksi_jenis_pembayaran tjp 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
-        left join master_departement md  on md.id  = tjp.master_departement_id 
-        left join master_bawahan_depthead mhb on mhb.master_departement_id =  tjp.master_departement_id
+        left join master_departement md  on md.id  = tjp.master_departement_id  
         left join master_akun ma on ma.nik = tjp.created_by 
-        where $st 
-        and mhb.master_akun_nik = '" . $nik . "' 
+        where $st  and tjp.master_departement_id = $dept
         ");
         return $query;
     }
@@ -112,19 +108,18 @@ class M_manager extends CI_Model
     public function list_request($nik, $app, $stat)
     {
         $where = "";
-        if ($app == 'mgr') {
+        if ($app == 'spv') {
             if ($stat == 0) {
-                $where .= "trtb.approve_mgr  = 0 ";
+                $where .= "trtb.approve_spv  = 0 ";
             } else {
-                $where .= "trtb.approve_mgr  != 0 ";
+                $where .= "trtb.approve_spv  != 0 ";
             }
         }
         $query =  $this->db->query("SELECT trtb.id ,  trtb.budget_sebelumnya  , trtb.budget_request  , trtb.ket , trtb.created_at as tanggal  , mpb.bulan  , mb.tahun  
         from  transaksi_request_tambah_budget trtb 
         inner join master_planning_budget mpb  on mpb.id_planing  = trtb.master_planning_budget_id_planing 
         inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
-        left join master_bawahan_depthead mhb on mhb.master_departement_id =  trtb.master_departement_id
-        where mhb.master_akun_nik  = '" . $nik . "'  and $where  ");
+        where  $where  ");
         return $query;
     }
     //
@@ -163,19 +158,18 @@ class M_manager extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_mgr=0";
+            $where .= "tpv.approve_spv=0";
         } else {
-            $where .= "tpv.approve_mgr=1 or tpv.approve_mgr=2";
+            $where .= "tpv.approve_spv=1 or tpv.approve_spv=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,
-        (select sum(tdv.ammount_plant) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 
+        (select sum(tdv.ammount_plant) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr , tpv.approve_spv 
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
         inner join master_akun ma on ma.nik  = tpv.created_by 
-        inner join master_bawahan_depthead mbd on mbd.master_departement_id  = tpv.master_departement_id 
-        where mbd.master_akun_nik  = '" . $nik . "' and $where 
+        where  $where 
         group by tpv.request_code ");
         return $query;
     }
@@ -185,19 +179,18 @@ class M_manager extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_lapor_mgr=0";
+            $where .= "tpv.approve_lapor_spv=0";
         } else {
-            $where .= "tpv.approve_lapor_mgr=1 or tpv.approve_lapor_mgr=2";
+            $where .= "tpv.approve_lapor_spv=1 or tpv.approve_lapor_spv=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,
-        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr ,tpv.approve_lapor_mgr , tpv.plant_sebelumnya
+        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_spv ,tpv.approve_lapor_spv , tpv.plant_sebelumnya
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
         inner join master_akun ma on ma.nik  = tpv.created_by 
-        inner join master_bawahan_depthead mbd on mbd.master_departement_id  = tpv.master_departement_id 
-        where mbd.master_akun_nik  = '" . $nik . "' and $where  and tpv.stat_lapor = 1 
+        where  $where  and tpv.stat_lapor = 1 
         group by tpv.request_code ");
         return $query;
     }

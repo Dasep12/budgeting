@@ -2,6 +2,18 @@
     <div class="outer_approve">
         <div class="card_approve">
             <div class="info_approve">
+                <h5 class="title_approve">Supervisor</h5>
+            </div>
+            <?php if ($data->approve_spv == 0) { ?>
+                <span>Menunggu Approved</span>
+            <?php } else if ($data->approve_spv  == 1) { ?>
+                <span>Approved on <?= $data->date_approved_spv ?></span>
+            <?php } else if ($data->approve_spv  == 2) { ?>
+                <span>Rejected on <?= $data->date_approved_spv ?></span>
+            <?php } ?>
+        </div>
+        <div class="card_approve">
+            <div class="info_approve">
                 <h5 class="title_approve">Dept Head</h5>
             </div>
             <?php if ($data->approve_mgr == 0) { ?>

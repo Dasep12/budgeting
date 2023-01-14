@@ -105,7 +105,7 @@ class Input_Budget extends CI_Controller
             'departement_id'             => $this->session->userdata("departement_id"),
             'status'                     => 0,
             'due_date'                   => $due_date,
-            'ket'                        => 'menunggu approve manager',
+            'ket'                        => 'menunggu approve supervisor',
             'master_sub_jenis_budget_id' => $sub_jenis_budget,
             'created_by'                 => $this->session->userdata("nik"),
         ];

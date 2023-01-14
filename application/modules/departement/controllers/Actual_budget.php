@@ -23,6 +23,7 @@ class Actual_budget extends CI_Controller
             'bc'            => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "bc"),
             'gm'            => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "gm"),
             'finance'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "fin"),
+            'supervisor'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "spv"),
         ];
         $this->template->load('template_departement', 'daftar_actual_budget_activity', $data);
     }
@@ -176,9 +177,9 @@ class Actual_budget extends CI_Controller
                 'tanggal_request'                => $this->input->post("tanggal"),
                 'remarks'                        => $this->input->post("remarks"),
                 'status_approved'                => 0,
-                'approve_mgr'                    => 0,
+                'approve_spv'                    => 0,
                 'bk'                             => $this->input->post("bk"),
-                'ket'                            => "menunggu approved dept head",
+                'ket'                            => "menunggu approved supervisor",
                 'created_at'                     => date('Y-m-d H:i:s'),
                 'created_by'                     => $this->session->userdata("nik"),
                 'to'                             => $this->input->post("toPenerima"),
@@ -203,9 +204,9 @@ class Actual_budget extends CI_Controller
                 'tanggal_request'                => $this->input->post("tanggal"),
                 'remarks'                        => $this->input->post("remarks"),
                 'status_approved'                => 0,
-                'approve_mgr'                    => 0,
+                'approve_spv'                    => 0,
                 'bk'                             => $this->input->post("bk"),
-                'ket'                            => "menunggu approved dept head",
+                'ket'                            => "menunggu approved supervisor",
                 'created_at'                     => date('Y-m-d H:i:s'),
                 'created_by'                     => $this->session->userdata("nik"),
                 'to'                             => $this->input->post("toPenerima"),
@@ -248,7 +249,21 @@ class Actual_budget extends CI_Controller
         }
         // }
     }
-
+    public function delete()
+    {
+        $id = $this->input->get("id");
+        $del = $this->model->delete(['transaksi_jenis_pembayaran_id' => $id], "trans_detail_jenis_pembayaran");
+        if ($del > 0) {
+            $this->db->trans_commit();
+            $this->model->delete(['id' => $id], "transaksi_jenis_pembayaran");
+            $this->session->set_flashdata("ok", 'transaksi di hapus');
+            redirect('departement/Actual_budget/list_actual');
+        } else {
+            $this->db->trans_rollback();
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('departement/Actual_budget/list_actual');
+        }
+    }
     public function getNilaiBK()
     {
         $bk = $this->db->query("  SELECT ifnull(max(bk),0) as nilai_bk from  transaksi_jenis_pembayaran ")->row();

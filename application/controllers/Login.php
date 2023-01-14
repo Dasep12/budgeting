@@ -44,6 +44,9 @@ class Login extends CI_Controller
                 case 'ADM':
                     redirect('admin/Dashboard');
                     break;
+                case 'SPV':
+                    redirect('spv/Dashboard');
+                    break;
 
                 default:
                     echo 'tidak  ada level';

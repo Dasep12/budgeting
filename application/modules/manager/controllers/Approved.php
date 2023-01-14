@@ -70,13 +70,13 @@ class Approved extends CI_Controller
             );
             array_push($data, $params);
         }
-        $this->db->update_batch('master_budget', $data, 'id');
+        $this->db->update_batch('master_budget', $data, 'id_budget');
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata("ok", 'budget telah di setujui,silahkan konfirmasi ke departement terkait');
-            redirect('manager/Approve/list_approve');
+            redirect('manager/Approved/list_approve');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/Approve/list_approve');
+            redirect('manager/Approved/list_approve');
         }
     }
 }
