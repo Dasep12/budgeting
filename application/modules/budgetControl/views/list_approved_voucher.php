@@ -84,7 +84,7 @@
                                     <td>
                                         <?php
                                         if ($df->approve_acc == 1 || $df->approve_acc == 2) { ?>
-                                            <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                            <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
                                         <?php } else { ?>
                                             <!-- <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a> -->
 
@@ -141,7 +141,7 @@
                                 </td>
 
                                 <td>
-                                    <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                    <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
                                 </td>
                             </tr>
                         <?php endforeach ?>

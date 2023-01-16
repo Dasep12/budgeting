@@ -77,10 +77,10 @@
                                     <td>
                                         <?php
                                         if ($df->approve_bc == 2  ||  $df->approve_bc == 1) { ?>
-                                            <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                            <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
                                         <?php } else if ($df->approve_mgr == 1 ||  $df->approve_bc == 0) { ?>
 
-                                            <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                            <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
 
                                             <a href="<?= base_url('budgetControl/Approved/approve?id_budget=' . $df->id_budget . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
 
@@ -132,7 +132,7 @@
                                 <td><?= $df->ket ?></td>
 
                                 <td>
-                                    <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" data-budget="<?= $df->budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                    <a data-kode="<?= $df->kode_budget ?>" data-id="<?= $df->id_budget ?>" data-budget="<?= $df->budget ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
 
                                 </td>
                             </tr>

@@ -16,11 +16,12 @@ class Dashboard extends CI_Controller
     public function index()
     {
         $nik = $this->session->userdata("nik");
+        $dept = $this->session->userdata("departement_id");
         $data = [
             'uri'             => $this->uri->segment(2),
-            'depar'           => $this->model->getDept($nik),
-            'plantTotal'      => $this->model->getTotalPlaning($nik, date('Y')),
-            'plantActual'     => $this->model->getTotalActual($nik, date('Y')),
+            'depar'           => $this->model->ambilData($nik),
+            'plantTotal'      => $this->model->getTotalPlaning(date('Y'), $dept),
+            'plantActual'     => $this->model->getTotalActual(date('Y'), $dept),
         ];
         $this->template->load('template_supervisor', 'dashboard', $data);
     }

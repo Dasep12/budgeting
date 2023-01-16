@@ -84,7 +84,7 @@
                                     <td><?= 'Rp. ' . number_format($df->total_voucher, 0, ",", ".")  ?></td>
 
                                     <td>
-                                        <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                        <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
 
                                         <a href="<?= base_url('spv/Approve_voucher/approveLapor?id_budget=' . $df->id . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
 
@@ -135,7 +135,7 @@
                                 <td><?= 'Rp. ' . number_format($df->total_voucher, 0, ",", ".")  ?></td>
 
                                 <td>
-                                    <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
+                                    <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
                                 </td>
                             </tr>
                         <?php endforeach ?>
