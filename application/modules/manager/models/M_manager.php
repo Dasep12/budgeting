@@ -79,9 +79,9 @@ class M_manager extends CI_Model
         $st = "";
 
         if ($stat != 0) {
-            $st .= 'tjp.approve_mgr !=0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr != 0 and tjp.approve_spv=1';
         } else {
-            $st .= 'tjp.approve_mgr =0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr = 0 and tjp.approve_spv=1';
         }
         $query = $this->db->query("SELECT tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  ,  tjp.ket ,
         (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,
@@ -114,7 +114,7 @@ class M_manager extends CI_Model
         $where = "";
         if ($app == 'mgr') {
             if ($stat == 0) {
-                $where .= "trtb.approve_mgr  = 0 ";
+                $where .= "trtb.approve_spv  = 1 and trtb.approve_mgr = 0 ";
             } else {
                 $where .= "trtb.approve_mgr  != 0 ";
             }
@@ -163,9 +163,9 @@ class M_manager extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_mgr=0";
+            $where .= "tpv.approve_mgr=0 and tpv.approve_spv=1 ";
         } else {
-            $where .= "tpv.approve_mgr=1 or tpv.approve_mgr=2";
+            $where .= "tpv.approve_spv=1 and tpv.approve_mgr=1 or tpv.approve_mgr=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,
@@ -185,9 +185,9 @@ class M_manager extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_lapor_mgr=0";
+            $where .= "tpv.approve_lapor_spv = 1 and tpv.approve_lapor_mgr=0";
         } else {
-            $where .= "tpv.approve_lapor_mgr=1 or tpv.approve_lapor_mgr=2";
+            $where .= "tpv.approve_lapor_spv = 1 and tpv.approve_lapor_mgr=1 or tpv.approve_lapor_mgr=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,

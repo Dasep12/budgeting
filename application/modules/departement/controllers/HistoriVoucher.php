@@ -46,4 +46,13 @@ class HistoriVoucher extends CI_Controller
         ];
         $this->load->view("detail_plant_voucher", $data);
     }
+
+    public function viewDetailApprove()
+    {
+        $id = $this->input->post("id");
+        $data = [
+            'data'  => $this->model->ambilData("transaksi_plant_voucher", ['id' => $id])->row()
+        ];
+        $this->load->view("timeline_voucher_plant", $data);
+    }
 }

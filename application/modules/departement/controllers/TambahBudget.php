@@ -20,7 +20,8 @@ class TambahBudget extends CI_Controller
             'approve_mgr'       => $this->model->list_request("approve_mgr", $this->session->userdata("departement_id"), "mgr"),
             'approve_bc'       => $this->model->list_request("approve_bc", $this->session->userdata("departement_id"), "bc"),
             'approve_gm'       => $this->model->list_request("approve_bc", $this->session->userdata("departement_id"), "gm"),
-            'approve_fin'       => $this->model->list_request("approve_bc", $this->session->userdata("departement_id"), "fin")
+            'approve_fin'       => $this->model->list_request("approve_bc", $this->session->userdata("departement_id"), "fin"),
+            'approve_spv'       => $this->model->list_request("approve_bc", $this->session->userdata("departement_id"), "spv")
         ];
         $this->template->load('template_departement', 'list_tambah_budget', $data);
     }
@@ -82,12 +83,12 @@ class TambahBudget extends CI_Controller
             'created_at'                          => date('Y-m-d H:i:s'),
             'keperluan'                           => $keperluan,
             'created_by'                          => $this->session->userdata("nik"),
-            'ket'                                 => 'menunggu approve dept head',
+            'ket'                                 => 'menunggu approve supervisor',
         ];
 
         $save = $this->model->insert("transaksi_request_tambah_budget", $data);
         if ($save > 0) {
-            $this->session->set_flashdata("ok", "Request budget telah di ajukan");
+            $this->session->set_flashdata("ok", "Request tambah budget telah di ajukan");
             redirect('departement/TambahBudget');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");

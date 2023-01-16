@@ -105,7 +105,7 @@ class M_supervisor extends CI_Model
     }
 
     // request budget
-    public function list_request($nik, $app, $stat)
+    public function list_request($dept, $app, $stat)
     {
         $where = "";
         if ($app == 'spv') {
@@ -119,7 +119,7 @@ class M_supervisor extends CI_Model
         from  transaksi_request_tambah_budget trtb 
         inner join master_planning_budget mpb  on mpb.id_planing  = trtb.master_planning_budget_id_planing 
         inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
-        where  $where  ");
+        where  $where  and trtb.master_departement_id='" . $dept . "' ");
         return $query;
     }
     //

@@ -18,8 +18,8 @@ class ApproveRequestTambah extends CI_Controller
     {
         $data = [
             'uri'            => $this->uri->segment(2),
-            'menunggu'    => $this->model->list_request($this->session->userdata("nik"), 'mgr', 0),
-            'selesai'    => $this->model->list_request($this->session->userdata("nik"), 'mgr', 1)
+            'menunggu'    => $this->model->list_request($this->session->userdata("departement_id"), 'spv', 0),
+            'selesai'    => $this->model->list_request($this->session->userdata("departement_id"), 'spv', 1)
         ];
         $this->template->load('template_supervisor', 'list_approved_request_tambah', $data);
     }
@@ -30,18 +30,18 @@ class ApproveRequestTambah extends CI_Controller
         $kode = $this->input->get("kode");
         $data = [
             'status'                     => $kode,
-            'ket'                        => $kode == 1 ? 'accept manager' : 'reject manager',
-            'date_approve_mgr'           => date('Y-m-d H:i:s'),
-            'approve_mgr'                => $kode,
-            'approve_mgr_user'           => $this->session->userdata("nik")
+            'ket'                        => $kode == 1 ? 'accept supervisor' : 'reject supervisor',
+            'date_approve_spv'           => date('Y-m-d H:i:s'),
+            'approve_spv'                => $kode,
+            'approve_spv_user'           => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "transaksi_request_tambah_budget", ['id' => $id]);
         if ($update > 0) {
             $this->session->set_flashdata("ok", $kode == 1 ? 'penambahan budget telah di setujui' : 'penambahan budget telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
-            redirect('manager/ApproveRequestTambah/list_approve_req');
+            redirect('spv/ApproveRequestTambah/list_approve_req');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/ApproveRequestTambah/list_approve_req');
+            redirect('spv/ApproveRequestTambah/list_approve_req');
         }
     }
 }

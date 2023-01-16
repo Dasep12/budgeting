@@ -48,12 +48,13 @@
                         <td><?= 'Rp. ' . number_format($pl->total_voucher, 0, ",", ".") ?></td>
                         <td><?= $pl->remarks ?></td>
                         <td>
-                            <!-- <button type="button" data-id="<?= $pl->id ?>" class="userinfo btn btn-sm btn-primary" data-toggle="modal" data-target="#detailPlant">
+                            <a data-file1="<?= $pl->lampiran_1 ?>" data-file2="<?= $pl->lampiran_2 ?>" data-file3="<?= $pl->lampiran_3 ?>" data-nama="<?= $pl->nama ?>" data-remarks="<?= $pl->remarks ?>" data-jenis="<?= $pl->jenis_transaksi ?>" data-id="<?= $pl->id ?>" class="text-white userinfo badge badge-primary" data-toggle="modal" data-target="#detailPlant">
                                 <i class="fa fa-eye"></i>
-                            </button> -->
-                            <button type="button" data-file1="<?= $pl->lampiran_1 ?>" data-file2="<?= $pl->lampiran_2 ?>" data-file3="<?= $pl->lampiran_3 ?>" data-nama="<?= $pl->nama ?>" data-remarks="<?= $pl->remarks ?>" data-jenis="<?= $pl->jenis_transaksi ?>" data-id="<?= $pl->id ?>" class="approve_modal  btn btn-sm btn-success" data-toggle="modal" data-target="#detailApprove">
+                            </a>
+
+                            <a data-id="<?= $pl->id ?>" class="approve_modal  text-white badge badge-success" data-toggle="modal" data-target="#detailApprove">
                                 <i class="fa fa-file"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach ?>
@@ -73,7 +74,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
-            <div class="modal-body approve_body">
+            <div class="modal-body timeline_data">
 
             </div>
             <div class="modal-footer">
@@ -94,7 +95,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
-            <div class="modal-body data_detail">
+            <div class="modal-body detail_plant">
                 sedang mengambil data
             </div>
             <div class="modal-footer">
@@ -106,28 +107,27 @@
 <!--  -->
 <script>
     $(document).ready(function() {
-        // $("#detailPlant").on("show.bs.modal", function(event) {
-        //     var div = $(event.relatedTarget);
-        //     // Tombol dimana modal di tampilkan
-        //     var modal = $(this);
-        //     var userid = div.data('id');
-        //     var code = div.data('kode');
-        //     // AJAX request
-        //     $.ajax({
-        //         url: "<?= base_url('departement/HistoriVoucher/viewDetailPlant') ?>",
-        //         type: 'post',
-        //         data: {
-        //             id: userid,
-        //         },
-        //         success: function(response) {
-        //             // console.log(response)
-        //             $('.data_detail').html(response);
-        //             // $('#detailPlant').modal('show');
-        //         }
-        //     });
-        // });
-
         $("#detailApprove").on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            // Tombol dimana modal di tampilkan
+            var modal = $(this);
+            var userid = div.data('id');
+            // AJAX request
+            $.ajax({
+                url: "<?= base_url('departement/HistoriVoucher/viewDetailApprove') ?>",
+                type: 'post',
+                data: {
+                    id: userid,
+                },
+                success: function(response) {
+                    // console.log(response)
+                    $('.timeline_data').html(response);
+                    // $('#detailPlant').modal('show');
+                }
+            });
+        });
+
+        $("#detailPlant").on("show.bs.modal", function(event) {
             var div = $(event.relatedTarget);
             // Tombol dimana modal di tampilkan
             var modal = $(this);
@@ -153,9 +153,9 @@
                 },
                 success: function(response) {
                     // Add response in Modal body
-                    $('.approve_body').html(response);
+                    $('.detail_plant').html(response);
                     // Display Modal
-                    $('#detailApprove').modal('show');
+                    // $('#detail_plant').modal('show');
                 }
             });
         });

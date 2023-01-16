@@ -4,7 +4,7 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="#">Transaksi</a>
+                        <a href="#">AP-Voucher</a>
                     </li>
                     <li class="breadcrumb-item active ">
                         Approved Lapor Voucher
@@ -44,7 +44,7 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="card-box mb-30">
-            <form action="<?= base_url('manager/Approv_voucher/multiApproveLapor') ?>" method="post">
+            <form action="<?= base_url('spv/Approv_voucher/multiApproveLapor') ?>" method="post">
                 <div class="pd-20">
                     <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
                 </div>
@@ -86,9 +86,9 @@
                                     <td>
                                         <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Checked</a>
 
-                                        <a href="<?= base_url('manager/Approve_voucher/approveLapor?id_budget=' . $df->id . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                                        <a href="<?= base_url('spv/Approve_voucher/approveLapor?id_budget=' . $df->id . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
 
-                                        <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approve_voucher/approveLapor?id_budget=' . $df->id . '&kode=2') ?>" class="badge badge-danger">Reject</a>
+                                        <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('spv/Approve_voucher/approveLapor?id_budget=' . $df->id . '&kode=2') ?>" class="badge badge-danger">Reject</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -186,7 +186,7 @@
             var jenis = div.data('jenis');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('manager/Approve_voucher/viewDetailPlant') ?>",
+                url: "<?= base_url('spv/Approve_voucher/viewDetailPlant') ?>",
                 type: 'post',
                 data: {
                     id: userid,

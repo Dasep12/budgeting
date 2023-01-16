@@ -66,8 +66,8 @@
                                 <td><?= $mg->bulan . ' ' . $mg->tahun ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
-                                <td><a href="<?= base_url('manager/ApproveRequestTambah/approve?id=' . $mg->id . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-                                    <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/ApproveRequestTambah/approve?id=' . $mg->id . '&kode=2') ?>" class="badge badge-danger">Reject</a>
+                                <td><a href="<?= base_url('spv/ApproveRequestTambah/approve?id=' . $mg->id . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                                    <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('spv/ApproveRequestTambah/approve?id=' . $mg->id . '&kode=2') ?>" class="badge badge-danger">Reject</a>
                                 </td>
                             </tr>
                         <?php endforeach ?>
