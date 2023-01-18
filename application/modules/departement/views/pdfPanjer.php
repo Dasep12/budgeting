@@ -85,6 +85,7 @@
                         <th>Finance</th>
                         <th>General Manager</th>
                         <th>Dept Head</th>
+                        <th>Supervisor</th>
                         <th>Prepared</th>
                     </tr>
                     <tbody>
@@ -99,6 +100,9 @@
                                 <img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file ?>" alt="">
                             </td>
                             <td>
+                                <img height="60px" width="60px" src="./assets/ttd/<?= $spv->file ?>" alt="">
+                            </td>
+                            <td>
                                 <img height="60px" width="60px" src="./assets/ttd/<?= $pre->tertanda ?>" alt="">
                             </td>
                         </tr>
@@ -106,8 +110,8 @@
                             <td><?= ucwords($fin_ttd->nama_lengkap) ?></td>
                             <td><?= ucwords($gm->nama_lengkap) ?></td>
                             <td><?= ucwords($depthead->nama_lengkap) ?></td>
+                            <td><?= ucwords($spv->nama_lengkap) ?></td>
                             <td><?= ucwords($pre->name) ?></td>
-
                         </tr>
                     </tbody>
                 </table>

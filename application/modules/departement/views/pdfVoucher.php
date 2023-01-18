@@ -109,7 +109,7 @@
                 <thead>
                     <tr>
                         <th colspan="4">Debit</th>
-                        <th rowspan="2" colspan="5">Particullars</th>
+                        <th rowspan="2" colspan="9">Particullars</th>
                         <!-- <th colspan="4"></th> -->
                     </tr>
                     <tr>
@@ -126,7 +126,7 @@
                         <tr>
                             <td colspan="2"><?= 'Rp.' . number_format($r->ammount, 0, ",", ".")  ?></td>
                             <td colspan="2" style="width:40px;"></td>
-                            <td colspan="5"><?= $r->particullar ?></td>
+                            <td colspan="7"><?= $r->particullar ?></td>
                             <!-- <td colspan="5"></td> -->
                             <!-- <td colspan="2"></td>  -->
                         </tr>
@@ -135,7 +135,7 @@
                     <tr>
                         <td colspan="2"><?= 'Rp.' . number_format($total, 0, ",", ".")  ?></td>
                         <td colspan="2">Total</td>
-                        <td colspan="5"></td>
+                        <td colspan="7"></td>
                         <!-- <td colspan="2">Total</td>
                         <td colspan="2"></td> -->
                     </tr>
@@ -143,16 +143,17 @@
                 <tfoot>
                     <tr>
                         <td style="height: 40px;width:20px;"> TERBILANG</td>
-                        <td align="left" colspan="8"><?= strtoupper(penyebut($total) . ' RUPIAH') ?></td>
+                        <td align="left" colspan="10"><?= strtoupper(penyebut($total) . ' RUPIAH') ?></td>
                     </tr>
                     <tr>
-                        <td colspan="9"></td>
+                        <td colspan="11"></td>
                     </tr>
                     <tr>
                         <td colspan="3" rowspan="2">Remarks</td>
                         <td align="center" colspan="4">Approved</td>
                         <td align="center" rowspan="2">Checked</td>
                         <td align="center" rowspan="2">Prepared</td>
+                        <td align="center" rowspan="2">Prepared </td>
                     </tr>
                     <tr>
                         <td align="center">Director</td>
@@ -167,6 +168,7 @@
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $fin->file ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $acc->file ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $depthead->file  ?>" alt=""></td>
+                        <td><img height="90px" width="90px" src="./assets/ttd/<?= $spv->tertanda  ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $pre->tertanda  ?>" alt=""></td>
                     </tr>
                     <tr>
@@ -175,6 +177,7 @@
                         <td><?= ucwords($fin->nama_lengkap) ?></td>
                         <td><?= ucwords($acc->nama_lengkap) ?></td>
                         <td><?= ucwords($depthead->nama_lengkap) ?></td>
+                        <td><?= ucwords($spv->nama_lengkap) ?></td>
                         <td><?= ucwords($remarks->nama_lengkap) ?></td>
                     </tr>
                 </tfoot>

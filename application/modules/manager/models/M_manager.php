@@ -58,7 +58,7 @@ class M_manager extends CI_Model
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
              INNER JOIN master_bawahan_depthead mhb on mhb.master_departement_id =  mb.departement_id
-             WHERE mb.approve_spv = 1 and  mb.approve_mgr = '1' or mb.approve_mgr = '2' and mhb.master_akun_nik = '" . $nik . "'  GROUP BY mb.id_budget
+             WHERE mb.approve_spv = 1 and  mhb.master_akun_nik = '" . $nik . "'  and mb.approve_mgr = '1' or mb.approve_mgr = '2'   GROUP BY mb.id_budget
              ");
         } else {
             $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr as approve

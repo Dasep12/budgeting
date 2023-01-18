@@ -184,10 +184,11 @@ class Laporan extends CI_Controller
         $data['acc'] =  $this->model->lisTertanda("BC")->row();
         $data['gm'] =  $this->model->lisTertanda("GM")->row();
         $data['fin'] =  $this->model->lisTertanda("FIN")->row();
+        $data['spv'] =  $this->model->lisTertanda("SPV")->row();
         $data['pre'] = $this->db->query("SELECT `file` as tertanda  FROM master_tertanda WHERE master_akun_nik='" . $data['remarks']->nik . "' ")->row();
         $res = $this->load->view('pdfRaimbusment', $data, TRUE);
         $mpdf->WriteHTML($res);
-        $mpdf->Output();
+        $mpdf->Output("ReportPayment.pdf", 'D');
     }
 
     public function cetak_pdfPanjer()
@@ -204,11 +205,12 @@ class Laporan extends CI_Controller
         INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
         WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR' ")->row();
         $data['gm'] =  $this->model->lisTertanda("GM")->row();
+        $data['spv'] =  $this->model->lisTertanda("SPV")->row();
         $data['pre'] = $this->db->query("SELECT `file` as tertanda  , ma.nama_lengkap  as name FROM master_tertanda inner join master_akun ma on ma.nik = master_akun_nik 
         WHERE master_akun_nik='" . $data['remarks']->nik_ . "' ")->row();
         $res = $this->load->view('pdfPanjer', $data, TRUE);
         $mpdf->WriteHTML($res);
-        $mpdf->Output();
+        $mpdf->Output("ReportPanjar.pdf", 'D');
     }
 
     public function cetak_pdfVoucher()
@@ -227,9 +229,11 @@ class Laporan extends CI_Controller
         $data['acc'] =  $this->model->lisTertanda("BC")->row();
         $data['gm'] =  $this->model->lisTertanda("GM")->row();
         $data['fin'] =  $this->model->lisTertanda("FIN")->row();
+        $data['spv'] =  $this->model->lisTertanda("SPV")->row();
         $data['pre'] = $this->db->query("SELECT `file` as tertanda  FROM master_tertanda WHERE master_akun_nik='" . $data['remarks']->nik . "' ")->row();
         $res = $this->load->view('pdfVoucher', $data, TRUE);
         $mpdf->WriteHTML($res);
+        // $mpdf->Output("ReportVoucher.pdf");
         $mpdf->Output();
     }
 }

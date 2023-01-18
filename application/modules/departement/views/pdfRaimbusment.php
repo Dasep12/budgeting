@@ -110,13 +110,13 @@
                     <tr>
                         <th colspan="4">Debit</th>
                         <th rowspan="2">Particullars</th>
-                        <th colspan="4">Credit</th>
+                        <th colspan="5">Credit</th>
                     </tr>
                     <tr>
                         <th colspan="2">Ammount</th>
                         <th colspan="2">Acc No</th>
-                        <th colspan="2">Acc No</th>
-                        <th colspan="2">Ammount</th>
+                        <th colspan="3">Acc No</th>
+                        <th colspan="3">Ammount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -127,8 +127,8 @@
                             <td colspan="2"><?= 'Rp.' . number_format($r->ammount, 0, ",", ".")  ?></td>
                             <td colspan="2" style="width:40px;"></td>
                             <td><?= $r->particullar ?></td>
-                            <td colspan="2"></td>
-                            <td colspan="2"></td>
+                            <td colspan="3"></td>
+                            <td colspan="3"></td>
                         </tr>
                         <?php $total += $r->ammount; ?>
                     <?php endforeach ?>
@@ -136,26 +136,27 @@
                         <td colspan="2"><?= 'Rp.' . number_format($total, 0, ",", ".")  ?></td>
                         <td colspan="2">Total</td>
                         <td></td>
-                        <td colspan="2">Total</td>
-                        <td colspan="2"></td>
+                        <td colspan="3">Total</td>
+                        <td colspan="3"></td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td style="height: 40px;width:20px;"> TERBILANG</td>
-                        <td align="center" colspan="8"><?= strtoupper(penyebut($total) . ' RUPIAH') ?></td>
+                        <td align="center" colspan="9"><?= strtoupper(penyebut($total) . ' RUPIAH') ?></td>
                     </tr>
                     <tr>
-                        <td colspan="9"></td>
+                        <td colspan="10"></td>
                     </tr>
                     <tr>
                         <td colspan="3" rowspan="2">Remarks</td>
-                        <td align="center" colspan="4">Approved</td>
+                        <td align="center" colspan="5">Approved</td>
                         <td align="center" rowspan="2">Checked</td>
                         <td align="center" rowspan="2">Prepared</td>
                     </tr>
                     <tr>
                         <td align="center">Director</td>
+                        <td align="center">Supervisor</td>
                         <td align="center">General Manager</td>
                         <td align="center">Finance </td>
                         <td align="center">Budget Controller</td>
@@ -163,14 +164,17 @@
                     <tr>
                         <td rowspan="2" colspan="3"><?= ucwords($remarks->remarks) ?></td>
                         <td style="height:90px ;"></td>
+                        <td><img height="90px" width="90px" src="./assets/ttd/<?= $spv->file  ?>" alt=""></td>
                         <td align="center"><img height="90px" width="90px" src="./assets/ttd/<?= $gm->file ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $fin->file ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $acc->file ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $depthead->file  ?>" alt=""></td>
+
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $pre->tertanda  ?>" alt=""></td>
                     </tr>
                     <tr>
                         <td style="height:20px ;"></td>
+                        <td><?= ucwords($spv->nama_lengkap) ?></td>
                         <td><?= ucwords($gm->nama_lengkap) ?></td>
                         <td><?= ucwords($fin->nama_lengkap) ?></td>
                         <td><?= ucwords($acc->nama_lengkap) ?></td>
