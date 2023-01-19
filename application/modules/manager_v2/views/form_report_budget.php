@@ -20,7 +20,7 @@
 
     </div>
 
-    <form target="_blank" action="<?= base_url('manager/ReportBudget/download') ?>" method="post">
+    <form target="_blank" action="<?= base_url('manager_v2/ReportBudget/download') ?>" method="post">
         <div class="row">
 
             <div class="col-lg-3">

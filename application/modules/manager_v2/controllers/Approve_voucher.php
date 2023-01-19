@@ -9,7 +9,7 @@ class Approve_voucher extends CI_Controller
         $this->load->model('M_manager', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'MGR') {
+        if ($role != 'MGR2') {
             redirect('Login');
         }
     }
@@ -38,10 +38,10 @@ class Approve_voucher extends CI_Controller
         $update = $this->model->updateData($data, "transaksi_plant_voucher", ['id' => $id]);
         if ($update > 0) {
             $this->session->set_flashdata("ok",  $kode == 1 ? 'Voucher Approve' : 'Voucher Rejected' . 'silahkan konfirmasi ke pihak terkait');
-            redirect('manager/Approve_voucher/list_approveVoucher');
+            redirect('manager_v2/Approve_voucher/list_approveVoucher');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/Approve_voucher/list_approveVoucher');
+            redirect('manager_v2/Approve_voucher/list_approveVoucher');
         }
     }
 
@@ -85,10 +85,10 @@ class Approve_voucher extends CI_Controller
         $this->db->update_batch('transaksi_plant_voucher', $data, 'id');
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata("ok", 'budget telah di setujui,silahkan konfirmasi ke departement terkait');
-            redirect('manager/Approve_voucher/list_approveVoucher');
+            redirect('manager_v2/Approve_voucher/list_approveVoucher');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/Approve_voucher/list_approveVoucher');
+            redirect('manager_v2/Approve_voucher/list_approveVoucher');
         }
     }
 
@@ -108,10 +108,10 @@ class Approve_voucher extends CI_Controller
         $this->db->update_batch('transaksi_plant_voucher', $data, 'id');
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata("ok", 'budget telah di setujui,silahkan konfirmasi ke departement terkait');
-            redirect('manager/Approve_voucher/list_approve_lapor');
+            redirect('manager_v2/Approve_voucher/list_approve_lapor');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/Approve_voucher/list_approve_lapor');
+            redirect('manager_v2/Approve_voucher/list_approve_lapor');
         }
     }
 
@@ -138,10 +138,10 @@ class Approve_voucher extends CI_Controller
         $update = $this->model->updateData($data, "transaksi_plant_voucher", ['id' => $id]);
         if ($update > 0) {
             $this->session->set_flashdata("ok",  $kode == 1 ? 'Voucher Approve' : 'Voucher Rejected' . 'silahkan konfirmasi ke pihak terkait');
-            redirect('manager/Approve_voucher/list_approve_lapor');
+            redirect('manager_v2/Approve_voucher/list_approve_lapor');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/Approve_voucher/list_approve_lapor');
+            redirect('manager_v2/Approve_voucher/list_approve_lapor');
         }
     }
 }

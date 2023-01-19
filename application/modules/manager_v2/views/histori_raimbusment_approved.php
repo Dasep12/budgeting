@@ -84,7 +84,7 @@
             var jenis = $(this).data('jenis');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('manager/Approve_trans/viewDetailRaimbes') ?>",
+                url: "<?= base_url('manager_v2/Approve_trans/viewDetailRaimbes') ?>",
                 type: 'post',
                 data: {
                     id: userid,

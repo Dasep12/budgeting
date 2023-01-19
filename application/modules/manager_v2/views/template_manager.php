@@ -25,7 +25,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/') ?>src/plugins/jquery-steps/jquery.steps.css" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/') ?>vendors/styles/icon-font.min.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"></script>
+    <script async src="https://www.googletagmanager_v2.com/gtag/js?id=G-GBZ3SGGX85"></script>
     <!-- js -->
     <script src="<?= base_url('assets/') ?>vendors/scripts/core.js"></script>
 
@@ -48,9 +48,9 @@
     <script src="<?= base_url('assets/') ?>src/plugins/apexcharts/apexcharts.min.js"></script>
     <!-- Datatable Setting js -->
     <script src="<?= base_url('assets/') ?>vendors/scripts/datatable-setting.js"></script>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag manager_v2 (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager_v2.com/ns.html?id=GTM-NXZMQSS" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+    <!-- End Google Tag manager_v2 (noscript) -->
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -61,7 +61,7 @@
 
         gtag("config", "G-GBZ3SGGX85");
     </script>
-    <!-- Google Tag Manager -->
+    <!-- Google Tag manager_v2 -->
     <script>
         (function(w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -73,11 +73,11 @@
                 j = d.createElement(s),
                 dl = l != "dataLayer" ? "&l=" + l : "";
             j.async = true;
-            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            j.src = "https://www.googletagmanager_v2.com/gtm.js?id=" + i + dl;
             f.parentNode.insertBefore(j, f);
         })(window, document, "script", "dataLayer", "GTM-NXZMQSS");
     </script>
-    <!-- End Google Tag Manager -->
+    <!-- End Google Tag manager_v2 -->
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
@@ -129,7 +129,7 @@
                         <span class="user-name"><?= ucwords($this->session->userdata("nama")) ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="<?= base_url('manager/Password/') ?>"><i class="dw dw-settings2"></i> Ganti Password</a>
+                        <a class="dropdown-item" href="<?= base_url('manager_v2/Password/') ?>"><i class="dw dw-settings2"></i> Ganti Password</a>
                         <a class="dropdown-item" href="<?= base_url('Logout') ?>"><i class="dw dw-logout"></i> Log Out</a>
                     </div>
                 </div>
@@ -228,7 +228,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li class="dropdown">
-                        <a href="<?= base_url('manager/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
+                        <a href="<?= base_url('manager_v2/Dashboard') ?>" class="dropdown-toggle no-arrow <?= $uri == 'Dashboard' ? 'active' : '' ?>">
                             <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
                         </a>
                     </li>
@@ -237,8 +237,8 @@
                             <span class="micon bi bi-file"></span><span class="mtext">E-Budget</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="<?= $this->uri->segment(3) == 'list_approve_req' ? 'active ' : '' ?>" href="<?= base_url('manager/ApproveRequestTambah/list_approve_req') ?>">Approve Tambah Budget</a></li>
-                            <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('manager/Approved/list_approve') ?>">Approved Plant Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'list_approve_req' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/ApproveRequestTambah/list_approve_req') ?>">Approve Tambah Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Approved/list_approve') ?>">Approved Plant Budget</a></li>
                         </ul>
                     </li>
 
@@ -248,10 +248,10 @@
                         </a>
                         <ul class="submenu">
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'list_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_trans/list_approve_trans') ?>">Approval</a>
+                                <a class="<?= $this->uri->segment(3) == 'list_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Approve_trans/list_approve_trans') ?>">Approval</a>
                             </li>
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'histori_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_trans/histori_approve_trans') ?>">History</a>
+                                <a class="<?= $this->uri->segment(3) == 'histori_approve_trans' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Approve_trans/histori_approve_trans') ?>">History</a>
                             </li>
                         </ul>
                     </li>
@@ -262,10 +262,10 @@
                         </a>
                         <ul class="submenu">
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'list_approveVoucher' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_voucher/list_approveVoucher') ?>">Approve Plant</a>
+                                <a class="<?= $this->uri->segment(3) == 'list_approveVoucher' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Approve_voucher/list_approveVoucher') ?>">Approve Plant</a>
                             </li>
                             <li>
-                                <a class="<?= $this->uri->segment(3) == 'list_approve_lapor' ? 'active ' : '' ?>" href="<?= base_url('manager/Approve_voucher/list_approve_lapor') ?>">Approve Lapor Voucher</a>
+                                <a class="<?= $this->uri->segment(3) == 'list_approve_lapor' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Approve_voucher/list_approve_lapor') ?>">Approve Lapor Voucher</a>
                             </li>
                         </ul>
                     </li>
@@ -275,10 +275,10 @@
                             <span class="micon bi bi-file-pdf"></span><span class="mtext">Laporan</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('manager/Laporan/panjer') ?>">Panjar</a></li>
-                            <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('manager/Laporan/payment') ?>">Payment Voucher</a></li>
-                            <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('manager/ReportBudget') ?>">Plant Budget</a></li>
-                            <li><a class="<?= $this->uri->segment(3) == 'apvoucher' ? 'active ' : '' ?>" href="<?= base_url('manager/Laporan/apvoucher') ?>">AP Voucher</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'panjer' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Laporan/panjer') ?>">Panjar</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Laporan/payment') ?>">Payment Voucher</a></li>
+                            <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/ReportBudget') ?>">Plant Budget</a></li>
+                            <li><a class="<?= $this->uri->segment(3) == 'apvoucher' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Laporan/apvoucher') ?>">AP Voucher</a></li>
                         </ul>
                 </ul>
             </div>

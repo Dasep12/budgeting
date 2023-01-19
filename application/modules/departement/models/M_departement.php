@@ -128,6 +128,8 @@ class M_departement extends CI_Model
             $where .= 'tjp.approve_spv = 0 ';
         } else  if ($col == "mgr") {
             $where .= 'tjp.approve_spv = 1 and  tjp.approve_mgr = 0 or tjp.approve_mgr = 2 ';
+        } else  if ($col == "mgr2") {
+            $where .= 'tjp.approve_mgr = 1 and  tjp.approve_mgr_2 = 0 or tjp.approve_mgr_2 = 2 ';
         } else if ($col == "bc") {
             $where .= 'tjp.approve_mgr = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
         } else if ($col == "gm") {

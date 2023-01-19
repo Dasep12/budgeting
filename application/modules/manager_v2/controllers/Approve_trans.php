@@ -9,7 +9,7 @@ class Approve_trans extends CI_Controller
         $this->load->model('M_manager', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'MGR') {
+        if ($role != 'MGR2') {
             redirect('Login');
         }
     }
@@ -30,18 +30,18 @@ class Approve_trans extends CI_Controller
         $kode = $this->input->get("kode");
         $data = [
             'status_approved'            => $kode,
-            'ket'               => $kode == 1 ? 'accept manager' : 'reject manager',
-            'date_approve_mgr' => date('Y-m-d H:i:s'),
-            'approve_mgr'       => $kode,
-            'approve_mgr_user'  => $this->session->userdata("nik")
+            'ket'                        => $kode == 1 ? 'accept manager ' : 'reject manager',
+            'date_approve_mgr_2'         => date('Y-m-d H:i:s'),
+            'approve_mgr_2'              => $kode,
+            'approve_mgr_user_2'         => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "transaksi_jenis_pembayaran", ['id' => $id]);
         if ($update > 0) {
             $this->session->set_flashdata("ok", $kode == 1 ? 'budget telah di setujui' : 'budget telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
-            redirect('manager/Approve_trans/list_approve_trans');
+            redirect('manager_v2/Approve_trans/list_approve_trans');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/Approve_trans/list_approve_trans');
+            redirect('manager_v2/Approve_trans/list_approve_trans');
         }
     }
 
@@ -85,9 +85,9 @@ class Approve_trans extends CI_Controller
             $params = array(
                 'status_approved'   => 1,
                 'ket'               => 'accept manager',
-                'date_approve_mgr'  => date('Y-m-d H:i:s'),
-                'approve_mgr'       => 1,
-                'approve_mgr_user'  => $this->session->userdata("nik"),
+                'date_approve_mgr_2'  => date('Y-m-d H:i:s'),
+                'approve_mgr_2'       => 1,
+                'approve_mgr_user_2'  => $this->session->userdata("nik"),
                 'id'                => $multi[$i]
             );
             array_push($data, $params);
@@ -95,10 +95,10 @@ class Approve_trans extends CI_Controller
         $this->db->update_batch('transaksi_jenis_pembayaran', $data, 'id');
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata("ok", 'budget telah di setujui,silahkan konfirmasi ke departement terkait');
-            redirect('manager/Approve_trans/list_approve_trans');
+            redirect('manager_v2/Approve_trans/list_approve_trans');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/Approve_trans/list_approve_trans');
+            redirect('manager_v2/Approve_trans/list_approve_trans');
         }
     }
 }

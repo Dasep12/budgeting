@@ -95,7 +95,7 @@
     $('select[name=plant_chart').on('change', function() {
         var tahun = $("select[name=plant_chart] option:selected").text();
         $.ajax({
-            url: "<?= base_url('manager/Dashboard/getPlant') ?>",
+            url: "<?= base_url('manager_v2/Dashboard/getPlant') ?>",
             data: 'tahun=' + tahun,
             method: 'get',
             success: function(e) {
@@ -109,7 +109,7 @@
     $('select[name=actual_chart').on('change', function() {
         var tahun = $("select[name=actual_chart] option:selected").text();
         $.ajax({
-            url: "<?= base_url('manager/Dashboard/getActual') ?>",
+            url: "<?= base_url('manager_v2/Dashboard/getActual') ?>",
             data: 'tahun=' + tahun,
             method: 'get',
             success: function(e) {

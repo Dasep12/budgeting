@@ -20,6 +20,7 @@ class Actual_budget extends CI_Controller
         $data = [
             'uri'           => $this->uri->segment(2),
             'manager'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "mgr"),
+            'manager2'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "mgr2"),
             'bc'            => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "bc"),
             'gm'            => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "gm"),
             'finance'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "fin"),
@@ -55,7 +56,8 @@ class Actual_budget extends CI_Controller
         $where = [
             'tahun'                  => $this->input->get("tahun"),
             'departement_id'         => $this->session->userdata("departement_id"),
-            'master_jenis_budget_id' => $this->input->get("jenis")
+            'master_jenis_budget_id' => $this->input->get("jenis"),
+            'approve_fin'            => 1
         ];
 
         $data =  $this->model->ambilData("master_budget", $where);

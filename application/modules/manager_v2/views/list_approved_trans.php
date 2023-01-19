@@ -32,7 +32,7 @@
     <?php $this->session->unset_userdata("nok") ?>
 <?php } ?>
 <div class="card-box mb-30">
-    <form action="<?= base_url('manager/Approve_trans/multiApprove') ?>" method="post">
+    <form action="<?= base_url('manager_v2/Approve_trans/multiApprove') ?>" method="post">
         <div class="pd-20">
             <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
         </div>
@@ -66,8 +66,8 @@
                                 <?php } else { ?>
                                     <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
 
-                                    <a href="<?= base_url('manager/Approve_trans/approve?id=' . $rm->id_trans . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
-                                    <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager/Approve_trans/approve?id=' . $rm->id_trans . '&kode=2') ?>" class="badge badge-danger">Reject</a>
+                                    <a href="<?= base_url('manager_v2/Approve_trans/approve?id=' . $rm->id_trans . '&kode=1') ?>" onclick="return confirm('Yakin approve ?')" class="badge badge-success">Approved</a>
+                                    <a onclick="return confirm('Yakin reject ?')" href="<?= base_url('manager_v2/Approve_trans/approve?id=' . $rm->id_trans . '&kode=2') ?>" class="badge badge-danger">Reject</a>
 
                                 <?php }
                                 ?>
@@ -115,7 +115,7 @@
             var jenis = $(this).data('jenis');
             // AJAX request
             $.ajax({
-                url: "<?= base_url('manager/Approve_trans/viewDetailRaimbes') ?>",
+                url: "<?= base_url('manager_v2/Approve_trans/viewDetailRaimbes') ?>",
                 type: 'post',
                 data: {
                     id: userid,

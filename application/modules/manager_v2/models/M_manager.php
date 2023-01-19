@@ -53,20 +53,20 @@ class M_manager extends CI_Model
     public function daftarApprove($stat, $dept, $nik)
     {
         if ($stat != 0) {
-            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr as approve , mb.ket
+            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr_2 as approve , mb.ket
             FROM master_budget mb 
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
              INNER JOIN master_bawahan_depthead mhb on mhb.master_departement_id =  mb.departement_id
-             WHERE mb.approve_spv = 1 and  mhb.master_akun_nik = '" . $nik . "'  and mb.approve_mgr = '1' or mb.approve_mgr = '2'   GROUP BY mb.id_budget
+             WHERE mb.approve_mgr = 1 and mb.approve_mgr_2 = 1 or mb.approve_mgr_2 = 2 and mhb.master_akun_nik = '" . $nik . "'  GROUP BY mb.id_budget
              ");
         } else {
-            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr as approve
+            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr_2 as approve
             FROM master_budget mb 
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
              INNER JOIN master_bawahan_depthead mhb on mhb.master_departement_id =  mb.departement_id
-             WHERE mb.approve_mgr = '" . $stat . "' and mb.approve_spv = 1  and mhb.master_akun_nik = '" . $nik . "'
+             WHERE mb.approve_mgr_2 = '" . $stat . "' and mb.approve_mgr = 1  and mhb.master_akun_nik = '" . $nik . "'
              GROUP BY mb.id_budget
              ");
         }
@@ -79,9 +79,9 @@ class M_manager extends CI_Model
         $st = "";
 
         if ($stat != 0) {
-            $st .= 'tjp.approve_mgr != 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr != 0 and tjp.approve_mgr_2=1';
         } else {
-            $st .= 'tjp.approve_mgr = 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr = 0 and tjp.approve_mgr_2=1';
         }
         $query = $this->db->query("SELECT tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  ,  tjp.ket ,
         (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,
@@ -114,7 +114,7 @@ class M_manager extends CI_Model
         $where = "";
         if ($app == 'mgr') {
             if ($stat == 0) {
-                $where .= "trtb.approve_spv  = 1 and trtb.approve_mgr = 0 ";
+                $where .= "trtb.approve_mgr_2  = 1 and trtb.approve_mgr = 0 ";
             } else {
                 $where .= "trtb.approve_mgr  != 0 ";
             }
@@ -163,9 +163,9 @@ class M_manager extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_mgr=0 and tpv.approve_spv=1 ";
+            $where .= "tpv.approve_mgr=0 and tpv.approve_mgr_2=1 ";
         } else {
-            $where .= "tpv.approve_spv=1 and tpv.approve_mgr=1 or tpv.approve_mgr=2";
+            $where .= "tpv.approve_mgr_2=1 and tpv.approve_mgr=1 or tpv.approve_mgr=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,
@@ -185,9 +185,9 @@ class M_manager extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_lapor_spv = 1 and tpv.approve_lapor_mgr=0";
+            $where .= "tpv.approve_lapor_mgr_2 = 1 and tpv.approve_lapor_mgr=0";
         } else {
-            $where .= "tpv.approve_lapor_spv = 1 and tpv.approve_lapor_mgr=1 or tpv.approve_lapor_mgr=2";
+            $where .= "tpv.approve_lapor_mgr_2 = 1 and tpv.approve_lapor_mgr=1 or tpv.approve_lapor_mgr=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,

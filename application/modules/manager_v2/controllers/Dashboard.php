@@ -9,7 +9,7 @@ class Dashboard extends CI_Controller
         $this->load->model('M_dashboard', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'MGR') {
+        if ($role != 'MGR2') {
             redirect('Login');
         }
     }

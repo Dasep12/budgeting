@@ -20,7 +20,7 @@
 
     </div>
 
-    <form action="<?= base_url('manager/Laporan/getPanjer') ?>" method="post" onsubmit="return cek()">
+    <form action="<?= base_url('manager_v2/Laporan/getPanjer') ?>" method="post" onsubmit="return cek()">
         <div class="row">
             <div class="col-lg-3">
                 <div class="form-group">
@@ -148,7 +148,7 @@
             // autoWidth: true,
             processing: true,
             ajax: {
-                url: "<?= base_url('manager/Laporan/list_voucher') ?>",
+                url: "<?= base_url('manager_v2/Laporan/list_voucher') ?>",
                 dataSrc: '',
                 data: function() {
                     var drp = $('#tanggal').data('daterangepicker');

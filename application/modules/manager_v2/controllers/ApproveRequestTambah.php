@@ -9,7 +9,7 @@ class ApproveRequestTambah extends CI_Controller
         $this->load->model('M_manager', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'MGR') {
+        if ($role != 'MGR2') {
             redirect('Login');
         }
     }
@@ -38,10 +38,10 @@ class ApproveRequestTambah extends CI_Controller
         $update = $this->model->updateData($data, "transaksi_request_tambah_budget", ['id' => $id]);
         if ($update > 0) {
             $this->session->set_flashdata("ok", $kode == 1 ? 'penambahan budget telah di setujui' : 'penambahan budget telah di tolak ' . ",silahkan konfirmasi ke departement terkait");
-            redirect('manager/ApproveRequestTambah/list_approve_req');
+            redirect('manager_v2/ApproveRequestTambah/list_approve_req');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");
-            redirect('manager/ApproveRequestTambah/list_approve_req');
+            redirect('manager_v2/ApproveRequestTambah/list_approve_req');
         }
     }
 }
