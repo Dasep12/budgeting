@@ -4,13 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        Actual Budget
+                        <a href="#">Transaksi</a>
                     </li>
                     <li class="breadcrumb-item active ">
-                        Daftar Actual Activity Budget
+                        Histori Transaksi
                     </li>
                 </ol>
             </nav>
@@ -296,7 +293,7 @@
                                         <?php if ($df->approve_fin == 1) { ?>
                                             <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                                         <?php } else { ?>
-                                            <a target="_blank" onclick="alert('Transaksi di tolak tidak bisa cetak')"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" class="badge badge-danger" onclick="alert('Transaksi di tolak tidak bisa cetak')"><i class="fa fa-print"></i></a>
                                         <?php } ?>
                                     <?php  } else if ($df->jenis_transaksi == "PAYMENT VOUCHER") { ?>
                                         <?php if ($df->approve_fin == 1) { ?>

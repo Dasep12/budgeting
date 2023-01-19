@@ -171,7 +171,7 @@ class M_supervisor extends CI_Model
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
         inner join master_akun ma on ma.nik  = tpv.created_by 
-        where  $where 
+        where  tpv.master_departement_id = $nik AND $where  
         group by tpv.request_code ");
         return $query;
     }

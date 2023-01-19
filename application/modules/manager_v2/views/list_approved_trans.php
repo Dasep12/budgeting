@@ -4,7 +4,7 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Dashboard</a>
+                        <a href="#">Transaksi</a>
                     </li>
                     <li class="breadcrumb-item active ">
                         Approved
@@ -61,7 +61,7 @@
                             <td><?= 'Rp. ' . number_format($rm->total, 0, ",", ".") ?></td>
                             <td>
                                 <?php
-                                if ($rm->approve_mgr == 1) { ?>
+                                if ($rm->approve_mgr_2 == 1) { ?>
                                     <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
                                 <?php } else { ?>
                                     <a data-id="<?= $rm->id_trans ?>" data-file1="<?= $rm->lampiran_1 ?>" data-file2="<?= $rm->lampiran_2 ?>" data-file3="<?= $rm->lampiran_3 ?>" data-nama="<?= $rm->nama_lengkap ?>" data-remarks="<?= $rm->remarks ?>" data-jenis="<?= $rm->jenis_transaksi ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>

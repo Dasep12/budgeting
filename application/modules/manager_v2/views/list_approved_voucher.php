@@ -83,7 +83,7 @@
 
                                     <td>
                                         <?php
-                                        if ($df->approve_mgr == 1) { ?>
+                                        if ($df->approve_mgr_2 == 1) { ?>
                                             <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
                                         <?php } else { ?>
                                             <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>

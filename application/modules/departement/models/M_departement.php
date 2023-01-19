@@ -131,7 +131,7 @@ class M_departement extends CI_Model
         } else  if ($col == "mgr2") {
             $where .= 'tjp.approve_mgr = 1 and  tjp.approve_mgr_2 = 0 or tjp.approve_mgr_2 = 2 ';
         } else if ($col == "bc") {
-            $where .= 'tjp.approve_mgr = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
+            $where .= 'tjp.approve_mgr_2 = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
         } else if ($col == "gm") {
             $where .= 'tjp.approve_acc = 1 and tjp.approve_gm = 0  or tjp.approve_gm = 2 ';
         } else if ($col == "fin") {

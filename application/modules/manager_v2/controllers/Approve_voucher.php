@@ -31,9 +31,9 @@ class Approve_voucher extends CI_Controller
         $kode = $this->input->get("kode");
         $data = [
             'ket'               => $kode == 1 ? 'accept manager' : 'reject manager',
-            'date_approve_mgr'  => date('Y-m-d H:i:s'),
-            'approve_mgr'       => $kode,
-            'approve_mgr_user'  => $this->session->userdata("nik")
+            'date_approve_mgr_2'  => date('Y-m-d H:i:s'),
+            'approve_mgr_2'       => $kode,
+            'approve_mgr_user_2'  => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "transaksi_plant_voucher", ['id' => $id]);
         if ($update > 0) {
@@ -74,10 +74,10 @@ class Approve_voucher extends CI_Controller
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
                 'status'            => 1,
-                'ket'               => 'accept manager',
-                'date_approve_mgr'  => date('Y-m-d H:i:s'),
-                'approve_mgr'       => 1,
-                'approve_mgr_user'  => $this->session->userdata("nik"),
+                'ket'               => 'accept manager 2',
+                'date_approve_mgr_2'  => date('Y-m-d H:i:s'),
+                'approve_mgr_2'       => 1,
+                'approve_mgr_user_2'  => $this->session->userdata("nik"),
                 'id'                => $multi[$i]
             );
             array_push($data, $params);
@@ -99,8 +99,8 @@ class Approve_voucher extends CI_Controller
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
                 'status'                  => 1,
-                'date_lapor_mgr'          => date('Y-m-d H:i:s'),
-                'approve_lapor_mgr'       => 1,
+                'date_lapor_mgr_2'          => date('Y-m-d H:i:s'),
+                'approve_lapor_mgr_2'       => 1,
                 'id'                      => $multi[$i]
             );
             array_push($data, $params);
@@ -132,8 +132,8 @@ class Approve_voucher extends CI_Controller
         $id = $this->input->get("id_budget");
         $kode = $this->input->get("kode");
         $data = [
-            'date_lapor_mgr'          => date('Y-m-d H:i:s'),
-            'approve_lapor_mgr'       => $kode,
+            'date_lapor_mgr_2'          => date('Y-m-d H:i:s'),
+            'approve_lapor_mgr_2'       => $kode,
         ];
         $update = $this->model->updateData($data, "transaksi_plant_voucher", ['id' => $id]);
         if ($update > 0) {

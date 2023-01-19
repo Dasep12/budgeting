@@ -217,8 +217,8 @@
     <div class="left-side-bar">
         <div class="brand-logo">
             <a href="index.html">
-                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="dark-logo" />
-                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="light-logo" />
+                <img style="height:90px;width:250px" src="<?= base_url('assets/') ?>src/images/pim_logo.jpeg" alt="" class="dark-logo" />
+                <img style="height:90px;width:250px" src="<?= base_url('assets/') ?>src/images/pim_logo.jpeg" alt="" class="light-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>

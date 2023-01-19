@@ -30,7 +30,7 @@ class Approve_trans extends CI_Controller
         $kode = $this->input->get("kode");
         $data = [
             'status_approved'            => $kode,
-            'ket'                        => $kode == 1 ? 'accept manager ' : 'reject manager',
+            'ket'                        => $kode == 1 ? 'accept manager 2' : 'reject manager 2',
             'date_approve_mgr_2'         => date('Y-m-d H:i:s'),
             'approve_mgr_2'              => $kode,
             'approve_mgr_user_2'         => $this->session->userdata("nik")
@@ -84,7 +84,7 @@ class Approve_trans extends CI_Controller
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
                 'status_approved'   => 1,
-                'ket'               => 'accept manager',
+                'ket'               => 'accept manager 2',
                 'date_approve_mgr_2'  => date('Y-m-d H:i:s'),
                 'approve_mgr_2'       => 1,
                 'approve_mgr_user_2'  => $this->session->userdata("nik"),

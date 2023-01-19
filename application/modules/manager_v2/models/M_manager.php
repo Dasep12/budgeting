@@ -79,13 +79,13 @@ class M_manager extends CI_Model
         $st = "";
 
         if ($stat != 0) {
-            $st .= 'tjp.approve_mgr != 0 and tjp.approve_mgr_2=1';
+            $st .= 'tjp.approve_mgr_2 != 0 and tjp.approve_mgr=1';
         } else {
-            $st .= 'tjp.approve_mgr = 0 and tjp.approve_mgr_2=1';
+            $st .= 'tjp.approve_mgr_2 = 0 and tjp.approve_mgr=1';
         }
         $query = $this->db->query("SELECT tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  ,  tjp.ket ,
         (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,
-        tjp.approve_mgr , tjp.approve_acc  , tjp.lampiran_1 ,tjp.lampiran_2 , tjp.lampiran_3  , tjp.tanggal_request 
+        tjp.approve_mgr , tjp.approve_mgr_2 , tjp.approve_acc  , tjp.lampiran_1 ,tjp.lampiran_2 , tjp.lampiran_3  , tjp.tanggal_request 
         from transaksi_jenis_pembayaran tjp 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
@@ -163,13 +163,13 @@ class M_manager extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_mgr=0 and tpv.approve_mgr_2=1 ";
+            $where .= "tpv.approve_mgr_2 = 0 and tpv.approve_mgr = 1 ";
         } else {
-            $where .= "tpv.approve_mgr_2=1 and tpv.approve_mgr=1 or tpv.approve_mgr=2";
+            $where .= "tpv.approve_mgr = 1 and tpv.approve_mgr_2 = 1 or tpv.approve_mgr_2 = 2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,
-        (select sum(tdv.ammount_plant) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 
+        (select sum(tdv.ammount_plant) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr ,tpv.approve_mgr_2 
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
@@ -185,9 +185,9 @@ class M_manager extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_lapor_mgr_2 = 1 and tpv.approve_lapor_mgr=0";
+            $where .= "tpv.approve_lapor_mgr = 1 and tpv.approve_lapor_mgr_2=0";
         } else {
-            $where .= "tpv.approve_lapor_mgr_2 = 1 and tpv.approve_lapor_mgr=1 or tpv.approve_lapor_mgr=2";
+            $where .= "tpv.approve_lapor_mgr = 1 and tpv.approve_lapor_mgr_2=1 or tpv.approve_lapor_mgr_2=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,
