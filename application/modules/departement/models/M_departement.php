@@ -165,8 +165,10 @@ class M_departement extends CI_Model
             $where .= "trtb.approve_spv  = 0 or trtb.approve_spv = 2 ";
         } else if ($app == 'mgr') {
             $where .= "trtb.approve_spv  = 1 AND  trtb.approve_mgr = 0 or trtb.approve_mgr = 2  ";
+        } else if ($app == 'mgr2') {
+            $where .= "trtb.approve_mgr  = 1 AND  trtb.approve_mgr_2 = 0 or trtb.approve_mgr_2 = 2  ";
         } else if ($app == 'bc') {
-            $where .= "trtb.approve_mgr  = 1 AND trtb.approve_bc = 0 or trtb.approve_bc = 2 ";
+            $where .= "trtb.approve_mgr_2  = 1 AND trtb.approve_bc = 0 or trtb.approve_bc = 2 ";
         } else if ($app == 'gm') {
             $where .= "trtb.approve_bc  = 1 AND trtb.approve_gm = 0 or trtb.approve_gm = 2 ";
         } else if ($app == 'fin') {
