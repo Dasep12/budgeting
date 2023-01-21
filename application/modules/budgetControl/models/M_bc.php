@@ -62,7 +62,7 @@ class M_bc extends CI_Model
             FROM master_budget mb 
              LEFT JOIN master_departement md on mb.departement_id  = md.id 
              LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-             WHERE mb.approve_bc = '1' or mb.approve_bc = '2' 
+             WHERE mb.approve_mgr = 1 and mb.approve_bc = '1' or mb.approve_bc = '2' 
              ");
         }
 
@@ -154,9 +154,9 @@ class M_bc extends CI_Model
         $where = "";
 
         if ($stat == 0) {
-            $where .= "tpv.approve_mgr_2=1 and tpv.approve_acc =0";
+            $where .= "tpv.approve_mgr=1 and tpv.approve_acc =0";
         } else {
-            $where .= "tpv.approve_mgr_2=1 and tpv.approve_acc=1 or tpv.approve_acc=2";
+            $where .= "tpv.approve_mgr=1 and tpv.approve_acc=1 or tpv.approve_acc=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3,  tpv.approve_acc , mjt.jenis_transaksi ,
@@ -174,9 +174,9 @@ class M_bc extends CI_Model
     {
         $where = "";
         if ($stat == 0) {
-            $where .= "tpv.approve_lapor_mgr_2=1 and tpv.approve_lapor_bc=0";
+            $where .= "tpv.approve_lapor_mgr=1 and tpv.approve_lapor_bc=0";
         } else {
-            $where .= "tpv.approve_lapor_mgr_2=1 and tpv.approve_lapor_bc=1 or tpv.approve_lapor_bc=2";
+            $where .= "tpv.approve_lapor_mgr=1 and tpv.approve_lapor_bc=1 or tpv.approve_lapor_bc=2";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3,mjt.jenis_transaksi ,

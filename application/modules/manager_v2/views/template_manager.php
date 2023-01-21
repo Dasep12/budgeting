@@ -232,15 +232,16 @@
                             <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
                         </a>
                     </li>
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-file"></span><span class="mtext">E-Budget</span>
                         </a>
                         <ul class="submenu">
                             <li><a class="<?= $this->uri->segment(3) == 'list_approve_req' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/ApproveRequestTambah/list_approve_req') ?>">Approve Tambah Budget</a></li>
+                            
                             <li><a class="<?= $this->uri->segment(3) == 'list_approve' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Approved/list_approve') ?>">Approved Plant Budget</a></li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
@@ -256,7 +257,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon bi bi-file"></span><span class="mtext">AP-Voucher</span>
                         </a>
@@ -268,7 +269,7 @@
                                 <a class="<?= $this->uri->segment(3) == 'list_approve_lapor' ? 'active ' : '' ?>" href="<?= base_url('manager_v2/Approve_voucher/list_approve_lapor') ?>">Approve Lapor Voucher</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">

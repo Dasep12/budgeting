@@ -110,38 +110,44 @@ class Input_Budget extends CI_Controller
             'created_by'                 => $this->session->userdata("nik"),
         ];
 
-        $this->db->insert("master_budget", $data);
-        if ($this->db->affected_rows() > 0) {
-            $this->db->trans_commit();
-            $id = $this->db->insert_id();
-            $listbulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-            $bulan    = $this->input->post("bulan");
-            $activity = $this->input->post("activity");
-            $params = array();
-            for ($i = 0; $i < count($bulan); $i++) {
-                $data2 = [
-                    'bulan'                     => $listbulan[$i],
-                    'nilai_budget'              => $bulan[$i],
-                    'master_budget_id_budget'   => $id,
-                    'activity'                  => $activity,
-                    'status'                    => 0,
-                    'created_at'                => date('Y-m-d H:i:s'),
-                    'created_by'                => $this->session->userdata('nik')
-                ];
-                array_push($params, $data2);
-            };
-            $save = $this->model->multiInsert($params, "master_planning_budget");
-            if ($save > 0) {
-                $this->session->set_flashdata("ok", "Planing budget di simpan");
-                redirect('departement/Input_budget');
+        $search_kode = $this->db->get_where("master_budget", ['kode_budget' => $kode]);
+        if ($search_kode->num_rows() > 0) {
+            $this->session->set_flashdata("nok", "Gagal  , terjadi kesalahan,kode budget sudah digunakan");
+            redirect('departement/Input_budget');
+        } else {
+            $this->db->insert("master_budget", $data);
+            if ($this->db->affected_rows() > 0) {
+                $this->db->trans_commit();
+                $id = $this->db->insert_id();
+                $listbulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                $bulan    = $this->input->post("bulan");
+                $activity = $this->input->post("activity");
+                $params = array();
+                for ($i = 0; $i < count($bulan); $i++) {
+                    $data2 = [
+                        'bulan'                     => $listbulan[$i],
+                        'nilai_budget'              => $bulan[$i],
+                        'master_budget_id_budget'   => $id,
+                        'activity'                  => $activity,
+                        'status'                    => 0,
+                        'created_at'                => date('Y-m-d H:i:s'),
+                        'created_by'                => $this->session->userdata('nik')
+                    ];
+                    array_push($params, $data2);
+                };
+                $save = $this->model->multiInsert($params, "master_planning_budget");
+                if ($save > 0) {
+                    $this->session->set_flashdata("ok", "Planing budget di simpan");
+                    redirect('departement/Input_budget');
+                } else {
+                    $this->session->set_flashdata("nok", "Planing budget gagal simpan");
+                    redirect('departement/Input_budget');
+                }
             } else {
-                $this->session->set_flashdata("nok", "Planing budget gagal simpan");
+                $this->db->trans_rollback();
+                $this->session->set_flashdata("nok", "Gagal  , terjadi kesalahan");
                 redirect('departement/Input_budget');
             }
-        } else {
-            $this->db->trans_rollback();
-            $this->session->set_flashdata("nok", "Gagal  , terjadi kesalahan");
-            redirect('departement/Input_budget');
         }
     }
 }

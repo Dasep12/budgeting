@@ -66,7 +66,7 @@ class M_manager extends CI_Model
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
              INNER JOIN master_bawahan_depthead mhb on mhb.master_departement_id =  mb.departement_id
-             WHERE mb.approve_mgr = '" . $stat . "' and mb.approve_spv = 1  and mhb.master_akun_nik = '" . $nik . "'
+             WHERE mb.approve_spv = 1   and mb.approve_mgr = '" . $stat . "' and mhb.master_akun_nik = '" . $nik . "'
              GROUP BY mb.id_budget
              ");
         }

@@ -14,7 +14,7 @@
         </div>
         <div class="card_approve">
             <div class="info_approve">
-                <h5 class="title_approve">Dept Head 1</h5>
+                <h5 class="title_approve">Dept Head</h5>
             </div>
             <?php if ($data->approve_lapor_mgr == 0) { ?>
                 <span>Menunggu Approved</span>
@@ -25,18 +25,6 @@
             <?php } ?>
         </div>
 
-        <div class="card_approve">
-            <div class="info_approve">
-                <h5 class="title_approve">Dept Head 2</h5>
-            </div>
-            <?php if ($data->approve_lapor_mgr_2 == 0) { ?>
-                <span>Menunggu Approved</span>
-            <?php } else if ($data->approve_lapor_mgr_2  == 1) { ?>
-                <span>Approved on <?= $data->date_lapor_mgr_2 ?></span>
-            <?php } else if ($data->approve_lapor_mgr_2  == 2) { ?>
-                <span>Rejected on <?= $data->date_lapor_mgr_2 ?></span>
-            <?php } ?>
-        </div>
         <div class="card_approve">
             <div class="info_approve">
                 <h5 class="title_approve">Budget Controller</h5>

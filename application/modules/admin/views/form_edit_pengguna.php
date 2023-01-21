@@ -91,7 +91,6 @@
                                             <option value="<?= $lv->id ?>"><?= $lv->nama_departement ?></option>
                                         <?php  }
                                         ?>
-
                                     <?php endforeach ?>
                                 <?php } else { ?>
                                     <?php foreach ($departement->result() as $lv) : ?>
@@ -104,6 +103,7 @@
                                 <?php } ?>
                             </select>
                         </div>
+
                     </div>
                 </div>
             </form>

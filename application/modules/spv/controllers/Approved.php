@@ -38,7 +38,7 @@ class Approved extends CI_Controller
         ];
         $update = $this->model->updateData($data, "master_budget", ['id_budget' => $id]);
         if ($update > 0) {
-            $this->session->set_flashdata("ok", "budget telah di setujui, silahkan konfirmasi ke pihak Budget Controller");
+            $this->session->set_flashdata("ok", "budget telah di setujui, silahkan konfirmasi ke pihak terkait");
             redirect('spv/Approved/list_approve');
         } else {
             $this->session->set_flashdata("nok", "budget di tolak");

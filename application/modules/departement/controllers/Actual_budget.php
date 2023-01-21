@@ -155,6 +155,7 @@ class Actual_budget extends CI_Controller
         $particullars   = $this->input->post("particullar");
         $jenis          = $this->input->post("jenis_transaksi");
         $acc            = $this->input->post("acc");
+        $jenis_bayar    = $this->input->post("jenis_pembayaran");
         $part           = array();
         $cari_jenis = $this->db->query("SELECT jenis_transaksi FROM master_jenis_transaksi  WHERE id='" . $jenis . "' ")->row();
 
@@ -180,6 +181,7 @@ class Actual_budget extends CI_Controller
                 'remarks'                        => $this->input->post("remarks"),
                 'status_approved'                => 0,
                 'approve_spv'                    => 0,
+                'jenis_bayar'                    => $jenis_bayar,
                 'bk'                             => $this->input->post("bk"),
                 'ket'                            => "menunggu approved supervisor",
                 'created_at'                     => date('Y-m-d H:i:s'),
@@ -207,6 +209,7 @@ class Actual_budget extends CI_Controller
                 'remarks'                        => $this->input->post("remarks"),
                 'status_approved'                => 0,
                 'approve_spv'                    => 0,
+                'jenis_bayar'                    => $jenis_bayar,
                 'bk'                             => $this->input->post("bk"),
                 'ket'                            => "menunggu approved supervisor",
                 'created_at'                     => date('Y-m-d H:i:s'),

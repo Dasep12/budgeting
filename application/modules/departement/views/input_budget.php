@@ -185,7 +185,7 @@
                 <div class="col-lg-4">
                     <label>TOTAL BUDGET</label>
                     <input required readonly id="budget_display" class="form-control" type="text" placeholder="">
-                    <input id="budget" name="budget" class="form-control" type="hidden" placeholder="">
+                    <input id="budget" name="budget" class="form-control" type="text" placeholder="">
                 </div>
             </div>
         </div>
