@@ -28,7 +28,8 @@ class Pengguna extends CI_Controller
         $data = [
             'uri'         => $this->uri->segment(2),
             'level'       => $this->model->getData("master_level"),
-            'departement' => $this->model->getData("master_departement")
+            'departement' => $this->model->getData("master_departement"),
+            'jenis_bayar'       => $this->model->getData("master_bayar")->result()
         ];
         $this->template->load('template_admin', 'form_add_pengguna', $data);
     }
@@ -41,7 +42,7 @@ class Pengguna extends CI_Controller
         $password     = $this->input->post("password");
         $level        = $this->input->post("level");
         $dept         = $this->input->post("departement[]");
-
+        $jenis        = $this->input->post("jenis_pembayaran");
         $deptHead     = $this->db->query("SELECT `level` as dept FROM master_level where id  ='" . $level . "' ")->row();
         $dataDept = array();
 
@@ -54,7 +55,8 @@ class Pengguna extends CI_Controller
             'departement_id'    => $dept[0],
             'status'            => 1,
             'password'          => md5($password),
-            'created_at'        => date('Y-m-d H:i:s')
+            'created_at'        => date('Y-m-d H:i:s'),
+            'master_bayar_id'   => $jenis
         ];
         $save = $this->model->insert("master_akun", $data);
         if ($save > 0) {
@@ -113,7 +115,8 @@ class Pengguna extends CI_Controller
             'uri'         => $this->uri->segment(2),
             'level'       => $this->model->getData("master_level"),
             'departement' => $this->model->getData("master_departement"),
-            'user'        => $this->model->daftarUser($nik)->row()
+            'user'        => $this->model->daftarUser($nik)->row(),
+            'jenis_bayar'       => $this->model->getData("master_bayar")->result()
         ];
         $this->template->load('template_admin', 'form_edit_pengguna', $data);
     }
@@ -126,7 +129,7 @@ class Pengguna extends CI_Controller
         $level        = $this->input->post("level");
         $dept         = $this->input->post("departement[]");
         $jab          = $this->input->post("jab");
-
+        $jenis        = $this->input->post("jenis_pembayaran");
         $dataDept = array();
 
 
@@ -136,6 +139,7 @@ class Pengguna extends CI_Controller
             'level'             => $level,
             'departement_id'    => $dept[0],
             'status'            => 1,
+            'master_bayar_id'   => $jenis,
             'created_at'        => date('Y-m-d H:i:s')
         ];
         $save = $this->model->updateData($data, "master_akun", ['nik' => $nik]);

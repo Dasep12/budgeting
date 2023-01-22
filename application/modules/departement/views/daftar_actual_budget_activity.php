@@ -37,12 +37,13 @@
         <button class="nav-link active" id="home-tab2" data-toggle="tab" data-target="#home2" type="button" role="tab" aria-controls="home2" aria-selected="true">Supervisor</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link " id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dept Head</button>
-    </li>
-
-    <li class="nav-item" role="presentation">
         <button class="nav-link " id="home-tab3" data-toggle="tab" data-target="#home3" type="button" role="tab" aria-controls="home3" aria-selected="true">Dept Head 2</button>
     </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link " id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dept Head 1</button>
+    </li>
+
+
 
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Budget Controller</button>
@@ -96,43 +97,6 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <div class="card-box mb-30" style="margin-top:-1px">
-            <div class="pd-20">
-                <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
-            </div>
-            <div class="pb-20">
-                <table class="data-table table hover nowrap">
-                    <thead>
-                        <tr>
-                            <th>Kode Request</th>
-                            <th>Tanggal</th>
-                            <th>Jenis Transaksi</th>
-                            <th>Nilai</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($manager->result() as $df) : ?>
-                            <tr>
-                                <td>
-                                    <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
-                                        <?= $df->request_code ?>
-                                    </a>
-                                </td>
-                                <td><?= $df->tanggal_request ?></td>
-                                <td><?= $df->jenis_transaksi ?></td>
-                                <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
-                                <td>
-                                    <label for="" class="badge <?= $df->approve_mgr == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->ket ?></label>
-                                </td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
     <div class="tab-pane fade" id="home3" role="tabpanel" aria-labelledby="home-tab3">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">
@@ -170,6 +134,44 @@
             </div>
         </div>
     </div>
+    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="card-box mb-30" style="margin-top:-1px">
+            <div class="pd-20">
+                <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
+            </div>
+            <div class="pb-20">
+                <table class="data-table table hover nowrap">
+                    <thead>
+                        <tr>
+                            <th>Kode Request</th>
+                            <th>Tanggal</th>
+                            <th>Jenis Transaksi</th>
+                            <th>Nilai</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($manager->result() as $df) : ?>
+                            <tr>
+                                <td>
+                                    <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
+                                        <?= $df->request_code ?>
+                                    </a>
+                                </td>
+                                <td><?= $df->tanggal_request ?></td>
+                                <td><?= $df->jenis_transaksi ?></td>
+                                <td><?= 'Rp. ' . number_format($df->total, 0, ",", ".") ?></td>
+                                <td>
+                                    <label for="" class="badge <?= $df->approve_mgr == '1' ? 'badge-primary' : 'badge-danger' ?>"><?= $df->ket ?></label>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">

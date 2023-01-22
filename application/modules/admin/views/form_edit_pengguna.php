@@ -4,10 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Master</a>
+                        <a href="#">Master</a>
                     </li>
                     <li class="breadcrumb-item ">
-                        User
+                        <a href="<?= base_url("admin/Pengguna/") ?>">User</a>
                     </li>
                     <li class="breadcrumb-item active ">
                         Edit User
@@ -66,6 +66,20 @@
                         <button type="submit" class="btn btn-primary btn-sm">Update</button>
                     </div>
                     <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="">JENIS PEMBAYARAN <?= $user->tipe_bayar ?></label>
+                            <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
+                                <option value="">PILIH JENIS PEMBAYARAN</option>
+                                <?php foreach ($jenis_bayar as $jn) :
+                                    if ($jn->id == $user->tipe_bayar) { ?>
+                                        <option selected value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                                    <?php  } else { ?>
+                                        <option value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                                <?php  }
+
+                                endforeach ?>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="">Level</label>
                             <select name="level" required id="level" class="form-control">

@@ -47,11 +47,15 @@ class M_admin extends CI_Model
         $where = "";
         if ($nik != NULL) {
             $where .= 'ma.nik=' . $nik;
-            $query = $this->db->query("SELECT ma.nik , ma.nama_lengkap  , ma.user_name  , ml.`level`  , md.nama_departement , ma.departement_id , ma.`level` , ml.`level` as dept from master_akun ma 
+            $query = $this->db->query("SELECT ma.nik , ma.nama_lengkap  , ma.user_name  , ml.`level`  , md.nama_departement , ma.departement_id , ma.`level` , ml.`level` as dept,
+            ma.master_bayar_id as tipe_bayar
+             from master_akun ma 
             left join master_departement md on md.id = ma.departement_id 
             left join master_level ml on ml.id = ma.`level`  WHERE $where ");
         } else {
-            $query = $this->db->query("SELECT ma.nik , ma.nama_lengkap  , ma.user_name  , ml.`level` as dept  , md.nama_departement , ma.departement_id , ma.`level` as lev , ml.`level`  from master_akun ma 
+            $query = $this->db->query("SELECT ma.nik , ma.nama_lengkap  , ma.user_name  , ml.`level` as dept  , md.nama_departement , ma.departement_id , ma.`level` as lev , ml.`level` ,
+            ma.master_bayar_id as tipe_bayar
+            from master_akun ma 
             left join master_departement md on md.id = ma.departement_id 
             left join master_level ml on ml.id = ma.`level` ");
         }

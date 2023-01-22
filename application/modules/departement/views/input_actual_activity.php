@@ -147,8 +147,9 @@
                         <label for="">JENIS PEMBAYARAN</label>
                         <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
                             <option value="">PILIH JENIS PEMBAYARAN</option>
-                            <option value="1">CASH BANK</option>
-                            <option value="2">PETTY CASH</option>
+                            <?php foreach ($jenis_bayar as $jn) : ?>
+                                <option value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                            <?php endforeach ?>
                         </select>
                     </div>
                 </div>
@@ -203,6 +204,13 @@
                         <label>NILAI PANJAR</label>
                         <input class="form-control" autocomplete="off" id="panjar" name="panjar[]" type="text" placeholder="">
                         <span id="info_panjar" style="display: none;" class="text-danger small font-italic">nilai panjar di atas satu juta wajib ada lampiran</span>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>REMARKS</label>
+                        <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
                     </div>
                 </div>
             </div>

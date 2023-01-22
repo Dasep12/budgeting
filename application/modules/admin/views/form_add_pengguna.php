@@ -4,10 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Master</a>
+                        <a href="#">Master</a>
                     </li>
                     <li class="breadcrumb-item ">
-                        User
+                        <a href="<?= base_url("admin/Pengguna/") ?>">User</a>
                     </li>
                     <li class="breadcrumb-item active ">
                         Tambah User
@@ -60,14 +60,22 @@
                             <label for="">Username</label>
                             <input type="text" class="form-control" required autocomplete="off" name="username" id="username">
                         </div>
-
-                        <button type="reset" class="btn btn-danger btn-sm">Reset</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                    </div>
-                    <div class="col-lg-6">
                         <div class="form-group">
                             <label for="">Password</label>
                             <input type="password" required autocomplete="off" class="form-control" name="password" id="password">
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="">JENIS PEMBAYARAN</label>
+                            <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
+                                <option value="">PILIH JENIS PEMBAYARAN</option>
+                                <?php foreach ($jenis_bayar as $jn) : ?>
+                                    <option value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="">Level</label>
@@ -86,6 +94,9 @@
                                 <?php endforeach ?>
                             </select>
                         </div>
+
+                        <button type="reset" class="btn btn-danger btn-sm">Reset</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
                     </div>
                 </div>
             </form>

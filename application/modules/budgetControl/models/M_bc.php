@@ -43,7 +43,7 @@ class M_bc extends CI_Model
         left join master_akun ma on ma.nik = tjp.created_by 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id  
-        where tjp.approve_acc  = '" . $stat . "' and tjp.approve_mgr_2 = 1    ");
+        where tjp.approve_acc  = '" . $stat . "' and tjp.approve_mgr = 1    ");
         return $query;
     }
 

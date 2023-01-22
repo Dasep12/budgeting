@@ -195,8 +195,8 @@ class Laporan extends CI_Controller
         $sam = "<h1>HALLO</h2>";
         $mpdf->WriteHTML($res);
         // $mpdf->WriteHTML($sam);
-        $mpdf->Output();
-        // $mpdf->Output("ReportPayment.pdf", 'D');
+        // $mpdf->Output();
+        $mpdf->Output("ReportPayment.pdf", 'I');
     }
 
     public function cetak_pdfPanjer()
@@ -223,13 +223,14 @@ class Laporan extends CI_Controller
         WHERE master_akun_nik='" . $data['remarks']->nik_ . "' ")->row();
         $res = $this->load->view('pdfPanjer', $data, TRUE);
         $mpdf->WriteHTML($res);
-        $mpdf->Output("ReportPanjar.pdf", 'D');
+        $mpdf->Output("ReportPanjar.pdf", 'I');
+        // $mpdf->Output("ReportPanjar.pdf", 'D');
     }
 
     public function cetak_pdfVoucher()
     {
         $id              = $this->input->get("id");
-        $stat              = $this->input->get("type");
+        $stat            = $this->input->get("type");
         $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-P']);
         $data['raim']    = $this->db->get_where("trans_detail_jenis_pembayaran", ['transaksi_jenis_pembayaran_id' => $id])->result();
         $data['remarks'] = $this->db->query("SELECT ma.nik, remarks , tanggal_request as tanggal , `to`, bank , rekening , bk , ma.nama_lengkap from transaksi_jenis_pembayaran
@@ -251,7 +252,7 @@ class Laporan extends CI_Controller
         $data['pre'] = $this->db->query("SELECT `file` as tertanda  FROM master_tertanda WHERE master_akun_nik='" . $data['remarks']->nik . "' ")->row();
         $res = $this->load->view('pdfVoucher', $data, TRUE);
         $mpdf->WriteHTML($res);
-        // $mpdf->Output("ReportVoucher.pdf");
-        $mpdf->Output();
+        $mpdf->Output("ReportVoucher.pdf", 'I');
+        // $mpdf->Output();
     }
 }

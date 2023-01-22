@@ -79,9 +79,9 @@ class M_manager extends CI_Model
         $st = "";
 
         if ($stat != 0) {
-            $st .= 'tjp.approve_mgr != 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr != 0 and tjp.approve_mgr_2=1';
         } else {
-            $st .= 'tjp.approve_mgr = 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr = 0 and tjp.approve_mgr_2=1';
         }
         $query = $this->db->query("SELECT tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  ,  tjp.ket ,
         (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,
