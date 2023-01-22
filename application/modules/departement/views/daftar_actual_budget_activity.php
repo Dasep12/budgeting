@@ -4,13 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        Actual Budget
+                        <a href="#">Transaksi</a>
                     </li>
                     <li class="breadcrumb-item active ">
-                        Daftar Actual Activity Budget
+                        Histori Transaksi
                     </li>
                 </ol>
             </nav>
@@ -37,19 +34,22 @@
 <?php } ?>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab2" data-toggle="tab" data-target="#home2" type="button" role="tab" aria-controls="home2" aria-selected="true">Approval Supervisor</button>
+        <button class="nav-link active" id="home-tab2" data-toggle="tab" data-target="#home2" type="button" role="tab" aria-controls="home2" aria-selected="true">Supervisor</button>
+    </li>
+    <!-- <li class="nav-item" role="presentation">
+        <button class="nav-link " id="home-tab3" data-toggle="tab" data-target="#home3" type="button" role="tab" aria-controls="home3" aria-selected="true">Dept Head 2</button>
+    </li> -->
+    <li class="nav-item" role="presentation">
+        <button class="nav-link " id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dept Head </button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link " id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Approval Dept Head</button>
+        <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Budget Controller</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Approval Budget Controller</button>
+        <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">General Manager</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Approval General Manager</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab2" data-toggle="tab" data-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">Approval Finance</button>
+        <button class="nav-link" id="contact-tab2" data-toggle="tab" data-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">Finance</button>
     </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -94,6 +94,7 @@
             </div>
         </div>
     </div>
+
     <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">
@@ -131,6 +132,7 @@
             </div>
         </div>
     </div>
+
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">
@@ -252,19 +254,19 @@
                                     if ($df->jenis_transaksi == "PANJAR") { ?>
 
                                         <?php if ($df->approve_fin == 1) { ?>
-                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $df->id_trans . '&type=' . $df->tipe) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                                         <?php } else { ?>
-                                            <a target="_blank" onclick="alert('Transaksi di tolak tidak bisa cetak')"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" class="badge badge-danger text-white" onclick="alert('Transaksi di tolak tidak bisa cetak')"><i class="fa fa-print"></i></a>
                                         <?php } ?>
                                     <?php  } else if ($df->jenis_transaksi == "PAYMENT VOUCHER") { ?>
                                         <?php if ($df->approve_fin == 1) { ?>
-                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPayment?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPayment?id=' . $df->id_trans . '&type=' . $df->tipe) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                                         <?php } else { ?>
                                             <a href="#" onclick="alert('Transaksi di tolak tidak bisa cetak')" class="badge badge-danger"><i class="fa fa-print"></i></a>
                                         <?php } ?>
                                     <?php } else if ($df->jenis_transaksi == "AP VOUCHER") { ?>
                                         <?php if ($df->approve_fin == 1) { ?>
-                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfVoucher?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfVoucher?id=' . $df->id_trans . '&type=' . $df->tipe) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                                         <?php } else { ?>
                                             <a href="#" onclick="alert('Transaksi di tolak tidak bisa cetak')" class="badge badge-danger"><i class="fa fa-print"></i></a>
                                         <?php } ?>

@@ -18,6 +18,7 @@ class TambahBudget extends CI_Controller
         $data = [
             'uri'               => $this->uri->segment(2),
             'approve_mgr'       => $this->model->list_request("approve_mgr", $this->session->userdata("departement_id"), "mgr"),
+            'approve_mgr2'       => $this->model->list_request("approve_mgr_2", $this->session->userdata("departement_id"), "mgr2"),
             'approve_bc'       => $this->model->list_request("approve_bc", $this->session->userdata("departement_id"), "bc"),
             'approve_gm'       => $this->model->list_request("approve_bc", $this->session->userdata("departement_id"), "gm"),
             'approve_fin'       => $this->model->list_request("approve_bc", $this->session->userdata("departement_id"), "fin"),

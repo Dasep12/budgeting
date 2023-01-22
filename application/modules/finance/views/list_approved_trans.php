@@ -47,6 +47,7 @@
                         <th class="table-plus datatable-nosort">Kode Request</th>
                         <th>Tanggal Request</th>
                         <th>Jenis Transaksi</th>
+                        <th>Jenis Bayar</th>
                         <th>Nilai Rupiah</th>
                         <th>Opsi</th>
                     </tr>
@@ -60,6 +61,7 @@
                             <td><?= $rm->request_code ?></td>
                             <td><?= $rm->tanggal_request ?></td>
                             <td><?= $rm->jenis_transaksi ?></td>
+                            <td><?= $rm->bayar ?></td>
                             <td><?= 'Rp. ' . number_format($rm->total, 0, ",", ".") ?></td>
                             <td>
                                 <?php

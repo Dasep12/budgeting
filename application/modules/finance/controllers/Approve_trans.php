@@ -18,7 +18,7 @@ class Approve_trans extends CI_Controller
     {
         $data = [
             'uri'       => $this->uri->segment(2),
-            'raimbus'    => $this->model->listTransaksi($this->session->userdata("departement_id"), 0)
+            'raimbus'    => $this->model->listTransaksi($this->session->userdata("bayar_id"), 0)
         ];
         $this->template->load('template_fin', 'list_approved_trans', $data);
     }

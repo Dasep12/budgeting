@@ -14,7 +14,7 @@
         </div>
         <div class="card_approve">
             <div class="info_approve">
-                <h5 class="title_approve">Dept Head</h5>
+                <h5 class="title_approve">Dept Head </h5>
             </div>
             <?php if ($data->approve_mgr == 0) { ?>
                 <span>Menunggu Approved</span>
@@ -24,6 +24,8 @@
                 <span>Rejected on <?= $data->date_approve_mgr ?></span>
             <?php } ?>
         </div>
+
+
         <div class="card_approve">
             <div class="info_approve">
                 <h5 class="title_approve">Budget Controller</h5>

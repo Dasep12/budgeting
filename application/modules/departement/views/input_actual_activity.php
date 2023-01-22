@@ -122,39 +122,16 @@
                         <label>KODE TRANSAKSI</label>
                         <input readonly class="form-control" value="<?= $code_dept ?>" id="request_code" name="request_code" type="text" placeholder="">
                     </div>
-
-                    <div class="form-group">
-                        <label>TO</label>
-                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>REKENING</label>
-                        <input class="form-control" id="rekening" name="rekening" type="text" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label>PARTICULLARS</label>
-                        <a href="" class="add_field_button badge badge-success badge-sm">Tambah</a>
-                        <input class="form-control" id="particullar" name="particullar[]" type="text" placeholder="">
-                    </div>
-                    <div class="form-group input_fields_wrap">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>REMARKS</label>
-                        <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
-                    </div>
-
-
-
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>TANGGAL REQUEST</label>
                         <input class="form-control" value="<?= date('Y-m-d') ?>" readonly id="tanggal" name="tanggal" type="date" placeholder="">
                     </div>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
                     <div class="form-group">
                         <label for="">JENIS TRANSAKSI</label>
                         <select class="form-control" name="jenis_transaksi" id="jenis_transaksi">
@@ -164,17 +141,53 @@
                             <?php endforeach ?>
                         </select>
                     </div>
-
+                </div>
+                <div class="col-lg-6">
                     <div class="form-group">
-                        <label>NO BK</label>
-                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
+                        <label for="">JENIS PEMBAYARAN</label>
+                        <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
+                            <option value="">PILIH JENIS PEMBAYARAN</option>
+                            <?php foreach ($jenis_bayar as $jn) : ?>
+                                <option value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                            <?php endforeach ?>
+                        </select>
                     </div>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>TO</label>
+                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
+                    </div>
                     <div class="form-group">
                         <label>BANK</label>
                         <input class="form-control" id="bank" name="bank" type="text" placeholder="">
                     </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>REKENING</label>
+                        <input class="form-control" id="rekening" name="rekening" type="text" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label>NO BK</label>
+                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>PARTICULLARS</label>
+                        <a href="" class="add_field_button badge badge-success badge-sm">Tambah</a>
+                        <input class="form-control" id="particullar" name="particullar[]" type="text" placeholder="">
+                    </div>
+                    <div class="form-group input_fields_wrap">
 
+                    </div>
+                </div>
+                <div class="col-lg-6">
                     <div class="form-group">
                         <label>AMMOUNT</label>
                         <input class="form-control" autocomplete="off" id="ammount" name="ammount[]" type="text" placeholder="">
@@ -183,17 +196,41 @@
                     <div class="add_ammount">
 
                     </div>
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
                     <div class="form-group">
                         <label>NILAI PANJAR</label>
                         <input class="form-control" autocomplete="off" id="panjar" name="panjar[]" type="text" placeholder="">
                         <span id="info_panjar" style="display: none;" class="text-danger small font-italic">nilai panjar di atas satu juta wajib ada lampiran</span>
                     </div>
 
-                    <div class="form-group ">
-                        <label>LAMPIRAN</label>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>REMARKS</label>
+                        <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>LAMPIRAN 1</label>
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran1">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>LAMPIRAN 2</label>
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran2">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>LAMPIRAN 3</label>
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran3">
                     </div>
                 </div>

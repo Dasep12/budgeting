@@ -32,7 +32,7 @@
     <?php $this->session->unset_userdata("nok") ?>
 <?php } ?>
 <div class="card-box mb-30">
-    <form action="<?= base_url('spv/Approved_trans/multiApprove') ?>" method="post">
+    <form action="<?= base_url('spv/Approve_trans/multiApprove') ?>" method="post">
         <div class="pd-20">
             <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
         </div>

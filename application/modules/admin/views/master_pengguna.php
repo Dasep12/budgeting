@@ -59,7 +59,7 @@
                         <td><?= $no++; ?></td>
                         <td><?= strtoupper($dpt->nama_lengkap) ?></td>
                         <td><?php
-                            if ($dpt->dept == 'DEPT HEAD' || $dpt->dept == 'dept head') {
+                            if ($dpt->dept == 'DEPT HEAD 1' || $dpt->dept == 'dept head 1' || $dpt->dept == 'DEPT HEAD 2' || $dpt->dept == 'dept head 2') {
                                 $depar = $this->db->query("SELECT md.nama_departement  FROM master_bawahan_depthead mh inner join master_departement md on md.id = mh.master_departement_id WHERE mh.master_akun_nik='" . $dpt->nik . "' ")->result();
                                 foreach ($depar as $drp) {
                                     echo "<li>" . $drp->nama_departement . '</li>';

@@ -24,6 +24,7 @@ class Actual_budget extends CI_Controller
             'gm'            => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "gm"),
             'finance'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "fin"),
             'supervisor'       => $this->model->daftarActualActivity($this->session->userdata("departement_id"), "spv"),
+
         ];
         $this->template->load('template_departement', 'daftar_actual_budget_activity', $data);
     }
@@ -45,7 +46,8 @@ class Actual_budget extends CI_Controller
             'jenis_transaksi'   => $this->db->query("SELECT * FROM master_jenis_transaksi where jenis_transaksi != 'AP VOUCHER' ")->result(),
             'code_dept'         => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
             'jenis'             => $this->model->getData("master_jenis_budget")->result(),
-            'acc'               => $this->model->getData("master_acc")->result()
+            'acc'               => $this->model->getData("master_acc")->result(),
+            'jenis_bayar'       => $this->model->getData("master_bayar")->result()
         ];
         $this->template->load('template_departement', 'input_actual_activity', $data);
     }
@@ -55,7 +57,8 @@ class Actual_budget extends CI_Controller
         $where = [
             'tahun'                  => $this->input->get("tahun"),
             'departement_id'         => $this->session->userdata("departement_id"),
-            'master_jenis_budget_id' => $this->input->get("jenis")
+            'master_jenis_budget_id' => $this->input->get("jenis"),
+            'approve_fin'            => 1
         ];
 
         $data =  $this->model->ambilData("master_budget", $where);
@@ -153,6 +156,7 @@ class Actual_budget extends CI_Controller
         $particullars   = $this->input->post("particullar");
         $jenis          = $this->input->post("jenis_transaksi");
         $acc            = $this->input->post("acc");
+        $jenis_bayar    = $this->input->post("jenis_pembayaran");
         $part           = array();
         $cari_jenis = $this->db->query("SELECT jenis_transaksi FROM master_jenis_transaksi  WHERE id='" . $jenis . "' ")->row();
 
@@ -178,6 +182,7 @@ class Actual_budget extends CI_Controller
                 'remarks'                        => $this->input->post("remarks"),
                 'status_approved'                => 0,
                 'approve_spv'                    => 0,
+                'master_jenis_bayar_id'          => $jenis_bayar,
                 'bk'                             => $this->input->post("bk"),
                 'ket'                            => "menunggu approved supervisor",
                 'created_at'                     => date('Y-m-d H:i:s'),
@@ -205,6 +210,7 @@ class Actual_budget extends CI_Controller
                 'remarks'                        => $this->input->post("remarks"),
                 'status_approved'                => 0,
                 'approve_spv'                    => 0,
+                'master_jenis_bayar_id'          => $jenis_bayar,
                 'bk'                             => $this->input->post("bk"),
                 'ket'                            => "menunggu approved supervisor",
                 'created_at'                     => date('Y-m-d H:i:s'),

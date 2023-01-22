@@ -25,6 +25,7 @@ class Login extends CI_Controller
             $this->session->set_userdata("departement_id", $data->departement_id);
             $this->session->set_userdata("level", $level);
             $this->session->set_userdata("nama", $data->nama_lengkap);
+            $this->session->set_userdata("bayar_id", $data->bayar_id);
             switch ($level) {
                 case 'MGR':
                     redirect('manager/Dashboard');
