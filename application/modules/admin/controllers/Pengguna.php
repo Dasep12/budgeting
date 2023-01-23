@@ -60,7 +60,7 @@ class Pengguna extends CI_Controller
         ];
         $save = $this->model->insert("master_akun", $data);
         if ($save > 0) {
-            if ($deptHead->dept == 'DEPT HEAD 1' || $deptHead->dept == 'dept head 1' || $deptHead->dept == 'DEPT HEAD 2' || $deptHead->dept == 'dept head 2') {
+            if ($deptHead->dept == 'DEPT HEAD' || $deptHead->dept == 'dept head' || $deptHead->dept == 'DEPT HEAD 2' || $deptHead->dept == 'dept head 2') {
                 for ($i = 0; $i < count($dept); $i++) {
                     $dataDep = array(
                         'master_akun_nik'       => $nik,
@@ -144,7 +144,7 @@ class Pengguna extends CI_Controller
         ];
         $save = $this->model->updateData($data, "master_akun", ['nik' => $nik]);
         if ($save > 0) {
-            if ($jab == 'DEPT HEAD 1' || $jab == 'dept head 1' || $jab == 'DEPT HEAD 2' || $jab == 'dept head 2') {
+            if ($jab == 'DEPT HEAD' || $jab == 'dept head' || $jab == 'DEPT HEAD 2' || $jab == 'dept head 2') {
                 $this->model->delete(['master_akun_nik' => $nik], "master_bawahan_depthead");
                 for ($i = 0; $i < count($dept); $i++) {
                     $dataDep = array(

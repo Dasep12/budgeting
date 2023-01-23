@@ -96,7 +96,7 @@
                         <div class="form-group">
                             <label for="">Departement</label>
                             <select name="departement[]" required id="departement" class="form-control js-select2" multiple="multiple" style="height: 40px;">
-                                <?php if ($user->dept == "DEPT HEAD 1" || $user->dept == "dept head 1" || $user->dept == "DEPT HEAD 2" || $user->dept == "dept head 2") { ?>
+                                <?php if ($user->dept == "DEPT HEAD" || $user->dept == "dept head" || $user->dept == "DEPT HEAD 2" || $user->dept == "dept head 2") { ?>
                                     <?php foreach ($departement->result() as $lv) :
                                         $nilai  = $this->db->get_where("master_bawahan_depthead", ['master_akun_nik' => $user->nik, 'master_departement_id' => $lv->id]);
                                         if ($nilai->num_rows() > 0) { ?>
