@@ -49,7 +49,7 @@
                             </a>
 
                             <?php
-                            if ($pl->approve_mgr == 0) { ?>
+                            if ($pl->approve_spv == 0) { ?>
                                 <a onclick="return confirm('Yakin Hapus ?')" href="<?= base_url('departement/Plant_budget/delete?id_budget=' . $pl->id_budget) ?>" class="badge badge-danger text-white">
                                     <i class="fa fa-close"></i>
                                 </a>

@@ -57,8 +57,7 @@ class M_supervisor extends CI_Model
             FROM master_budget mb 
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-             WHERE mb.approve_spv = '1' or mb.approve_spv = '2'
-             and mb.departement_id = $dept  
+             WHERE mb.departement_id = $dept   and mb.approve_spv = '1' or mb.approve_spv = '2'
               GROUP BY mb.id_budget 
              ");
         } else {
