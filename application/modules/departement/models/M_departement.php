@@ -54,7 +54,7 @@ class M_departement extends CI_Model
 
     public function daftarPlantBudgetDepartement($dept)
     {
-        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget, mb.budget ,  md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity , mb.created_at , mb.approve_mgr , mb.approve_spv  FROM master_planning_budget  mpb
+        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget, mb.budget ,  md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity , mb.created_at , mb.approve_mgr , mb.approve_spv , mb.approve_bc , mb.approve_fin  FROM master_planning_budget  mpb
         left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget  
         inner join master_departement md on mb.departement_id = md.id 
         WHERE mb.departement_id  = '" . $dept . "' group by mb.kode_budget

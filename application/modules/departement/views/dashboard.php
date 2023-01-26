@@ -87,17 +87,14 @@
                 label: 'Plant',
                 backgroundColor: "rgba(168, 90, 50,1)",
                 data: <?= $plant ?>,
-                stack: 1
             }, {
                 label: 'Actual',
                 backgroundColor: "rgba(50, 168, 80,1)",
                 data: <?= $actual ?>,
-                stack: 3
             }, {
                 label: 'Sisa',
                 backgroundColor: "rgba(110,20, 80,1)",
                 data: <?= $sisa ?>,
-                stack: 3
             }]
         },
         options: {
