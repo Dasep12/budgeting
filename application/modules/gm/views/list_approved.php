@@ -44,9 +44,13 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="card-box mb-30">
-            <form action="<?= base_url('gm/Approved/multiApprove') ?>" method="post">
+            <form id="form" name="form" method="post">
                 <div class="pd-20">
-                    <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
+                    <div class="form-inline">
+
+                        <button type="button" onclick="approveAll()" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
+                        <button type="button" onclick="rejectAll()" id="btn_reject_all" style="display:none ;" class="btn btn-danger btn-sm mb-2 mr-2"> REJECT DATA TERPILIH</button>
+                    </div>
                 </div>
                 <div class="pb-20">
                     <table class="data-table table stripe hover nowrap table-bordered">
@@ -184,8 +188,10 @@
             var panjang = $('[name="multi[]"]:checked').length;
             if (panjang > 0) {
                 document.getElementById('btn_delete_all').style.display = "block";
+                document.getElementById('btn_reject_all').style.display = "block";
             } else {
                 document.getElementById('btn_delete_all').style.display = "none";
+                document.getElementById('btn_reject_all').style.display = "none";
             }
         })
 
@@ -193,11 +199,27 @@
             if ($(this).is(":checked")) {
                 $(".multi").prop("checked", true);
                 document.getElementById('btn_delete_all').style.display = "block";
+                document.getElementById('btn_reject_all').style.display = "block";
                 var panjang = $('[name="multi[]"]:checked').length;
             } else {
                 $(".multi").prop("checked", false);
                 document.getElementById('btn_delete_all').style.display = "none";
+                document.getElementById('btn_reject_all').style.display = "none";
             }
         })
     })
+
+    function rejectAll() {
+        if (confirm("Yakin Reject Budget ?") == true) {
+            $("#form").attr("action", "<?= base_url('gm/Approved/multiReject') ?>");
+            $("#form").submit();
+        }
+    }
+
+    function approveAll() {
+        if (confirm("Yakin Approve Budget ?") == true) {
+            $("#form").attr("action", "<?= base_url('gm/Approved/multiApprove') ?>");
+            $("#form").submit();
+        }
+    }
 </script>

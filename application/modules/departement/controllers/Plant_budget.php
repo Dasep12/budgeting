@@ -161,7 +161,7 @@ class Plant_budget extends CI_Controller
             'id'        => $id,
             'uri'       => $this->uri->segment(2),
             'jenis'     => $this->model->getData("master_jenis_budget")->result(),
-            'plant'     => $this->db->query("SELECT mpb.nilai_budget , mb.master_jenis_budget_id as jenis  from master_planning_budget mpb 
+            'plant'     => $this->db->query("SELECT mpb.nilai_budget , mpb.activity , mb.master_jenis_budget_id as jenis  from master_planning_budget mpb 
             left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget 
             where mpb.master_budget_id_budget   = $id")->result_array()
 
@@ -175,12 +175,14 @@ class Plant_budget extends CI_Controller
         $id_budget = $this->input->post("id_budget");
         $bulan    = $this->input->post("bulan");
         $jenis    = $this->input->post("jenis_budget");
+        $activity = $this->input->post("activity");
         $params = array();
         for ($i = 0; $i < count($bulan); $i++) {
             $data = [
                 'bulan'                     => $listbulan[$i],
                 'nilai_budget'              => $bulan[$i] == null ? '0' : $bulan[$i],
                 'master_budget_id_budget'   => $id_budget,
+                'activity'                  => $activity,
                 'status'                    => 0,
                 'created_at'                => date('Y-m-d H:i:s'),
                 'created_by'                => $this->session->userdata('nik')

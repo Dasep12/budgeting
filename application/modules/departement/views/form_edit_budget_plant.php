@@ -123,6 +123,10 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label>ACTIVITY</label>
+                    <textarea id="activity" name="activity" class="form-control" placeholder=""><?= $plant[0]['activity'] ?></textarea>
+                </div>
+                <div class="form-group">
                     <a href="<?= base_url('departement/Plant_budget/list_budget') ?>" class="btn btn-sm btn-success">Kembali</a>
                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                 </div>
