@@ -168,4 +168,29 @@ class Approved extends CI_Controller
             redirect('budgetControl/Approved/list_approve');
         }
     }
+
+    public function multiDelete()
+    {
+        $id = $this->input->post("multi[]");
+        $n = 0;
+        for ($i = 0; $i < count($id); $i++) {
+            $del = $this->model->delete(['master_budget_id_budget' => $id[$i]], "master_planning_budget");
+            if ($del > 0) {
+                $this->db->trans_commit();
+                $this->model->delete(['id_budget' => $id[$i]], "master_budget");
+                $n++;
+            } else {
+                $this->db->trans_rollback();
+                $n;
+            }
+        }
+
+        if ($n == count($id)) {
+            $this->session->set_flashdata("ok", 'plant budget di hapus');
+            redirect('budgetControl/Approved/list_approve');
+        } else {
+            $this->session->set_flashdata("nok", "data tidak terhapus semua");
+            redirect('budgetControl/Approved/list_approve');
+        }
+    }
 }
