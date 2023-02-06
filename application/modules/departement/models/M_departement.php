@@ -227,7 +227,7 @@ class M_departement extends CI_Model
     {
         $query = $this->db->query("SELECT mb.id_budget as id , mb.kode_budget  , mb.target_kpi  , mb.pic ,mb.due_date , mb.budget , mb.improvment ,mb.created_at ,mb.kpi , mb.account_bame , mb.description , mb.created_at from  master_budget mb 
         left join master_jenis_budget mjb  on mjb.id = mb.master_jenis_budget_id
-        WHERE mb.tahun='" . $tahun . "'  and mb.master_jenis_budget_id = '" . $jenis . "' and mb.approve_fin = 1 and mb.departement_id = '" . $dept . "'  ");
+        WHERE mb.tahun='" . $tahun . "'  and mb.master_jenis_budget_id = '" . $jenis . "' and mb.approve_spv = 1 and mb.departement_id = '" . $dept . "'  ");
         return $query;
     }
 
