@@ -230,7 +230,7 @@ class Actual_budget extends CI_Controller
             if ($cari_jenis->jenis_transaksi == "PANJAR") {
                 for ($i = 0; $i < count($panjar_nilai); $i++) {
                     $arr = [
-                        'ammount'                          => $panjar_nilai[$i],
+                        'ammount'                          => preg_replace("/[^0-9]/", "", $panjar_nilai[$i]),
                         'transaksi_jenis_pembayaran_id'    => $id
                     ];
                     array_push($part, $arr);
@@ -245,9 +245,10 @@ class Actual_budget extends CI_Controller
                     array_push($part, $arr);
                 }
             }
-            $this->db->insert_batch("trans_detail_jenis_pembayaran", $part);
-            $this->session->set_flashdata("ok", "berhasil di input");
-            redirect('departement/Actual_budget/form_input_actual');
+            var_dump($part);
+            // $this->db->insert_batch("trans_detail_jenis_pembayaran", $part);
+            // $this->session->set_flashdata("ok", "berhasil di input");
+            // redirect('departement/Actual_budget/form_input_actual');
         } else {
             $this->db->trans_rollback();
             $this->session->set_flashdata("nok", "gagal di input");

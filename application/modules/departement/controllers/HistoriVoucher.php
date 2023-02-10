@@ -55,4 +55,20 @@ class HistoriVoucher extends CI_Controller
         ];
         $this->load->view("timeline_voucher_plant", $data);
     }
+
+    public function delete()
+    {
+        $id = $this->input->get("id");
+        $del = $this->model->delete(['transaksi_plant_voucher_id' => $id], "transaksi_detail_voucher");
+        if ($del > 0) {
+            $this->db->trans_commit();
+            $this->model->delete(['id' => $id], "transaksi_plant_voucher");
+            $this->session->set_flashdata("ok", 'transaksi di hapus');
+            redirect('departement/HistoriVoucher/list_plantVoucher');
+        } else {
+            $this->db->trans_rollback();
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('departement/HistoriVoucher/list_plantVoucher');
+        }
+    }
 }

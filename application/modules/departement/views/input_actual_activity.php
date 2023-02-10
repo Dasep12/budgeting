@@ -126,7 +126,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>TANGGAL REQUEST</label>
-                        <input class="form-control" value="<?= date('Y-m-d') ?>" readonly id="tanggal" name="tanggal" type="date" placeholder="">
+                        <input class="form-control" value="<?= date('Y-m-d') ?>" id="tanggal" name="tanggal" type="text" placeholder="">
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>AMMOUNT</label>
-                        <input class="form-control" autocomplete="off" id="ammount" name="ammount[]" type="text" placeholder="">
+                        <input class="form-control input_am" onkeyup="convertNilai()" autocomplete="off" id="ammount" name="ammount[]" type="text" placeholder="">
                     </div>
 
                     <div class="add_ammount">
@@ -268,6 +268,7 @@
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
+
 
     $('select[name=bulan_budget').on('change', function() {
 
@@ -418,6 +419,25 @@
         }
     })
 
+
+    var panjar_convert = document.getElementById("panjar");
+    panjar_convert.addEventListener('keyup', function(event) {
+        var div = $(event.relatedTarget);
+        // console.log($(this).val());
+        var angka = $(this).val();
+        $(this).val(formatRupiah(angka.toString(), 'Rp. '));
+    });
+
+
+    function convertNilai() {
+        $(".input_am").keyup(function(event) {
+            var div = $(event.relatedTarget);
+            // console.log($(this).val());
+            var angka = $(this).val();
+            $(this).val(formatRupiah(angka.toString(), 'Rp. '));
+        });
+    }
+
     $(document).ready(function() {
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
         var ammount = $(".add_ammount"); //Fields wrapper
@@ -426,12 +446,14 @@
         $(add_button).click(function(e) { //on add input button click
             e.preventDefault();
 
-            $(wrapper).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" name="particullar[]" class="form-control"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+            $(wrapper).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" name="particullar[]" class="form-control"><a href="#" class="remove_field">Remove</a></div>'); //add input box
 
-            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]"  autocomplete="off" class="form-control"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
+            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]" onkeyup="convertNilai()"  autocomplete="off" class="form-control input_am"><a href="#" class="remove_field2">Remove</a></div>'); //add input box
         });
 
-        $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+
+        var wrapper2 = $(".input_fields_wrap,.add_ammount");
+        $(wrapper2).on("click", ".remove_field", function(e) { //user click on remove text
             e.preventDefault();
             $(this).parent('div').remove();
         })
@@ -439,5 +461,10 @@
             e.preventDefault();
             $(this).parent('div').remove();
         })
+
+        $("#tanggal").datepicker({
+            "minDate": -7,
+        });
+
     });
 </script>
