@@ -60,8 +60,11 @@
                                 <a onclick="return confirm('Yakin Hapus ?')" href="<?= base_url('departement/HistoriVoucher/delete?id=' . $pl->id) ?>" class="text-white badge badge-danger">
                                     <i class="fa fa-close"></i>
                                 </a>
-                            <?php } ?>
 
+                                <a href="<?= base_url('departement/HistoriVoucher/form_edit_voucher?id=' . $pl->id) ?>" class="text-white badge badge-primary">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            <?php } ?>
 
                         </td>
                     </tr>

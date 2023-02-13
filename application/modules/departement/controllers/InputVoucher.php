@@ -125,10 +125,10 @@ class InputVoucher extends CI_Controller
                 ];
                 array_push($part, $arr);
             }
-            var_dump($part);
-            // $this->db->insert_batch("transaksi_detail_voucher", $part);
-            // $this->session->set_flashdata("ok", "berhasil di input");
-            // redirect('departement/InputVoucher/form_input_voucher');
+            // var_dump($part);
+            $this->db->insert_batch("transaksi_detail_voucher", $part);
+            $this->session->set_flashdata("ok", "berhasil di input");
+            redirect('departement/InputVoucher/form_input_voucher');
         } else {
             $this->db->trans_rollback();
             $this->session->set_flashdata("nok", "gagal di input");
