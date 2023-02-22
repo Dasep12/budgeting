@@ -43,8 +43,6 @@
         <button class="nav-link " id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dept Head 1</button>
     </li>
 
-
-
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Budget Controller</button>
     </li>
