@@ -160,7 +160,7 @@ class Actual_budget extends CI_Controller
         $jenis_bayar    = $this->input->post("jenis_pembayaran");
         $part           = array();
         $cari_jenis = $this->db->query("SELECT jenis_transaksi FROM master_jenis_transaksi  WHERE id='" . $jenis . "' ")->row();
-
+        $subTrans = $cari_jenis->jenis_transaksi == 'PAYMENT VOUCHER' ? 1 : 0;
         $panjar_nilai = $this->input->post("panjar");
         if ($cari_jenis->jenis_transaksi == "PANJAR") {
             $field_img = [];
@@ -193,6 +193,7 @@ class Actual_budget extends CI_Controller
                 'rekening'                       => $this->input->post("rekening"),
             );
         } else {
+
             $upload =  $this->upload_multiple($_FILES['lampiran'], date('ymd'));
             $field_img = [];
             $nom = 1;
@@ -211,6 +212,7 @@ class Actual_budget extends CI_Controller
                 'remarks'                        => $this->input->post("remarks"),
                 'status_approved'                => 0,
                 'approve_spv'                    => 0,
+                'approve_mgr_2'                  => $subTrans,
                 'master_jenis_bayar_id'          => $jenis_bayar,
                 'bk'                             => $this->input->post("bk"),
                 'ket'                            => "menunggu approved supervisor",
@@ -231,7 +233,7 @@ class Actual_budget extends CI_Controller
             if ($cari_jenis->jenis_transaksi == "PANJAR") {
                 for ($i = 0; $i < count($panjar_nilai); $i++) {
                     $arr = [
-                        'ammount'                          => $panjar_nilai[$i],
+                        'ammount'                          => preg_replace("/[^0-9]/", "", $panjar_nilai[$i]),
                         'transaksi_jenis_pembayaran_id'    => $id
                     ];
                     array_push($part, $arr);
@@ -239,7 +241,7 @@ class Actual_budget extends CI_Controller
             } else {
                 for ($i = 0; $i < count($ammount); $i++) {
                     $arr = [
-                        'ammount'                          => $ammount[$i],
+                        'ammount'                          => preg_replace("/[^0-9]/", "", $ammount[$i]),
                         'particullar'                      => $particullars[$i],
                         'transaksi_jenis_pembayaran_id'    => $id
                     ];

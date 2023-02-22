@@ -79,9 +79,9 @@ class M_manager extends CI_Model
         $st = "";
 
         if ($stat != 0) {
-            $st .= 'tjp.approve_mgr != 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr_2 != 0 and tjp.approve_spv=1';
         } else {
-            $st .= 'tjp.approve_mgr = 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr_2 = 0 and tjp.approve_spv=1';
         }
 
 
