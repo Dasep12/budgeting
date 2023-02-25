@@ -19,7 +19,7 @@ class ReportVoucher extends CI_Controller
     {
         $data = [
             'uri'           => $this->uri->segment(2),
-            'plant'         => $this->model->ambilData("transaksi_plant_voucher", ['approve_fin' => 1, 'stat_lapor' => 0])
+            'plant'         => $this->model->ambilData("transaksi_plant_voucher", ['approve_fin' => 1, 'stat_lapor' => 0, 'master_departement_id' => $this->session->userdata("departement_id")])
         ];
         $this->template->load('template_departement', 'report_voucher', $data);
     }
@@ -55,7 +55,7 @@ class ReportVoucher extends CI_Controller
         $totAm = 0;
         for ($o = 0; $o < count($fiterAmmount); $o++) {
             $dtl  = array(
-                'ammount'       => $fiterAmmount[$o],
+                'ammount'       => preg_replace("/[^0-9]/", "", $fiterAmmount[$o]),
                 'particullar'   => $fiterParti[$o],
                 'ammount_plant' => $ammountPlant[$o],
                 'transaksi_plant_voucher_id'  => $id,
@@ -63,7 +63,6 @@ class ReportVoucher extends CI_Controller
             array_push($detailVoucher, $dtl);
             $totAm += $ammountPlant[$o];
         }
-
 
         $config = array(
             'upload_path'   => './assets/lampiran/',
@@ -94,8 +93,8 @@ class ReportVoucher extends CI_Controller
                 redirect('departement/ReportVoucher/reportVoucher');
             }
         } else {
-            // $res = '01';
-            $res = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata("nok", $this->upload->display_errors());
+            redirect('departement/ReportVoucher/reportVoucher');
         }
     }
 
