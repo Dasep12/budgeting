@@ -30,10 +30,10 @@ class Approve_trans extends CI_Controller
         $kode = $this->input->get("kode");
         $data = [
             'status_approved'            => $kode,
-            'ket'               => $kode == 1 ? 'accept manager' : 'reject manager',
-            'date_approve_mgr' => date('Y-m-d H:i:s'),
-            'approve_mgr'       => $kode,
-            'approve_mgr_user'  => $this->session->userdata("nik")
+            'ket'                        => $kode == 1 ? 'accept manager 1' : 'reject manager 1',
+            'date_approve_mgr'           => date('Y-m-d H:i:s'),
+            'approve_mgr'                => $kode,
+            'approve_mgr_user'           => $this->session->userdata("nik")
         ];
         $update = $this->model->updateData($data, "transaksi_jenis_pembayaran", ['id' => $id]);
         if ($update > 0) {

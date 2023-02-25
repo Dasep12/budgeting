@@ -46,6 +46,7 @@
                     <th>Nik</th>
                     <th>Nama</th>
                     <th>Level</th>
+                    <th>Jenis</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -56,6 +57,7 @@
                         <td><?= $dpt->nik ?></td>
                         <td><?= strtoupper($dpt->nama_lengkap) ?></td>
                         <td><?= $dpt->level ?></td>
+                        <td><?= $dpt->tipe == 1 ? 'PATTY CASH' : 'CASH BANK' ?></td>
                         <td>
                             <a href="" data-nik="<?= $dpt->nik ?>" data-id="<?= $dpt->id ?>" data-nama="<?= $dpt->nama_lengkap ?>" data-departement="<?= $dpt->level ?>" data-toggle="modal" data-target="#edit-data" data-backdrop="static" data-keyboard="false" class="badge badge-success"><i class="fa fa-eye"></i></a>
 
@@ -89,6 +91,14 @@
                         <div class="form-group">
                             <label for="">FILE TTD</label>
                             <input type="file" name="lampiran" id="lampiran" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">JENIS PEMBAYARAN</label>
+                            <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
+                                <option value="">PILIH JENIS PEMBAYARAN</option>
+                                <option value="1">CASH BANK</option>
+                                <option value="2">PETTY CASH</option>
+                            </select>
                         </div>
                     </div>
 
@@ -128,6 +138,15 @@
                         <div class="form-group">
                             <label for="">FILE TTD</label>
                             <input type="file" required name="lampiran_1" id="lampiran" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">JENIS PEMBAYARAN</label>
+                            <select class="form-control" required name="jenis_pembayaran2" id="jenis_pembayaran">
+                                <option value="">PILIH JENIS PEMBAYARAN</option>
+                                <option value="1">CASH BANK</option>
+                                <option value="2">PETTY CASH</option>
+                            </select>
                         </div>
                     </div>
 

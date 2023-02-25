@@ -124,9 +124,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label>TO</label>
-                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
+                        <label for="">JENIS PEMBAYARAN</label>
+                        <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
+                            <option value="">PILIH JENIS PEMBAYARAN</option>
+                            <?php foreach ($jenis_bayar as $jn) : ?>
+                                <option value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                            <?php endforeach ?>
+                        </select>
                     </div>
+
+
 
                     <div class="form-group">
                         <label>REKENING</label>
@@ -152,7 +159,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>TANGGAL REQUEST</label>
-                        <input class="form-control" value="<?= date('Y-m-d') ?>" readonly id="tanggal" name="tanggal" type="date" placeholder="">
+                        <input class="form-control" value="<?= date('Y-m-d') ?>" id="tanggal" name="tanggal" type="date" placeholder="">
                     </div>
 
                     <div class="form-group">
@@ -166,23 +173,31 @@
                     </div>
 
                     <div class="form-group">
+                        <label>TO</label>
+                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>AMMOUNT</label>
+                        <input class="form-control input_am" onkeyup="convertNilai()" autocomplete="off" id="ammount" name="ammount[]" type="text" placeholder="">
+                    </div>
+
+                    <div class="add_ammount">
+
+                    </div>
+
+                    <div class="form-group">
                         <label>NO BK</label>
                         <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
                     </div>
+
 
                     <div class="form-group">
                         <label>BANK</label>
                         <input class="form-control" id="bank" name="bank" type="text" placeholder="">
                     </div>
 
-                    <div class="form-group">
-                        <label>AMMOUNT</label>
-                        <input class="form-control" autocomplete="off" id="ammount" name="ammount[]" type="text" placeholder="">
-                    </div>
 
-                    <div class="add_ammount">
-
-                    </div>
 
                     <div class="form-group">
                         <label>NILAI PANJAR</label>
@@ -380,6 +395,23 @@
             document.getElementById("info_panjar").style.display = 'none';
         }
     })
+    var panjar_convert = document.getElementById("panjar");
+    panjar_convert.addEventListener('keyup', function(event) {
+        var div = $(event.relatedTarget);
+        // console.log($(this).val());
+        var angka = $(this).val();
+        $(this).val(formatRupiah(angka.toString(), 'Rp. '));
+    });
+
+
+    function convertNilai() {
+        $(".input_am").keyup(function(event) {
+            var div = $(event.relatedTarget);
+            // console.log($(this).val());
+            var angka = $(this).val();
+            $(this).val(formatRupiah(angka.toString(), 'Rp. '));
+        });
+    }
 
     $(document).ready(function() {
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
@@ -391,7 +423,7 @@
 
             $(wrapper).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" name="particullar[]" class="form-control"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
 
-            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]"  autocomplete="off" class="form-control"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
+            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]" onkeyup="convertNilai()"  autocomplete="off" class="form-control input_am"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
         });
 
         $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text

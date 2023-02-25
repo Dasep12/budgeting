@@ -4,10 +4,10 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Master</a>
+                        <a href="#">Master</a>
                     </li>
                     <li class="breadcrumb-item ">
-                        User
+                        <a href="<?= base_url("admin/Pengguna/") ?>">User</a>
                     </li>
                     <li class="breadcrumb-item active ">
                         Edit User
@@ -67,6 +67,20 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
+                            <label for="">JENIS PEMBAYARAN <?= $user->tipe_bayar ?></label>
+                            <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
+                                <option value="">PILIH JENIS PEMBAYARAN</option>
+                                <?php foreach ($jenis_bayar as $jn) :
+                                    if ($jn->id == $user->tipe_bayar) { ?>
+                                        <option selected value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                                    <?php  } else { ?>
+                                        <option value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                                <?php  }
+
+                                endforeach ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="">Level</label>
                             <select name="level" required id="level" class="form-control">
                                 <option value="">Pilih Level</option>
@@ -82,7 +96,7 @@
                         <div class="form-group">
                             <label for="">Departement</label>
                             <select name="departement[]" required id="departement" class="form-control js-select2" multiple="multiple" style="height: 40px;">
-                                <?php if ($user->dept == "DEPT HEAD" || $user->dept == "dept head") { ?>
+                                <?php if ($user->dept == "DEPT HEAD 1" || $user->dept == "dept head 1" || $user->dept == "DEPT HEAD 2" || $user->dept == "dept head 2") { ?>
                                     <?php foreach ($departement->result() as $lv) :
                                         $nilai  = $this->db->get_where("master_bawahan_depthead", ['master_akun_nik' => $user->nik, 'master_departement_id' => $lv->id]);
                                         if ($nilai->num_rows() > 0) { ?>
@@ -91,7 +105,6 @@
                                             <option value="<?= $lv->id ?>"><?= $lv->nama_departement ?></option>
                                         <?php  }
                                         ?>
-
                                     <?php endforeach ?>
                                 <?php } else { ?>
                                     <?php foreach ($departement->result() as $lv) : ?>
@@ -104,6 +117,7 @@
                                 <?php } ?>
                             </select>
                         </div>
+
                     </div>
                 </div>
             </form>

@@ -66,7 +66,7 @@ class M_manager extends CI_Model
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
              INNER JOIN master_bawahan_depthead mhb on mhb.master_departement_id =  mb.departement_id
-             WHERE mb.approve_mgr = '" . $stat . "' and mb.approve_spv = 1  and mhb.master_akun_nik = '" . $nik . "'
+             WHERE mb.approve_spv = 1   and mb.approve_mgr = '" . $stat . "' and mhb.master_akun_nik = '" . $nik . "'
              GROUP BY mb.id_budget
              ");
         }
@@ -79,9 +79,9 @@ class M_manager extends CI_Model
         $st = "";
 
         if ($stat != 0) {
-            $st .= 'tjp.approve_mgr != 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr != 0 and tjp.approve_mgr_2=1';
         } else {
-            $st .= 'tjp.approve_mgr = 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr = 0 and tjp.approve_mgr_2=1';
         }
         $query = $this->db->query("SELECT tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  ,  tjp.ket ,
         (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,

@@ -2,7 +2,19 @@
     <div class="outer_approve">
         <div class="card_approve">
             <div class="info_approve">
-                <h5 class="title_approve">Dept Head</h5>
+                <h5 class="title_approve">Supervisor</h5>
+            </div>
+            <?php if ($data->approve_spv == 0) { ?>
+                <span>Menunggu Approved</span>
+            <?php } else if ($data->approve_spv  == 1) { ?>
+                <span>Approved on <?= $data->date_approve_spv ?></span>
+            <?php } else if ($data->approve_spv  == 2) { ?>
+                <span>Rejected on <?= $data->date_approve_spv ?></span>
+            <?php } ?>
+        </div>
+        <div class="card_approve">
+            <div class="info_approve">
+                <h5 class="title_approve">Dept Head 1</h5>
             </div>
             <?php if ($data->approve_mgr == 0) { ?>
                 <span>Menunggu Approved</span>
@@ -10,6 +22,18 @@
                 <span>Approved on <?= $data->date_approve_mgr ?></span>
             <?php } else if ($data->approve_mgr  == 2) { ?>
                 <span>Rejected on <?= $data->date_approve_mgr ?></span>
+            <?php } ?>
+        </div>
+        <div class="card_approve">
+            <div class="info_approve">
+                <h5 class="title_approve">Dept Head 2</h5>
+            </div>
+            <?php if ($data->approve_mgr_2 == 0) { ?>
+                <span>Menunggu Approved</span>
+            <?php } else if ($data->approve_mgr_2  == 1) { ?>
+                <span>Approved on <?= $data->date_approve_mgr_2 ?></span>
+            <?php } else if ($data->approve_mgr_2  == 2) { ?>
+                <span>Rejected on <?= $data->date_approve_mgr_2 ?></span>
             <?php } ?>
         </div>
         <div class="card_approve">

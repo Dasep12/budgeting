@@ -128,15 +128,17 @@ class M_departement extends CI_Model
             $where .= 'tjp.approve_spv = 0 ';
         } else  if ($col == "mgr") {
             $where .= 'tjp.approve_spv = 1 and  tjp.approve_mgr = 0 or tjp.approve_mgr = 2 ';
+        } else  if ($col == "mgr2") {
+            $where .= 'tjp.approve_mgr = 1 and  tjp.approve_mgr_2 = 0 or tjp.approve_mgr_2 = 2 ';
         } else if ($col == "bc") {
-            $where .= 'tjp.approve_mgr = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
+            $where .= 'tjp.approve_mgr_2 = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
         } else if ($col == "gm") {
             $where .= 'tjp.approve_acc = 1 and tjp.approve_gm = 0  or tjp.approve_gm = 2 ';
         } else if ($col == "fin") {
             $where .= 'tjp.approve_gm = 1  ';
         }
         $co = "tjp." . $col;
-        $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement , tjp.status_retur ,
+        $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement , tjp.status_retur , tjp.master_jenis_bayar_id as tipe,
          (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total   , tjp.ket ,
         tjp.approve_mgr , tjp.approve_fin , tjp.approve_acc  , tjp.approve_gm  , tjp.lampiran_1, tjp.lampiran_2, tjp.lampiran_3  , tjp.tanggal_request  , ma.nama_lengkap , ma.nik , tjp.payment_close as pcl  
         from transaksi_jenis_pembayaran tjp 
@@ -163,8 +165,10 @@ class M_departement extends CI_Model
             $where .= "trtb.approve_spv  = 0 or trtb.approve_spv = 2 ";
         } else if ($app == 'mgr') {
             $where .= "trtb.approve_spv  = 1 AND  trtb.approve_mgr = 0 or trtb.approve_mgr = 2  ";
+        } else if ($app == 'mgr2') {
+            $where .= "trtb.approve_mgr  = 1 AND  trtb.approve_mgr_2 = 0 or trtb.approve_mgr_2 = 2  ";
         } else if ($app == 'bc') {
-            $where .= "trtb.approve_mgr  = 1 AND trtb.approve_bc = 0 or trtb.approve_bc = 2 ";
+            $where .= "trtb.approve_mgr_2  = 1 AND trtb.approve_bc = 0 or trtb.approve_bc = 2 ";
         } else if ($app == 'gm') {
             $where .= "trtb.approve_bc  = 1 AND trtb.approve_gm = 0 or trtb.approve_gm = 2 ";
         } else if ($app == 'fin') {
@@ -255,6 +259,15 @@ class M_departement extends CI_Model
         inner join master_akun ma on ma.nik = mt.master_akun_nik 
         inner join master_level ml  on ml.id  = ma.`level` 
         where ml.kode_level  = '" . $level . "'");
+        return $query;
+    }
+
+    public function lisTertandaFinance($stat)
+    {
+        $query = $this->db->query("SELECT ma.nik ,ma.nama_lengkap , ml.`level`  , ml.kode_level , mt.file  from master_tertanda mt 
+        inner join master_akun ma on ma.nik = mt.master_akun_nik 
+        inner join master_level ml  on ml.id  = ma.`level` 
+        where ml.kode_level  = 'FIN' and ma.master_bayar_id='" . $stat . "' ");
         return $query;
     }
 

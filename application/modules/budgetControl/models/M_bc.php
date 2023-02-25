@@ -62,7 +62,7 @@ class M_bc extends CI_Model
             FROM master_budget mb 
              LEFT JOIN master_departement md on mb.departement_id  = md.id 
              LEFT JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-             WHERE mb.approve_bc = '1' or mb.approve_bc = '2' 
+             WHERE mb.approve_mgr = 1 and mb.approve_bc = '1' or mb.approve_bc = '2' 
              ");
         }
 
@@ -181,7 +181,7 @@ class M_bc extends CI_Model
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3,mjt.jenis_transaksi ,
         (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
-        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr ,tpv.approve_lapor_mgr , tpv.plant_sebelumnya,tpv.approve_lapor_bc
+        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr,tpv.approve_mgr_2 ,tpv.approve_lapor_mgr , tpv.plant_sebelumnya,tpv.approve_lapor_bc
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 

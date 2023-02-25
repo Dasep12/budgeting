@@ -24,6 +24,7 @@
                 <span>Rejected on <?= $data->date_lapor_mgr ?></span>
             <?php } ?>
         </div>
+
         <div class="card_approve">
             <div class="info_approve">
                 <h5 class="title_approve">Budget Controller</h5>

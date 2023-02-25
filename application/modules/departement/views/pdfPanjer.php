@@ -43,7 +43,7 @@
 
 <body>
     <div class="card">
-        <h2>PT BONECOM TRICOM<br>FORM PANJAR</h2>
+        <h2>PT RAVALIA INTI MANDIRI<br>FORM PANJAR</h2>
 
         <div class="date">
             <div style="background-color:#FFF;height:30px">
@@ -84,8 +84,8 @@
                     <tr>
                         <th>Finance</th>
                         <th>General Manager</th>
-                        <th>Dept Head</th>
-                        <th>Supervisor</th>
+                        <th>Dept Head 1</th>
+                        <th>Dept Head 2</th>
                         <th>Prepared</th>
                     </tr>
                     <tbody>
@@ -97,10 +97,10 @@
                                 <img height="60px" width="60px" src="./assets/ttd/<?= $gm->file ?>" alt="">
                             </td>
                             <td>
-                                <img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file ?>" alt="">
+                                <img height="60px" width="60px" src="./assets/ttd/<?= $depthead2->file ?>" alt="">
                             </td>
                             <td>
-                                <img height="60px" width="60px" src="./assets/ttd/<?= $spv->file ?>" alt="">
+                                <img height="60px" width="60px" src="./assets/ttd/<?= $depthead->file ?>" alt="">
                             </td>
                             <td>
                                 <img height="60px" width="60px" src="./assets/ttd/<?= $pre->tertanda ?>" alt="">
@@ -109,8 +109,8 @@
                         <tr>
                             <td><?= ucwords($fin_ttd->nama_lengkap) ?></td>
                             <td><?= ucwords($gm->nama_lengkap) ?></td>
+                            <td><?= ucwords($depthead2->nama_lengkap) ?></td>
                             <td><?= ucwords($depthead->nama_lengkap) ?></td>
-                            <td><?= ucwords($spv->nama_lengkap) ?></td>
                             <td><?= ucwords($pre->name) ?></td>
                         </tr>
                     </tbody>
