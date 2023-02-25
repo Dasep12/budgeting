@@ -124,9 +124,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label>TO</label>
-                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
+                        <label for="">JENIS PEMBAYARAN</label>
+                        <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
+                            <option value="">PILIH JENIS PEMBAYARAN</option>
+                            <?php foreach ($jenis_bayar as $jn) : ?>
+                                <option value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                            <?php endforeach ?>
+                        </select>
                     </div>
+
+
 
                     <div class="form-group">
                         <label>REKENING</label>
@@ -166,8 +173,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label>NO BK</label>
-                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
+                        <label>TO</label>
+                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
                     </div>
 
                     <div class="form-group">
@@ -178,6 +185,13 @@
                     <div class="add_ammount">
 
                     </div>
+
+                    <div class="form-group">
+                        <label>NO BK</label>
+                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
+                    </div>
+
+
                     <div class="form-group">
                         <label>BANK</label>
                         <input class="form-control" id="bank" name="bank" type="text" placeholder="">

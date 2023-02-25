@@ -19,7 +19,7 @@ class ReportVoucher extends CI_Controller
     {
         $data = [
             'uri'           => $this->uri->segment(2),
-            'plant'         => $this->model->ambilData("transaksi_plant_voucher", ['approve_fin' => 1, 'stat_lapor' => 0])
+            'plant'         => $this->model->ambilData("transaksi_plant_voucher", ['approve_fin' => 1, 'stat_lapor' => 0, 'master_departement_id' => $this->session->userdata("departement_id")])
         ];
         $this->template->load('template_departement', 'report_voucher', $data);
     }
