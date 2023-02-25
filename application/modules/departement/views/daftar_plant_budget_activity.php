@@ -38,7 +38,15 @@
                         <td><span class="text-primary"><?= $pl->kode_budget ?></span></td>
                         <td><?= $pl->nama_departement ?></td>
                         <td><?= $pl->tahun ?></td>
-                        <td><?= 'Rp. ' . number_format($pl->budget, 0, ",", ".") ?></td>
+                        <td>
+                            <?php if ($pl->budget == "NaN" || $pl->budget == "nan") { ?>
+                                <a onclick="return confirm('Syncronize')" href="<?= base_url('departement/Plant_budget/sync?id_budget=' . $pl->id_budget) ?>" class="badge badge-info text-white">
+                                    syncronize budget <i class="fa fa-refresh"></i>
+                                </a>
+                            <?php } else {
+                                echo 'Rp. ' . number_format($pl->budget, 0, ",", ".");
+                            } ?>
+                        </td>
                         <td><?= $pl->activity ?></td>
                         <td>
                             <a data-id="<?= $pl->id_budget ?>" class="text-white userinfo badge badge-primary" data-toggle="modal" data-target="#detailPlant">
@@ -49,7 +57,15 @@
                             </a>
 
                             <?php
-                            if ($pl->approve_mgr == 0) { ?>
+                            if ($pl->approve_mgr == 1  || $pl->approve_bc == 1  || $pl->approve_fin == 1) { ?>
+                            <?php } else { ?>
+                                <a href="<?= base_url('departement/Plant_budget/form_edit?id=' . $pl->id_budget) ?>" class="badge badge-info text-white">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            <?php } ?>
+
+                            <?php
+                            if ($pl->approve_spv == 0) { ?>
                                 <a onclick="return confirm('Yakin Hapus ?')" href="<?= base_url('departement/Plant_budget/delete?id_budget=' . $pl->id_budget) ?>" class="badge badge-danger text-white">
                                     <i class="fa fa-close"></i>
                                 </a>

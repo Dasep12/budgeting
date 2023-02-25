@@ -16,11 +16,11 @@ class Approve_voucher extends CI_Controller
 
     public function list_approveVoucher()
     {
-        $sess = $this->session->userdata("nik");
+        $sess = $this->session->userdata("departement_id");
         $data = [
             'uri'        => $this->uri->segment(2),
-            'wait'       => $this->model->listVoucher($this->session->userdata("nik"), 0),
-            'proces'    => $this->model->listVoucher($this->session->userdata("nik"), 1),
+            'wait'       => $this->model->listVoucher($this->session->userdata("departement_id"), 0),
+            'proces'    => $this->model->listVoucher($this->session->userdata("departement_id"), 1),
         ];
         $this->template->load('template_supervisor', 'list_approved_voucher', $data);
     }

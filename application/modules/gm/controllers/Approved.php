@@ -83,4 +83,29 @@ class Approved extends CI_Controller
             redirect('gm/Approved/list_approve');
         }
     }
+
+    public function multiReject()
+    {
+        $multi = $this->input->post("multi[]");
+        $data = array();
+        for ($i = 0; $i < count($multi); $i++) {
+            $params = array(
+                'status'            => 2,
+                'ket'               => 'reject general manager',
+                'date_approved_gm'  => date('Y-m-d H:i:s'),
+                'approve_gm'        => 2,
+                'approve_gm_user'   => $this->session->userdata("nik"),
+                'id_budget'         => $multi[$i]
+            );
+            array_push($data, $params);
+        }
+        $this->db->update_batch('master_budget', $data, 'id_budget');
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata("ok", 'budget di tolak,silahkan konfirmasi ke departement terkait');
+            redirect('gm/Approved/list_approve');
+        } else {
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('gm/Approved/list_approve');
+        }
+    }
 }

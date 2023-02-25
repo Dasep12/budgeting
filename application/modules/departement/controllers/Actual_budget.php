@@ -106,7 +106,7 @@ class Actual_budget extends CI_Controller
     {
         $config = array(
             'upload_path'   => './assets/lampiran/',
-            'allowed_types' => 'jpg|png|jpeg',
+            'allowed_types' => 'jpg|png|jpeg|pdf',
             'overwrite'     => false,
         );
 
@@ -224,7 +224,7 @@ class Actual_budget extends CI_Controller
             if ($cari_jenis->jenis_transaksi == "PANJAR") {
                 for ($i = 0; $i < count($panjar_nilai); $i++) {
                     $arr = [
-                        'ammount'                          => $panjar_nilai[$i],
+                        'ammount'                          => preg_replace("/[^0-9]/", "", $panjar_nilai[$i]),
                         'transaksi_jenis_pembayaran_id'    => $id
                     ];
                     array_push($part, $arr);
@@ -232,7 +232,7 @@ class Actual_budget extends CI_Controller
             } else {
                 for ($i = 0; $i < count($ammount); $i++) {
                     $arr = [
-                        'ammount'                          => $ammount[$i],
+                        'ammount'                          => preg_replace("/[^0-9]/", "", $ammount[$i]),
                         'particullar'                      => $particullars[$i],
                         'transaksi_jenis_pembayaran_id'    => $id
                     ];

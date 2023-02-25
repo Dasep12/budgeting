@@ -55,6 +55,17 @@
                             <a data-id="<?= $pl->id ?>" class="approve_modal  text-white badge badge-success" data-toggle="modal" data-target="#detailApprove">
                                 <i class="fa fa-file"></i>
                             </a>
+
+                            <?php if ($pl->approve_spv == 0) { ?>
+                                <a onclick="return confirm('Yakin Hapus ?')" href="<?= base_url('departement/HistoriVoucher/delete?id=' . $pl->id) ?>" class="text-white badge badge-danger">
+                                    <i class="fa fa-close"></i>
+                                </a>
+
+                                <a href="<?= base_url('departement/HistoriVoucher/form_edit_voucher?id=' . $pl->id) ?>" class="text-white badge badge-primary">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            <?php } ?>
+
                         </td>
                     </tr>
                 <?php endforeach ?>

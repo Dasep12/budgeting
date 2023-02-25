@@ -150,13 +150,13 @@
                     </tr>
                     <tr>
                         <td colspan="3" rowspan="2">Remarks</td>
-                        <td align="center" colspan="5">Approved</td>
+                        <td align="center" colspan="4">Approved</td>
                         <td align="center" rowspan="2">Checked</td>
+                        <td align="center" rowspan="2">Supervisor</td>
                         <td align="center" rowspan="2">Prepared</td>
                     </tr>
                     <tr>
                         <td align="center">Director</td>
-                        <td align="center">Supervisor</td>
                         <td align="center">General Manager</td>
                         <td align="center">Finance </td>
                         <td align="center">Budget Controller</td>
@@ -164,21 +164,21 @@
                     <tr>
                         <td rowspan="2" colspan="3"><?= ucwords($remarks->remarks) ?></td>
                         <td style="height:90px ;"></td>
-                        <td><img height="90px" width="90px" src="./assets/ttd/<?= $spv->file  ?>" alt=""></td>
+
                         <td align="center"><img height="90px" width="90px" src="./assets/ttd/<?= $gm->file ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $fin->file ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $acc->file ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $depthead->file  ?>" alt=""></td>
-
+                        <td><img height="90px" width="90px" src="./assets/ttd/<?= $spv->file  ?>" alt=""></td>
                         <td><img height="90px" width="90px" src="./assets/ttd/<?= $pre->tertanda  ?>" alt=""></td>
                     </tr>
                     <tr>
                         <td style="height:20px ;"></td>
-                        <td><?= ucwords($spv->nama_lengkap) ?></td>
                         <td><?= ucwords($gm->nama_lengkap) ?></td>
                         <td><?= ucwords($fin->nama_lengkap) ?></td>
                         <td><?= ucwords($acc->nama_lengkap) ?></td>
                         <td><?= ucwords($depthead->nama_lengkap) ?></td>
+                        <td><?= ucwords($spv->nama_lengkap) ?></td>
                         <td><?= ucwords($remarks->nama_lengkap) ?></td>
                     </tr>
                 </tfoot>

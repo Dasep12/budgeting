@@ -50,25 +50,25 @@ class M_supervisor extends CI_Model
         return $this->db->affected_rows();
     }
 
-    public function daftarApprove($stat, $dept, $nik)
+    public function daftarApprove($stat, $dept)
     {
         if ($stat != 0) {
-            $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_spv as approve , mb.ket
-            FROM master_budget mb 
-             INNER JOIN master_departement md on mb.departement_id  = md.id 
-             INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-             WHERE mb.approve_spv = '1' or mb.approve_spv = '2'
-             and mb.departement_id = $dept  
-              GROUP BY mb.id_budget 
-             ");
+            $query = $this->db->query("SELECT mb.id_budget , mb.tahun , md.nama_departement  , mb.kode_budget  , mjb.jenis_budget  , 
+            mb.budget , mb.status , mb.approve_spv as approve , mb.ket
+                        FROM master_budget mb 
+                         INNER join master_departement md on md.id  = mb.departement_id 
+                         INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
+                         WHERE  mb.departement_id = '" . $dept . "' AND (mb.approve_spv = 1 or mb.approve_spv = 2 )
+                        GROUP BY mb.id_budget  
+         ");
         } else {
             $query = $this->db->query("SELECT mb.id_budget , md.nama_departement  , mb.tahun , mb.kode_budget  , mjb.jenis_budget  , mb.budget , mb.status , mb.approve_mgr as approve
             FROM master_budget mb 
              INNER JOIN master_departement md on mb.departement_id  = md.id 
              INNER JOIN master_jenis_budget mjb on mjb.id  = mb.master_jenis_budget_id 
-             WHERE mb.approve_spv = '" . $stat . "' and mb.departement_id = $dept 
+             WHERE  mb.departement_id = '" . $dept . "'  AND mb.approve_spv = 0 
              GROUP BY mb.id_budget
-             ");
+           ");
         }
 
         return $query;
@@ -171,7 +171,7 @@ class M_supervisor extends CI_Model
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
         inner join master_akun ma on ma.nik  = tpv.created_by 
-        where  $where 
+        where  tpv.master_departement_id = '" . $nik . "' and $where
         group by tpv.request_code ");
         return $query;
     }

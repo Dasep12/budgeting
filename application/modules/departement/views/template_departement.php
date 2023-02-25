@@ -95,11 +95,11 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.js"></script>
-
     <style>
         .select2.select2-container {
             width: 100% !important;
@@ -347,8 +347,7 @@
     <div class="left-side-bar">
         <div class="brand-logo">
             <a href="index.html">
-                <img style="height:60px;width:250px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="dark-logo" />
-                <img style="height:60px;width:250px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="light-logo" />
+                <img style="height:90px;width:250px" src="<?= base_url('assets/') ?>src/images/pin_logo.png" alt="" class="dark-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>

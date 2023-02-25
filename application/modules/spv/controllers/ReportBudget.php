@@ -19,11 +19,11 @@ class ReportBudget extends CI_Controller
     public function index()
     {
 
-        $nik = $this->session->userdata("nik");
+        $nik = $this->session->userdata("departement_id");
         $data = [
             'uri'           => $this->uri->segment(2),
             'jenis'         => $this->model->getData("master_jenis_budget"),
-            'departement'   => $this->model->listDep($nik),
+            'departement'   => $this->model->ambilData("master_departement", ['id' => $nik]),
         ];
         $this->template->load('template_supervisor', 'form_report_budget', $data);
     }

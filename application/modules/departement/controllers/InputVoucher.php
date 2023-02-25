@@ -39,7 +39,7 @@ class InputVoucher extends CI_Controller
     {
         $config = array(
             'upload_path'   => './assets/lampiran/',
-            'allowed_types' => 'jpg|png|jpeg',
+            'allowed_types' => 'jpg|png|jpeg|pdf',
             'overwrite'     => false,
         );
 
@@ -118,13 +118,14 @@ class InputVoucher extends CI_Controller
             $id = $this->db->insert_id();
             for ($i = 0; $i < count($ammount); $i++) {
                 $arr = [
-                    'ammount'                          => $ammount[$i],
-                    'ammount_plant'                    => $ammount[$i],
+                    'ammount'                          => preg_replace("/[^0-9]/", "", $ammount[$i]),
+                    'ammount_plant'                    => preg_replace("/[^0-9]/", "", $ammount[$i]),
                     'particullar'                      => $particullars[$i],
                     'transaksi_plant_voucher_id'       => $id
                 ];
                 array_push($part, $arr);
             }
+            // var_dump($part);
             $this->db->insert_batch("transaksi_detail_voucher", $part);
             $this->session->set_flashdata("ok", "berhasil di input");
             redirect('departement/InputVoucher/form_input_voucher');

@@ -73,9 +73,9 @@ class Approve_voucher extends CI_Controller
         $data = array();
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
-                'date_lapor_acc'    => date('Y-m-d H:i:s'),
-                'approve_lapor_acc' => 1,
-                'id'                => $multi[$i]
+                'date_approve_acc'    => date('Y-m-d H:i:s'),
+                'approve_acc' => 1,
+                'id'               => $multi[$i]
             );
             array_push($data, $params);
         }

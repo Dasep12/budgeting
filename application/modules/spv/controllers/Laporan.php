@@ -18,10 +18,10 @@ class Laporan extends CI_Controller
 
     public function payment()
     {
-        $nik = $this->session->userdata("nik");
+        $nik = $this->session->userdata("departement_id");
         $data = [
             'uri'           => $this->uri->segment(2),
-            'departement'   => $this->model->listDep($nik),
+            'departement'   => $this->model->ambilData("master_departement", ['id' => $nik]),
             'jenis'         => $this->db->query("SELECT id , jenis_transaksi from master_jenis_transaksi WHERE jenis_transaksi = 'PAYMENT VOUCHER'  ")
         ];
         $this->template->load('template_supervisor', 'form_laporan_payment', $data);
@@ -29,10 +29,10 @@ class Laporan extends CI_Controller
 
     public function panjer()
     {
-        $nik = $this->session->userdata("nik");
+        $nik = $this->session->userdata("departement_id");
         $data = [
             'uri'           => $this->uri->segment(2),
-            'departement'   => $this->model->listDep($nik),
+            'departement'   => $this->model->ambilData("master_departement", ['id' => $nik]),
             'jenis'         => $this->db->query("SELECT id , jenis_transaksi from master_jenis_transaksi WHERE jenis_transaksi = 'PANJAR' ")
         ];
         $this->template->load('template_supervisor', 'form_laporan_panjer', $data);
@@ -41,10 +41,10 @@ class Laporan extends CI_Controller
 
     public function apvoucher()
     {
-        $nik = $this->session->userdata("nik");
+        $nik = $this->session->userdata("departement_id");
         $data = [
             'uri'           => $this->uri->segment(2),
-            'departement'   => $this->model->listDep($nik),
+            'departement'   => $this->model->ambilData("master_departement", ['id' => $nik]),
             'jenis'         => $this->db->query("SELECT id , jenis_transaksi from master_jenis_transaksi WHERE jenis_transaksi = 'AP VOUCHER' ")
         ];
         $this->template->load('template_supervisor', 'form_laporan_voucher', $data);

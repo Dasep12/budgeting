@@ -73,7 +73,7 @@ class Approve_voucher extends CI_Controller
         $data = array();
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
-                'status'             => 1,
+
                 'ket'                => 'accept budget controller',
                 'date_approve_fin'   => date('Y-m-d H:i:s'),
                 'approve_fin'        => 1,

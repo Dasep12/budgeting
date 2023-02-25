@@ -182,9 +182,13 @@ class Laporan extends CI_Controller
         INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
         WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR' ")->row();
         $data['acc'] =  $this->model->lisTertanda("BC")->row();
-        $data['gm'] =  $this->model->lisTertanda("GM")->row();
+        $data['gm'] =   $this->model->lisTertanda("GM")->row();
         $data['fin'] =  $this->model->lisTertanda("FIN")->row();
-        $data['spv'] =  $this->model->lisTertanda("SPV")->row();
+        // $data['spv'] =  $this->model->lisTertanda("SPV")->row();
+        $data['spv'] =  $this->db->query("SELECT  nama_lengkap , mt.file FROM master_akun ma 
+        INNER JOIN master_level ml on ml.id = ma.level 
+        INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
+        WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='SPV' ")->row();
         $data['pre'] = $this->db->query("SELECT `file` as tertanda  FROM master_tertanda WHERE master_akun_nik='" . $data['remarks']->nik . "' ")->row();
         $res = $this->load->view('pdfRaimbusment', $data, TRUE);
         $mpdf->WriteHTML($res);

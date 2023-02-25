@@ -54,7 +54,7 @@ class M_departement extends CI_Model
 
     public function daftarPlantBudgetDepartement($dept)
     {
-        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget, mb.budget ,  md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity , mb.created_at , mb.approve_mgr , mb.approve_spv  FROM master_planning_budget  mpb
+        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget, mb.budget ,  md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity , mb.created_at , mb.approve_mgr , mb.approve_spv ,mb.approve_bc , mb.approve_fin    FROM master_planning_budget  mpb
         left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget  
         inner join master_departement md on mb.departement_id = md.id 
         WHERE mb.departement_id  = '" . $dept . "' group by mb.kode_budget
@@ -273,12 +273,12 @@ class M_departement extends CI_Model
     {
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 ,
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi,
-        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher
+        (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_spv
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
         inner join master_akun ma on ma.nik  = tpv.created_by  
-        WHERE md.id = '" . $dept . "'
+        WHERE tpv.master_departement_id = '" . $dept . "'
         ");
         return $query;
     }

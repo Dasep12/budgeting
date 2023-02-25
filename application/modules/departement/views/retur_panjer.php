@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>PENGEMBALIAN PANJAR</label>
+                    <label>NOMINAL PELAPORAN</label>
                     <input class="form-control" id="return_panjar_real" name="return_panjar" type="hidden" placeholder="">
                     <input class="form-control" required id="return_panjar" type="text" placeholder="">
                 </div>
