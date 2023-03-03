@@ -78,8 +78,8 @@
     }
 
 
-    const ctxChartTemuan = document.getElementById('myChart').getContext('2d');
-    const chartTemuan = new Chart(ctxChartTemuan, {
+    const ctxChartBudget = document.getElementById('myChart').getContext('2d');
+    const chartTemuan = new Chart(ctxChartBudget, {
         type: 'bar',
         data: {
             labels: <?= $kode ?>,
