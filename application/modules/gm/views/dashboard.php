@@ -35,13 +35,35 @@
             </div>
         </div>
     </div>
-
+</div>
+<div class="row mt-2">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-inline">
+                    <select name="actual_chart2" class="form-control form-control-sm" id="">
+                        <option value="">Choose Year</option>
+                        <?php for ($i = 21; $i < 60; $i++) : ?>
+                            <option <?= date('Y') == 20 . $i ? 'selected' : '' ?>>20<?= $i ?></option>
+                        <?php endfor; ?>
+                    </select>
+                    <select name="detail_chart" class="form-control form-control-sm" id="">
+                        <option value="">Choose Departement</option>
+                        <?php foreach ($dept as $de) : ?>
+                            <option value="<?= $de->id ?>"><?= $de->nama_departement ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <canvas id="detailChart"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     const ctx = document.getElementById('myChart');
     const ctx2 = document.getElementById('myChart2');
-
+    const ctx3 = document.getElementById('detailChart');
     var plantBudget = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -82,6 +104,33 @@
         }
     });
 
+    var detailGrafik = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['', ''],
+            datasets: [{
+                label: 'Plan',
+                backgroundColor: "rgba(168, 90, 50,1)",
+                data: [0, 0],
+            }, {
+                label: 'Actual',
+                backgroundColor: "rgba(50, 168, 80,1)",
+                data: [0, 0],
+            }, {
+                label: 'Remain',
+                backgroundColor: "rgba(110,20, 80,1)",
+                data: [0, 0]
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
     $('select[name=plant_chart').on('change', function() {
         var tahun = $("select[name=plant_chart] option:selected").text();
         $.ajax({
@@ -108,5 +157,35 @@
                 actualBudget.update();
             }
         })
+    })
+
+
+    function ajaxDetailGrafik(tahun, departement) {
+        $.ajax({
+            url: "<?= base_url('gm/Dashboard/getDepartement') ?>",
+            data: {
+                tahun: tahun,
+                dept: departement
+            },
+            method: 'POST',
+            success: function(e) {
+                let data = JSON.parse(e);
+                // console.log(data);
+                // console.log(data.kode);
+                detailGrafik.data.datasets[0].data = data.plant;
+                detailGrafik.data.datasets[1].data = data.actual;
+                detailGrafik.data.datasets[2].data = data.sisa;
+                detailGrafik.data.labels = data.kode;
+                detailGrafik.update();
+            }
+        })
+    }
+    var tahun = $("select[name=actual_chart2] option:selected").text();
+    var dept = $("select[name=detail_chart] option:selected").val();
+    ajaxDetailGrafik(tahun, dept);
+    $('select[name=actual_chart2],select[name=detail_chart]').on('change', function() {
+        var tahun = $("select[name=actual_chart2] option:selected").text();
+        var dept = $("select[name=detail_chart] option:selected").val();
+        ajaxDetailGrafik(tahun, dept);
     })
 </script>

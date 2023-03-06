@@ -36,8 +36,13 @@ class Dashboard extends CI_Controller
             $thn = $tahun;
         }
         $nik = $this->session->userdata("nik");
-        $query = $this->model->getTotalPlaning($nik, $thn);
-        echo $query;
+        $plant = $this->model->getTotalPlaning($nik, $thn);
+        $actual = $this->model->getTotalActual($nik, $thn);
+        $query = array(
+            'plant'     => $plant,
+            'actual'    => $actual
+        );
+        echo json_encode($query, true);
     }
 
     public function getActual()

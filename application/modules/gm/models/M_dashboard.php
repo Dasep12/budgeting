@@ -20,6 +20,8 @@ class M_dashboard extends CI_Model
 
         return json_encode($data, true);
     }
+
+
     // 
 
     public function getTotalPlaning($tahun)
@@ -55,5 +57,20 @@ class M_dashboard extends CI_Model
         }
 
         return json_encode($data, true);
+    }
+
+    public function getDetailPerDepartement($year, $dept)
+    {
+        $query =  $this->db->query("SELECT kode_budget , budget as plant_budget ,
+        ifnull((select sum(ammount) from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id  = tjp.id ),0)
+        as actual_budget , (select (budget - actual_budget)) as sisa_budget
+        from master_budget mb 
+        inner join master_planning_budget mpb on mpb.master_budget_id_budget  = mb.id_budget 
+        left join transaksi_jenis_pembayaran tjp on tjp.master_planning_budget_id_planing = mpb.id_planing 
+        where departement_id = '" . $dept . "'
+        and mb.tahun = '" . $year . "' and mb.approve_fin  = 1
+        group by mb.kode_budget 
+        ");
+        return $query;
     }
 }

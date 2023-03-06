@@ -64,6 +64,7 @@ class M_dashboard extends CI_Model
             $data[] = $rso['total'];
         }
 
+        // return json_encode($data, true);
         return json_encode($data, true);
     }
 
