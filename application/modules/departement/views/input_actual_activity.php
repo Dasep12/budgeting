@@ -184,7 +184,6 @@
                     </div>
 
 
-
                     <div class="form-group">
                         <label>NILAI PANJAR</label>
                         <input class="form-control" autocomplete="off" id="panjar" name="panjar[]" type="text" placeholder="">
@@ -369,7 +368,21 @@
     var parsing = document.getElementById("panjar");
     parsing.addEventListener('keyup', function(e) {
 
-        if (parsing.value >= 1000000) {
+        var rp = $("#budget_real").val();
+        let d = rp.replace(/[^a-zA-Z0-9+]/g, '');
+        let res = d.replace(/[a-zA-Z]+/g, '');
+        var resValue = parsing.value.replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, '');
+
+
+
+        if (parseInt(resValue) > parseInt(res)) {
+            $("#nextBtn").attr("disabled", true);
+        } else {
+            $("#nextBtn").attr("disabled", false);
+        }
+
+
+        if (resValue >= 1000000) {
             document.getElementById("info_panjar").style.display = 'block';
             $("#lampiran1").attr("disabled", false);
             $("#lampiran2").attr("disabled", false);
@@ -390,10 +403,26 @@
     });
 
 
+
     function convertNilai() {
         $(".input_am").keyup(function(event) {
             var div = $(event.relatedTarget);
-            // console.log($(this).val());
+
+            var payment = [];
+            $('input[name^=ammount]').each(function() {
+                payment.push(parseInt($(this).val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, '')));
+            });
+
+            var budgetReal = parseInt($("#budget_real").val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, ''));
+
+            let payCount = payment.reduce((a, b) => a + b, 0);
+
+            if (payCount > budgetReal) {
+                $("#nextBtn").attr("disabled", true);
+            } else {
+                $("#nextBtn").attr("disabled", false);
+            }
+
             var angka = $(this).val();
             $(this).val(formatRupiah(angka.toString(), 'Rp. '));
         });

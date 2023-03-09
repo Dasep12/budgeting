@@ -20,7 +20,7 @@ class Dashboard extends CI_Controller
             'depar'     => $this->model1->getDept(),
             'plantBudget'       => $this->model->getTotalPlaning(date('Y')),
             'actualBudget'      => $this->model->getTotalActual(date('Y')),
-            'dept'            => $this->model1->getData("master_departement")->result()
+            'dept'            => $this->model->queryDepartement()
         ];
         $this->template->load('template_gm', 'dashboard', $data);
     }
@@ -34,8 +34,13 @@ class Dashboard extends CI_Controller
             $thn = $tahun;
         }
         $nik = $this->session->userdata("nik");
-        $query = $this->model->getTotalPlaning($thn);
-        echo $query;
+        $plant = $this->model->getTotalPlaning($thn);
+        $actual = $this->model->getTotalActual($thn);
+        $result = array(
+            'plant'     => $plant,
+            'actual'    => $actual
+        );
+        echo json_encode($result);
     }
 
     public function getActual()

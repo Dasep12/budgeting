@@ -21,7 +21,15 @@ class M_dashboard extends CI_Model
         return json_encode($data, true);
     }
 
-
+    public function queryDepartement()
+    {
+        $query = $this->db->query("SELECT md.nama_departement , md.id FROM 
+        master_bawahan_depthead  mbd
+        LEFT JOIN master_akun ma on ma.nik = mbd.master_akun_nik
+        LEFT JOIN master_departement md on md.id = mbd.master_departement_id
+         ");
+        return $query;
+    }
     // 
 
     public function getTotalPlaning($tahun)
