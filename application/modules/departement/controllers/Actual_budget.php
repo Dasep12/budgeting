@@ -38,9 +38,19 @@ class Actual_budget extends CI_Controller
         } else {
             $d = explode('/', $bk->nilai_bk);
         }
+
+        $qr = $this->db->query("SELECT
+        (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(bk,'/',4), '/',-1)) as m  
+        from  transaksi_jenis_pembayaran")->result();
+        $nl = array();
+        foreach ($qr as $kl) {
+            $nl[] = $kl->m;
+        }
+        $s = MAX($nl);
+
         $data = [
             'uri'               => $this->uri->segment(2),
-            'bk'                => $d[0] . '/' . $d[1] . '/' . $d[2] + 1,
+            'bk'                => $d[0] . '/' . $d[1] . '/' . $s + 1,
             'bulan'             => convertbulan(date('m')),
             'jenis_transaksi'   => $this->db->query("SELECT * FROM master_jenis_transaksi where jenis_transaksi != 'AP VOUCHER' ")->result(),
             'code_dept'         => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
@@ -80,6 +90,23 @@ class Actual_budget extends CI_Controller
         } else {
             echo 0;
         }
+    }
+
+    public function getBudgetSetahun()
+    {
+
+        $kode = $this->input->post("kode");
+        $tahun = $this->input->post("tahun");
+        $q = $this->db->query("SELECT kode_budget , cast(budget as unsigned) as plant_budget ,
+        ifnull((select sum(ammount) from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id  = tjp.id ),0)
+        as actual_budget , (select (budget - actual_budget)) as sisa_budget
+        from master_budget mb 
+        inner join master_planning_budget mpb on mpb.master_budget_id_budget  = mb.id_budget 
+        left join transaksi_jenis_pembayaran tjp on tjp.master_planning_budget_id_planing = mpb.id_planing 
+        where departement_id = '" . $this->session->userdata("departement_id") . "'
+        and mb.tahun = '" . $tahun . "' and mb.approve_fin  = 1 and mb.kode_budget  = '" . $kode . "'
+        group by mb.kode_budget  ")->row();
+        echo $q->sisa_budget;
     }
 
     public function getCodeRequest()
@@ -268,6 +295,19 @@ class Actual_budget extends CI_Controller
     {
         $bk = $this->db->query("  SELECT ifnull(max(bk),0) as nilai_bk from  transaksi_jenis_pembayaran ")->row();
         $jenis = $this->input->post("jenis");
+        $qr = $this->db->query("SELECT
+        (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(bk,'/',4), '/',-1)) as m  
+        FROM  transaksi_jenis_pembayaran  tp
+        INNER JOIN master_jenis_transaksi tjp ON tjp.id = tp.master_jenis_transaksi_id
+        WHERE tjp.jenis_transaksi='" . $jenis . "'
+        ")->result();
+        $nl = array();
+        $s = 0;
+        foreach ($qr as $kl) {
+            $nl[] = $kl->m;
+        }
+        $s = MAX($nl);
+
         if ($jenis == "PANJAR") {
             $jn = "PJ";
         } else {
@@ -275,9 +315,9 @@ class Actual_budget extends CI_Controller
         }
         $d = explode('/', $bk->nilai_bk);
         if ($bk->nilai_bk == 0) {
-            echo date('Y') . '/' . $jn . '/' . 0 + 1;
+            echo date('Y') . '/' . $jn . '/' . $s + 1;
         } else {
-            echo $d[0]  . '/' . $jn . '/' . $d[2] + 1;
+            echo $d[0]  . '/' . $jn . '/' . $s + 1;
         }
     }
 

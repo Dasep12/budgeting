@@ -73,6 +73,11 @@
                             <span class="text-danger font-italic small">mengambil nilai budget . . .</span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>TOTAL BUDGET TAHUNAN</label>
+                        <input type="hidden" name="budget_tahun" id="budget_tahun">
+                        <input readonly class="form-control" id="budget_thn" type="text" placeholder="">
+                    </div>
 
                 </div>
                 <div class="col-lg-6">
@@ -146,8 +151,6 @@
                         <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
                     </div>
 
-
-
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -196,6 +199,7 @@
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran2">
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran3">
                     </div>
+                    <span id="notice_over" style="display:none" class="text-danger small">budget melebihi kapasitas,kurangi pengeluaran budget yang di ajukan</span>
                 </div>
             </div>
         </div>
@@ -233,7 +237,6 @@
     }
 
     $('select[name=bulan_budget').on('change', function() {
-
         var kode = $("select[name=kode_budget] option:selected").val();
         var tahun = $("select[name=tahun_budget] option:selected").val();
         var bulan = $("select[name=bulan_budget] option:selected").val();
@@ -360,15 +363,34 @@
     });
 
     $('select[name=kode_budget]').on('change', function() {
-        // $('#jenis_budget').prop('selectedIndex', 0);
-        // $('#kode_budget').prop('selectedIndex', 0);
+        var kode = $("select[name=kode_budget] option:selected").val();
+        var tahun = $("select[name=tahun_budget] option:selected").val();
+        $.ajax({
+            url: "<?= base_url('departement/Actual_budget/getBudgetSetahun') ?>",
+            method: "POST",
+            data: {
+                tahun: tahun,
+                kode: kode,
+            },
+            cache: false,
+            beforeSend: function() {
+                document.getElementById("load_budget_nilai").style.display = 'block';
+            },
+            complete: function() {
+                document.getElementById("load_budget_nilai").style.display = 'none';
+            },
+            success: function(e) {
+                document.getElementById("budget_tahun").value = e;
+                document.getElementById("budget_thn").value = formatRupiah(e.toString(), 'Rp. ');
+            }
+        })
     });
 
 
     var parsing = document.getElementById("panjar");
     parsing.addEventListener('keyup', function(e) {
 
-        var rp = $("#budget_real").val();
+        var rp = $("#budget_tahun").val();
         let d = rp.replace(/[^a-zA-Z0-9+]/g, '');
         let res = d.replace(/[a-zA-Z]+/g, '');
         var resValue = parsing.value.replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, '');
@@ -376,9 +398,13 @@
 
 
         if (parseInt(resValue) > parseInt(res)) {
+            document.getElementById("notice_over").style.display = "block";
             $("#nextBtn").attr("disabled", true);
+            $("#prevBtn").attr("disabled", true);
         } else {
+            document.getElementById("notice_over").style.display = "none";
             $("#nextBtn").attr("disabled", false);
+            $("#prevtBtn").attr("disabled", false);
         }
 
 
@@ -413,14 +439,18 @@
                 payment.push(parseInt($(this).val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, '')));
             });
 
-            var budgetReal = parseInt($("#budget_real").val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, ''));
+            var budgetReal = parseInt($("#budget_tahun").val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, ''));
 
             let payCount = payment.reduce((a, b) => a + b, 0);
 
             if (payCount > budgetReal) {
+                document.getElementById("notice_over").style.display = "block";
                 $("#nextBtn").attr("disabled", true);
+                $("#prevBtn").attr("disabled", true);
             } else {
+                document.getElementById("notice_over").style.display = "none";
                 $("#nextBtn").attr("disabled", false);
+                $("#prevBtn").attr("disabled", false);
             }
 
             var angka = $(this).val();
