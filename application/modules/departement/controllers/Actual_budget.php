@@ -35,14 +35,27 @@ class Actual_budget extends CI_Controller
         $code_dept = $this->db->query(" SELECT kode_departement as code FROM master_departement WHERE id='" . $this->session->userdata("departement_id") . "' ")->row();
         $bk = $this->db->query("  SELECT ifnull(max(bk),0) as nilai_bk from  transaksi_jenis_pembayaran ")->row();
 
+        $s = 0;
         if ($bk->nilai_bk == 0) {
             $d = explode('/', date('Y') . '/TRN/00');
+            $s = 0;
         } else {
             $d = explode('/', $bk->nilai_bk);
         }
+        $qr = $this->db->query("SELECT
+        (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(bk,'/',4), '/',-1)) as m  
+        from  transaksi_jenis_pembayaran")->result();
+        $nl = array();
+        foreach ($qr as $kl) {
+            $nl[] = $kl->m;
+        }
+        $s = MAX($nl);
+
+
+
         $data = [
             'uri'               => $this->uri->segment(2),
-            'bk'                => $d[0] . '/' . $d[1] . '/' . $d[2] + 1,
+            'bk'                => $d[0] . '/' . $d[1] . '/' . $s + 1,
             'bulan'             => convertbulan(date('m')),
             'jenis_transaksi'   => $this->db->query("SELECT * FROM master_jenis_transaksi where jenis_transaksi != 'AP VOUCHER' ")->result(),
             'code_dept'         => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
