@@ -307,4 +307,42 @@ class M_departement extends CI_Model
         where tjp.master_departement_id = '" . $dept . "' and tjp.tanggal_request  between  '" . $start . "' and '" . $end . "' and tjp.master_jenis_transaksi_id  = '" . $jenis . "' and tjp.approve_fin = 1   ");
         return $query;
     }
+
+
+    public function pemakaianBulanan($id, $bulan)
+    {
+        $d = "2023-" . $bulan;
+        $query = $this->db->query("SELECT mb.kode_budget , mpb.bulan  , mpb.id_planing  , 
+        (select sum(tdjp.ammount) from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id  )as total
+        from transaksi_jenis_pembayaran tjp 
+        inner join master_planning_budget mpb on mpb.id_planing  = tjp.master_planning_budget_id_planing 
+        inner join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget 
+        where date_format(tjp.tanggal_request , '%Y-%m') = '" . $d . "' and mb.id_budget  = '" . $id . "'
+        and tjp.approve_fin  = 1 ");
+        $d = array();
+        foreach ($query->result() as $nm) {
+            $d[] = $nm->total;
+        }
+        return array_sum($d);
+    }
+
+    public function sisaBudgetTahunan($kode)
+    {
+        $kode = $this->db->query("SELECT kode_budget , budget as plant_budget ,
+        ifnull((select sum(ammount) from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id  = tjp.id ),0)
+        as actual_budget , (select (budget - actual_budget)) as sisa_budget
+        from master_budget mb 
+        inner join master_planning_budget mpb on mpb.master_budget_id_budget  = mb.id_budget 
+        left join transaksi_jenis_pembayaran tjp on tjp.master_planning_budget_id_planing = mpb.id_planing 
+        where departement_id = '" . $this->session->userdata("departement_id") . "'
+        and mb.tahun = '" . date('Y') . "' and mb.approve_fin  = 1 and tjp.approve_fin = 1 
+        and mb.kode_budget = '" . $kode . "'
+        ")->result();
+
+        $budget = array();
+        foreach ($kode as $k) {
+            $budget[] = $k->actual_budget;
+        }
+        return array_sum($budget);
+    }
 }
