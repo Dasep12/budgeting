@@ -127,20 +127,22 @@ class M_departement extends CI_Model
         if ($col == "spv") {
             $where .= 'tjp.approve_spv = 0 ';
         } else  if ($col == "mgr") {
-            $where .= 'tjp.approve_spv = 1 and  tjp.approve_mgr = 0 or tjp.approve_mgr = 2 ';
+            $where .= 'tjp.approve_spv = 1 and  (tjp.approve_mgr = 0 or tjp.approve_mgr = 2) ';
         } else if ($col == "bc") {
-            $where .= 'tjp.approve_mgr = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
+            $where .= 'tjp.approve_mgr = 1 and (tjp.approve_acc = 0 or tjp.approve_acc = 2 ) ';
         } else if ($col == "gm") {
-            $where .= 'tjp.approve_acc = 1 and tjp.approve_gm = 0  or tjp.approve_gm = 2 ';
+            $where .= 'tjp.approve_acc = 1 and (tjp.approve_gm = 0  or tjp.approve_gm = 2) ';
         } else if ($col == "fin") {
             $where .= 'tjp.approve_gm = 1  ';
         }
         $co = "tjp." . $col;
-        $query = $this->db->query("SELECT tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement , tjp.status_retur ,
+        $query = $this->db->query("SELECT mb.kode_budget ,  tjp.id as id_trans  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement , tjp.status_retur ,
          (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total   , tjp.ket ,
         tjp.approve_mgr , tjp.approve_fin , tjp.approve_acc  , tjp.approve_gm  , tjp.lampiran_1, tjp.lampiran_2, tjp.lampiran_3  , tjp.tanggal_request  , ma.nama_lengkap , ma.nik , tjp.payment_close as pcl  
         from transaksi_jenis_pembayaran tjp 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
+        left join master_planning_budget mpb on mpb.id_planing = tjp.master_planning_budget_id_planing
+        left join master_budget mb on mb.id_budget = mpb.master_budget_id_budget 
         left join master_departement md  on md.id  = tjp.master_departement_id 
         left join master_akun ma on ma.nik = tjp.created_by 
         where tjp.master_departement_id  = $dept_id and  $where ");
@@ -271,12 +273,14 @@ class M_departement extends CI_Model
     // list platnt voucher
     public function daftarPlantVoucher($dept)
     {
-        $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 ,
+        $query = $this->db->query("SELECT mb.kode_budget , tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 ,
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi,
         (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_spv
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
+        left join master_planning_budget mpb on mpb.id_planing = tpv.master_planning_budget_id_planing
+        left join master_budget mb on mb.id_budget = mpb.master_budget_id_budget 
         inner join master_akun ma on ma.nik  = tpv.created_by  
         WHERE tpv.master_departement_id = '" . $dept . "'
         ");

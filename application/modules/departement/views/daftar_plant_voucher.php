@@ -22,7 +22,8 @@
         <table class="data-table table hover nowrap">
             <thead>
                 <tr>
-                    <th class="table-sm small table-plus datatable-nosort">Kode Budget</th>
+                    <th>Kode Budget</th>
+                    <th class="table-sm small table-plus datatable-nosort">Kode Request</th>
                     <th>Tanggal</th>
                     <th>Request By</th>
                     <th>Particullar</th>
@@ -34,6 +35,7 @@
             <tbody>
                 <?php foreach ($plant->result() as $pl) : ?>
                     <tr>
+                        <td><?= $pl->kode_budget  ?></td>
                         <td><span class="text-primary"><?= $pl->request_code  ?></span></td>
                         <td><?= $pl->tanggal ?></td>
                         <td><?= ucwords($pl->nama)  ?></td>

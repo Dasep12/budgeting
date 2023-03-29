@@ -62,6 +62,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -73,6 +74,7 @@
                     <tbody>
                         <?php foreach ($supervisor->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td>
                                     <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
@@ -103,6 +105,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -113,6 +116,7 @@
                     <tbody>
                         <?php foreach ($manager->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td>
                                     <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
@@ -140,6 +144,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -150,6 +155,7 @@
                     <tbody>
                         <?php foreach ($bc->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td> <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
                                     </a></td>
@@ -175,6 +181,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -185,6 +192,7 @@
                     <tbody>
                         <?php foreach ($gm->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td>
                                     <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
@@ -204,6 +212,8 @@
         </div>
     </div>
 
+
+
     <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">
@@ -213,6 +223,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -225,6 +236,7 @@
                     <tbody>
                         <?php foreach ($finance->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td>
                                     <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
