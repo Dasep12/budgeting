@@ -32,7 +32,7 @@
     <?php $this->session->unset_userdata("nok") ?>
 <?php } ?>
 <div class="card-box mb-30">
-    <form action="<?= base_url('spv/Approved_trans/multiApprove') ?>" method="post">
+    <form action="<?= base_url('spv/Approve_trans/multiApprove') ?>" method="post">
         <div class="pd-20">
             <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
         </div>
@@ -42,6 +42,7 @@
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Kode Budget</th>
                         <th class="table-plus datatable-nosort">Kode Request</th>
                         <th>Tanggal Request</th>
                         <th>Jenis Transaksi</th>
@@ -55,6 +56,7 @@
                             <th>
                                 <input type="checkbox" class="multi" name="multi[]" id="multi" value="<?= $rm->id_trans ?>">
                             </th>
+                            <td><?= $rm->kode ?></td>
                             <td><?= $rm->request_code ?></td>
                             <td><?= $rm->tanggal_request ?></td>
                             <td><?= $rm->jenis_transaksi ?></td>
@@ -105,14 +107,16 @@
 <script>
     $(function() {
 
-        $('.userinfo').click(function() {
-            var userid = $(this).data('id');
-            var file1 = $(this).data('file1');
-            var file2 = $(this).data('file2');
-            var file3 = $(this).data('file3');
-            var nama = $(this).data('nama');
-            var remarks = $(this).data('remarks');
-            var jenis = $(this).data('jenis');
+        $("#exampleModal").on("show.bs.modal", function(event) {
+            var div = $(event.relatedTarget);
+            var modal = $(this);
+            var userid = div.data('id');
+            var file1 = div.data('file1');
+            var file2 = div.data('file2');
+            var file3 = div.data('file3');
+            var nama = div.data('nama');
+            var remarks = div.data('remarks');
+            var jenis = div.data('jenis');
             // AJAX request
             $.ajax({
                 url: "<?= base_url('spv/Approve_trans/viewDetailRaimbes') ?>",
