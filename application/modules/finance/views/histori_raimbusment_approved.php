@@ -23,6 +23,7 @@
         <table class="data-table table hover nowrap">
             <thead>
                 <tr>
+                    <th>Kode Budget</th>
                     <th class="table-plus datatable-nosort">Kode Request</th>
                     <th>Tanggal Request</th>
                     <th>Particullar</th>
@@ -34,6 +35,7 @@
             <tbody>
                 <?php foreach ($raimbus->result() as $rm) : ?>
                     <tr>
+                        <td><?= $rm->kode ?></td>
                         <td><?= $rm->request_code ?></td>
                         <td><?= $rm->tanggal_request ?></td>
                         <td><?php

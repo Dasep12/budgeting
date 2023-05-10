@@ -44,6 +44,7 @@
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Kode Budget</th>
                         <th class="table-plus datatable-nosort">Kode Request</th>
                         <th>Tanggal Request</th>
                         <th>Jenis Transaksi</th>
@@ -57,6 +58,7 @@
                             <th>
                                 <input type="checkbox" class="multi" name="multi[]" id="multi" value="<?= $rm->id_trans ?>">
                             </th>
+                            <td><?= $rm->kode ?></td>
                             <td><?= $rm->request_code ?></td>
                             <td><?= $rm->tanggal_request ?></td>
                             <td><?= $rm->jenis_transaksi ?></td>
