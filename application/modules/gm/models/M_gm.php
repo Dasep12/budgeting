@@ -93,10 +93,11 @@ class M_gm extends CI_Model
                 $where .= "trtb.approve_gm  != 0  ";
             }
         }
-        $query =  $this->db->query("SELECT trtb.id ,  trtb.budget_sebelumnya  , trtb.budget_request  , trtb.ket , trtb.created_at as tanggal  , mpb.bulan  , mb.tahun  
+        $query =  $this->db->query("SELECT trtb.id ,  trtb.budget_sebelumnya  , trtb.budget_request  , trtb.ket , trtb.created_at as tanggal  , mpb.bulan  , mb.tahun , mb.kode_budget as kode ,  nama_departement as dept 
          from  transaksi_request_tambah_budget trtb 
          inner join master_planning_budget mpb  on mpb.id_planing  = trtb.master_planning_budget_id_planing 
          inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
+         inner join master_departement md on md.id = mb.departement_id 
          where  $where  ");
         return $query;
     }

@@ -21,7 +21,7 @@ class Dashboard extends CI_Controller
         inner join master_planning_budget mpb on mpb.master_budget_id_budget  = mb.id_budget 
         left join transaksi_jenis_pembayaran tjp on tjp.master_planning_budget_id_planing = mpb.id_planing 
         where departement_id = '" . $this->session->userdata("departement_id") . "'
-        and mb.tahun = '" . date('Y') . "' and mb.approve_fin  = 1 and tjp.approve_fin = 1 
+        and mb.tahun = '" . date('Y') . "' and mb.approve_fin  = 1
         group by mb.kode_budget 
         ")->result_array();
 

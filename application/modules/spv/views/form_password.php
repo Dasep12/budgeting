@@ -34,7 +34,7 @@
         <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
     </div>
     <div class="pb-20">
-        <form action="<?= base_url('manager/Password/reset') ?>" method="post">
+        <form action="<?= base_url('spv/Password/reset') ?>" method="post">
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="">OLD PASSWORD</label>

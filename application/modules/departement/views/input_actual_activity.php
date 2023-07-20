@@ -73,6 +73,7 @@
                             <span class="text-danger font-italic small">mengambil nilai budget . . .</span>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label>TOTAL BUDGET TAHUNAN</label>
                         <input type="hidden" name="budget_tahun" id="budget_tahun">
@@ -151,6 +152,8 @@
                         <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
                     </div>
 
+
+
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -161,7 +164,6 @@
                     <div class="form-group">
                         <label for="">JENIS TRANSAKSI</label>
                         <select class="form-control" name="jenis_transaksi" id="jenis_transaksi">
-                            <option value="">PILIH JENIS TRANSAKSI</option>
                             <?php foreach ($jenis_transaksi as $jn) : ?>
                                 <option value="<?= $jn->id ?>"><?= $jn->jenis_transaksi ?></option>
                             <?php endforeach ?>
@@ -208,6 +210,7 @@
                 <button type="button" class="btn btn-sm btn-success" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                 <button type="button" class="btn btn-sm btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
             </div>
+
         </div>
 
         <!-- Circles which indicates the steps of the form: -->
@@ -237,6 +240,7 @@
     }
 
     $('select[name=bulan_budget').on('change', function() {
+
         var kode = $("select[name=kode_budget] option:selected").val();
         var tahun = $("select[name=tahun_budget] option:selected").val();
         var bulan = $("select[name=bulan_budget] option:selected").val();

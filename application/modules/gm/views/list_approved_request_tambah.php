@@ -48,9 +48,11 @@
                 <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
             </div>
             <div class="pb-20">
-                <table class="data-table table stripe hover nowrap table-bordered">
+                <table class="data-table table stripe hover wrap table-bordered">
                     <thead>
                         <tr>
+                            <th>Dept</th>
+                            <th>Kode Budget</th>
                             <th>Tanggal</th>
                             <th>Bulan Budget</th>
                             <th>Budget Sisa</th>
@@ -62,6 +64,8 @@
                         <?php $no = 1;
                         foreach ($menunggu->result() as $mg) : ?>
                             <tr>
+                                <td><?= $mg->dept ?></td>
+                                <td><?= $mg->kode ?></td>
                                 <td><?= $mg->tanggal ?></td>
                                 <td><?= $mg->bulan . ' ' . $mg->tahun ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
@@ -82,9 +86,11 @@
                 <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
             </div>
             <div class="pb-20">
-                <table class="data-table table stripe hover nowrap table-bordered">
+                <table class="data-table table stripe hover wrap table-bordered">
                     <thead>
                         <tr>
+                            <th>Dept</th>
+                            <th>Kode Budget</th>
                             <th>Tanggal</th>
                             <th>Bulan Budget</th>
                             <th>Budget Sisa</th>
@@ -96,6 +102,8 @@
                         <?php $no = 1;
                         foreach ($selesai->result() as $mg) : ?>
                             <tr>
+                                <td><?= $mg->dept ?></td>
+                                <td><?= $mg->kode ?></td>
                                 <td><?= $mg->tanggal ?></td>
                                 <td><?= $mg->bulan . ' ' . $mg->tahun ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>

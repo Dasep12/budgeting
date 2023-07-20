@@ -32,7 +32,7 @@ class Retur extends CI_Controller
         $data = [
             'list'          => $this->db->query("SELECT tjp.request_code , tjp.id  from transaksi_jenis_pembayaran tjp 
             inner join master_jenis_transaksi mjt on mjt.id  = tjp.master_jenis_transaksi_id 
-            where tjp.status_retur = 0 AND  tjp.master_jenis_transaksi_id  = '" . $idPanjar->id . "'  and tjp.approve_fin  = 1 "),
+            where tjp.status_retur = 0 AND  tjp.master_jenis_transaksi_id  = '" . $idPanjar->id . "'  and tjp.approve_fin  = 1 and tjp.master_departement_id = '" . $this->session->userdata("departement_id") . "' "),
             'uri'           => $this->uri->segment(2),
         ];
         $this->template->load('template_departement', 'retur_panjer', $data);

@@ -44,7 +44,7 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="card-box mb-30">
-            <form action="<?= base_url('spv/Approv_voucher/multiApproveLapor') ?>" method="post">
+            <form action="<?= base_url('spv/Approve_voucher/multiApproveLapor') ?>" method="post">
                 <div class="pd-20">
                     <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
                 </div>

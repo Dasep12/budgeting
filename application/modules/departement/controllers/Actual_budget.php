@@ -38,7 +38,6 @@ class Actual_budget extends CI_Controller
         } else {
             $d = explode('/', $bk->nilai_bk);
         }
-
         $qr = $this->db->query("SELECT
         (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(bk,'/',4), '/',-1)) as m  
         from  transaksi_jenis_pembayaran")->result();
@@ -47,13 +46,12 @@ class Actual_budget extends CI_Controller
             $nl[] = $kl->m;
         }
         $s = MAX($nl);
-
         $data = [
             'uri'               => $this->uri->segment(2),
             'bk'                => $d[0] . '/' . $d[1] . '/' . $s + 1,
             'bulan'             => convertbulan(date('m')),
             'jenis_transaksi'   => $this->db->query("SELECT * FROM master_jenis_transaksi where jenis_transaksi != 'AP VOUCHER' ")->result(),
-            'code_dept'         => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30),
+            'code_dept'         => $code_dept->code . 'REQ/RMBPNJ' . rand(13, 15) . '/' . rand(10, 30) . date('d'),
             'jenis'             => $this->model->getData("master_jenis_budget")->result(),
             'acc'               => $this->model->getData("master_acc")->result()
         ];
@@ -65,7 +63,8 @@ class Actual_budget extends CI_Controller
         $where = [
             'tahun'                  => $this->input->get("tahun"),
             'departement_id'         => $this->session->userdata("departement_id"),
-            'master_jenis_budget_id' => $this->input->get("jenis")
+            'master_jenis_budget_id' => $this->input->get("jenis"),
+            'approve_fin'            => 1
         ];
 
         $data =  $this->model->ambilData("master_budget", $where);
@@ -276,6 +275,8 @@ class Actual_budget extends CI_Controller
         }
         // }
     }
+
+
     public function delete()
     {
         $id = $this->input->get("id");

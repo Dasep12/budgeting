@@ -36,7 +36,7 @@ class M_bc extends CI_Model
 
     public function listTransaksi($stat)
     {
-        $query = $this->db->query("SELECT mb.kode_budget , tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , 
+        $query = $this->db->query("SELECT  mb.kode_budget ,  tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , 
         (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,
         tjp.approve_mgr   , tjp.approve_acc , tjp.lampiran_1 ,tjp.lampiran_2 ,tjp.lampiran_3  , tjp.tanggal_request , tjp.ket 
         from transaksi_jenis_pembayaran tjp 
@@ -160,7 +160,7 @@ class M_bc extends CI_Model
         } else {
             $where .= "tpv.approve_mgr=1 and tpv.approve_acc=1 or tpv.approve_acc=2";
         }
-        $query = $this->db->query("SELECT mb.kode_budget , tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
+        $query = $this->db->query("SELECT mb.kode_budget ,  tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3,  tpv.approve_acc , mjt.jenis_transaksi ,
         (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
         (select sum(tdv.ammount_plant) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 

@@ -271,6 +271,7 @@
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Laporan/payment') ?>">Payment Voucher</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/ReportBudget') ?>">Plant Budget</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'apvoucher' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Laporan/apvoucher') ?>">AP Voucher</a></li>
+                            <li><a class="<?= $this->uri->segment(2) == 'Reporting' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Reporting/') ?>">Report Kode Budget</a></li>
                         </ul>
                     </li>
                 </ul>

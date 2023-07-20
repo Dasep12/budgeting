@@ -73,7 +73,7 @@ class Approve_voucher extends CI_Controller
         $data = array();
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
-                'status'            => 1,
+                // 'status'            => 1,
                 'ket'               => 'accept manager',
                 'date_approve_mgr'  => date('Y-m-d H:i:s'),
                 'approve_mgr'       => 1,
@@ -98,7 +98,7 @@ class Approve_voucher extends CI_Controller
         $data = array();
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
-                'status'                  => 1,
+                // 'status'                  => 1,
                 'date_lapor_mgr'          => date('Y-m-d H:i:s'),
                 'approve_lapor_mgr'       => 1,
                 'id'                      => $multi[$i]

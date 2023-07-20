@@ -271,6 +271,7 @@
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('finance/ReportBudget') ?>">Plant Budget</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'Jurnal' ? 'active ' : '' ?>" href="<?= base_url('finance/Jurnal') ?>">Jurnal</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'apvoucher' ? 'active ' : '' ?>" href="<?= base_url('finance/Laporan/apvoucher') ?>">AP Voucher</a></li>
+                            <li><a class="<?= $this->uri->segment(2) == 'Reporting' ? 'active ' : '' ?>" href="<?= base_url('finance/Reporting/') ?>">Report Kode Budget</a></li>
                         </ul>
                     </li>
 

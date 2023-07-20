@@ -70,6 +70,15 @@
                             <input type="password" required autocomplete="off" class="form-control" name="password" id="password">
                         </div>
                         <div class="form-group">
+                            <label for="">JENIS PEMBAYARAN</label>
+                            <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
+                                <option value="">PILIH JENIS PEMBAYARAN</option>
+                                <?php foreach ($jenis_bayar as $jn) : ?>
+                                    <option value="<?= $jn->id ?>"><?= $jn->jenis_bayar ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="">Level</label>
                             <select name="level" required id="level" class="form-control">
                                 <option value="">Pilih Level</option>

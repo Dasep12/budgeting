@@ -28,7 +28,8 @@ class Pengguna extends CI_Controller
         $data = [
             'uri'         => $this->uri->segment(2),
             'level'       => $this->model->getData("master_level"),
-            'departement' => $this->model->getData("master_departement")
+            'departement' => $this->model->getData("master_departement"),
+            'jenis_bayar'       => $this->model->getData("master_bayar")->result()
         ];
         $this->template->load('template_admin', 'form_add_pengguna', $data);
     }
@@ -41,7 +42,7 @@ class Pengguna extends CI_Controller
         $password     = $this->input->post("password");
         $level        = $this->input->post("level");
         $dept         = $this->input->post("departement[]");
-
+        $jenis        = $this->input->post("jenis_pembayaran");
         $deptHead     = $this->db->query("SELECT `level` as dept FROM master_level where id  ='" . $level . "' ")->row();
         $dataDept = array();
 
@@ -54,7 +55,8 @@ class Pengguna extends CI_Controller
             'departement_id'    => $dept[0],
             'status'            => 1,
             'password'          => md5($password),
-            'created_at'        => date('Y-m-d H:i:s')
+            'created_at'        => date('Y-m-d H:i:s'),
+            'master_bayar_id'   => $jenis
         ];
         $save = $this->model->insert("master_akun", $data);
         if ($save > 0) {

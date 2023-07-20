@@ -346,8 +346,8 @@
 
     <div class="left-side-bar">
         <div class="brand-logo">
-            <a href="index.html">
-                <img style="height:90px;width:250px" src="<?= base_url('assets/') ?>src/images/pin_logo.png" alt="" class="dark-logo" />
+            <a href="#">
+                <img style="height:40px;width:250px" src="<?= base_url('assets/') ?>src/images/pin_logo.png" alt="" class="dark-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>

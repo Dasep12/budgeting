@@ -35,11 +35,13 @@ class InputVoucher extends CI_Controller
         ];
         $this->template->load('template_departement', 'input_apvoucher', $data);
     }
+
+
     private function upload_multiple($files, $title)
     {
         $config = array(
             'upload_path'   => './assets/lampiran/',
-            'allowed_types' => 'jpg|png|jpeg|pdf',
+            'allowed_types' => '*',
             'overwrite'     => false,
         );
 
@@ -92,6 +94,8 @@ class InputVoucher extends CI_Controller
             $field_img['lampiran_' . $nom] = $item_file['file_name'];
             $nom++;
         }
+
+        // var_dump($field_img);
         $par  = array(
             'master_departement_id'              => $this->session->userdata("departement_id"),
             'master_jenis_transaksi_id'          => $jenis,
@@ -134,6 +138,5 @@ class InputVoucher extends CI_Controller
             $this->session->set_flashdata("nok", "gagal di input");
             redirect('departement/InputVoucher/form_input_voucher');
         }
-        // }
     }
 }

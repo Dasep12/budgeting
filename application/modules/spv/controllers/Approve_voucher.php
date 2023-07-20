@@ -73,7 +73,7 @@ class Approve_voucher extends CI_Controller
         $data = array();
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
-                'status'            => 1,
+                // 'status'            => 1,
                 'ket'               => 'accept supervisor',
                 'date_approve_spv'  => date('Y-m-d H:i:s'),
                 'approve_spv'       => 1,
@@ -98,7 +98,7 @@ class Approve_voucher extends CI_Controller
         $data = array();
         for ($i = 0; $i < count($multi); $i++) {
             $params = array(
-                'status'                  => 1,
+                // 'status'                  => 1,
                 'date_lapor_spv'          => date('Y-m-d H:i:s'),
                 'approve_lapor_spv'       => 1,
                 'id'                      => $multi[$i]
@@ -118,11 +118,11 @@ class Approve_voucher extends CI_Controller
 
     public function list_approve_lapor()
     {
-        $sess = $this->session->userdata("nik");
+        $sess = $this->session->userdata("departement_id");
         $data = [
             'uri'        => $this->uri->segment(2),
-            'wait'       => $this->model->listLaporVoucher($this->session->userdata("nik"), 0),
-            'proces'    => $this->model->listLaporVoucher($this->session->userdata("nik"), 1),
+            'wait'       => $this->model->listLaporVoucher($this->session->userdata("departement_id"), 0),
+            'proces'    => $this->model->listLaporVoucher($this->session->userdata("departement_id"), 1),
         ];
         $this->template->load('template_supervisor', 'list_approved_lapor_voucher', $data);
     }

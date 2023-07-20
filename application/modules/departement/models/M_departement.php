@@ -117,7 +117,7 @@ class M_departement extends CI_Model
         inner join master_planning_budget mpb  on mpb.master_budget_id_budget  = mb.id_budget 
         inner join transaksi_jenis_pembayaran tjp on tjp.master_planning_budget_id_planing = mpb.id_planing 
         inner join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
-        where mpb.id_planing  = '" . $id . "' and mb.approve_fin = 1 and tjp.approve_fin = 1  ")->row();
+        where mpb.id_planing  = '" . $id . "' and mb.approve_fin = 1 and tjp.approve_fin = 1 ")->row();
         return $query;
     }
 
@@ -328,6 +328,8 @@ class M_departement extends CI_Model
             $d[] = $nm->total;
         }
         return array_sum($d);
+        // var_dump($query->result());
+        // return $query->result();
     }
 
     public function sisaBudgetTahunan($kode)

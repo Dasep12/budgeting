@@ -181,11 +181,11 @@ class M_supervisor extends CI_Model
     public function listLaporVoucher($nik, $stat)
     {
         $where = "";
-
+        $sess = $this->session->userdata("departement_id");
         if ($stat == 0) {
-            $where .= "tpv.approve_lapor_spv=0";
+            $where .= "tpv.approve_lapor_spv = 0";
         } else {
-            $where .= "tpv.approve_lapor_spv=1 or tpv.approve_lapor_spv=2";
+            $where .= "(tpv.approve_lapor_spv = 1 or tpv.approve_lapor_spv = 2)";
         }
         $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3, ma.nama_lengkap  as nama , mjt.jenis_transaksi ,
@@ -194,7 +194,7 @@ class M_supervisor extends CI_Model
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
         inner join master_akun ma on ma.nik  = tpv.created_by 
-        where  $where  and tpv.stat_lapor = 1 
+        where  $where  and tpv.stat_lapor = 1 and md.id = $sess
         group by tpv.request_code ");
         return $query;
     }

@@ -78,10 +78,20 @@
             }]
         },
         options: {
-            title: {
-                display: true,
-                text: "Chart.js Bar Chart - Stacked"
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             },
+            tooltips: {
+                callbacks: {
+                    label: function(t, d) {
+                        var xLabel = d.datasets[t.datasetIndex].label;
+                        var yLabel = t.yLabel >= 1000 ? '$' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '$' + t.yLabel;
+                        return xLabel + ': ' + yLabel;
+                    }
+                }
+            }
         }
     });
 
