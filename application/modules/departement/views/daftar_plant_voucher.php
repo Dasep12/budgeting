@@ -152,6 +152,7 @@
                     'jenis': jenis
                 },
                 success: function(response) {
+                    // console.log(response);
                     // Add response in Modal body
                     $('.detail_plant').html(response);
                     // Display Modal

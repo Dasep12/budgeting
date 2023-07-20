@@ -30,7 +30,7 @@ class Approve_voucher extends CI_Controller
         $id = $this->input->get("id_budget");
         $kode = $this->input->get("kode");
         $data = [
-            'ket'               => $kode == 1 ? 'accept supervisor' : 'reject supervisor',
+            'ket'               => $kode == 1 ? 'Approved by Supervisor' : 'reject supervisor',
             'date_approve_spv'  => date('Y-m-d H:i:s'),
             'approve_spv'       => $kode,
             'approve_spv_user'  => $this->session->userdata("nik")

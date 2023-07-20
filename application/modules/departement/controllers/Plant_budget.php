@@ -133,4 +133,75 @@ class Plant_budget extends CI_Controller
             redirect('departement/Plant_budget/list_budget');
         }
     }
+
+    public function sync()
+    {
+        $id = $this->input->get("id_budget");
+        $count = $this->db->query("SELECT sum(mpb.nilai_budget)  as nilai from master_planning_budget mpb where mpb.master_budget_id_budget = $id ")->row();
+        $update = $this->model->updateData(['budget' => $count->nilai], "master_budget", ['id_budget' => $id]);
+        if ($update > 0) {
+            $this->db->trans_commit();
+            // $this->db->where("master_budget_id_budget", $id);
+            // $this->db->where("nilai_budget IS NULL", null, true);
+            // $this->db->update("master_planning_budget", ['nilai_budget' => 0]);
+            $this->session->set_flashdata("ok", 'plant budget di hapus');
+            redirect('departement/Plant_budget/list_budget');
+        } else {
+            $this->db->trans_rollback();
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('departement/Plant_budget/list_budget');
+        }
+    }
+
+
+    public function form_edit()
+    {
+        $id = $this->input->get("id");
+        $data = [
+            'id'        => $id,
+            'uri'       => $this->uri->segment(2),
+            'jenis'     => $this->model->getData("master_jenis_budget")->result(),
+            'plant'     => $this->db->query("SELECT mpb.nilai_budget , mpb.activity , mb.master_jenis_budget_id as jenis  from master_planning_budget mpb 
+            left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget 
+            where mpb.master_budget_id_budget   = $id")->result_array()
+
+        ];
+        $this->template->load("template_departement", "form_edit_budget_plant", $data);
+    }
+
+    public function updatePlant(Type $var = null)
+    {
+        $listbulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        $id_budget = $this->input->post("id_budget");
+        $bulan    = $this->input->post("bulan");
+        $jenis    = $this->input->post("jenis_budget");
+        $activity = $this->input->post("activity");
+        $params = array();
+        for ($i = 0; $i < count($bulan); $i++) {
+            $data = [
+                'bulan'                     => $listbulan[$i],
+                'nilai_budget'              => $bulan[$i] == null ? '0' : $bulan[$i],
+                'master_budget_id_budget'   => $id_budget,
+                'activity'                  => $activity,
+                'status'                    => 0,
+                'created_at'                => date('Y-m-d H:i:s'),
+                'created_by'                => $this->session->userdata('nik')
+            ];
+            array_push($params, $data);
+        }
+
+
+        $del = $this->model->delete(['master_budget_id_budget' => $id_budget], "master_planning_budget");
+        if ($del > 0) {
+            $this->db->trans_commit();
+            $this->model->updateData(['master_jenis_budget_id' => $jenis, 'budget' => array_sum($bulan)], "master_budget", ['id_budget' => $id_budget]);
+            $this->model->multiInsert($params, "master_planning_budget");
+            $this->session->set_flashdata("ok", 'plant budget di perbarui');
+            redirect('departement/Plant_budget/list_budget');
+        } else {
+            $this->db->trans_rollback();
+            $this->session->set_flashdata("nok", "terjadi kesalahan");
+            redirect('departement/Plant_budget/list_budget');
+        }
+    }
 }

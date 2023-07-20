@@ -54,7 +54,7 @@ class M_departement extends CI_Model
 
     public function daftarPlantBudgetDepartement($dept)
     {
-        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget, mb.budget ,  md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity , mb.created_at , mb.approve_mgr , mb.approve_spv  FROM master_planning_budget  mpb
+        $query = $this->db->query("SELECT mb.id_budget , mb.kode_budget, mb.budget ,  md.nama_departement , mb.tahun , mpb.bulan, mpb.nilai_budget ,mpb.activity , mb.created_at , mb.approve_mgr , mb.approve_spv , mb.approve_bc , mb.approve_fin  FROM master_planning_budget  mpb
         left join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget  
         inner join master_departement md on mb.departement_id = md.id 
         WHERE mb.departement_id  = '" . $dept . "' group by mb.kode_budget
@@ -105,7 +105,7 @@ class M_departement extends CI_Model
         $query = $this->db->query("SELECT mpb.id_planing  , mb.kode_budget ,  mb.tahun ,mpb.bulan , mpb.nilai_budget  as budget_actual FROM master_budget mb  
         INNER JOIN master_planning_budget mpb  on mpb.master_budget_id_budget  = mb.id_budget
         WHERE mb.tahun  = '" . $tahun . "' and mpb.bulan = '" . $bulan . "' and mb.departement_id  = '" . $dept . "'  
-        and mb.kode_budget  = '" . $kode . "' and mb.approve_fin = 1 ");
+        and mb.kode_budget  = '" . $kode . "' and mb.approve_fin = 1  ");
         return $query;
     }
 
@@ -117,7 +117,7 @@ class M_departement extends CI_Model
         inner join master_planning_budget mpb  on mpb.master_budget_id_budget  = mb.id_budget 
         inner join transaksi_jenis_pembayaran tjp on tjp.master_planning_budget_id_planing = mpb.id_planing 
         inner join trans_detail_jenis_pembayaran tdjp  on tdjp.transaksi_jenis_pembayaran_id  = tjp.id 
-        where mpb.id_planing  = '" . $id . "' and mb.approve_fin = 1 ")->row();
+        where mpb.id_planing  = '" . $id . "' and mb.approve_fin = 1 and tjp.approve_fin = 1 ")->row();
         return $query;
     }
 
@@ -131,7 +131,7 @@ class M_departement extends CI_Model
         } else  if ($col == "mgr2") {
             $where .= 'tjp.approve_mgr = 1 and  tjp.approve_mgr_2 = 0 or tjp.approve_mgr_2 = 2 ';
         } else if ($col == "bc") {
-            $where .= 'tjp.approve_mgr_2 = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
+            $where .= 'tjp.approve_mgr = 1 and tjp.approve_acc = 0 or tjp.approve_acc = 2  ';
         } else if ($col == "gm") {
             $where .= 'tjp.approve_acc = 1 and tjp.approve_gm = 0  or tjp.approve_gm = 2 ';
         } else if ($col == "fin") {
@@ -321,5 +321,46 @@ class M_departement extends CI_Model
         inner join master_akun ma on ma.nik  = tjp.created_by 
         where tjp.master_departement_id = '" . $dept . "' and tjp.tanggal_request  between  '" . $start . "' and '" . $end . "' and tjp.master_jenis_transaksi_id  = '" . $jenis . "' and tjp.approve_fin = 1   ");
         return $query;
+    }
+
+    public function pemakaianBulanan($id, $bulan)
+    {
+        $d = "2023-" . $bulan;
+        $query = $this->db->query("SELECT mb.kode_budget , mpb.bulan  , mpb.id_planing  , 
+        (select sum(tdjp.ammount) from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id  )as total
+        from transaksi_jenis_pembayaran tjp 
+        inner join master_planning_budget mpb on mpb.id_planing  = tjp.master_planning_budget_id_planing 
+        inner join master_budget mb on mb.id_budget  = mpb.master_budget_id_budget 
+        where date_format(tjp.tanggal_request , '%Y-%m') = '" . $d . "' and mb.id_budget  = '" . $id . "'
+        and tjp.approve_fin  = 1 ");
+        $d = array();
+        foreach ($query->result() as $nm) {
+            $d[] = $nm->total;
+        }
+        return array_sum($d);
+        // var_dump($query->result());
+        // return $query->result();
+    }
+
+
+
+    public function sisaBudgetTahunan($kode)
+    {
+        $kode = $this->db->query("SELECT kode_budget , budget as plant_budget ,
+        ifnull((select sum(ammount) from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id  = tjp.id ),0)
+        as actual_budget , (select (budget - actual_budget)) as sisa_budget
+        from master_budget mb 
+        inner join master_planning_budget mpb on mpb.master_budget_id_budget  = mb.id_budget 
+        left join transaksi_jenis_pembayaran tjp on tjp.master_planning_budget_id_planing = mpb.id_planing 
+        where departement_id = '" . $this->session->userdata("departement_id") . "'
+        and mb.tahun = '" . date('Y') . "' and mb.approve_fin  = 1 and tjp.approve_fin = 1 
+        and mb.kode_budget = '" . $kode . "'
+        ")->result();
+
+        $budget = array();
+        foreach ($kode as $k) {
+            $budget[] = $k->actual_budget;
+        }
+        return array_sum($budget);
     }
 }

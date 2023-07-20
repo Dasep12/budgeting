@@ -90,7 +90,7 @@
 
                     <div class="form-group">
                         <label>AMMOUNT</label>
-                        <input class="form-control" id="ammount" name="ammount[]" type="text" placeholder="">
+                        <input autocomplete="off" class="form-control input_am" onkeyup="convertNilai()" id="ammount" name="ammount[]" type="text" placeholder="">
                     </div>
 
                     <div class="form-group">
@@ -128,41 +128,57 @@
 
     $('select[name=request').on('change', function() {
         var kode = $("select[name=request] option:selected").val();
-        $.ajax({
-            url: "<?= base_url('departement/ReportVoucher/getBudget') ?>",
-            method: "GET",
-            data: "kode=" + kode,
-            cache: false,
-            beforeSend: function() {
-                document.getElementById("load_budget_nilai").style.display = 'block';
-            },
-            complete: function() {
-                document.getElementById("load_budget_nilai").style.display = 'none';
-            },
-            success: function(e) {
-                const data = JSON.parse(e);
-                // console.log(data[0].header.total_voucher);
-                // console.log(data[0].detail);
-                var parti = $("#parti_load"); //Fields wrapper
-                var ammount = $("#ammount_load"); //Fields wrapper
-                const details = data[0].detail;
-                for (let i = 0; i < details.length; i++) {
-                    $(parti).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" value=' + details[i].particullar + ' name="particullar[]" class="form-control"/></div>');
+        var parti = $("#parti_load"); //Fields wrapper
+        var ammount = $("#ammount_load"); //Fields wrapper
 
-                    $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="hidden" name="ammount_plant[]" value=' + details[i].ammount + '><input type="text" value=' + details[i].ammount + ' name="ammount[]" class="form-control"/>'); //add input box
+        if (kode == "" || kode == null) {
+            document.getElementById("parti_load").innerHTML = "";
+            document.getElementById("ammount_load").innerHTML = "";
+        } else {
+            $.ajax({
+                url: "<?= base_url('departement/ReportVoucher/getBudget') ?>",
+                method: "GET",
+                data: "kode=" + kode,
+                cache: false,
+                beforeSend: function() {
+                    document.getElementById("load_budget_nilai").style.display = 'block';
+                },
+                complete: function() {
+                    document.getElementById("load_budget_nilai").style.display = 'none';
+                },
+                success: function(e) {
+                    const data = JSON.parse(e);
+                    const details = data[0].detail;
+                    document.getElementById("parti_load").innerHTML = "";
+                    document.getElementById("ammount_load").innerHTML = "";
+
+                    for (let i = 0; i < details.length; i++) {
+                        $(parti).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" value="' + details[i].particullar + '" name="particullar[]" class="form-control"/></div>');
+
+                        $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="hidden" name="ammount_plant[]" value="' + details[i].ammount + '"><input type="text" value="' + formatRupiah(details[i].ammount, '.') + '" name="ammount[]" onkeyup="convertNilai()" class="form-control input_am"/>'); //add input box
+                    }
+
+                    var budget = formatRupiah(data[0].header.total_voucher, 'Rp. ');
+                    document.getElementById("budget_real").value = data[0].header.total_voucher;
+                    document.getElementById("budget").value = budget;
+                    document.getElementById("id_planning").value = data[0].header.id;
                 }
+            })
+        }
 
-                var budget = formatRupiah(data[0].header.total_voucher, 'Rp. ');
-                document.getElementById("budget_real").value = data[0].header.total_voucher;
-                document.getElementById("budget").value = budget;
-                document.getElementById("id_planning").value = data[0].header.id;
-
-            }
-        })
     })
 
 
 
+
+    function convertNilai() {
+        $(".input_am").keyup(function(event) {
+            var div = $(event.relatedTarget);
+            // console.log($(this).val());
+            var angka = $(this).val();
+            $(this).val(formatRupiah(angka.toString(), 'Rp. '));
+        });
+    }
 
     function cek() {
         var budget_plant = document.getElementById("budget_real").value;
@@ -185,7 +201,7 @@
 
             $(wrapper).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" name="particullar[]" class="form-control"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
 
-            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]" class="form-control"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
+            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]" autocomplete="off" onkeyup="convertNilai()" class="form-control input_am"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
         });
 
         $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text

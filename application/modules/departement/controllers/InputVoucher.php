@@ -39,7 +39,7 @@ class InputVoucher extends CI_Controller
     {
         $config = array(
             'upload_path'   => './assets/lampiran/',
-            'allowed_types' => 'jpg|png|jpeg',
+            'allowed_types' => 'jpg|png|jpeg|pdf',
             'overwrite'     => false,
         );
 

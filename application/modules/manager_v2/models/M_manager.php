@@ -79,9 +79,9 @@ class M_manager extends CI_Model
         $st = "";
 
         if ($stat != 0) {
-            $st .= 'tjp.approve_mgr_2 != 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr_2 != 0 and tjp.approve_spv = 1';
         } else {
-            $st .= 'tjp.approve_mgr_2 = 0 and tjp.approve_spv=1';
+            $st .= 'tjp.approve_mgr_2 = 0 and tjp.approve_spv = 1';
         }
 
 
@@ -94,7 +94,7 @@ class M_manager extends CI_Model
         left join master_bawahan_depthead mhb on mhb.master_departement_id =  tjp.master_departement_id
         left join master_akun ma on ma.nik = tjp.created_by 
         where $st 
-        and mhb.master_akun_nik = '" . $nik . "' 
+        and mhb.master_akun_nik = '" . $nik . "'  and mjt.jenis_transaksi='PANJAR'
         ");
         return $query;
     }

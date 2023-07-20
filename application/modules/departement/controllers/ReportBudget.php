@@ -8,22 +8,24 @@ class ReportBudget extends CI_Controller
     public function __construct(Type $var = null)
     {
         parent::__construct();
-        $this->load->model('M_departement', 'model');
+        $this->load->model('M_supervisor', 'model');
         date_default_timezone_set('Asia/Jakarta');
         $role = $this->session->userdata("level");
-        if ($role != 'DPT') {
+        if ($role != 'SPV') {
             redirect('Login');
         }
     }
 
     public function index()
     {
+
+        $nik = $this->session->userdata("nik");
         $data = [
             'uri'           => $this->uri->segment(2),
             'jenis'         => $this->model->getData("master_jenis_budget"),
-            'departement'   => $this->model->ambilData("master_departement", ['id' => $this->session->userdata("departement_id")]),
+            'departement'   => $this->model->listDep($nik),
         ];
-        $this->template->load('template_departement', 'form_report_budget', $data);
+        $this->template->load('template_supervisor', 'form_report_budget', $data);
     }
 
 
@@ -635,7 +637,7 @@ class ReportBudget extends CI_Controller
         $mpdf->WriteHTML($page1);
         $mpdf->AddColumn();
         $mpdf->WriteHTML($page2);
-        $mpdf->Output("Report Perspective.pdf", 'D');
+        $mpdf->Output("Report Perspective.pdf", 'I');
     }
 
     private function reportRegularPdf($jenis, $tahun, $dept)

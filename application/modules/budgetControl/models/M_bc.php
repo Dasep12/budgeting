@@ -160,13 +160,15 @@ class M_bc extends CI_Model
         } else {
             $where .= "tpv.approve_mgr=1 and tpv.approve_acc=1 or tpv.approve_acc=2";
         }
-        $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
+        $query = $this->db->query("SELECT mb.kode_budget , tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3,  tpv.approve_acc , mjt.jenis_transaksi ,
         (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
         (select sum(tdv.ammount_plant) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
+        inner join master_planning_budget mpb on tpv.master_planning_budget_id_planing = mpb.id_planing
+        inner join master_budget mb on mb.id_budget = mpb.master_budget_id_budget
         where $where 
         group by tpv.request_code ");
         return $query;
@@ -180,13 +182,15 @@ class M_bc extends CI_Model
         } else {
             $where .= "tpv.approve_lapor_mgr=1 and tpv.approve_lapor_bc=1 or tpv.approve_lapor_bc=2";
         }
-        $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
+        $query = $this->db->query("SELECT tpv.id , mb.kode_budget , md.nama_departement  , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3,mjt.jenis_transaksi ,
         (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
         (select sum(tdv.ammount) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr,tpv.approve_mgr_2 ,tpv.approve_lapor_mgr , tpv.plant_sebelumnya,tpv.approve_lapor_bc
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
+        inner join master_planning_budget mpb on tpv.master_planning_budget_id_planing = mpb.id_planing
+        inner join master_budget mb on mb.id_budget = mpb.master_budget_id_budget
         inner join master_bawahan_depthead mbd on mbd.master_departement_id  = tpv.master_departement_id 
         where $where  and tpv.stat_lapor = 1 
         group by tpv.request_code ");

@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>E-Budgeting</title>
+    <title>RIM-E-Budget System</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('assets/') ?>vendors/images/apple-touch-icon.png" />
@@ -279,6 +279,7 @@
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('manager/Laporan/payment') ?>">Payment Voucher</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('manager/ReportBudget') ?>">Plant Budget</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'apvoucher' ? 'active ' : '' ?>" href="<?= base_url('manager/Laporan/apvoucher') ?>">AP Voucher</a></li>
+                            <li><a class="<?= $this->uri->segment(2) == 'Reporting' ? 'active ' : '' ?>" href="<?= base_url('manager/Reporting/') ?>">Report Kode Budget</a></li>
                         </ul>
                 </ul>
             </div>

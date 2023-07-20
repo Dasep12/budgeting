@@ -185,7 +185,7 @@
                 <div class="col-lg-4">
                     <label>TOTAL BUDGET</label>
                     <input required readonly id="budget_display" class="form-control" type="text" placeholder="">
-                    <input id="budget" name="budget" class="form-control" type="text" placeholder="">
+                    <input id="budget" name="budget" class="form-control" type="hidden" placeholder="">
                 </div>
             </div>
         </div>
@@ -290,7 +290,7 @@
             const convert_1 = this.value.replace(/[^\w\s]/gi, '');
             const convert_2 = convert_1.replace('Rp ', '');
             document.getElementById(bulan2).value = convert_2;
-
+            
             // total budget 
             var jan = document.getElementById("januari_real").value;
             var feb = document.getElementById("februari_real").value;
@@ -309,6 +309,7 @@
                 parseInt(sep) + parseInt(okt) + parseInt(nov) + parseInt(des);
             document.getElementById("budget").value = total;
             document.getElementById("budget_display").value = formatRupiah(total.toString(), 'Rp.');
+
         });
     }
     convert("budget_display", "budget");

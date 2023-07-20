@@ -74,6 +74,12 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>TOTAL BUDGET TAHUNAN</label>
+                        <input type="hidden" name="budget_tahun" id="budget_tahun">
+                        <input readonly class="form-control" id="budget_thn" type="text" placeholder="">
+                    </div>
+
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -124,6 +130,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label>TO</label>
+                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
+                    </div>
+
+                    <div class="form-group">
                         <label for="">JENIS PEMBAYARAN</label>
                         <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
                             <option value="">PILIH JENIS PEMBAYARAN</option>
@@ -132,8 +143,6 @@
                             <?php endforeach ?>
                         </select>
                     </div>
-
-
 
                     <div class="form-group">
                         <label>REKENING</label>
@@ -173,8 +182,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label>TO</label>
-                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
+                        <label>NO BK</label>
+                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
                     </div>
 
                     <div class="form-group">
@@ -185,18 +194,10 @@
                     <div class="add_ammount">
 
                     </div>
-
-                    <div class="form-group">
-                        <label>NO BK</label>
-                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
-                    </div>
-
-
                     <div class="form-group">
                         <label>BANK</label>
                         <input class="form-control" id="bank" name="bank" type="text" placeholder="">
                     </div>
-
 
 
                     <div class="form-group">
@@ -211,6 +212,7 @@
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran2">
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran3">
                     </div>
+                    <span id="notice_over" style="display:none" class="text-danger small">budget melebihi kapasitas,kurangi pengeluaran budget yang di ajukan</span>
                 </div>
             </div>
         </div>
@@ -219,6 +221,7 @@
                 <button type="button" class="btn btn-sm btn-success" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                 <button type="button" class="btn btn-sm btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
             </div>
+
         </div>
 
         <!-- Circles which indicates the steps of the form: -->
@@ -375,15 +378,52 @@
     });
 
     $('select[name=kode_budget]').on('change', function() {
-        // $('#jenis_budget').prop('selectedIndex', 0);
-        // $('#kode_budget').prop('selectedIndex', 0);
+        var kode = $("select[name=kode_budget] option:selected").val();
+        var tahun = $("select[name=tahun_budget] option:selected").val();
+        $.ajax({
+            url: "<?= base_url('departement/Actual_budget/getBudgetSetahun') ?>",
+            method: "POST",
+            data: {
+                tahun: tahun,
+                kode: kode,
+            },
+            cache: false,
+            beforeSend: function() {
+                document.getElementById("load_budget_nilai").style.display = 'block';
+            },
+            complete: function() {
+                document.getElementById("load_budget_nilai").style.display = 'none';
+            },
+            success: function(e) {
+                document.getElementById("budget_tahun").value = e;
+                document.getElementById("budget_thn").value = formatRupiah(e.toString(), 'Rp. ');
+            }
+        })
     });
 
 
     var parsing = document.getElementById("panjar");
     parsing.addEventListener('keyup', function(e) {
 
-        if (parsing.value >= 1000000) {
+        var rp = $("#budget_tahun").val();
+        let d = rp.replace(/[^a-zA-Z0-9+]/g, '');
+        let res = d.replace(/[a-zA-Z]+/g, '');
+        var resValue = parsing.value.replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, '');
+
+
+
+        if (parseInt(resValue) > parseInt(res)) {
+            document.getElementById("notice_over").style.display = "block";
+            $("#nextBtn").attr("disabled", true);
+            $("#prevBtn").attr("disabled", true);
+        } else {
+            document.getElementById("notice_over").style.display = "none";
+            $("#nextBtn").attr("disabled", false);
+            $("#prevtBtn").attr("disabled", false);
+        }
+
+
+        if (resValue >= 1000000) {
             document.getElementById("info_panjar").style.display = 'block';
             $("#lampiran1").attr("disabled", false);
             $("#lampiran2").attr("disabled", false);
@@ -404,10 +444,30 @@
     });
 
 
+
     function convertNilai() {
         $(".input_am").keyup(function(event) {
             var div = $(event.relatedTarget);
-            // console.log($(this).val());
+
+            var payment = [];
+            $('input[name^=ammount]').each(function() {
+                payment.push(parseInt($(this).val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, '')));
+            });
+
+            var budgetReal = parseInt($("#budget_tahun").val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, ''));
+
+            let payCount = payment.reduce((a, b) => a + b, 0);
+
+            if (payCount > budgetReal) {
+                document.getElementById("notice_over").style.display = "block";
+                $("#nextBtn").attr("disabled", true);
+                $("#prevBtn").attr("disabled", true);
+            } else {
+                document.getElementById("notice_over").style.display = "none";
+                $("#nextBtn").attr("disabled", false);
+                $("#prevBtn").attr("disabled", false);
+            }
+
             var angka = $(this).val();
             $(this).val(formatRupiah(angka.toString(), 'Rp. '));
         });

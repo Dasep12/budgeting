@@ -53,6 +53,7 @@
                         <thead>
                             <tr>
                                 <th></th>
+                                <th>Kode Budget</th>
                                 <th>Kode Request</th>
                                 <th>Departement</th>
                                 <th>Tanggal</th>
@@ -69,6 +70,7 @@
                                     <th>
                                         <input type="checkbox" class="multi" name="multi[]" id="multi" value="<?= $df->id ?>">
                                     </th>
+                                    <td><?= $df->kode_budget ?></td>
                                     <td><?= $df->request_code ?></td>
                                     <td><?= $df->nama_departement ?></td>
                                     <td><?= $df->tanggal ?></td>
@@ -103,43 +105,49 @@
                 <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
             </div>
             <div class="pb-20">
-                <table class="data-table table stripe hover nowrap table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Kode Request</th>
-                            <th>Departement</th>
-                            <th>Tanggal</th>
-                            <th>Particullar</th>
-                            <th>Plant Voucher</th>
-                            <th>Actual </th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $no = 1;
-                        foreach ($proces->result() as $df) : ?>
-                            <tr>
-                                <td><?= $df->request_code ?></td>
-                                <td><?= $df->nama_departement ?></td>
-                                <td><?= $df->tanggal ?></td>
-                                <td>
-                                    <?php
-                                    $parti = $this->model->ambilData("transaksi_detail_voucher", ['transaksi_plant_voucher_id' => $df->id])->result();
-                                    foreach ($parti as $pr) {
-                                        echo "<li>" . $pr->particullar . "</li>";
-                                    }
-                                    ?>
-                                </td>
-                                <td><?= 'Rp. ' . number_format($df->plant_sebelumnya, 0, ",", ".")  ?></td>
-                                <td><?= 'Rp. ' . number_format($df->total_voucher, 0, ",", ".")  ?></td>
+                <div class="card-body">
 
-                                <td>
-                                    <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
-                                </td>
+                    <table class="data-table table stripe hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Kode Budget</th>
+                                <th>Kode Request</th>
+                                <th>Departement</th>
+                                <th>Tanggal</th>
+                                <th>Particullar</th>
+                                <th>Plant Voucher</th>
+                                <th>Actual </th>
+                                <th>Action</th>
                             </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1;
+                            foreach ($proces->result() as $df) : ?>
+                                <tr>
+                                    <td><?= $df->kode_budget ?></td>
+                                    <td><?= $df->request_code ?></td>
+                                    <td><?= $df->nama_departement ?></td>
+                                    <td><?= $df->tanggal ?></td>
+                                    <td>
+                                        <?php
+                                        $parti = $this->model->ambilData("transaksi_detail_voucher", ['transaksi_plant_voucher_id' => $df->id])->result();
+                                        foreach ($parti as $pr) {
+                                            echo "<li>" . $pr->particullar . "</li>";
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?= 'Rp. ' . number_format($df->plant_sebelumnya, 0, ",", ".")  ?></td>
+                                    <td><?= 'Rp. ' . number_format($df->total_voucher, 0, ",", ".")  ?></td>
+
+                                    <td>
+                                        <a data-kode="<?= $df->request_code ?>" data-id="<?= $df->id ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-jenis="<?= $df->jenis_transaksi ?>" data-nama="<?= $df->nama ?>" data-remarks="<?= $df->remarks ?>" class="userinfo badge badge-primary text-white" data-toggle="modal" data-target="#exampleModal">Detail</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>

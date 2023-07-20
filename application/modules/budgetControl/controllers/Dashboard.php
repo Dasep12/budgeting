@@ -21,6 +21,7 @@ class Dashboard extends CI_Controller
             'depar'             => $this->model1->getDept(),
             'plantBudget'       => $this->model->getTotalPlaning(date('Y')),
             'actualBudget'      => $this->model->getTotalActual(date('Y')),
+            'dept'            => $this->model->queryDepartement()
         ];
         $this->template->load('template_bc', 'dashboard', $data);
     }
@@ -34,20 +35,59 @@ class Dashboard extends CI_Controller
             $thn = $tahun;
         }
         $nik = $this->session->userdata("nik");
-        $query = $this->model->getTotalPlaning($thn);
-        echo $query;
+        $plant = $this->model->getTotalPlaning($thn);
+        $actual = $this->model->getTotalActual($thn);
+        $result = array(
+            'plant'     => $plant,
+            'actual'    => $actual
+        );
+        echo json_encode($result);
     }
 
-    public function getActual()
+    // public function getActual()
+    // {
+    //     $tahun = $this->input->get("tahun");
+    //     if ($tahun == NULL) {
+    //         $thn = date('Y');
+    //     } else {
+    //         $thn = $tahun;
+    //     }
+    //     $nik = $this->session->userdata("nik");
+    //     $query = $this->model->getTotalActual($thn);
+    //     echo $query;
+    // }
+
+    public function getDepartement()
     {
-        $tahun = $this->input->get("tahun");
-        if ($tahun == NULL) {
-            $thn = date('Y');
-        } else {
-            $thn = $tahun;
+        $year = $this->input->post("tahun");
+        $dept = $this->input->post("dept");
+        $kode = $this->model->getDetailPerDepartement($year, $dept)->result_array();
+
+        $kodeBudget = array();
+        foreach ($kode as $key => $rso) {
+            $kodeBudget[] = $rso['kode_budget'];
         }
-        $nik = $this->session->userdata("nik");
-        $query = $this->model->getTotalActual($thn);
-        echo $query;
+
+        $plantBudget = array();
+        foreach ($kode as $key => $rso) {
+            $plantBudget[] = $rso['plant_budget'];
+        }
+        $actualBudget = array();
+        foreach ($kode as $key => $rso) {
+            $actualBudget[] = $rso['actual_budget'];
+        }
+
+        $sisaBudget = array();
+        foreach ($kode as $key => $rso) {
+            $sisaBudget[] = $rso['sisa_budget'];
+        }
+
+        $data = array(
+            'plant' => $plantBudget,
+            'actual' => $actualBudget,
+            'sisa'   => $sisaBudget,
+            'kode'   => $kodeBudget
+        );
+        echo json_encode($data, true);
     }
 }
