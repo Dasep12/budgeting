@@ -121,6 +121,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label>LAMPIRAN 1 </label>
+                    <input class="form-control" id="file" name="lampiran[]" type="file" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label>LAMPIRAN 2</label>
+                    <input class="form-control" id="file2" name="lampiran[]" type="file" placeholder="">
+                </div>
+
+                <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">Save</button>
                     <button type="reset" class="btn btn-danger btn-sm">Reset</button>
                 </div>

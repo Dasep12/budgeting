@@ -14,7 +14,23 @@
         </div>
     </div>
 </div>
-
+<?php if ($this->session->flashdata("ok")) { ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Berhasil !</strong> <?= $this->session->flashdata("ok") ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <?php $this->session->unset_userdata("ok") ?>
+<?php } else if ($this->session->flashdata("nok")) { ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Gagal !</strong> <?= $this->session->flashdata("nok") ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <?php $this->session->unset_userdata("nok") ?>
+<?php } ?>
 <a href="<?= base_url('departement/TambahBudget/form_request') ?>" class="btn btn-success btn-sm mb-2"><span class="micon bi bi-plus"></span> Tambah Request Budget</a>
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -53,6 +69,7 @@
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
                             <th>Keterangan</th>
+                            <th>Lampiran</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -64,6 +81,14 @@
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
                                 <td><?= $mg->keperluan ?></td>
+                                <td>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_1) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_2) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                </td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
@@ -86,6 +111,7 @@
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
                             <th>Keterangan</th>
+                            <th>Lampiran</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -97,6 +123,14 @@
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
                                 <td><?= $mg->keperluan ?></td>
+                                <td>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_1) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_2) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                </td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
@@ -119,6 +153,7 @@
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
                             <th>Keterangan</th>
+                            <th>Lampiran</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -130,6 +165,14 @@
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
                                 <td><?= $mg->keperluan ?></td>
+                                <td>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_1) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_2) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                </td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
@@ -152,6 +195,7 @@
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
                             <th>Keterangan</th>
+                            <th>Lampiran</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -163,6 +207,14 @@
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
                                 <td><?= $mg->keperluan ?></td>
+                                <td>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_1) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_2) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                </td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
@@ -186,6 +238,7 @@
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
                             <th>Keterangan</th>
+                            <th>Lampiran</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -197,6 +250,14 @@
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
                                 <td><?= $mg->keperluan ?></td>
+                                <td>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_1) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_2) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                </td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
@@ -220,6 +281,7 @@
                             <th>Budget Sisa</th>
                             <th>Penambahan</th>
                             <th>Keterangan</th>
+                            <th>Lampiran</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -231,6 +293,14 @@
                                 <td><?= 'Rp. ' . number_format($mg->budget_sebelumnya, 0, ",", ".") ?></td>
                                 <td><?= 'Rp. ' . number_format($mg->budget_request, 0, ",", ".") ?></td>
                                 <td><?= $mg->keperluan ?></td>
+                                <td>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_1) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                    <a href="<?= base_url('assets/lampiran/' . $mg->lampiran_2) ?>" target="_blank">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                </td>
                                 <td><?= $mg->ket ?></td>
                             </tr>
                         <?php endforeach ?>
