@@ -85,6 +85,23 @@ class Actual_budget extends CI_Controller
         }
     }
 
+    public function getBudgetSetahun()
+    {
+
+        $kode = $this->input->post("kode");
+        $tahun = $this->input->post("tahun");
+        $q = $this->db->query("SELECT kode_budget , cast(budget as unsigned) as plant_budget ,
+        ifnull((select sum(ammount) from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id  = tjp.id ),0)
+        as actual_budget , (select (budget - actual_budget)) as sisa_budget
+        from master_budget mb 
+        inner join master_planning_budget mpb on mpb.master_budget_id_budget  = mb.id_budget 
+        left join transaksi_jenis_pembayaran tjp on tjp.master_planning_budget_id_planing = mpb.id_planing 
+        where departement_id = '" . $this->session->userdata("departement_id") . "'
+        and mb.tahun = '" . $tahun . "' and mb.approve_fin  = 1 and mb.kode_budget  = '" . $kode . "'
+        group by mb.kode_budget  ")->row();
+        echo $q->sisa_budget;
+    }
+
     public function getCodeRequest()
     {
         $code = $this->input->get("type");
@@ -109,7 +126,7 @@ class Actual_budget extends CI_Controller
     {
         $config = array(
             'upload_path'   => './assets/lampiran/',
-            'allowed_types' => 'jpg|png|jpeg',
+            'allowed_types' => 'jpg|png|jpeg|pdf',
             'overwrite'     => false,
         );
 
@@ -238,17 +255,16 @@ class Actual_budget extends CI_Controller
             } else {
                 for ($i = 0; $i < count($ammount); $i++) {
                     $arr = [
-                        'ammount'                          => $ammount[$i],
+                        'ammount'                          => preg_replace("/[^0-9]/", "", $ammount[$i]),
                         'particullar'                      => $particullars[$i],
                         'transaksi_jenis_pembayaran_id'    => $id
                     ];
                     array_push($part, $arr);
                 }
             }
-            var_dump($part);
-            // $this->db->insert_batch("trans_detail_jenis_pembayaran", $part);
-            // $this->session->set_flashdata("ok", "berhasil di input");
-            // redirect('departement/Actual_budget/form_input_actual');
+            $this->db->insert_batch("trans_detail_jenis_pembayaran", $part);
+            $this->session->set_flashdata("ok", "berhasil di input");
+            redirect('departement/Actual_budget/form_input_actual');
         } else {
             $this->db->trans_rollback();
             $this->session->set_flashdata("nok", "gagal di input");

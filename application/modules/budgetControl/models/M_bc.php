@@ -36,13 +36,15 @@ class M_bc extends CI_Model
 
     public function listTransaksi($stat)
     {
-        $query = $this->db->query("SELECT tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , 
+        $query = $this->db->query("SELECT mb.kode_budget , tjp.id as id_trans , tjp.id  ,  tjp.remarks , tjp.request_code , mjt.jenis_transaksi  ,md.nama_departement  , 
         (select sum(ammount) as total from trans_detail_jenis_pembayaran tdjp where tdjp.transaksi_jenis_pembayaran_id = tjp.id ) as total    , ma.nama_lengkap , ma.nik,
         tjp.approve_mgr   , tjp.approve_acc , tjp.lampiran_1 ,tjp.lampiran_2 ,tjp.lampiran_3  , tjp.tanggal_request , tjp.ket 
         from transaksi_jenis_pembayaran tjp 
         left join master_akun ma on ma.nik = tjp.created_by 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id  
+        left join master_planning_budget mpb on mpb.id_planing = tjp.master_planning_budget_id_planing
+        left join master_budget mb on mb.id_budget = mpb.master_budget_id_budget 
         where tjp.approve_acc  = '" . $stat . "' and tjp.approve_mgr = 1    ");
         return $query;
     }
@@ -158,13 +160,15 @@ class M_bc extends CI_Model
         } else {
             $where .= "tpv.approve_mgr=1 and tpv.approve_acc=1 or tpv.approve_acc=2";
         }
-        $query = $this->db->query("SELECT tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
+        $query = $this->db->query("SELECT mb.kode_budget , tpv.id , md.nama_departement , tpv.remarks  , tpv.request_code , tpv.tanggal_request as tanggal , tpv.lampiran_1 , tpv.ket , 
         tpv.lampiran_2  , tpv.lampiran_3,  tpv.approve_acc , mjt.jenis_transaksi ,
         (select nama_lengkap from master_akun where nik = tpv.created_by )as nama,
         (select sum(tdv.ammount_plant) from transaksi_detail_voucher tdv where tdv.transaksi_plant_voucher_id  = tpv.id  ) as total_voucher , tpv.approve_mgr 
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
+        inner join master_planning_budget mpb on tpv.master_planning_budget_id_planing = mpb.id_planing
+        inner join master_budget mb on mb.id_budget = mpb.master_budget_id_budget
         where $where 
         group by tpv.request_code ");
         return $query;
@@ -185,6 +189,8 @@ class M_bc extends CI_Model
         from transaksi_plant_voucher tpv 
         inner join master_jenis_transaksi mjt on mjt.id = tpv.master_jenis_transaksi_id 
         inner join master_departement md on md.id = tpv.master_departement_id 
+        inner join master_planning_budget mpb on tpv.master_planning_budget_id_planing = mpb.id_planing
+        inner join master_budget mb on mb.id_budget = mpb.master_budget_id_budget
         inner join master_bawahan_depthead mbd on mbd.master_departement_id  = tpv.master_departement_id 
         where $where  and tpv.stat_lapor = 1 
         group by tpv.request_code ");

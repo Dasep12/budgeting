@@ -21,6 +21,7 @@ class Dashboard extends CI_Controller
             'depar'           => $this->model->getDept($nik),
             'plantTotal'      => $this->model->getTotalPlaning($nik, date('Y')),
             'plantActual'     => $this->model->getTotalActual($nik, date('Y')),
+            'dept'            => $this->model->queryDepartement($nik)
         ];
         $this->template->load('template_manager', 'dashboard', $data);
     }
@@ -50,5 +51,39 @@ class Dashboard extends CI_Controller
         $nik = $this->session->userdata("nik");
         $query = $this->model->getTotalActual($nik, $thn);
         echo $query;
+    }
+
+    public function getDepartement()
+    {
+        $year = $this->input->post("tahun");
+        $dept = $this->input->post("dept");
+        $kode = $this->model->getDetailPerDepartement($year, $dept)->result_array();
+
+        $kodeBudget = array();
+        foreach ($kode as $key => $rso) {
+            $kodeBudget[] = $rso['kode_budget'];
+        }
+
+        $plantBudget = array();
+        foreach ($kode as $key => $rso) {
+            $plantBudget[] = $rso['plant_budget'];
+        }
+        $actualBudget = array();
+        foreach ($kode as $key => $rso) {
+            $actualBudget[] = $rso['actual_budget'];
+        }
+
+        $sisaBudget = array();
+        foreach ($kode as $key => $rso) {
+            $sisaBudget[] = $rso['sisa_budget'];
+        }
+
+        $data = array(
+            'plant' => $plantBudget,
+            'actual' => $actualBudget,
+            'sisa'   => $sisaBudget,
+            'kode'   => $kodeBudget
+        );
+        echo json_encode($data, true);
     }
 }

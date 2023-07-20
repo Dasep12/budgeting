@@ -49,10 +49,11 @@
                     <button onclick="return confirm('Yakin Approve Data ?')" id="btn_delete_all" style="display:none ;" class="btn btn-success btn-sm mb-2 mr-2"> APPROVE DATA TERPILIH</button>
                 </div>
                 <div class="pb-20">
-                    <table class="data-table table stripe hover nowrap table-bordered">
+                    <table class="data-table table stripe hover wrap table-bordered">
                         <thead>
                             <tr>
                                 <th></th>
+                                <th>Kode Budget</th>
                                 <th>Kode Request</th>
                                 <th>Departement</th>
                                 <th>Tanggal</th>
@@ -68,6 +69,7 @@
                                     <th>
                                         <input type="checkbox" class="multi" name="multi[]" id="multi" value="<?= $df->id ?>">
                                     </th>
+                                    <td><?= $df->kode_budget ?></td>
                                     <td><?= $df->request_code ?></td>
                                     <td><?= $df->nama_departement ?></td>
                                     <td><?= $df->tanggal ?></td>
@@ -108,9 +110,10 @@
                 <!-- <h4 class="text-blue h4">Data Table Simple</h4> -->
             </div>
             <div class="pb-20">
-                <table class="data-table table stripe hover nowrap table-bordered">
+                <table class="data-table table stripe hover  table-bordered">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Departement</th>
                             <th>Tanggal</th>
@@ -124,6 +127,7 @@
                         <?php $no = 1;
                         foreach ($proces->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td><?= $df->request_code ?></td>
                                 <td><?= $df->nama_departement ?></td>
                                 <td><?= $df->tanggal ?></td>

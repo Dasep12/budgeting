@@ -63,7 +63,7 @@ class M_dashboard extends CI_Model
         inner join master_budget mb  on mb.id_budget  = mpb.master_budget_id_budget 
         where  
         tr.transaksi_jenis_pembayaran_id  = tjp.id 
-        and tjp.approve_fin  = 1 and mb.tahun  = '" . $tahun . "'
+        and tjp.approve_fin  = '1' and mb.tahun  = '" . $tahun . "'
         ),0)as total
         from master_departement md 
          ");

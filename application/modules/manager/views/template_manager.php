@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>E-Budgeting</title>
+    <title>BTP-E-Budget System</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('assets/') ?>vendors/images/apple-touch-icon.png" />
@@ -217,8 +217,8 @@
     <div class="left-side-bar">
         <div class="brand-logo">
             <a href="index.html">
-                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="dark-logo" />
-                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="light-logo" />
+                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/pim_logo.jpeg" alt="" class="dark-logo" />
+                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/pim_logo.jpeg" alt="" class="light-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>

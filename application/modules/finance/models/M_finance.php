@@ -45,7 +45,7 @@ class M_finance extends CI_Model
         left join master_bayar mby on mby.id = tjp.master_jenis_bayar_id 
         left join master_jenis_transaksi mjt on tjp.master_jenis_transaksi_id = mjt.id 
         left join master_departement md  on md.id  = tjp.master_departement_id 
-        where tjp.approve_fin  = '" . $stat . "' and tjp.approve_gm = 1 and tjp.master_jenis_bayar_id = '" . $dept . "' ");
+        where tjp.master_jenis_bayar_id = '$dept' and tjp.approve_gm = 1 and tjp.approve_fin = '$stat' ");
         return $query;
     }
 

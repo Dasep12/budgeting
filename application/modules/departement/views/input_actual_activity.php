@@ -74,6 +74,12 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>TOTAL BUDGET TAHUNAN</label>
+                        <input type="hidden" name="budget_tahun" id="budget_tahun">
+                        <input readonly class="form-control" id="budget_thn" type="text" placeholder="">
+                    </div>
+
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -122,27 +128,12 @@
                         <label>KODE TRANSAKSI</label>
                         <input readonly class="form-control" value="<?= $code_dept ?>" id="request_code" name="request_code" type="text" placeholder="">
                     </div>
-                </div>
-                <div class="col-lg-6">
+
                     <div class="form-group">
-                        <label>TANGGAL REQUEST</label>
-                        <input class="form-control" value="<?= date('Y-m-d') ?>" id="tanggal" name="tanggal" type="text" placeholder="">
+                        <label>TO</label>
+                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="">JENIS TRANSAKSI</label>
-                        <select class="form-control" name="jenis_transaksi" id="jenis_transaksi">
-                            <option value="">PILIH JENIS TRANSAKSI</option>
-                            <?php foreach ($jenis_transaksi as $jn) : ?>
-                                <option value="<?= $jn->id ?>"><?= $jn->jenis_transaksi ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-6">
+
                     <div class="form-group">
                         <label for="">JENIS PEMBAYARAN</label>
                         <select class="form-control" required name="jenis_pembayaran" id="jenis_pembayaran">
@@ -152,32 +143,12 @@
                             <?php endforeach ?>
                         </select>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>TO</label>
-                        <input class="form-control" id="to" name="toPenerima" type="text" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <label>BANK</label>
-                        <input class="form-control" id="bank" name="bank" type="text" placeholder="">
-                    </div>
-                </div>
-                <div class="col-lg-6">
+
+
                     <div class="form-group">
                         <label>REKENING</label>
                         <input class="form-control" id="rekening" name="rekening" type="text" placeholder="">
                     </div>
-                    <div class="form-group">
-                        <label>NO BK</label>
-                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
                     <div class="form-group">
                         <label>PARTICULLARS</label>
                         <a href="" class="add_field_button badge badge-success badge-sm">Tambah</a>
@@ -186,8 +157,41 @@
                     <div class="form-group input_fields_wrap">
 
                     </div>
+
+                    <div class="form-group">
+                        <label>REMARKS</label>
+                        <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
+                    </div>
+
+
+
                 </div>
                 <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>TANGGAL REQUEST</label>
+                        <input class="form-control" value="<?= date('Y-m-d') ?>" id="tanggal" name="tanggal" type="date" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">JENIS TRANSAKSI</label>
+                        <select class="form-control" name="jenis_transaksi" id="jenis_transaksi">
+                            <option value="">PILIH JENIS TRANSAKSI</option>
+                            <?php foreach ($jenis_transaksi as $jn) : ?>
+                                <option value="<?= $jn->id ?>"><?= $jn->jenis_transaksi ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>NO BK</label>
+                        <input type="text" readonly value="<?= $bk ?>" class="form-control" name="bk" id="bk">
+                    </div>
+
+                    <div class="form-group">
+                        <label>BANK</label>
+                        <input class="form-control" id="bank" name="bank" type="text" placeholder="">
+                    </div>
+
                     <div class="form-group">
                         <label>AMMOUNT</label>
                         <input class="form-control input_am" onkeyup="convertNilai()" autocomplete="off" id="ammount" name="ammount[]" type="text" placeholder="">
@@ -196,41 +200,19 @@
                     <div class="add_ammount">
 
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
+
+
+
                     <div class="form-group">
                         <label>NILAI PANJAR</label>
                         <input class="form-control" autocomplete="off" id="panjar" name="panjar[]" type="text" placeholder="">
                         <span id="info_panjar" style="display: none;" class="text-danger small font-italic">nilai panjar di atas satu juta wajib ada lampiran</span>
                     </div>
 
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>REMARKS</label>
-                        <textarea id="remarks" name="remarks" class="form-control" placeholder=""></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label>LAMPIRAN 1</label>
+                    <div class="form-group ">
+                        <label>LAMPIRAN</label>
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran1">
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label>LAMPIRAN 2</label>
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran2">
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label>LAMPIRAN 3</label>
                         <input class="form-control" type="file" name="lampiran[]" id="lampiran3">
                     </div>
                 </div>
@@ -268,7 +250,6 @@
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
-
 
     $('select[name=bulan_budget').on('change', function() {
 
@@ -398,15 +379,50 @@
     });
 
     $('select[name=kode_budget]').on('change', function() {
-        // $('#jenis_budget').prop('selectedIndex', 0);
-        // $('#kode_budget').prop('selectedIndex', 0);
+        var kode = $("select[name=kode_budget] option:selected").val();
+        var tahun = $("select[name=tahun_budget] option:selected").val();
+        $.ajax({
+            url: "<?= base_url('departement/Actual_budget/getBudgetSetahun') ?>",
+            method: "POST",
+            data: {
+                tahun: tahun,
+                kode: kode,
+            },
+            cache: false,
+            beforeSend: function() {
+                document.getElementById("load_budget_nilai").style.display = 'block';
+            },
+            complete: function() {
+                document.getElementById("load_budget_nilai").style.display = 'none';
+            },
+            success: function(e) {
+                document.getElementById("budget_tahun").value = e;
+                document.getElementById("budget_thn").value = formatRupiah(e.toString(), 'Rp. ');
+            }
+        })
     });
 
 
     var parsing = document.getElementById("panjar");
     parsing.addEventListener('keyup', function(e) {
 
-        if (parsing.value >= 1000000) {
+        var rp = $("#budget_tahun").val();
+        let d = rp.replace(/[^a-zA-Z0-9+]/g, '');
+        let res = d.replace(/[a-zA-Z]+/g, '');
+        var resValue = parsing.value.replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, '');
+
+
+
+        if (parseInt(resValue) > parseInt(res)) {
+            $("#nextBtn").attr("disabled", true);
+            $("#prevBtn").attr("disabled", true);
+        } else {
+            $("#nextBtn").attr("disabled", false);
+            $("#prevBtn").attr("disabled", false);
+        }
+
+
+        if (resValue >= 1000000) {
             document.getElementById("info_panjar").style.display = 'block';
             $("#lampiran1").attr("disabled", false);
             $("#lampiran2").attr("disabled", false);
@@ -418,8 +434,6 @@
             document.getElementById("info_panjar").style.display = 'none';
         }
     })
-
-
     var panjar_convert = document.getElementById("panjar");
     panjar_convert.addEventListener('keyup', function(event) {
         var div = $(event.relatedTarget);
@@ -429,10 +443,28 @@
     });
 
 
+
     function convertNilai() {
         $(".input_am").keyup(function(event) {
             var div = $(event.relatedTarget);
-            // console.log($(this).val());
+
+            var payment = [];
+            $('input[name^=ammount]').each(function() {
+                payment.push(parseInt($(this).val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, '')));
+            });
+
+            var budgetReal = parseInt($("#budget_tahun").val().replace(/[^a-zA-Z0-9+]/g, '').replace(/[a-zA-Z]+/g, ''));
+
+            let payCount = payment.reduce((a, b) => a + b, 0);
+
+            if (payCount > budgetReal) {
+                $("#nextBtn").attr("disabled", true);
+                $("#prevBtn").attr("disabled", true);
+            } else {
+                $("#nextBtn").attr("disabled", false);
+                $("#prevBtn").attr("disabled", false);
+            }
+
             var angka = $(this).val();
             $(this).val(formatRupiah(angka.toString(), 'Rp. '));
         });
@@ -446,14 +478,12 @@
         $(add_button).click(function(e) { //on add input button click
             e.preventDefault();
 
-            $(wrapper).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" name="particullar[]" class="form-control"><a href="#" class="remove_field">Remove</a></div>'); //add input box
+            $(wrapper).append('<div class="form-group"><label>PARTICULLARS</label><input type="text" name="particullar[]" class="form-control"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
 
-            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]" onkeyup="convertNilai()"  autocomplete="off" class="form-control input_am"><a href="#" class="remove_field2">Remove</a></div>'); //add input box
+            $(ammount).append('<div class="form-group"><label>AMMOUNT</label><input type="text" name="ammount[]" onkeyup="convertNilai()"  autocomplete="off" class="form-control input_am"/><a href="#" class="remove_field2">Remove</a></div>'); //add input box
         });
 
-
-        var wrapper2 = $(".input_fields_wrap,.add_ammount");
-        $(wrapper2).on("click", ".remove_field", function(e) { //user click on remove text
+        $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
             e.preventDefault();
             $(this).parent('div').remove();
         })
@@ -461,10 +491,5 @@
             e.preventDefault();
             $(this).parent('div').remove();
         })
-
-        $("#tanggal").datepicker({
-            "minDate": -7,
-        });
-
     });
 </script>

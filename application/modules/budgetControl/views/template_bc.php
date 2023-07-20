@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>E-Budgeting</title>
+    <title>BTP-E-Budget System</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('assets/') ?>vendors/images/apple-touch-icon.png" />
@@ -210,8 +210,8 @@
     <div class="left-side-bar">
         <div class="brand-logo">
             <a href="index.html">
-                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="dark-logo" />
-                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/logoBenecom.jpg" alt="" class="light-logo" />
+                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/pim_logo.jpeg" alt="" class="dark-logo" />
+                <img style="height:80px" src="<?= base_url('assets/') ?>src/images/pim_logo.jpeg" alt="" class="light-logo" />
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
@@ -271,6 +271,7 @@
                             <li><a class="<?= $this->uri->segment(3) == 'payment' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Laporan/payment') ?>">Payment Voucher</a></li>
                             <li><a class="<?= $this->uri->segment(2) == 'ReportBudget' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/ReportBudget') ?>">Plant Budget</a></li>
                             <li><a class="<?= $this->uri->segment(3) == 'apvoucher' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Laporan/apvoucher') ?>">AP Voucher</a></li>
+                            <li><a class="<?= $this->uri->segment(2) == 'Reporting' ? 'active ' : '' ?>" href="<?= base_url('budgetControl/Reporting/') ?>">Report Kode Budget</a></li>
                         </ul>
                     </li>
                 </ul>

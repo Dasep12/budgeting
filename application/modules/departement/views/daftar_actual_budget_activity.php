@@ -4,10 +4,13 @@
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="#">Transaksi</a>
+                        <a href="index.html">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        Actual Budget
                     </li>
                     <li class="breadcrumb-item active ">
-                        Histori Transaksi
+                        Daftar Actual Activity Budget
                     </li>
                 </ol>
             </nav>
@@ -34,22 +37,19 @@
 <?php } ?>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab2" data-toggle="tab" data-target="#home2" type="button" role="tab" aria-controls="home2" aria-selected="true">Supervisor</button>
-    </li>
-    <!-- <li class="nav-item" role="presentation">
-        <button class="nav-link " id="home-tab3" data-toggle="tab" data-target="#home3" type="button" role="tab" aria-controls="home3" aria-selected="true">Dept Head 2</button>
-    </li> -->
-    <li class="nav-item" role="presentation">
-        <button class="nav-link " id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dept Head </button>
+        <button class="nav-link active" id="home-tab2" data-toggle="tab" data-target="#home2" type="button" role="tab" aria-controls="home2" aria-selected="true">Approval Supervisor</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Budget Controller</button>
+        <button class="nav-link " id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Approval Dept Head</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">General Manager</button>
+        <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Approval Budget Controller</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab2" data-toggle="tab" data-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">Finance</button>
+        <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Approval General Manager</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab2" data-toggle="tab" data-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">Approval Finance</button>
     </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -62,6 +62,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -73,6 +74,7 @@
                     <tbody>
                         <?php foreach ($supervisor->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td>
                                     <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
@@ -94,7 +96,6 @@
             </div>
         </div>
     </div>
-
     <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">
@@ -104,6 +105,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -114,6 +116,7 @@
                     <tbody>
                         <?php foreach ($manager->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td>
                                     <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
@@ -132,7 +135,6 @@
             </div>
         </div>
     </div>
-
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">
@@ -142,6 +144,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -152,6 +155,7 @@
                     <tbody>
                         <?php foreach ($bc->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td> <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
                                     </a></td>
@@ -177,6 +181,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -187,6 +192,7 @@
                     <tbody>
                         <?php foreach ($gm->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td>
                                     <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
@@ -206,6 +212,8 @@
         </div>
     </div>
 
+
+
     <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact-tab2">
         <div class="card-box mb-30" style="margin-top:-1px">
             <div class="pd-20">
@@ -215,6 +223,7 @@
                 <table class="data-table table hover nowrap">
                     <thead>
                         <tr>
+                            <th>Kode Budget</th>
                             <th>Kode Request</th>
                             <th>Tanggal</th>
                             <th>Jenis Transaksi</th>
@@ -227,6 +236,7 @@
                     <tbody>
                         <?php foreach ($finance->result() as $df) : ?>
                             <tr>
+                                <td><?= $df->kode_budget ?></td>
                                 <td>
                                     <a data-id="<?= $df->id_trans ?>" data-file1="<?= $df->lampiran_1 ?>" data-file2="<?= $df->lampiran_2 ?>" data-file3="<?= $df->lampiran_3 ?>" data-nama="<?= $df->nama_lengkap ?>" data-remarks="<?= $df->remarks ?>" data-jenis="<?= $df->jenis_transaksi ?>" href="#" class="text-primary tx-under userinfo" data-toggle="modal" data-target="#exampleModal">
                                         <?= $df->request_code ?>
@@ -254,19 +264,19 @@
                                     if ($df->jenis_transaksi == "PANJAR") { ?>
 
                                         <?php if ($df->approve_fin == 1) { ?>
-                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $df->id_trans . '&type=' . $df->tipe) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPanjer?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                                         <?php } else { ?>
-                                            <a target="_blank" class="badge badge-danger text-white" onclick="alert('Transaksi di tolak tidak bisa cetak')"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" onclick="alert('Transaksi di tolak tidak bisa cetak')"><i class="fa fa-print"></i></a>
                                         <?php } ?>
                                     <?php  } else if ($df->jenis_transaksi == "PAYMENT VOUCHER") { ?>
                                         <?php if ($df->approve_fin == 1) { ?>
-                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPayment?id=' . $df->id_trans . '&type=' . $df->tipe) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfPayment?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                                         <?php } else { ?>
                                             <a href="#" onclick="alert('Transaksi di tolak tidak bisa cetak')" class="badge badge-danger"><i class="fa fa-print"></i></a>
                                         <?php } ?>
                                     <?php } else if ($df->jenis_transaksi == "AP VOUCHER") { ?>
                                         <?php if ($df->approve_fin == 1) { ?>
-                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfVoucher?id=' . $df->id_trans . '&type=' . $df->tipe) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
+                                            <a target="_blank" href="<?= base_url('departement/Laporan/cetak_pdfVoucher?id=' . $df->id_trans) ?>" class="badge badge-success"><i class="fa fa-print"></i></a>
                                         <?php } else { ?>
                                             <a href="#" onclick="alert('Transaksi di tolak tidak bisa cetak')" class="badge badge-danger"><i class="fa fa-print"></i></a>
                                         <?php } ?>

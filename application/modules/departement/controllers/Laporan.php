@@ -170,8 +170,7 @@ class Laporan extends CI_Controller
 
     public function cetak_pdfPayment()
     {
-        $id                = $this->input->get("id");
-        $stat              = $this->input->get("type");
+        $id              = $this->input->get("id");
         $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-P']);
         $data['raim']    = $this->db->get_where("trans_detail_jenis_pembayaran", ['transaksi_jenis_pembayaran_id' => $id])->result();
         $data['remarks'] = $this->db->query("SELECT ma.nik, remarks , tanggal_request as tanggal , `to`, bank , rekening , bk , ma.nama_lengkap from transaksi_jenis_pembayaran
@@ -182,41 +181,29 @@ class Laporan extends CI_Controller
         INNER JOIN master_level ml on ml.id = ma.level 
         INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
         WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR' ")->row();
-        $data['depthead2'] = $this->db->query("SELECT  nama_lengkap , mt.file FROM master_akun ma 
-        INNER JOIN master_level ml on ml.id = ma.level 
-        INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
-        WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR2' ")->row();
         $data['acc'] =  $this->model->lisTertanda("BC")->row();
         $data['gm'] =  $this->model->lisTertanda("GM")->row();
-        $data['fin'] =  $this->model->lisTertandaFinance($stat)->row();
+        $data['fin'] =  $this->model->lisTertanda("FIN")->row();
         $data['spv'] =  $this->model->lisTertanda("SPV")->row();
         $data['pre'] = $this->db->query("SELECT `file` as tertanda  FROM master_tertanda WHERE master_akun_nik='" . $data['remarks']->nik . "' ")->row();
         $res = $this->load->view('pdfRaimbusment', $data, TRUE);
-        $sam = "<h1>HALLO</h2>";
         $mpdf->WriteHTML($res);
-        // $mpdf->WriteHTML($sam);
-        // $mpdf->Output();
         $mpdf->Output("ReportPayment.pdf", 'I');
     }
 
     public function cetak_pdfPanjer()
     {
         $id              = $this->input->get("id");
-        $stat              = $this->input->get("type");
         // $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4']);
         $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [120, 236]]);
         $data['panjar']    = $this->db->get_where("trans_detail_jenis_pembayaran", ['transaksi_jenis_pembayaran_id' => $id])->result();
         $data['remarks'] = $this->db->query("SELECT created_by as nik_ , remarks , bk , tanggal_request  from transaksi_jenis_pembayaran where id='" . $id  . "' ")->row();
         $data['total'] = $this->db->query("SELECT sum(ammount) as total FROM  trans_detail_jenis_pembayaran WHERE  transaksi_jenis_pembayaran_id = '" . $id . "'")->row();
-        $data['fin_ttd'] = $this->model->lisTertandaFinance($stat)->row();
+        $data['fin_ttd'] = $this->model->lisTertanda("FIN")->row();
         $data['depthead'] = $this->db->query("SELECT  nama_lengkap , mt.file FROM master_akun ma 
         INNER JOIN master_level ml on ml.id = ma.level 
         INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
         WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR' ")->row();
-        $data['depthead2'] = $this->db->query("SELECT  nama_lengkap , mt.file FROM master_akun ma 
-         INNER JOIN master_level ml on ml.id = ma.level 
-         INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
-         WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR2' ")->row();
         $data['gm'] =  $this->model->lisTertanda("GM")->row();
         $data['spv'] =  $this->model->lisTertanda("SPV")->row();
         $data['pre'] = $this->db->query("SELECT `file` as tertanda  , ma.nama_lengkap  as name FROM master_tertanda inner join master_akun ma on ma.nik = master_akun_nik 
@@ -224,13 +211,11 @@ class Laporan extends CI_Controller
         $res = $this->load->view('pdfPanjer', $data, TRUE);
         $mpdf->WriteHTML($res);
         $mpdf->Output("ReportPanjar.pdf", 'I');
-        // $mpdf->Output("ReportPanjar.pdf", 'D');
     }
 
     public function cetak_pdfVoucher()
     {
         $id              = $this->input->get("id");
-        $stat            = $this->input->get("type");
         $mpdf            = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-P']);
         $data['raim']    = $this->db->get_where("trans_detail_jenis_pembayaran", ['transaksi_jenis_pembayaran_id' => $id])->result();
         $data['remarks'] = $this->db->query("SELECT ma.nik, remarks , tanggal_request as tanggal , `to`, bank , rekening , bk , ma.nama_lengkap from transaksi_jenis_pembayaran
@@ -241,13 +226,9 @@ class Laporan extends CI_Controller
         INNER JOIN master_level ml on ml.id = ma.level 
         INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
         WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR' ")->row();
-        $data['depthead2'] = $this->db->query("SELECT  nama_lengkap , mt.file FROM master_akun ma 
-        INNER JOIN master_level ml on ml.id = ma.level 
-        INNER JOIN master_tertanda mt on mt.master_akun_nik = ma.nik
-        WHERE departement_id = '" . $this->session->userdata("departement_id") . "' and ml.kode_level='MGR2' ")->row();
         $data['acc'] =  $this->model->lisTertanda("BC")->row();
         $data['gm'] =  $this->model->lisTertanda("GM")->row();
-        $data['fin'] =  $this->model->lisTertandaFinance($stat)->row();
+        $data['fin'] =  $this->model->lisTertanda("FIN")->row();
         $data['spv'] =  $this->model->lisTertanda("SPV")->row();
         $data['pre'] = $this->db->query("SELECT `file` as tertanda  FROM master_tertanda WHERE master_akun_nik='" . $data['remarks']->nik . "' ")->row();
         $res = $this->load->view('pdfVoucher', $data, TRUE);

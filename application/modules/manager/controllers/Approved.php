@@ -97,7 +97,7 @@ class Approved extends CI_Controller
         }
         $this->db->update_batch('master_budget', $data, 'id_budget');
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata("ok", 'budget di tolak ,silahkan konfirmasi ke departement terkait');
+            $this->session->set_flashdata("ok", 'budget di tolak,silahkan konfirmasi ke departement terkait');
             redirect('manager/Approved/list_approve');
         } else {
             $this->session->set_flashdata("nok", "terjadi kesalahan");

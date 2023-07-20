@@ -20,7 +20,7 @@
 
     </div>
 
-    <form action="<?= base_url('manager/Laporan/getPayment') ?>" method="post" onsubmit="return cek()">
+    <form action="<?= base_url('spv/Laporan/getPayment') ?>" method="post" onsubmit="return cek()">
         <div class="row">
             <div class="col-lg-3">
                 <div class="form-group">
@@ -154,7 +154,7 @@
                 title: 'Data Payment'
             }],
             ajax: {
-                url: "<?= base_url('manager/Laporan/list_payment') ?>",
+                url: "<?= base_url('spv/Laporan/list_payment') ?>",
                 dataSrc: '',
                 data: function() {
                     var drp = $('#tanggal').data('daterangepicker');

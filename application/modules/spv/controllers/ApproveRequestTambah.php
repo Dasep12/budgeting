@@ -29,7 +29,7 @@ class ApproveRequestTambah extends CI_Controller
         $id = $this->input->get("id");
         $kode = $this->input->get("kode");
         $data = [
-            'status'                     => $kode,
+            // 'status'                     => $kode,
             'ket'                        => $kode == 1 ? 'accept supervisor' : 'reject supervisor',
             'date_approve_spv'           => date('Y-m-d H:i:s'),
             'approve_spv'                => $kode,

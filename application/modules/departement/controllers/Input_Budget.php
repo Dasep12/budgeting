@@ -77,6 +77,7 @@ class Input_Budget extends CI_Controller
 
     public function input(Type $var = null)
     {
+        $bulan               = $this->input->post("bulan");
         $tahun               = $this->input->post("tahun_budget");
         $kode                = $this->input->post("kode_budget");
         $jenis               = $this->input->post("jenis_budget");
@@ -98,7 +99,7 @@ class Input_Budget extends CI_Controller
             'pic'                        => $pic,
             'kpi'                        => $kpi,
             'improvment'                 => $improvement,
-            'budget'                     => $budget,
+            'budget'                     => array_sum($bulan),
             'description'                => $description,
             'account_bame'               => $account_bame,
             'created_at'                 => date('Y-m-d H:i:s'),
@@ -120,7 +121,6 @@ class Input_Budget extends CI_Controller
                 $this->db->trans_commit();
                 $id = $this->db->insert_id();
                 $listbulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                $bulan    = $this->input->post("bulan");
                 $activity = $this->input->post("activity");
                 $params = array();
                 for ($i = 0; $i < count($bulan); $i++) {

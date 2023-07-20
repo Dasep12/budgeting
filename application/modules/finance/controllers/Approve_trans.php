@@ -70,7 +70,7 @@ class Approve_trans extends CI_Controller
         $sess = $this->session->userdata("nik");
         $data = [
             'uri'       => $this->uri->segment(2),
-            'raimbus'    => $this->model->listTransaksi($this->session->userdata("departement_id"), 1, $sess)
+            'raimbus'    => $this->model->listTransaksi($this->session->userdata("bayar_id"), 1)
         ];
         $this->template->load('template_fin', 'histori_raimbusment_approved', $data);
     }

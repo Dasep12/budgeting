@@ -43,8 +43,9 @@
             <table class="data-table table hover nowrap">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th class="table-plus datatable-nosort">Kode Request</th>
+                        <th class="table-plus datatable-nosort"></th>
+                        <th>Kode Budget</th>
+                        <th>Kode Request</th>
                         <th>Tanggal Request</th>
                         <th>Jenis Transaksi</th>
                         <th>Nilai Rupiah</th>
@@ -54,9 +55,12 @@
                 <tbody>
                     <?php foreach ($raimbus->result() as $rm) : ?>
                         <tr>
-                            <th>
+                            <td>
                                 <input type="checkbox" class="multi" name="multi[]" id="multi" value="<?= $rm->id_trans ?>">
-                            </th>
+                            </td>
+                            <td>
+                                <?= $rm->kode_budget ?>
+                            </td>
                             <td><?= $rm->request_code ?></td>
                             <td><?= $rm->tanggal_request ?></td>
                             <td><?= $rm->jenis_transaksi ?></td>
