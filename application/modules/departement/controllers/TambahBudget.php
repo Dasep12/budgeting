@@ -86,7 +86,16 @@ class TambahBudget extends CI_Controller
             'ket'                                 => 'menunggu approve supervisor',
         ];
 
-        $save = $this->model->insert("transaksi_request_tambah_budget", $data);
+        $upload =  $this->upload_multiple($_FILES['lampiran'], date('ymd'));
+        $field_img = [];
+        $nom = 1;
+        foreach ($upload as $key => $item_file) {
+            $field_img['lampiran_' . $nom] = $item_file['file_name'];
+            $nom++;
+        }
+
+        $res_field = array_merge($data, $field_img);
+        $save = $this->model->insert("transaksi_request_tambah_budget", $res_field);
         if ($save > 0) {
             $this->session->set_flashdata("ok", "Request tambah budget telah di ajukan");
             redirect('departement/TambahBudget');
@@ -94,5 +103,50 @@ class TambahBudget extends CI_Controller
             $this->session->set_flashdata("nok", "terjadi kesalahan");
             redirect('departement/TambahBudget');
         }
+    }
+
+
+    private function upload_multiple($files, $title)
+    {
+        $config = array(
+            'upload_path'   => './assets/lampiran/',
+            'allowed_types' => 'jpg|png|jpeg|pdf',
+            'overwrite'     => false,
+        );
+
+        $this->load->library('upload', $config);
+
+        if (!is_dir($config['upload_path'])) {
+            mkdir($config['upload_path'], 0777, true);
+        }
+
+        $img = array();
+        foreach ($files['name'] as $key => $image) {
+            if (!empty($files['name'][$key])) {
+                $_FILES['lampiran[]']['name'] = $files['name'][$key];
+                $_FILES['lampiran[]']['type'] = $files['type'][$key];
+                $_FILES['lampiran[]']['tmp_name'] = $files['tmp_name'][$key];
+                $_FILES['lampiran[]']['error'] = $files['error'][$key];
+                $_FILES['lampiran[]']['size'] = $files['size'][$key];
+
+                // $fileName = $title .'_'. $image;
+                $rand_number = rand(10000, 99999);
+                // $fileName = $title.'_'.$rand_number;
+                $config['file_name'] = $title . '_' . date('YmdHis') . '_' . $rand_number;
+                // $dok[] = $fileName;
+
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('lampiran[]')) {
+                    $file = $this->upload->data();
+                    $res[] = $file;
+                } else {
+                    $res = '01';
+                    // $res = array('error' => $this->upload->display_errors());
+                }
+            }
+        }
+
+        return $res;
     }
 }

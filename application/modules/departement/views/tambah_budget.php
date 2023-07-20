@@ -42,6 +42,7 @@
     </div>
 
     <form enctype="multipart/form-data" action="<?= base_url('departement/TambahBudget/input') ?>" method="post" onsubmit="return cek()">
+       
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
@@ -109,7 +110,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>BUDGET TERSEDIA</label>
+                    <label>SISA BUDGET</label>
                     <input readonly class="form-control" required id="budget" type="text" placeholder="">
                     <input id="budget_real" name="budget" type="hidden" placeholder="">
                 </div>
@@ -118,6 +119,16 @@
                     <label>REQUEST NILAI BUDGET</label>
                     <input required class="form-control" id="budget_request" type="text" placeholder="">
                     <input class="form-control" id="budget_request_real" name="budget_request" type="hidden" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label>LAMPIRAN 1 </label>
+                    <input class="form-control" id="file" name="lampiran[]" type="file" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label>LAMPIRAN 2</label>
+                    <input class="form-control" id="file2" name="lampiran[]" type="file" placeholder="">
                 </div>
 
                 <div class="form-group">
